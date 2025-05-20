@@ -4142,6 +4142,10 @@
         $("#wizard-steps .nav-link").removeClass("active");
         $("#nav-step-" + n).addClass("active");
       }
+      $(document).on("click", "#wizard-steps .nav-link", function () {
+  const n = $(this).data("step");
+  showStepWizard(n);
+}); 
 $("#addCusteioModal").on("shown.bs.modal", function () {
   showStepWizard(1);
   $("#custeio-form")[0].reset();
@@ -4312,10 +4316,12 @@ $("#valor_credito_add").on("input", function () {
           resp2Nome = c.responsavelSecundarioId;
         }
       }
-
+let statusDocs = c.status_documentacao || "pendente";
+let podeAlterarStatusSol = (statusDocs === "verificado");
       // STATUS DOCUMENTAÇÃO
  // Status documentação (DROPDOWN)
-let statusDocs = c.status_documentacao || "pendente";
+ 
+
 let statusDocsLabel = "";
 let statusDocsClass = "";
 switch (statusDocs) {
@@ -4388,30 +4394,35 @@ switch (statusSol) {
 </div>
   </td>
   <td>
-    <div class="dropdown">
-      <button class="badge px-3 py-2 ${statusSolClass} text-white dropdown-toggle" type="button"
-        data-bs-toggle="dropdown" aria-expanded="false" style="border:none;cursor:pointer;">
-        ${statusSolLabel}
-      </button>
-      <ul class="dropdown-menu">
-  <li>
-    <a class="dropdown-item text-dark bg-secondary" href="#" onclick="updateStatusSol('${c.id}', 'aguardando')">Aguardando documentação</a>
-  </li>
-  <li>
-    <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusSol('${c.id}', 'processando')">Processando</a>
-  </li>
-  <li>
-    <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusSol('${c.id}', 'aprovado')">Aprovado</a>
-  </li>
-  <li>
-    <a class="dropdown-item text-white bg-danger" href="#" onclick="updateStatusSol('${c.id}', 'nao_aprovado')">Não aprovado</a>
-  </li>
-  <li>
-    <a class="dropdown-item text-white bg-info" href="#" onclick="updateStatusSol('${c.id}', 'concluido')">Concluído</a>
-  </li>
-</ul>
-    </div>
-  </td>
+  <div class="dropdown">
+    <button class="badge px-3 py-2 ${statusSolClass} text-white dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      style="border:none;cursor:pointer;"
+      ${!podeAlterarStatusSol ? "disabled title='Só pode alterar após documentação verificada'" : ""}
+    >
+      ${statusSolLabel}
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <a class="dropdown-item text-dark bg-secondary" href="#" onclick="updateStatusSol('${c.id}', 'aguardando')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Aguardando documentação</a>
+      </li>
+      <li>
+        <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusSol('${c.id}', 'processando')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Processando</a>
+      </li>
+      <li>
+        <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusSol('${c.id}', 'aprovado')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Aprovado</a>
+      </li>
+      <li>
+        <a class="dropdown-item text-white bg-danger" href="#" onclick="updateStatusSol('${c.id}', 'nao_aprovado')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Não aprovado</a>
+      </li>
+      <li>
+        <a class="dropdown-item text-white bg-info" href="#" onclick="updateStatusSol('${c.id}', 'concluido')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Concluído</a>
+      </li>
+    </ul>
+  </div>
+</td>
   <td class="text-center">
     ${btnDocs}
     <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${c.id}')">Editar</button>
@@ -4983,6 +4994,23 @@ window.updateStatusSol = async function(id, status) {
     </script>
 
     <style>
+      /* Garante que o modal-content possa rolar se o conteúdo for maior que a tela */
+.modal-xl .modal-content {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Garante que a área das etapas também role se ficar grande */
+#addCusteioModal .modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Opcional: Evita barra dupla de rolagem em etapas */
+.custeio-step {
+  /* Por padrão, apenas o modal-body rola */
+  overflow: unset !important;
+}
  .dropdown-menu .dropdown-item {
   margin: 4px 0;
   border-radius: 8px !important;
