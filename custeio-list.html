@@ -4258,109 +4258,177 @@ $("#valor_credito_add").on("input", function () {
         const start = (currentPage - 1) * itemsPerPage;
         const pageData = filtered.slice(start, start + itemsPerPage);
 
-        $("#custeio-tbody").html(
-          pageData
-            .map((c) => {
-              // Nome do cliente
-              let clienteNome = "";
-              if (
-                c.cliente_id &&
-                Array.isArray(clientesList) &&
-                clientesList.length
-              ) {
-                const cli = clientesList.find((cl) => cl.id === c.cliente_id);
-                clienteNome = cli ? cli.nome : "";
-              }
+      $("#custeio-tbody").html(
+  pageData
+    .map((c) => {
+      // Nome do cliente
+      let clienteNome = "";
+      if (
+        c.cliente_id &&
+        Array.isArray(clientesList) &&
+        clientesList.length
+      ) {
+        const cli = clientesList.find((cl) => cl.id === c.cliente_id);
+        clienteNome = cli ? cli.nome : "";
+      }
 
-              // Valor crédito (ajuste conforme o nome do seu campo)
-              let valorCredito = c.valor_credito || c.valorCredito || "";
+      // Valor crédito (ajuste conforme o nome do seu campo)
+      let valorCredito = c.valor_credito || c.valorCredito || "";
 
-              // Buscar nome do gerente (Responsável 1)
-              let gerenteNome = "";
-              if (c.responsavelGerenteId && window.gerentesList) {
-                const gerente = window.gerentesList.find(
-                  (g) => g.id === c.responsavelGerenteId
-                );
-                gerenteNome =
-                  gerente && (gerente.nome_completo || gerente.email)
-                    ? gerente.nome_completo || gerente.email
-                    : c.responsavelGerenteId || "";
-              } else {
-                gerenteNome = c.responsavelGerenteId || "";
-              }
-
-              // Buscar nome do responsável 2 (pode ser gerente ou agente)
-              let resp2Nome = "";
-              if (c.responsavelSecundarioId) {
-                let agente = window.agentesList
-                  ? window.agentesList.find(
-                      (a) => a.id === c.responsavelSecundarioId
-                    )
-                  : null;
-                if (agente) {
-                  resp2Nome =
-                    (agente.nome_completo || agente.email || "") + " (Agente)";
-                } else if (window.gerentesList) {
-                  let gerente2 = window.gerentesList.find(
-                    (g) => g.id === c.responsavelSecundarioId
-                  );
-                  resp2Nome =
-                    gerente2 && (gerente2.nome_completo || gerente2.email)
-                      ? gerente2.nome_completo || gerente2.email
-                      : c.responsavelSecundarioId;
-                } else {
-                  resp2Nome = c.responsavelSecundarioId;
-                }
-              }
-
-              // Status documentação
-              let statusDocs = "Pendente";
-              if (c.documentos && Object.keys(c.documentos).length > 0) {
-                statusDocs = "Enviado";
-              }
-
-              // Status da solicitação (badge)
-              let statusBadge =
-                c.status === "inactive"
-                  ? '<span class="badge px-3 py-2 bg-warning text-white">Pendente</span>'
-                  : '<span class="badge px-3 py-2 bg-success text-white">Aprovado</span>';
-
-              // Botão documentos
-              const btnDocs = `<button class="btn btn-sm btn-info me-1" onclick="openEditCusteio('${c.id}'); showEditStepWizard(7);">Documentos</button>`;
-
-              return `
-      <tr>
-        <td>${clienteNome || ""}</td>
-        <td>${valorCredito || ""}</td>
-        <td>${gerenteNome}</td>
-        <td>${resp2Nome}</td>
-        <td>
-          <span class="badge px-3 py-2 ${
-            statusDocs === "Enviado" ? "bg-success" : "bg-warning"
-          } text-white">${statusDocs}</span>
-        </td>
-        <td>${statusBadge}</td>
-        <td class="text-center">
-          ${btnDocs}
-          <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${
-            c.id
-          }')">Editar</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteCusteio('${
-            c.id
-          }')">Deletar</button>
-        </td>
-        <td>${c.addedBy || ""}</td>
-        <td>${
-          c.createdAt && c.createdAt.toDate
-            ? c.createdAt.toDate().toLocaleDateString()
-            : ""
-        }</td>
-      </tr>
-    `;
-            })
-            .join("") ||
-            `<tr><td colspan='9' class='text-center'>Nenhum registro encontrado</td></tr>`
+      // Buscar nome do gerente (Responsável 1)
+      let gerenteNome = "";
+      if (c.responsavelGerenteId && window.gerentesList) {
+        const gerente = window.gerentesList.find(
+          (g) => g.id === c.responsavelGerenteId
         );
+        gerenteNome =
+          gerente && (gerente.nome_completo || gerente.email)
+            ? gerente.nome_completo || gerente.email
+            : c.responsavelGerenteId || "";
+      } else {
+        gerenteNome = c.responsavelGerenteId || "";
+      }
+
+      // Buscar nome do responsável 2 (pode ser gerente ou agente)
+      let resp2Nome = "";
+      if (c.responsavelSecundarioId) {
+        let agente = window.agentesList
+          ? window.agentesList.find(
+              (a) => a.id === c.responsavelSecundarioId
+            )
+          : null;
+        if (agente) {
+          resp2Nome =
+            (agente.nome_completo || agente.email || "") + " (Agente)";
+        } else if (window.gerentesList) {
+          let gerente2 = window.gerentesList.find(
+            (g) => g.id === c.responsavelSecundarioId
+          );
+          resp2Nome =
+            gerente2 && (gerente2.nome_completo || gerente2.email)
+              ? gerente2.nome_completo || gerente2.email
+              : c.responsavelSecundarioId;
+        } else {
+          resp2Nome = c.responsavelSecundarioId;
+        }
+      }
+
+      // STATUS DOCUMENTAÇÃO
+ // Status documentação (DROPDOWN)
+let statusDocs = c.status_documentacao || "pendente";
+let statusDocsLabel = "";
+let statusDocsClass = "";
+switch (statusDocs) {
+  case "verificado":
+    statusDocsLabel = "Verificado";
+    statusDocsClass = "bg-success";
+    break;
+  case "processando":
+    statusDocsLabel = "Processando";
+    statusDocsClass = "bg-primary";
+    break;
+  default:
+    statusDocsLabel = "Pendente";
+    statusDocsClass = "bg-warning";
+}
+
+// Status solicitação (DROPDOWN)
+let statusSol = c.status_solicitacao || "aguardando";
+let statusSolLabel = "";
+let statusSolClass = "";
+switch (statusSol) {
+  case "processando":
+    statusSolLabel = "Processando";
+    statusSolClass = "bg-primary";
+    break;
+  case "aprovado":
+    statusSolLabel = "Aprovado";
+    statusSolClass = "bg-success";
+    break;
+  case "nao_aprovado":
+    statusSolLabel = "Não aprovado";
+    statusSolClass = "bg-danger";
+    break;
+  case "concluido":
+    statusSolLabel = "Concluído";
+    statusSolClass = "bg-info";
+    break;
+  default:
+    statusSolLabel = "Aguardando documentação";
+    statusSolClass = "bg-secondary";
+}
+
+
+      // Botão documentos
+      const btnDocs = `<button class="btn btn-sm btn-info me-1" onclick="openEditCusteio('${c.id}'); showEditStepWizard(7);">Documentos</button>`;
+
+      return `
+<tr>
+  <td>${clienteNome || ""}</td>
+  <td>${valorCredito || ""}</td>
+  <td>${gerenteNome}</td>
+  <td>${resp2Nome}</td>
+  <td>
+<div class="dropdown">
+  <button class="badge px-3 py-2 ${statusDocsClass} text-white dropdown-toggle" type="button"
+    data-bs-toggle="dropdown" aria-expanded="false" style="border:none;cursor:pointer;">
+    ${statusDocsLabel}
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <a class="dropdown-item text-white bg-warning" href="#" onclick="updateStatusDocs('${c.id}', 'pendente')">Pendente</a>
+    </li>
+    <li>
+      <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusDocs('${c.id}', 'processando')">Processando</a>
+    </li>
+    <li>
+      <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusDocs('${c.id}', 'verificado')">Verificado</a>
+    </li>
+  </ul>
+</div>
+  </td>
+  <td>
+    <div class="dropdown">
+      <button class="badge px-3 py-2 ${statusSolClass} text-white dropdown-toggle" type="button"
+        data-bs-toggle="dropdown" aria-expanded="false" style="border:none;cursor:pointer;">
+        ${statusSolLabel}
+      </button>
+      <ul class="dropdown-menu">
+  <li>
+    <a class="dropdown-item text-dark bg-secondary" href="#" onclick="updateStatusSol('${c.id}', 'aguardando')">Aguardando documentação</a>
+  </li>
+  <li>
+    <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusSol('${c.id}', 'processando')">Processando</a>
+  </li>
+  <li>
+    <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusSol('${c.id}', 'aprovado')">Aprovado</a>
+  </li>
+  <li>
+    <a class="dropdown-item text-white bg-danger" href="#" onclick="updateStatusSol('${c.id}', 'nao_aprovado')">Não aprovado</a>
+  </li>
+  <li>
+    <a class="dropdown-item text-white bg-info" href="#" onclick="updateStatusSol('${c.id}', 'concluido')">Concluído</a>
+  </li>
+</ul>
+    </div>
+  </td>
+  <td class="text-center">
+    ${btnDocs}
+    <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${c.id}')">Editar</button>
+    <button class="btn btn-sm btn-danger" onclick="deleteCusteio('${c.id}')">Deletar</button>
+  </td>
+  <td>${c.addedBy || ""}</td>
+  <td>${
+    c.createdAt && c.createdAt.toDate
+      ? c.createdAt.toDate().toLocaleDateString()
+      : ""
+  }</td>
+</tr>
+      `;
+    })
+    .join("") ||
+    `<tr><td colspan='9' class='text-center'>Nenhum registro encontrado</td></tr>`
+);
 
         renderPagination(filtered.length, itemsPerPage);
 
@@ -4788,6 +4856,27 @@ $("#valor_credito_add").on("input", function () {
           alert("Erro ao deletar: " + err.message);
         }
       };
+window.updateStatusDocs = async function(id, status) {
+  try {
+    await db.collection("custeio").doc(id).update({
+      status_documentacao: status
+    });
+    loadCusteios();
+  } catch (err) {
+    alert("Erro ao atualizar status da documentação: " + err.message);
+  }
+}
+
+window.updateStatusSol = async function(id, status) {
+  try {
+    await db.collection("custeio").doc(id).update({
+      status_solicitacao: status
+    });
+    loadCusteios();
+  } catch (err) {
+    alert("Erro ao atualizar status da solicitação: " + err.message);
+  }
+}
 
       function renderUploadedFiles(prefix = "") {
         // Lista dos campos de documentos (use o mesmo nome dos inputs)
@@ -4894,7 +4983,33 @@ $("#valor_credito_add").on("input", function () {
     </script>
 
     <style>
-      /* ================== SELECT2 DARK THEME CUSTOM ================== */
+ .dropdown-menu .dropdown-item {
+  margin: 4px 0;
+  border-radius: 8px !important;
+  text-align: center;
+  font-weight: 500;
+}
+.dropdown-menu .dropdown-item.bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+}
+.dropdown-menu .dropdown-item.bg-primary {
+  background-color: #0d6efd !important;
+  color: #fff !important;
+}
+.dropdown-menu .dropdown-item.bg-success {
+  background-color: #198754 !important;
+  color: #fff !important;
+}
+.dropdown-menu .dropdown-item.bg-danger {
+  background-color: #dc3545 !important;
+  color: #fff !important;
+}
+.dropdown-menu .dropdown-item:hover, 
+.dropdown-menu .dropdown-item:focus {
+  opacity: 0.85;
+}
+
 
       /* Select2 single, fundo escuro e largura total */
       .select2-container--default .select2-selection--single {
