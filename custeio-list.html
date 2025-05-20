@@ -535,9 +535,10 @@
   name="valor_credito"
   value="1000000"
   style="width: 80%"
-  oninput="document.getElementById('valorCreditoRangeLabelAdd').innerText = parseFloat(this.value).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})"
+  oninput="document.getElementById('valorCreditoRangeLabelAdd').innerText = 'R$ ' + parseFloat(this.value).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})"
 />
-<span id="valorCreditoRangeLabelAdd">1.000.000,00</span>
+<span id="valorCreditoRangeLabelAdd">R$ 1.000.000,00</span>
+
 
                 </div>
               </div>
@@ -2361,9 +2362,11 @@
   name="valor_credito"
   value="1000000"
   style="width: 80%"
-  oninput="document.getElementById('valorCreditoRangeLabelEdit').innerText = parseFloat(this.value).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})"
+  oninput="document.getElementById('valorCreditoRangeLabelEdit').innerText = 'R$ ' + parseFloat(this.value).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})"
 />
-<span id="valorCreditoRangeLabelEdit">1.000.000,00</span>
+
+<span id="valorCreditoRangeLabelEdit">R$ 1.000.000,00</span>
+
 
                 </div>
               </div>
@@ -4160,22 +4163,29 @@ $("#addCusteioModal").on("shown.bs.modal", function () {
   setTimeout(function () {
     $("#valor_credito_add").val(1000000).trigger("input");
     $("#valorCreditoRangeLabelAdd").text(
-      parseFloat(1000000).toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    );
+  'R$ ' + parseFloat(1000000).toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+);
   }, 50);
 });
 
 $("#valor_credito_add").on("input", function () {
   $("#valorCreditoRangeLabelAdd").text(
-    parseFloat(this.value).toLocaleString("pt-BR", {
+    'R$ ' + parseFloat(this.value).toLocaleString("pt-BR", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })
   );
-});
+})
+$("#valorCreditoRangeLabelAdd").text(
+  'R$ ' + parseFloat(1000000).toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+);
+
       // Submissão do formulário (salva no Firestore)
       $("#custeio-form").submit(async function (e) {
         e.preventDefault();
@@ -4398,7 +4408,14 @@ function renderTable() {
         return `
 <tr>
   <td>${clienteNome || ""}</td>
-  <td>${valorCredito || ""}</td>
+ <td>${
+    valorCredito
+      ? 'R$ ' + Number(valorCredito).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      : ''
+  }</td>
   <td>${gerenteNome}</td>
   <td>${resp2Nome}</td>
   <td>
@@ -4595,15 +4612,15 @@ $("#filter-status-docs, #filter-status-solic, #order-by, #items-per-page").on("c
         // Valor do crédito
           let valorCredito = custeio.valor_credito || 1000000;
   $("#valor_credito_edit").val(valorCredito).trigger("input");
+$("#valorCreditoRangeLabelEdit").text(
+  'R$ ' + parseFloat(valorCredito).toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+);
+$("#valor_credito_edit").on("input", function () {
   $("#valorCreditoRangeLabelEdit").text(
-    parseFloat(valorCredito).toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-  );
-  $("#valor_credito_edit").on("input", function () {
-  $("#valorCreditoRangeLabelEdit").text(
-    parseFloat(this.value).toLocaleString("pt-BR", {
+    'R$ ' + parseFloat(this.value).toLocaleString("pt-BR", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })
