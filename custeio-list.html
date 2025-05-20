@@ -2287,8 +2287,36 @@
               data-bs-dismiss="modal"
             ></button>
           </div>
+
           <div class="modal-body">
             <form id="edit-custeio-form">
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label">Responsável (Gerente)</label>
+                  <select
+                    id="edit-responsavel-gerente"
+                    name="responsavelGerenteId"
+                    class="form-select"
+                  >
+                    <option value="">Não atribuído</option>
+                    <!-- opções dinâmicas -->
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label"
+                    >Responsável Secundário (Gerente ou Agente)</label
+                  >
+                  <select
+                    id="edit-responsavel-secundario"
+                    name="responsavelSecundarioId"
+                    class="form-select"
+                  >
+                    <option value="">Não atribuído</option>
+                    <!-- opções dinâmicas -->
+                  </select>
+                </div>
+              </div>
+
               <input type="hidden" id="edit_id" name="id" />
               <ul
                 class="nav nav-pills justify-content-center mb-4 gap-2"
@@ -4305,7 +4333,15 @@
       window.openEditCusteio = async function (id) {
         const custeio = allCusteios.find((c) => c.id === id);
         if (!custeio) return;
+
+        // Carrega os responsáveis e só então seta os valores dos selects
+        await preencherResponsaveisCusteio();
+
         $("#edit_id").val(custeio.id);
+        $("#edit-responsavel-gerente").val(custeio.responsavelGerenteId || "");
+        $("#edit-responsavel-secundario").val(
+          custeio.responsavelSecundarioId || ""
+        );
 
         // Etapa 1 - Produtor Rural
         $("#edit_produtor_tipo").val(custeio.produtor_tipo || "");
@@ -4559,6 +4595,10 @@
         $("#edit_vacas_descarte_valor_leite").val(
           custeio.vacas_descarte_valor_leite || ""
         );
+        $("#edit-responsavel-gerente").val(custeio.responsavelGerenteId || "");
+        $("#edit-responsavel-secundario").val(
+          custeio.responsavelSecundarioId || ""
+        );
 
         $("#editCusteioModal").modal("show");
       };
@@ -4571,7 +4611,8 @@
         $(this)
           .find("input, select, textarea")
           .each(function () {
-            if (this.id !== "edit_id") data[this.name] = $(this).val();
+            if (this.id !== "edit_id" && this.name)
+              data[this.name] = $(this).val();
           });
         try {
           await db.collection("custeio").doc(id).update(data);
@@ -4582,7 +4623,6 @@
           alert("Erro ao atualizar: " + err.message);
         }
       });
-
       // Deletar registro
       window.deleteCusteio = async function (id) {
         if (!confirm("Tem certeza que deseja deletar esta solicitação?"))
@@ -4655,6 +4695,48 @@
       // window.currentCusteioData = { ... }; // objeto do Firestore
       renderUploadedFiles("edit_"); // Para modal de edição
       renderUploadedFiles(""); // Para modal de criação (se necessário)
+    </script>
+    <script>
+      async function preencherResponsaveisCusteio() {
+        const gerenteSelect = document.getElementById(
+          "edit-responsavel-gerente"
+        );
+        const secundarioSelect = document.getElementById(
+          "edit-responsavel-secundario"
+        );
+
+        gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
+        secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+        // Gerentes
+        const gerentesSnap = await firebase
+          .firestore()
+          .collection("gerentes")
+          .get();
+        gerentesSnap.forEach((doc) => {
+          const gerente = doc.data();
+          const label = gerente.nome_completo || gerente.email || "(sem nome)";
+          const option = document.createElement("option");
+          option.value = doc.id;
+          option.textContent = label;
+          gerenteSelect.appendChild(option);
+          secundarioSelect.appendChild(option.cloneNode(true));
+        });
+
+        // Agentes (apenas no secundário)
+        const agentesSnap = await firebase
+          .firestore()
+          .collection("agentes")
+          .get();
+        agentesSnap.forEach((doc) => {
+          const agente = doc.data();
+          const label = agente.nome_completo || agente.email || "(sem nome)";
+          const option = document.createElement("option");
+          option.value = doc.id;
+          option.textContent = label + " (Agente)";
+          secundarioSelect.appendChild(option);
+        });
+      }
     </script>
 
     <style>
