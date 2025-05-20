@@ -384,50 +384,55 @@
           <div
             class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
           >
-            <div class="d-flex align-items-center flex-wrap gap-3 w-100">
-              <span class="text-md fw-medium text-secondary-light mb-0"
-                >Show</span
-              >
-              <select
-                id="items-per-page"
-                class="form-select form-select-sm w-auto"
-              >
-                <option value="1">1</option>
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-              </select>
-              <div class="input-group w-auto">
-                <span class="input-group-text bg-transparent border-end-0">
-                  <iconify-icon icon="ion:search-outline"></iconify-icon>
-                </span>
-                <input
-                  type="text"
-                  id="search-input"
-                  class="form-control border-start-0"
-                  placeholder="Pesquisar..."
-                />
-              </div>
-              <select id="filter-status" class="form-select w-auto">
-                <option value="">Status</option>
-                <option value="inactive">Pendente</option>
-                <option value="active">Aprovado</option>
-              </select>
-              <select id="filter-tipo-produtor" class="form-select w-auto">
-                <option value="">Produtor</option>
-                <option value="PRONAF">PRONAF</option>
-                <option value="PRONAMP">PRONAMP</option>
-                <option value="Demais Produtores">Demais Produtores</option>
-              </select>
-              <button
-                class="btn btn-success ms-auto"
-                data-bs-target="#addCusteioModal"
-                data-bs-toggle="modal"
-                style="min-width: 180px"
-              >
-                + Nova Solicitação
-              </button>
-            </div>
+           <div class="d-flex align-items-center flex-wrap gap-3 w-100">
+  <span class="text-md fw-medium text-secondary-light mb-0">Show</span>
+  <select id="items-per-page" class="form-select form-select-sm w-auto">
+    <option value="1">1</option>
+    <option value="5">5</option>
+    <option value="10" selected>10</option>
+    <option value="20">20</option>
+  </select>
+  <div class="input-group w-auto">
+    <span class="input-group-text bg-transparent border-end-0">
+      <iconify-icon icon="ion:search-outline"></iconify-icon>
+    </span>
+    <input
+      type="text"
+      id="search-input"
+      class="form-control border-start-0"
+      placeholder="Pesquisar por cliente..."
+    />
+  </div>
+  <select id="filter-status-docs" class="form-select w-auto">
+    <option value="">Status Documentação</option>
+    <option value="pendente">Pendente</option>
+    <option value="processando">Processando</option>
+    <option value="verificado">Verificado</option>
+  </select>
+  <select id="filter-status-solic" class="form-select w-auto">
+    <option value="">Status Solicitação</option>
+    <option value="aguardando">Aguardando documentação</option>
+    <option value="processando">Processando</option>
+    <option value="aprovado">Aprovado</option>
+    <option value="nao_aprovado">Não aprovado</option>
+    <option value="concluido">Concluído</option>
+  </select>
+  <select id="order-by" class="form-select w-auto">
+    <option value="createdAt_desc">Data Criação (mais novo)</option>
+    <option value="createdAt_asc">Data Criação (mais antigo)</option>
+    <option value="valor_desc">Valor Crédito (maior)</option>
+    <option value="valor_asc">Valor Crédito (menor)</option>
+  </select>
+  <button
+    class="btn btn-success ms-auto"
+    data-bs-target="#addCusteioModal"
+    data-bs-toggle="modal"
+    style="min-width: 180px"
+  >
+    + Nova Solicitação
+  </button>
+</div>
+
           </div>
           <div class="card-body p-24">
             <div class="table-responsive scroll-sm">
@@ -4236,193 +4241,215 @@ $("#valor_credito_add").on("input", function () {
       }
 
       // Função que monta e exibe a tabela
-      function renderTable() {
-        const searchTerm = $("#search-input").val().toLowerCase();
-        const filterStatus = $("#filter-status").val();
-        const filterProdutor = $("#filter-tipo-produtor").val();
-        const itemsPerPage = parseInt($("#items-per-page").val() || 10, 10);
+function renderTable() {
+  const searchTerm = $("#search-input").val().toLowerCase();
+  const filterStatusDocs = $("#filter-status-docs").val();
+  const filterStatusSolic = $("#filter-status-solic").val();
+  const orderBy = $("#order-by").val();
+  const itemsPerPage = parseInt($("#items-per-page").val() || 10, 10);
 
-        let filtered = allCusteios.filter((c) => {
-          // Pesquisa livre
-          const matchesSearch =
-            (c.produtor_tipo || "").toLowerCase().includes(searchTerm) ||
-            (c.cpf_cnpj || "").toLowerCase().includes(searchTerm) ||
-            (c.perfil_produtor || "").toLowerCase().includes(searchTerm) ||
-            (c.municipio_anual || "").toLowerCase().includes(searchTerm);
+  let filtered = allCusteios.filter((c) => {
+    // Busca pelo nome do cliente
+    let clienteNome = "";
+    if (
+      c.cliente_id &&
+      Array.isArray(clientesList) &&
+      clientesList.length
+    ) {
+      const cli = clientesList.find((cl) => cl.id === c.cliente_id);
+      clienteNome = cli ? cli.nome.toLowerCase() : "";
+    }
+    const matchesSearch = !searchTerm || clienteNome.includes(searchTerm);
 
-          // Filtros
-          const matchesStatus = !filterStatus || c.status === filterStatus;
-          const matchesProdutor =
-            !filterProdutor || c.produtor_tipo === filterProdutor;
+    // Filtros novos
+    const matchesStatusDocs =
+      !filterStatusDocs || (c.status_documentacao || "pendente") === filterStatusDocs;
+    const matchesStatusSolic =
+      !filterStatusSolic || (c.status_solicitacao || "aguardando") === filterStatusSolic;
 
-          return matchesSearch && matchesStatus && matchesProdutor;
-        });
+    return matchesSearch && matchesStatusDocs && matchesStatusSolic;
+  });
 
-        // Paginação
-        const start = (currentPage - 1) * itemsPerPage;
-        const pageData = filtered.slice(start, start + itemsPerPage);
+  // Ordenação
+  if (orderBy === "createdAt_desc") {
+    filtered.sort((a, b) =>
+      (b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 0) -
+      (a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 0)
+    );
+  } else if (orderBy === "createdAt_asc") {
+    filtered.sort((a, b) =>
+      (a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 0) -
+      (b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 0)
+    );
+  } else if (orderBy === "valor_desc") {
+    filtered.sort(
+      (a, b) =>
+        Number(b.valor_credito || b.valorCredito || 0) -
+        Number(a.valor_credito || a.valorCredito || 0)
+    );
+  } else if (orderBy === "valor_asc") {
+    filtered.sort(
+      (a, b) =>
+        Number(a.valor_credito || a.valorCredito || 0) -
+        Number(b.valor_credito || b.valorCredito || 0)
+    );
+  }
 
-      $("#custeio-tbody").html(
-  pageData
-    .map((c) => {
-      // Nome do cliente
-      let clienteNome = "";
-      if (
-        c.cliente_id &&
-        Array.isArray(clientesList) &&
-        clientesList.length
-      ) {
-        const cli = clientesList.find((cl) => cl.id === c.cliente_id);
-        clienteNome = cli ? cli.nome : "";
-      }
+  // Paginação
+  const start = (currentPage - 1) * itemsPerPage;
+  const pageData = filtered.slice(start, start + itemsPerPage);
 
-      // Valor crédito (ajuste conforme o nome do seu campo)
-      let valorCredito = c.valor_credito || c.valorCredito || "";
-
-      // Buscar nome do gerente (Responsável 1)
-      let gerenteNome = "";
-      if (c.responsavelGerenteId && window.gerentesList) {
-        const gerente = window.gerentesList.find(
-          (g) => g.id === c.responsavelGerenteId
-        );
-        gerenteNome =
-          gerente && (gerente.nome_completo || gerente.email)
-            ? gerente.nome_completo || gerente.email
-            : c.responsavelGerenteId || "";
-      } else {
-        gerenteNome = c.responsavelGerenteId || "";
-      }
-
-      // Buscar nome do responsável 2 (pode ser gerente ou agente)
-      let resp2Nome = "";
-      if (c.responsavelSecundarioId) {
-        let agente = window.agentesList
-          ? window.agentesList.find(
-              (a) => a.id === c.responsavelSecundarioId
-            )
-          : null;
-        if (agente) {
-          resp2Nome =
-            (agente.nome_completo || agente.email || "") + " (Agente)";
-        } else if (window.gerentesList) {
-          let gerente2 = window.gerentesList.find(
-            (g) => g.id === c.responsavelSecundarioId
-          );
-          resp2Nome =
-            gerente2 && (gerente2.nome_completo || gerente2.email)
-              ? gerente2.nome_completo || gerente2.email
-              : c.responsavelSecundarioId;
-        } else {
-          resp2Nome = c.responsavelSecundarioId;
+  $("#custeio-tbody").html(
+    pageData
+      .map((c) => {
+        // -- MANTÉM SEU CÓDIGO DE RENDERIZAÇÃO DAS LINHAS AQUI --
+        let clienteNome = "";
+        if (
+          c.cliente_id &&
+          Array.isArray(clientesList) &&
+          clientesList.length
+        ) {
+          const cli = clientesList.find((cl) => cl.id === c.cliente_id);
+          clienteNome = cli ? cli.nome : "";
         }
-      }
-let statusDocs = c.status_documentacao || "pendente";
-let podeAlterarStatusSol = (statusDocs === "verificado");
-      // STATUS DOCUMENTAÇÃO
- // Status documentação (DROPDOWN)
- 
 
-let statusDocsLabel = "";
-let statusDocsClass = "";
-switch (statusDocs) {
-  case "verificado":
-    statusDocsLabel = "Verificado";
-    statusDocsClass = "bg-success";
-    break;
-  case "processando":
-    statusDocsLabel = "Processando";
-    statusDocsClass = "bg-primary";
-    break;
-  default:
-    statusDocsLabel = "Pendente";
-    statusDocsClass = "bg-warning";
-}
+        let valorCredito = c.valor_credito || c.valorCredito || "";
 
-// Status solicitação (DROPDOWN)
-let statusSol = c.status_solicitacao || "aguardando";
-let statusSolLabel = "";
-let statusSolClass = "";
-switch (statusSol) {
-  case "processando":
-    statusSolLabel = "Processando";
-    statusSolClass = "bg-primary";
-    break;
-  case "aprovado":
-    statusSolLabel = "Aprovado";
-    statusSolClass = "bg-success";
-    break;
-  case "nao_aprovado":
-    statusSolLabel = "Não aprovado";
-    statusSolClass = "bg-danger";
-    break;
-  case "concluido":
-    statusSolLabel = "Concluído";
-    statusSolClass = "bg-info";
-    break;
-  default:
-    statusSolLabel = "Aguardando documentação";
-    statusSolClass = "bg-secondary";
-}
+        let gerenteNome = "";
+        if (c.responsavelGerenteId && window.gerentesList) {
+          const gerente = window.gerentesList.find(
+            (g) => g.id === c.responsavelGerenteId
+          );
+          gerenteNome =
+            gerente && (gerente.nome_completo || gerente.email)
+              ? gerente.nome_completo || gerente.email
+              : c.responsavelGerenteId || "";
+        } else {
+          gerenteNome = c.responsavelGerenteId || "";
+        }
 
+        let resp2Nome = "";
+        if (c.responsavelSecundarioId) {
+          let agente = window.agentesList
+            ? window.agentesList.find(
+                (a) => a.id === c.responsavelSecundarioId
+              )
+            : null;
+          if (agente) {
+            resp2Nome =
+              (agente.nome_completo || agente.email || "") + " (Agente)";
+          } else if (window.gerentesList) {
+            let gerente2 = window.gerentesList.find(
+              (g) => g.id === c.responsavelSecundarioId
+            );
+            resp2Nome =
+              gerente2 && (gerente2.nome_completo || gerente2.email)
+                ? gerente2.nome_completo || gerente2.email
+                : c.responsavelSecundarioId;
+          } else {
+            resp2Nome = c.responsavelSecundarioId;
+          }
+        }
+        let statusDocs = c.status_documentacao || "pendente";
+        let podeAlterarStatusSol = statusDocs === "verificado";
+        let statusDocsLabel = "";
+        let statusDocsClass = "";
+        switch (statusDocs) {
+          case "verificado":
+            statusDocsLabel = "Verificado";
+            statusDocsClass = "bg-success";
+            break;
+          case "processando":
+            statusDocsLabel = "Processando";
+            statusDocsClass = "bg-primary";
+            break;
+          default:
+            statusDocsLabel = "Pendente";
+            statusDocsClass = "bg-warning";
+        }
 
-      // Botão documentos
-      const btnDocs = `<button class="btn btn-sm btn-info me-1" onclick="openEditCusteio('${c.id}'); showEditStepWizard(7);">Documentos</button>`;
+        let statusSol = c.status_solicitacao || "aguardando";
+        let statusSolLabel = "";
+        let statusSolClass = "";
+        switch (statusSol) {
+          case "processando":
+            statusSolLabel = "Processando";
+            statusSolClass = "bg-primary";
+            break;
+          case "aprovado":
+            statusSolLabel = "Aprovado";
+            statusSolClass = "bg-success";
+            break;
+          case "nao_aprovado":
+            statusSolLabel = "Não aprovado";
+            statusSolClass = "bg-danger";
+            break;
+          case "concluido":
+            statusSolLabel = "Concluído";
+            statusSolClass = "bg-info";
+            break;
+          default:
+            statusSolLabel = "Aguardando documentação";
+            statusSolClass = "bg-secondary";
+        }
 
-      return `
+        const btnDocs = `<button class="btn btn-sm btn-info me-1" onclick="openEditCusteio('${c.id}'); showEditStepWizard(7);">Documentos</button>`;
+
+        return `
 <tr>
   <td>${clienteNome || ""}</td>
   <td>${valorCredito || ""}</td>
   <td>${gerenteNome}</td>
   <td>${resp2Nome}</td>
   <td>
-<div class="dropdown">
-  <button class="badge px-3 py-2 ${statusDocsClass} text-white dropdown-toggle" type="button"
-    data-bs-toggle="dropdown" aria-expanded="false" style="border:none;cursor:pointer;">
-    ${statusDocsLabel}
-  </button>
-  <ul class="dropdown-menu">
-    <li>
-      <a class="dropdown-item text-white bg-warning" href="#" onclick="updateStatusDocs('${c.id}', 'pendente')">Pendente</a>
-    </li>
-    <li>
-      <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusDocs('${c.id}', 'processando')">Processando</a>
-    </li>
-    <li>
-      <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusDocs('${c.id}', 'verificado')">Verificado</a>
-    </li>
-  </ul>
-</div>
+    <div class="dropdown">
+      <button class="badge px-3 py-2 ${statusDocsClass} text-white dropdown-toggle" type="button"
+        data-bs-toggle="dropdown" aria-expanded="false" style="border:none;cursor:pointer;">
+        ${statusDocsLabel}
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item text-white bg-warning" href="#" onclick="updateStatusDocs('${c.id}', 'pendente')">Pendente</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusDocs('${c.id}', 'processando')">Processando</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusDocs('${c.id}', 'verificado')">Verificado</a>
+        </li>
+      </ul>
+    </div>
   </td>
   <td>
-  <div class="dropdown">
-    <button class="badge px-3 py-2 ${statusSolClass} text-white dropdown-toggle"
-      type="button"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-      style="border:none;cursor:pointer;"
-      ${!podeAlterarStatusSol ? "disabled title='Só pode alterar após documentação verificada'" : ""}
-    >
-      ${statusSolLabel}
-    </button>
-    <ul class="dropdown-menu">
-      <li>
-        <a class="dropdown-item text-dark bg-secondary" href="#" onclick="updateStatusSol('${c.id}', 'aguardando')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Aguardando documentação</a>
-      </li>
-      <li>
-        <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusSol('${c.id}', 'processando')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Processando</a>
-      </li>
-      <li>
-        <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusSol('${c.id}', 'aprovado')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Aprovado</a>
-      </li>
-      <li>
-        <a class="dropdown-item text-white bg-danger" href="#" onclick="updateStatusSol('${c.id}', 'nao_aprovado')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Não aprovado</a>
-      </li>
-      <li>
-        <a class="dropdown-item text-white bg-info" href="#" onclick="updateStatusSol('${c.id}', 'concluido')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Concluído</a>
-      </li>
-    </ul>
-  </div>
-</td>
+    <div class="dropdown">
+      <button class="badge px-3 py-2 ${statusSolClass} text-white dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="border:none;cursor:pointer;"
+        ${!podeAlterarStatusSol ? "disabled title='Só pode alterar após documentação verificada'" : ""}
+      >
+        ${statusSolLabel}
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item text-dark bg-secondary" href="#" onclick="updateStatusSol('${c.id}', 'aguardando')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Aguardando documentação</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusSol('${c.id}', 'processando')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Processando</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusSol('${c.id}', 'aprovado')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Aprovado</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-danger" href="#" onclick="updateStatusSol('${c.id}', 'nao_aprovado')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Não aprovado</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-info" href="#" onclick="updateStatusSol('${c.id}', 'concluido')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Concluído</a>
+        </li>
+      </ul>
+    </div>
+  </td>
   <td class="text-center">
     ${btnDocs}
     <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${c.id}')">Editar</button>
@@ -4435,22 +4462,29 @@ switch (statusSol) {
       : ""
   }</td>
 </tr>
-      `;
-    })
-    .join("") ||
-    `<tr><td colspan='9' class='text-center'>Nenhum registro encontrado</td></tr>`
-);
+        `;
+      })
+      .join("") ||
+      `<tr><td colspan='9' class='text-center'>Nenhum registro encontrado</td></tr>`
+  );
 
-        renderPagination(filtered.length, itemsPerPage);
+  renderPagination(filtered.length, itemsPerPage);
 
-        $("#pagination-info").text(
-          `Mostrando ${filtered.length === 0 ? 0 : start + 1} a ${Math.min(
-            start + itemsPerPage,
-            filtered.length
-          )} de ${filtered.length} registros`
-        );
-      }
-
+  $("#pagination-info").text(
+    `Mostrando ${filtered.length === 0 ? 0 : start + 1} a ${Math.min(
+      start + itemsPerPage,
+      filtered.length
+    )} de ${filtered.length} registros`
+  );
+}
+$("#search-input").on("input", function () {
+  currentPage = 1;
+  renderTable();
+});
+$("#filter-status-docs, #filter-status-solic, #order-by, #items-per-page").on("change", function () {
+  currentPage = 1;
+  renderTable();
+});
       function renderPagination(total, itemsPerPage) {
         const pages = Math.ceil(total / itemsPerPage);
         const pagination = $(".pagination").first();
