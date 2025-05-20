@@ -1,0 +1,4771 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Crédito de Custeio</title>
+    <link
+      href="assets/images/favicon.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/remixicon.css" rel="stylesheet" />
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/dataTables.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+      </button>
+      <div>
+        <a href="index.html" class="sidebar-logo">
+          <img
+            src="assets/images/logo.png"
+            alt="site logo"
+            class="light-logo"
+          />
+          <img
+            src="assets/images/logo-light.png"
+            alt="site logo"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/logo-icon.png"
+            alt="site logo"
+            class="logo-icon"
+          />
+        </a>
+      </div>
+      <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="solar:home-smile-angle-outline"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Dashboard</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="index.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >AI</a
+                >
+              </li>
+              <li>
+                <a href="index-2.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >CRM</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-menu-group-title">Clientes</li>
+          <li>
+            <a href="lead-list.html">
+              <iconify-icon
+                icon="ri:user-add-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Leads</span>
+            </a>
+          </li>
+          <li>
+            <a href="client-list.html">
+              <iconify-icon
+                icon="ri:group-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Funcionarios</li>
+          <li>
+            <a href="gerente-list.html">
+              <iconify-icon
+                icon="ri:user-star-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Gerentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-list.html">
+              <iconify-icon
+                icon="ri:user-settings-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Admins</span>
+            </a>
+          </li>
+          <li>
+            <a href="agente-list.html">
+              <iconify-icon
+                icon="ri:user-search-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Agentes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Solicitações</li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bank-card-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Custeios</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bar-chart-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Investimento</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:exchange-dollar-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Comercialização</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:home-gear-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Avaliação Imóveis</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:leaf-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Licenciamento Ambiental</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Ajustes</li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <i class="ri-user-settings-line text-xl me-14 d-flex w-auto"></i>
+              <span>Regras</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="role-access.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Role & Access</a
+                >
+              </li>
+              <li>
+                <a href="assign-role.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Assign Role</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="icon-park-outline:setting-two"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Configurações</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="company.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="notification.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Notification</a
+                >
+              </li>
+              <li>
+                <a href="notification-alert.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-info-main w-auto"
+                  ></i
+                  >Notification Alert</a
+                >
+              </li>
+              <li>
+                <a href="theme.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Theme</a
+                >
+              </li>
+              <li>
+                <a href="currencies.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Currencies</a
+                >
+              </li>
+              <li>
+                <a href="language.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Languages</a
+                >
+              </li>
+              <li>
+                <a href="payment-gateway.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Payment Gateway</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+              <button type="button" class="sidebar-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon text-2xl non-active"
+                ></iconify-icon>
+                <iconify-icon
+                  icon="iconoir:arrow-right"
+                  class="icon text-2xl active"
+                ></iconify-icon>
+              </button>
+              <button type="button" class="sidebar-mobile-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <p class="mb-0 me-2 text-sm text-white" id="welcome-message">
+                Bem-vindo, <strong id="user-profile-name">...</strong>
+              </p>
+              <div class="dropdown">
+                <button
+                  class="d-flex justify-content-center align-items-center rounded-circle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="assets/images/user.png"
+                    alt="image"
+                    class="w-40-px h-40-px object-fit-cover rounded-circle"
+                  />
+                </button>
+                <div
+                  class="dropdown-menu to-top dropdown-menu-sm"
+                  style="min-width: 150px; max-width: 220px; width: 180px"
+                >
+                  <ul class="to-top-list">
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="view-profile.html"
+                        ><iconify-icon
+                          icon="solar:user-linear"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >My Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="email.html"
+                        ><iconify-icon
+                          icon="tabler:message-check"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Inbox</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="company.html"
+                        ><iconify-icon
+                          icon="icon-park-outline:setting-two"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Setting</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                        href="javascript:void(0)"
+                        id="logout-btn"
+                        ><iconify-icon
+                          icon="lucide:power"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Log Out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-main-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
+        >
+          <h6 class="fw-semibold mb-0">Solicitações de Crédito de Custeio</h6>
+          <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+              <a
+                class="d-flex align-items-center gap-1 hover-text-primary"
+                href="index.html"
+              >
+                <iconify-icon
+                  class="icon text-lg"
+                  icon="solar:home-smile-angle-outline"
+                ></iconify-icon>
+                Dashboard
+              </a>
+            </li>
+            <li>-</li>
+            <li class="fw-medium">Crédito de Custeio</li>
+          </ul>
+        </div>
+        <div class="card h-100 p-0 radius-12">
+          <div
+            class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
+          >
+            <div class="d-flex align-items-center flex-wrap gap-3 w-100">
+              <span class="text-md fw-medium text-secondary-light mb-0"
+                >Show</span
+              >
+              <select
+                id="items-per-page"
+                class="form-select form-select-sm w-auto"
+              >
+                <option value="1">1</option>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+              </select>
+              <div class="input-group w-auto">
+                <span class="input-group-text bg-transparent border-end-0">
+                  <iconify-icon icon="ion:search-outline"></iconify-icon>
+                </span>
+                <input
+                  type="text"
+                  id="search-input"
+                  class="form-control border-start-0"
+                  placeholder="Pesquisar..."
+                />
+              </div>
+              <select id="filter-status" class="form-select w-auto">
+                <option value="">Status</option>
+                <option value="inactive">Pendente</option>
+                <option value="active">Aprovado</option>
+              </select>
+              <select id="filter-tipo-produtor" class="form-select w-auto">
+                <option value="">Produtor</option>
+                <option value="PRONAF">PRONAF</option>
+                <option value="PRONAMP">PRONAMP</option>
+                <option value="Demais Produtores">Demais Produtores</option>
+              </select>
+              <button
+                class="btn btn-success ms-auto"
+                data-bs-target="#addCusteioModal"
+                data-bs-toggle="modal"
+                style="min-width: 180px"
+              >
+                + Nova Solicitação
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-24">
+            <div class="table-responsive scroll-sm">
+              <table class="table bordered-table sm-table mb-0">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Produtor Rural</th>
+                    <th>CPF/CNPJ</th>
+                    <th>Perfil</th>
+                    <th>Município</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                    <th>Criado por</th>
+                    <th>Data Solicitação</th>
+                  </tr>
+                </thead>
+                <tbody id="custeio-tbody"></tbody>
+              </table>
+            </div>
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24"
+            >
+              <span id="pagination-info">Mostrando 1 a 10 de 0 registros</span>
+              <ul
+                class="pagination d-flex flex-wrap align-items-center gap-2 justify-content-center"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0">
+              Made by <span class="text-primary-600">ComosTech</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- MODAL: Nova Solicitação de Crédito de Custeio (2 etapas, navegação livre) -->
+    <div
+      class="modal fade"
+      id="addCusteioModal"
+      tabindex="-1"
+      aria-labelledby="addCusteioModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-dark text-white rounded-4 shadow">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">
+              <iconify-icon
+                icon="solar:user-plus-linear"
+                class="me-2 text-primary"
+              ></iconify-icon>
+              Nova Solicitação de Custeio
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="custeio-form">
+              <ul
+                class="nav nav-pills justify-content-center mb-4 gap-2"
+                id="wizard-steps"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    type="button"
+                    data-step="1"
+                    id="nav-step-1"
+                  >
+                    Produtor Rural
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="2"
+                    id="nav-step-2"
+                  >
+                    Cultura Anual
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="3"
+                    id="nav-step-3"
+                  >
+                    Cultura Perene
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="4"
+                    id="nav-step-4"
+                  >
+                    Agricultura Geral
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="5"
+                    id="nav-step-5"
+                  >
+                    Bovino de Corte
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="6"
+                    id="nav-step-6"
+                  >
+                    Bovino de Leite
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="7"
+                    id="nav-step-7"
+                  >
+                    Documentos
+                  </button>
+                </li>
+              </ul>
+
+              <!-- Etapa 1: PRODUTOR RURAL -->
+              <div class="custeio-step" id="step-1">
+                <h6 class="fw-semibold mb-2 mt-3">Produtor Rural</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label text-white">
+                      Cliente <span class="text-danger">*</span>
+                    </label>
+                    <select
+                      class="form-select bg-dark text-white border-secondary"
+                      id="cliente_id"
+                      name="cliente_id"
+                      required
+                      style="width: 100%"
+                    >
+                      <option value="">Selecione o cliente...</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Produtor Rural</label>
+                    <select
+                      class="form-select"
+                      id="produtor_tipo"
+                      name="produtor_tipo"
+                    >
+                      <option value="">Selecione...</option>
+                      <option value="PRONAF">PRONAF</option>
+                      <option value="PRONAMP">PRONAMP</option>
+                      <option value="Demais Produtores">
+                        Demais Produtores
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">CPF/CNPJ</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cpf_cnpj"
+                      name="cpf_cnpj"
+                      placeholder="CPF ou CNPJ"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Perfil do Produtor</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="perfil_produtor"
+                      name="perfil_produtor"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Experiência na atividade principal (anos)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="experiencia"
+                      name="experiencia"
+                      min="0"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Assistência Técnica Agropecuária</label
+                    >
+                    <select
+                      class="form-select"
+                      id="assistencia_tecnica"
+                      name="assistencia_tecnica"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Sim: Órgão Estadual</option>
+                      <option>Sim: Própria</option>
+                      <option>Não possui</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Desembolso anual manutenção familiar (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="desembolso_familiar"
+                      name="desembolso_familiar"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Dívidas a vencer próximos 12 meses?</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="dividas_vencer"
+                      name="dividas_vencer"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Dívidas direto com fornecedores</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="dividas_fornecedores"
+                      name="dividas_fornecedores"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custeio normal de outras instituições (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="custeio_outras"
+                      name="custeio_outras"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custeio prorrogado em outras instituições (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="custeio_prorrogado"
+                      name="custeio_prorrogado"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Investimento em outras instituições (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="investimento_outras"
+                      name="investimento_outras"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Atividade Rural nas Propriedades</label
+                    >
+                    <select
+                      class="form-select"
+                      id="atividade_rural"
+                      name="atividade_rural"
+                    >
+                      <option value="">Selecione...</option>
+                      <option value="Cultura Anual">Cultura Anual</option>
+                      <option value="Cultura Perene">Cultura Perene</option>
+                      <option value="Agricultura Geral">
+                        Agricultura Geral
+                      </option>
+                      <option value="Bovino de Corte">Bovino de Corte</option>
+                      <option value="Bovino de Leite">Bovino de Leite</option>
+                      <option value="Pecuária Geral">Pecuária Geral</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Etapa 2: CULTURA ANUAL -->
+              <div class="custeio-step d-none" id="step-2">
+                <h6 class="fw-semibold mt-4 mb-2">Cultura Anual</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Cultura Anual</label>
+                    <select
+                      class="form-select"
+                      id="cultura_anual"
+                      name="cultura_anual"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Algodão</option>
+                      <option>Arroz</option>
+                      <option>Milho</option>
+                      <option>Soja</option>
+                      <option>Sorgo</option>
+                      <option>Trigo</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Safra prevista</label>
+                    <select
+                      class="form-select"
+                      id="safra_prevista"
+                      name="safra_prevista"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Verão (1ª Safra)</option>
+                      <option>Safrinha (2ª Safra)</option>
+                      <option>Inverno (3ª Safra)</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Ano de previsão da colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ano_colheita"
+                      name="ano_colheita"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">03 anos atrás (ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="anterior_3"
+                      name="anterior_3"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">02 anos atrás (ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="anterior_2"
+                      name="anterior_2"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">01 ano atrás (ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="anterior_1"
+                      name="anterior_1"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="municipio_anual"
+                      name="municipio_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="matricula_anual"
+                      name="matricula_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área de plantio da cultura na safra prevista (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_plantio_anual"
+                      name="area_plantio_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da área total da cultura com irrigação</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_irrigacao_anual"
+                      name="pct_irrigacao_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% área total da cultura com mecanização</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_mecanizacao_anual"
+                      name="pct_mecanizacao_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% produção para consumo próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_consumo_anual"
+                      name="pct_consumo_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% produção com armazenamento próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_armazenamento_anual"
+                      name="pct_armazenamento_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade média estimada (Kg/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="produtividade_media_anual"
+                      name="produtividade_media_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Nível tecnológico</label>
+                    <select
+                      class="form-select"
+                      id="nivel_tecnologico_anual"
+                      name="nivel_tecnologico_anual"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Alto</option>
+                      <option>Médio</option>
+                      <option>Baixo</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Receita estimada (R$/kg)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="receita_estim_anual"
+                      name="receita_estim_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Despesa estimada (R$/ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="despesa_estim_anual"
+                      name="despesa_estim_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ano-safra</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ano_safra_anual"
+                      name="ano_safra_anual"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="custeio-step d-none" id="step-3">
+                <h6 class="fw-semibold mt-4 mb-2">Cultura Perene</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Qual a CULTURA PERENE?</label>
+                    <select
+                      class="form-select"
+                      id="cultura_perene"
+                      name="cultura_perene"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Cana-de-açucar</option>
+                      <option>Café Arábica</option>
+                      <option>Café Robusta</option>
+                      <option>Laranja para indústria</option>
+                      <option>Laranja de mesa</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Ano de previsão da colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ano_colheita_perene"
+                      name="ano_colheita_perene"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Histórico de safras anteriores - por cultura</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área plantada - 03 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_plantada_3_perene"
+                      name="area_plantada_3_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área plantada - 02 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_plantada_2_perene"
+                      name="area_plantada_2_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área plantada - 01 ano atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_plantada_1_perene"
+                      name="area_plantada_1_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área renovada - 03 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_renovada_3_perene"
+                      name="area_renovada_3_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área renovada - 02 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_renovada_2_perene"
+                      name="area_renovada_2_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área renovada - 01 ano atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_renovada_1_perene"
+                      name="area_renovada_1_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="municipio_perene"
+                      name="municipio_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="matricula_perene"
+                      name="matricula_perene"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Dados da safra prevista - por cultura</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Safra prevista</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="safra_prevista_perene"
+                      name="safra_prevista_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área de plantio atual da cultura (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_plantio_atual_perene"
+                      name="area_plantio_atual_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área a ser renovada na safra prevista (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_renovada_safra_perene"
+                      name="area_renovada_safra_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da área total da cultura com irrigação</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_irrigacao_perene"
+                      name="pct_irrigacao_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da área total da cultura com mecanização de
+                      colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_mecanizacao_perene"
+                      name="pct_mecanizacao_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da produção para consumo próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_consumo_perene"
+                      name="pct_consumo_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da produção com armazenamento próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="pct_armazenamento_perene"
+                      name="pct_armazenamento_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade média estimada para a safra (Kg/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="produtividade_perene"
+                      name="produtividade_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Nível tecnológico adotado</label>
+                    <select
+                      class="form-select"
+                      id="nivel_tecnologico_perene"
+                      name="nivel_tecnologico_perene"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Alto</option>
+                      <option>Médio</option>
+                      <option>Baixo</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Dados financeiros da safra prevista</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ano-safra</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ano_safra_perene"
+                      name="ano_safra_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Preço estimado de venda (R$/kg)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="preco_venda_perene"
+                      name="preco_venda_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo estimado de produção (R$/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="custo_producao_perene"
+                      name="custo_producao_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo com renovação na safra prevista (R$/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="custo_renovacao_perene"
+                      name="custo_renovacao_perene"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="custeio-step d-none" id="step-4">
+                <h6 class="fw-semibold mt-4 mb-2">Agricultura Geral</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Qual cultura - Agricultura Geral?</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cultura_geral"
+                      name="cultura_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Ano predominante de colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ano_colheita_geral"
+                      name="ano_colheita_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Forma de cultivo</label>
+                    <select
+                      class="form-select"
+                      id="forma_cultivo_geral"
+                      name="forma_cultivo_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Estufa/casa de vegetação</option>
+                      <option>Plantio irrigado</option>
+                      <option>Plantio não irrigado</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Identificação da safra</label>
+                    <select
+                      class="form-select"
+                      id="ident_safra_geral"
+                      name="ident_safra_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Verão (1ª Safra)</option>
+                      <option>Safrinha (2ª Safra)</option>
+                      <option>Inverno (3ª Safra)</option>
+                      <option>Fruticultura/Olericultura/Silvicultura</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="municipio_geral"
+                      name="municipio_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="matricula_geral"
+                      name="matricula_geral"
+                    />
+                  </div>
+                  <div class="col-12 mt-3"><b>Dados da safra prevista</b></div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Safra prevista</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="safra_prevista_geral"
+                      name="safra_prevista_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área de plantio da cultura (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_plantio_geral"
+                      name="area_plantio_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade estimada (Kg/ha ou un/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="produtividade_geral"
+                      name="produtividade_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Contrato de pré-venda para +50% produção?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="contrato_pre_venda_geral"
+                      name="contrato_pre_venda_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Sim</option>
+                      <option>Não</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Nível tecnológico</label>
+                    <select
+                      class="form-select"
+                      id="nivel_tecnologico_geral"
+                      name="nivel_tecnologico_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Alto</option>
+                      <option>Médio</option>
+                      <option>Baixo</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Dados financeiros da safra prevista</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ano-safra</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ano_safra_geral"
+                      name="ano_safra_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Preço estimado de venda (R$/kg ou R$/un)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="preco_venda_geral"
+                      name="preco_venda_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo unitário de produção (R$/kg ou R$/un)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="custo_unitario_geral"
+                      name="custo_unitario_geral"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Etapa 5: BOVINO DE CORTE -->
+              <div class="custeio-step d-none" id="step-5">
+                <h6 class="fw-semibold mt-4 mb-2">Bovino de Corte</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="municipio_corte"
+                      name="municipio_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="matricula_corte"
+                      name="matricula_corte"
+                    />
+                  </div>
+                  <div class="col-12 mt-3"><b>Produção</b></div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ciclo de produção</label>
+                    <select
+                      class="form-select"
+                      id="ciclo_producao_corte"
+                      name="ciclo_producao_corte"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Cria</option>
+                      <option>Recria</option>
+                      <option>Cria/Recria</option>
+                      <option>Recria/Engorda</option>
+                      <option>Engorda</option>
+                      <option>Completo</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Sistema de produção</label>
+                    <select
+                      class="form-select"
+                      id="sistema_producao_corte"
+                      name="sistema_producao_corte"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Extensivo</option>
+                      <option>Semi-intensivo</option>
+                      <option>Intensivo/Confinamento</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Levantamento do rebanho (cabeças)</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerros machos até 12 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="bezerros_machos_ate12_corte"
+                      name="bezerros_machos_ate12_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerras fêmeas até 12 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="bezerras_femeas_ate12_corte"
+                      name="bezerras_femeas_ate12_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Garrotes machos de 12 a 24 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="garrotes_machos_12a24_corte"
+                      name="garrotes_machos_12a24_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Novilhotas fêmeas de 12 a 24 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="novilhotas_femeas_12a24_corte"
+                      name="novilhotas_femeas_12a24_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Novilhos machos de 24 a 36 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="novilhos_machos_24a36_corte"
+                      name="novilhos_machos_24a36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Novilhas fêmeas de 24 a 36 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="novilhas_femeas_24a36_corte"
+                      name="novilhas_femeas_24a36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Bois acima de 36 meses</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="bois_acima36_corte"
+                      name="bois_acima36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Vacas acima de 36 meses</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="vacas_acima36_corte"
+                      name="vacas_acima36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Touros reprodutores</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="touros_reprodutores_corte"
+                      name="touros_reprodutores_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área da pastagem perene (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_pastagem_corte"
+                      name="area_pastagem_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo anual de manutenção/produção (R$/ano)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="custo_anual_corte"
+                      name="custo_anual_corte"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Receita estimada - venda de animais</b>
+                  </div>
+                  <!-- Vendas -->
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Bezerros machos até 12 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="bezerros_machos_venda_cab_corte"
+                        name="bezerros_machos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="bezerros_machos_venda_valor_corte"
+                        name="bezerros_machos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Bezerras fêmeas até 12 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="bezerras_femeas_venda_cab_corte"
+                        name="bezerras_femeas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="bezerras_femeas_venda_valor_corte"
+                        name="bezerras_femeas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Garrotes machos de 12 a 24 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="garrotes_machos_venda_cab_corte"
+                        name="garrotes_machos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="garrotes_machos_venda_valor_corte"
+                        name="garrotes_machos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Novilhotas fêmeas de 12 a 24 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="novilhotas_femeas_venda_cab_corte"
+                        name="novilhotas_femeas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="novilhotas_femeas_venda_valor_corte"
+                        name="novilhotas_femeas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Novilhos machos de 24 a 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="novilhos_machos_venda_cab_corte"
+                        name="novilhos_machos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="novilhos_machos_venda_valor_corte"
+                        name="novilhos_machos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Novilhas fêmeas de 24 a 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="novilhas_femeas_venda_cab_corte"
+                        name="novilhas_femeas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="novilhas_femeas_venda_valor_corte"
+                        name="novilhas_femeas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Bois magros acima de 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="bois_magros_venda_cab_corte"
+                        name="bois_magros_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="bois_magros_venda_valor_corte"
+                        name="bois_magros_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Vacas magras acima de 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="vacas_magras_venda_cab_corte"
+                        name="vacas_magras_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="vacas_magras_venda_valor_corte"
+                        name="vacas_magras_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label">Bois gordos (cab / R$/cab)</label>
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="bois_gordos_venda_cab_corte"
+                        name="bois_gordos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="bois_gordos_venda_valor_corte"
+                        name="bois_gordos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Vacas gordas (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="vacas_gordas_venda_cab_corte"
+                        name="vacas_gordas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="vacas_gordas_venda_valor_corte"
+                        name="vacas_gordas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="custeio-step d-none" id="step-6">
+                <h6 class="fw-semibold mt-4 mb-2">Bovino de Leite</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="municipio_leite"
+                      name="municipio_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="matricula_leite"
+                      name="matricula_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Sistema de ordenha</label>
+                    <select
+                      class="form-select"
+                      id="sistema_ordenha_leite"
+                      name="sistema_ordenha_leite"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Mecânica</option>
+                      <option>Manual</option>
+                      <option>Mecânica e Manual</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade média por vaca em lactação</label
+                    >
+                    <select
+                      class="form-select"
+                      id="produtividade_media_leite"
+                      name="produtividade_media_leite"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>1 a 8,9 l/dia</option>
+                      <option>9 a 15,9 l/dia</option>
+                      <option>16 a 25,9 l/dia</option>
+                      <option>26 a 35,9 l/dia</option>
+                      <option>acima de 36 l/dia</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Predomínio de raças especializadas?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="raca_predominante_leite"
+                      name="raca_predominante_leite"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Sim</option>
+                      <option>Não</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área da pastagem perene (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="area_pastagem_leite"
+                      name="area_pastagem_leite"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Levantamento do rebanho (cabeças)</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Bezerros(as) até 12 meses</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="bezerros_ate12_leite"
+                      name="bezerros_ate12_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Novilhos</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="novilhos_leite"
+                      name="novilhos_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Novilhas</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="novilhas_leite"
+                      name="novilhas_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Vacas leiteiras</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="vacas_leiteiras_leite"
+                      name="vacas_leiteiras_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Touros reprodutores</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="touros_reprodutores_leite"
+                      name="touros_reprodutores_leite"
+                    />
+                  </div>
+                  <div class="col-12 mt-3"><b>Dados financeiros</b></div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo anual para manutenção/produção (R$/ano)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="custo_anual_leite"
+                      name="custo_anual_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Total de leite vendidos por ano (litros/ano)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="qtd_leite_vendido_leite"
+                      name="qtd_leite_vendido_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Valor recebido por litro de leite (R$/litro)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="valor_litro_leite"
+                      name="valor_litro_leite"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Previsão venda de animais</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerros(as) recém nascidos (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="bezerros_nascidos_leite"
+                        name="bezerros_nascidos_leite"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="bezerros_nascidos_valor_leite"
+                        name="bezerros_nascidos_valor_leite"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerros(as) desmamados (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="bezerros_desmamados_leite"
+                        name="bezerros_desmamados_leite"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="bezerros_desmamados_valor_leite"
+                        name="bezerros_desmamados_valor_leite"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Vacas descarte (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="vacas_descarte_leite"
+                        name="vacas_descarte_leite"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="vacas_descarte_valor_leite"
+                        name="vacas_descarte_valor_leite"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Etapa 7: DOCUMENTOS -->
+              <div class="custeio-step d-none" id="step-7">
+                <h6 class="fw-semibold mt-4 mb-2">Envio de Documentação</h6>
+                <p class="mb-3 text-white-50">
+                  Anexe os documentos obrigatórios para análise do crédito.
+                  <span class="fw-semibold text-warning">
+                    Formatos aceitos: PDF, JPG, PNG.
+                  </span>
+                </p>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >CND - Certidão Negativa de Débitos</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_cnd"
+                      id="doc_cnd"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">CNH - Proponente</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_cnh_proponente"
+                      id="doc_cnh_proponente"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_cnh_proponente_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">CNH - Cônjuge</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_cnh_conjuge"
+                      id="doc_cnh_conjuge"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_cnh_conjuge_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Certidão de Nascimento/Casamento</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_certidao_nascimento"
+                      id="doc_certidao_nascimento"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div
+                      id="doc_certidao_nascimento_preview"
+                      class="mt-2"
+                    ></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Declaração de IRPF</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_irpf"
+                      id="doc_irpf"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_irpf_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Recibo de IRPF</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_irpf_recibo"
+                      id="doc_irpf_recibo"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_irpf_recibo_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Declaração CMN (Renegociações)</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_cmn"
+                      id="doc_cmn"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_cmn_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">CCIR - Imóvel Beneficiado</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_ccir_beneficiado"
+                      id="doc_ccir_beneficiado"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_ccir_beneficiado_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >CND ou Quitação do ITR - Imóvel</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_itr_beneficiado"
+                      id="doc_itr_beneficiado"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_itr_beneficiado_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Certidão de Inteiro Teor</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_inteiro_teor"
+                      id="doc_inteiro_teor"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_inteiro_teor_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Certidão de Ônus</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_onus"
+                      id="doc_onus"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_onus_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Licença Ambiental de Operação (LO)</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_lo"
+                      id="doc_lo"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_lo_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Roteiro de Acesso ao Imóvel</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_roteiro_acesso"
+                      id="doc_roteiro_acesso"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_roteiro_acesso_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Cadastro Ambiental Rural (CAR) - Inscrição</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_car_inscricao"
+                      id="doc_car_inscricao"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_car_inscricao_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >CAR - Demonstrativo de Situação</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_car_demonstrativo"
+                      id="doc_car_demonstrativo"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_car_demonstrativo_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Documentos de Cessão</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_cessao"
+                      id="doc_cessao"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_cessao_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Autorização para Supressão de Vegetação (ASV)</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_asv"
+                      id="doc_asv"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_asv_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Outorga d'Água</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_outorga"
+                      id="doc_outorga"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_outorga_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >KML da Área Total do Imóvel</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_kml_total"
+                      id="doc_kml_total"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_kml_total_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">KML da Área Beneficiada</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="doc_kml_beneficiada"
+                      id="doc_kml_beneficiada"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="doc_kml_beneficiada_preview" class="mt-2"></div>
+                  </div>
+                  <!-- Adicione mais campos conforme necessário -->
+                  <div class="col-12 mt-4">
+                    <small class="text-white-50">
+                      Observação: O prazo de validade das certidões (Ônus,
+                      Escritura e Quinzenária) varia entre bancos (60 a 90 dias)
+                      e a exigência do tipo de certidão depende do banco
+                      financiador.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botão de salvar sempre visível -->
+              <div class="d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-success" id="save-custeio">
+                  Salvar Solicitação
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Editar Solicitação de Crédito de Custeio -->
+    <div
+      class="modal fade"
+      id="editCusteioModal"
+      tabindex="-1"
+      aria-labelledby="editCusteioModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-dark text-white rounded-4 shadow">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">
+              <iconify-icon
+                icon="solar:user-edit-linear"
+                class="me-2 text-warning"
+              ></iconify-icon>
+              Editar Solicitação de Custeio
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="edit-custeio-form">
+              <input type="hidden" id="edit_id" name="id" />
+              <ul
+                class="nav nav-pills justify-content-center mb-4 gap-2"
+                id="wizard-edit-steps"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    type="button"
+                    data-step="1"
+                    id="edit-nav-step-1"
+                  >
+                    Produtor Rural
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="2"
+                    id="edit-nav-step-2"
+                  >
+                    Cultura Anual
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="3"
+                    id="edit-nav-step-3"
+                  >
+                    Cultura Perene
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="4"
+                    id="edit-nav-step-4"
+                  >
+                    Agricultura Geral
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="5"
+                    id="edit-nav-step-5"
+                  >
+                    Bovino de Corte
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="6"
+                    id="edit-nav-step-6"
+                  >
+                    Bovino de Leite
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    type="button"
+                    data-step="7"
+                    id="edit-nav-step-7"
+                  >
+                    Documentos
+                  </button>
+                </li>
+              </ul>
+              <!-- Etapa 1: PRODUTOR RURAL -->
+              <div class="edit-custeio-step" id="edit-step-1">
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Produtor Rural</label>
+                    <select
+                      class="form-select"
+                      id="edit_produtor_tipo"
+                      name="produtor_tipo"
+                    >
+                      <option value="">Selecione...</option>
+                      <option value="PRONAF">PRONAF</option>
+                      <option value="PRONAMP">PRONAMP</option>
+                      <option value="Demais Produtores">
+                        Demais Produtores
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">CPF/CNPJ</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_cpf_cnpj"
+                      name="cpf_cnpj"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Perfil do Produtor</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_perfil_produtor"
+                      name="perfil_produtor"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Experiência na atividade principal (anos)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_experiencia"
+                      name="experiencia"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Assistência Técnica Agropecuária</label
+                    >
+                    <select
+                      class="form-select"
+                      id="edit_assistencia_tecnica"
+                      name="assistencia_tecnica"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Sim: Órgão Estadual</option>
+                      <option>Sim: Própria</option>
+                      <option>Não possui</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Desembolso anual manutenção familiar (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_desembolso_familiar"
+                      name="desembolso_familiar"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Dívidas a vencer próximos 12 meses?</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_dividas_vencer"
+                      name="dividas_vencer"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Dívidas direto com fornecedores</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_dividas_fornecedores"
+                      name="dividas_fornecedores"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custeio normal de outras instituições (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_custeio_outras"
+                      name="custeio_outras"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custeio prorrogado em outras instituições (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_custeio_prorrogado"
+                      name="custeio_prorrogado"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Investimento em outras instituições (R$)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_investimento_outras"
+                      name="investimento_outras"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Atividade Rural nas Propriedades</label
+                    >
+                    <select
+                      class="form-select"
+                      id="edit_atividade_rural"
+                      name="atividade_rural"
+                    >
+                      <option value="">Selecione...</option>
+                      <option value="Cultura Anual">Cultura Anual</option>
+                      <option value="Cultura Perene">Cultura Perene</option>
+                      <option value="Agricultura Geral">
+                        Agricultura Geral
+                      </option>
+                      <option value="Bovino de Corte">Bovino de Corte</option>
+                      <option value="Bovino de Leite">Bovino de Leite</option>
+                      <option value="Pecuária Geral">Pecuária Geral</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- Etapa 2: CULTURA ANUAL -->
+              <div class="edit-custeio-step d-none" id="edit-step-2">
+                <div class="row g-3 mt-2">
+                  <div class="col-sm-4">
+                    <label class="form-label">Cultura Anual</label>
+                    <select
+                      class="form-select"
+                      id="edit_cultura_anual"
+                      name="cultura_anual"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Algodão</option>
+                      <option>Arroz</option>
+                      <option>Milho</option>
+                      <option>Soja</option>
+                      <option>Sorgo</option>
+                      <option>Trigo</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Safra prevista</label>
+                    <select
+                      class="form-select"
+                      id="edit_safra_prevista"
+                      name="safra_prevista"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Verão (1ª Safra)</option>
+                      <option>Safrinha (2ª Safra)</option>
+                      <option>Inverno (3ª Safra)</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Ano de previsão da colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_ano_colheita"
+                      name="ano_colheita"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">03 anos atrás (ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_anterior_3"
+                      name="anterior_3"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">02 anos atrás (ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_anterior_2"
+                      name="anterior_2"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">01 ano atrás (ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_anterior_1"
+                      name="anterior_1"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_municipio_anual"
+                      name="municipio_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_matricula_anual"
+                      name="matricula_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área de plantio da cultura na safra prevista (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_plantio_anual"
+                      name="area_plantio_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da área total da cultura com irrigação</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_irrigacao_anual"
+                      name="pct_irrigacao_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% área total da cultura com mecanização</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_mecanizacao_anual"
+                      name="pct_mecanizacao_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% produção para consumo próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_consumo_anual"
+                      name="pct_consumo_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% produção com armazenamento próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_armazenamento_anual"
+                      name="pct_armazenamento_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade média estimada (Kg/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_produtividade_media_anual"
+                      name="produtividade_media_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Nível tecnológico</label>
+                    <select
+                      class="form-select"
+                      id="edit_nivel_tecnologico_anual"
+                      name="nivel_tecnologico_anual"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Alto</option>
+                      <option>Médio</option>
+                      <option>Baixo</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Receita estimada (R$/kg)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_receita_estim_anual"
+                      name="receita_estim_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Despesa estimada (R$/ha)</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_despesa_estim_anual"
+                      name="despesa_estim_anual"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ano-safra</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_ano_safra_anual"
+                      name="ano_safra_anual"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Etapa 3: CULTURA PERENE -->
+              <div class="edit-custeio-step d-none" id="edit-step-3">
+                <h6 class="fw-semibold mt-4 mb-2">Cultura Perene</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Qual a CULTURA PERENE?</label>
+                    <select
+                      class="form-select"
+                      id="edit_cultura_perene"
+                      name="cultura_perene"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Cana-de-açucar</option>
+                      <option>Café Arábica</option>
+                      <option>Café Robusta</option>
+                      <option>Laranja para indústria</option>
+                      <option>Laranja de mesa</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Ano de previsão da colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_ano_colheita_perene"
+                      name="ano_colheita_perene"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Histórico de safras anteriores - por cultura</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área plantada - 03 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_plantada_3_perene"
+                      name="area_plantada_3_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área plantada - 02 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_plantada_2_perene"
+                      name="area_plantada_2_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área plantada - 01 ano atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_plantada_1_perene"
+                      name="area_plantada_1_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área renovada - 03 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_renovada_3_perene"
+                      name="area_renovada_3_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área renovada - 02 anos atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_renovada_2_perene"
+                      name="area_renovada_2_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área renovada - 01 ano atrás (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_renovada_1_perene"
+                      name="area_renovada_1_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_municipio_perene"
+                      name="municipio_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_matricula_perene"
+                      name="matricula_perene"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Dados da safra prevista - por cultura</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Safra prevista</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_safra_prevista_perene"
+                      name="safra_prevista_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área de plantio atual da cultura (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_plantio_atual_perene"
+                      name="area_plantio_atual_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área a ser renovada na safra prevista (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_renovada_safra_perene"
+                      name="area_renovada_safra_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da área total da cultura com irrigação</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_irrigacao_perene"
+                      name="pct_irrigacao_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da área total da cultura com mecanização de
+                      colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_mecanizacao_perene"
+                      name="pct_mecanizacao_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da produção para consumo próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_consumo_perene"
+                      name="pct_consumo_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >% da produção com armazenamento próprio</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_pct_armazenamento_perene"
+                      name="pct_armazenamento_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade média estimada para a safra (Kg/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_produtividade_perene"
+                      name="produtividade_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Nível tecnológico adotado</label>
+                    <select
+                      class="form-select"
+                      id="edit_nivel_tecnologico_perene"
+                      name="nivel_tecnologico_perene"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Alto</option>
+                      <option>Médio</option>
+                      <option>Baixo</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Dados financeiros da safra prevista</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ano-safra</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_ano_safra_perene"
+                      name="ano_safra_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Preço estimado de venda (R$/kg)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_preco_venda_perene"
+                      name="preco_venda_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo estimado de produção (R$/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_custo_producao_perene"
+                      name="custo_producao_perene"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo com renovação na safra prevista (R$/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_custo_renovacao_perene"
+                      name="custo_renovacao_perene"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Etapa 4: AGRICULTURA GERAL -->
+              <div class="edit-custeio-step d-none" id="edit-step-4">
+                <h6 class="fw-semibold mt-4 mb-2">Agricultura Geral</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Qual cultura - Agricultura Geral?</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_cultura_geral"
+                      name="cultura_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Ano predominante de colheita</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_ano_colheita_geral"
+                      name="ano_colheita_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Forma de cultivo</label>
+                    <select
+                      class="form-select"
+                      id="edit_forma_cultivo_geral"
+                      name="forma_cultivo_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Estufa/casa de vegetação</option>
+                      <option>Plantio irrigado</option>
+                      <option>Plantio não irrigado</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Identificação da safra</label>
+                    <select
+                      class="form-select"
+                      id="edit_ident_safra_geral"
+                      name="ident_safra_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Verão (1ª Safra)</option>
+                      <option>Safrinha (2ª Safra)</option>
+                      <option>Inverno (3ª Safra)</option>
+                      <option>Fruticultura/Olericultura/Silvicultura</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_municipio_geral"
+                      name="municipio_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_matricula_geral"
+                      name="matricula_geral"
+                    />
+                  </div>
+                  <div class="col-12 mt-3"><b>Dados da safra prevista</b></div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Safra prevista</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_safra_prevista_geral"
+                      name="safra_prevista_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área de plantio da cultura (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_plantio_geral"
+                      name="area_plantio_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade estimada (Kg/ha ou un/ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_produtividade_geral"
+                      name="produtividade_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Contrato de pré-venda para +50% produção?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="edit_contrato_pre_venda_geral"
+                      name="contrato_pre_venda_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Sim</option>
+                      <option>Não</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Nível tecnológico</label>
+                    <select
+                      class="form-select"
+                      id="edit_nivel_tecnologico_geral"
+                      name="nivel_tecnologico_geral"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Alto</option>
+                      <option>Médio</option>
+                      <option>Baixo</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Dados financeiros da safra prevista</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ano-safra</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_ano_safra_geral"
+                      name="ano_safra_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Preço estimado de venda (R$/kg ou R$/un)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_preco_venda_geral"
+                      name="preco_venda_geral"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo unitário de produção (R$/kg ou R$/un)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_custo_unitario_geral"
+                      name="custo_unitario_geral"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- Etapa 5: BOVINO DE CORTE -->
+              <!-- Etapa 5: BOVINO DE CORTE (EDIT) -->
+              <div class="edit-custeio-step d-none" id="edit-step-5">
+                <h6 class="fw-semibold mt-4 mb-2">Bovino de Corte</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_municipio_corte"
+                      name="municipio_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_matricula_corte"
+                      name="matricula_corte"
+                    />
+                  </div>
+                  <div class="col-12 mt-3"><b>Produção</b></div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Ciclo de produção</label>
+                    <select
+                      class="form-select"
+                      id="edit_ciclo_producao_corte"
+                      name="ciclo_producao_corte"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Cria</option>
+                      <option>Recria</option>
+                      <option>Cria/Recria</option>
+                      <option>Recria/Engorda</option>
+                      <option>Engorda</option>
+                      <option>Completo</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Sistema de produção</label>
+                    <select
+                      class="form-select"
+                      id="edit_sistema_producao_corte"
+                      name="sistema_producao_corte"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Extensivo</option>
+                      <option>Semi-intensivo</option>
+                      <option>Intensivo/Confinamento</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Levantamento do rebanho (cabeças)</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerros machos até 12 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_bezerros_machos_ate12_corte"
+                      name="bezerros_machos_ate12_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerras fêmeas até 12 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_bezerras_femeas_ate12_corte"
+                      name="bezerras_femeas_ate12_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Garrotes machos de 12 a 24 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_garrotes_machos_12a24_corte"
+                      name="garrotes_machos_12a24_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Novilhotas fêmeas de 12 a 24 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_novilhotas_femeas_12a24_corte"
+                      name="novilhotas_femeas_12a24_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Novilhos machos de 24 a 36 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_novilhos_machos_24a36_corte"
+                      name="novilhos_machos_24a36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Novilhas fêmeas de 24 a 36 meses</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_novilhas_femeas_24a36_corte"
+                      name="novilhas_femeas_24a36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Bois acima de 36 meses</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_bois_acima36_corte"
+                      name="bois_acima36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Vacas acima de 36 meses</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_vacas_acima36_corte"
+                      name="vacas_acima36_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Touros reprodutores</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_touros_reprodutores_corte"
+                      name="touros_reprodutores_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área da pastagem perene (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_pastagem_corte"
+                      name="area_pastagem_corte"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo anual de manutenção/produção (R$/ano)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_custo_anual_corte"
+                      name="custo_anual_corte"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Receita estimada - venda de animais</b>
+                  </div>
+                  <!-- Para cada categoria: quantidade (cab) e valor (R$/cab) -->
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Bezerros machos até 12 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_bezerros_machos_venda_cab_corte"
+                        name="bezerros_machos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_bezerros_machos_venda_valor_corte"
+                        name="bezerros_machos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Bezerras fêmeas até 12 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_bezerras_femeas_venda_cab_corte"
+                        name="bezerras_femeas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_bezerras_femeas_venda_valor_corte"
+                        name="bezerras_femeas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Garrotes machos de 12 a 24 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_garrotes_machos_venda_cab_corte"
+                        name="garrotes_machos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_garrotes_machos_venda_valor_corte"
+                        name="garrotes_machos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Novilhotas fêmeas de 12 a 24 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_novilhotas_femeas_venda_cab_corte"
+                        name="novilhotas_femeas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_novilhotas_femeas_venda_valor_corte"
+                        name="novilhotas_femeas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Novilhos machos de 24 a 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_novilhos_machos_venda_cab_corte"
+                        name="novilhos_machos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_novilhos_machos_venda_valor_corte"
+                        name="novilhos_machos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Novilhas fêmeas de 24 a 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_novilhas_femeas_venda_cab_corte"
+                        name="novilhas_femeas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_novilhas_femeas_venda_valor_corte"
+                        name="novilhas_femeas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Bois magros acima de 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_bois_magros_venda_cab_corte"
+                        name="bois_magros_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_bois_magros_venda_valor_corte"
+                        name="bois_magros_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Vacas magras acima de 36 meses (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_vacas_magras_venda_cab_corte"
+                        name="vacas_magras_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_vacas_magras_venda_valor_corte"
+                        name="vacas_magras_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label">Bois gordos (cab / R$/cab)</label>
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_bois_gordos_venda_cab_corte"
+                        name="bois_gordos_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_bois_gordos_venda_valor_corte"
+                        name="bois_gordos_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-4">
+                    <label class="form-label"
+                      >Vacas gordas (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_vacas_gordas_venda_cab_corte"
+                        name="vacas_gordas_venda_cab_corte"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_vacas_gordas_venda_valor_corte"
+                        name="vacas_gordas_venda_valor_corte"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Etapa 6: BOVINO DE LEITE -->
+              <div class="edit-custeio-step d-none" id="edit-step-6">
+                <h6 class="fw-semibold mt-4 mb-2">Bovino de Leite</h6>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label class="form-label">Município</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_municipio_leite"
+                      name="municipio_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Matrícula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edit_matricula_leite"
+                      name="matricula_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Sistema de ordenha</label>
+                    <select
+                      class="form-select"
+                      id="edit_sistema_ordenha_leite"
+                      name="sistema_ordenha_leite"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Mecânica</option>
+                      <option>Manual</option>
+                      <option>Mecânica e Manual</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Produtividade média por vaca em lactação</label
+                    >
+                    <select
+                      class="form-select"
+                      id="edit_produtividade_media_leite"
+                      name="produtividade_media_leite"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>1 a 8,9 l/dia</option>
+                      <option>9 a 15,9 l/dia</option>
+                      <option>16 a 25,9 l/dia</option>
+                      <option>26 a 35,9 l/dia</option>
+                      <option>acima de 36 l/dia</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Predomínio de raças especializadas?</label
+                    >
+                    <select
+                      class="form-select"
+                      id="edit_raca_predominante_leite"
+                      name="raca_predominante_leite"
+                    >
+                      <option value="">Selecione...</option>
+                      <option>Sim</option>
+                      <option>Não</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Área da pastagem perene (ha)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_area_pastagem_leite"
+                      name="area_pastagem_leite"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Levantamento do rebanho (cabeças)</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Bezerros(as) até 12 meses</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_bezerros_ate12_leite"
+                      name="bezerros_ate12_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Novilhos</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_novilhos_leite"
+                      name="novilhos_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Novilhas</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_novilhas_leite"
+                      name="novilhas_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Vacas leiteiras</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_vacas_leiteiras_leite"
+                      name="vacas_leiteiras_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label">Touros reprodutores</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_touros_reprodutores_leite"
+                      name="touros_reprodutores_leite"
+                    />
+                  </div>
+                  <div class="col-12 mt-3"><b>Dados financeiros</b></div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Custo anual para manutenção/produção (R$/ano)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_custo_anual_leite"
+                      name="custo_anual_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Total de leite vendidos por ano (litros/ano)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_qtd_leite_vendido_leite"
+                      name="qtd_leite_vendido_leite"
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Valor recebido por litro de leite (R$/litro)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="edit_valor_litro_leite"
+                      name="valor_litro_leite"
+                    />
+                  </div>
+                  <div class="col-12 mt-3">
+                    <b>Previsão venda de animais</b>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerros(as) recém nascidos (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_bezerros_nascidos_leite"
+                        name="bezerros_nascidos_leite"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_bezerros_nascidos_valor_leite"
+                        name="bezerros_nascidos_valor_leite"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Bezerros(as) desmamados (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_bezerros_desmamados_leite"
+                        name="bezerros_desmamados_leite"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_bezerros_desmamados_valor_leite"
+                        name="bezerros_desmamados_valor_leite"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <label class="form-label"
+                      >Vacas descarte (cab / R$/cab)</label
+                    >
+                    <div class="d-flex gap-2">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="cab"
+                        id="edit_vacas_descarte_leite"
+                        name="vacas_descarte_leite"
+                      />
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="R$/cab"
+                        id="edit_vacas_descarte_valor_leite"
+                        name="vacas_descarte_valor_leite"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Etapa 7: DOCUMENTOS (EDIT) -->
+              <div class="edit-custeio-step d-none" id="edit-step-7">
+                <h6 class="fw-semibold mt-4 mb-2">Envio de Documentação</h6>
+                <p class="mb-3 text-white-50">
+                  Anexe os documentos obrigatórios para análise do crédito.
+                  <span class="fw-semibold text-warning"
+                    >Formatos aceitos: PDF, JPG, PNG.</span
+                  >
+                </p>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >CND - Certidão Negativa de Débitos</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_cnd"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">CNH - Proponente</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_cnh_proponente"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">CNH - Cônjuge</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_cnh_conjuge"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Certidão de Nascimento/Casamento</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_certidao_nascimento"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Declaração de IRPF</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_irpf"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Recibo de IRPF</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_irpf_recibo"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Declaração CMN (Renegociações)</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_cmn"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">CCIR - Imóvel Beneficiado</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_ccir_beneficiado"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >CND ou Quitação do ITR - Imóvel</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_itr_beneficiado"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Certidão de Inteiro Teor</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_inteiro_teor"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Certidão de Ônus</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_onus"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Licença Ambiental de Operação (LO)</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_lo"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Roteiro de Acesso ao Imóvel</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_roteiro_acesso"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Cadastro Ambiental Rural (CAR) - Inscrição</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_car_inscricao"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >CAR - Demonstrativo de Situação</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_car_demonstrativo"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Documentos de Cessão</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_cessao"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >Autorização para Supressão de Vegetação (ASV)</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_asv"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Outorga d'Água</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_outorga"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label"
+                      >KML da Área Total do Imóvel</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_kml_total"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">KML da Área Beneficiada</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      name="edit_doc_kml_beneficiada"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                    />
+                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
+                  </div>
+
+                  <!-- Adicione mais campos para imóveis em garantia, pecuária etc., conforme necessário -->
+
+                  <div class="col-12 mt-4">
+                    <small class="text-white-50">
+                      Observação: O prazo de validade das certidões (Ônus,
+                      Escritura e Quinzenária) varia entre bancos (60 a 90 dias)
+                      e a exigência do tipo de certidão depende do banco
+                      financiador.
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary">
+                  Salvar Alterações
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS DE BIBLIOTECA DEVEM VIR ANTES DO SEU SCRIPT CUSTOM -->
+    <script src="assets/js/lib/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+      // Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // Protege a página: redireciona para login se não estiver autenticado e exibe nome
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+          window.location.href = "sign-in.html";
+        } else {
+          // Preenche o nome do usuário
+          const elName = document.getElementById("user-profile-name");
+          if (elName) {
+            elName.textContent =
+              user.displayName || user.email || user.phoneNumber || "Usuário";
+          }
+        }
+      });
+
+      // Botão logout
+      $(document).on("click", "#logout-btn", function () {
+        firebase
+          .auth()
+          .signOut()
+          .then(function () {
+            window.location.href = "sign-in.html";
+          });
+      });
+
+      // Navegação entre as duas etapas (livre por clique)
+      function showStepWizard(n) {
+        $(".custeio-step").addClass("d-none");
+        $("#step-" + n).removeClass("d-none");
+        $("#wizard-steps .nav-link").removeClass("active");
+        $("#nav-step-" + n).addClass("active");
+      }
+      $("#addCusteioModal").on("shown.bs.modal", function () {
+        showStepWizard(1);
+        $("#custeio-form")[0].reset();
+        loadClientes();
+      });
+      $(document).on("click", "#wizard-steps .nav-link", function () {
+        let n = $(this).data("step");
+        showStepWizard(n);
+      });
+
+      // Submissão do formulário (salva no Firestore)
+      $("#custeio-form").submit(async function (e) {
+        e.preventDefault();
+        if (!$("#cliente_id").val()) {
+          alert("Selecione o cliente para continuar!");
+          $("#cliente_id").select2("open");
+          return;
+        }
+        const formData = {};
+        $(this)
+          .find("input, select, textarea")
+          .each(function () {
+            formData[this.name] = $(this).val();
+          });
+        formData.createdAt = new Date();
+        formData.status = "inactive";
+        // Grava quem criou
+        const user = firebase.auth().currentUser;
+        formData.addedBy =
+          (user && (user.displayName || user.email || user.phoneNumber)) ||
+          "Usuário";
+        try {
+          await db.collection("custeio").add(formData);
+          alert("Solicitação salva!");
+          $("#addCusteioModal").modal("hide");
+        } catch (err) {
+          alert("Erro ao salvar: " + err.message);
+        }
+      });
+
+      let allCusteios = [];
+      let currentPage = 1;
+      let clientesList = [];
+
+      // Função principal para buscar e renderizar
+      async function loadCusteios() {
+        let snapshot = await db
+          .collection("custeio")
+          .orderBy("createdAt", "desc")
+          .get();
+        allCusteios = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        renderTable();
+      }
+
+      // Função que monta e exibe a tabela
+      function renderTable() {
+        const searchTerm = $("#search-input").val().toLowerCase();
+        const filterStatus = $("#filter-status").val();
+        const filterProdutor = $("#filter-tipo-produtor").val();
+        const itemsPerPage = parseInt($("#items-per-page").val() || 10, 10);
+
+        let filtered = allCusteios.filter((c) => {
+          // Pesquisa livre
+          const matchesSearch =
+            (c.produtor_tipo || "").toLowerCase().includes(searchTerm) ||
+            (c.cpf_cnpj || "").toLowerCase().includes(searchTerm) ||
+            (c.perfil_produtor || "").toLowerCase().includes(searchTerm) ||
+            (c.municipio_anual || "").toLowerCase().includes(searchTerm);
+
+          // Filtros
+          const matchesStatus = !filterStatus || c.status === filterStatus;
+          const matchesProdutor =
+            !filterProdutor || c.produtor_tipo === filterProdutor;
+
+          return matchesSearch && matchesStatus && matchesProdutor;
+        });
+
+        // Paginação
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageData = filtered.slice(start, start + itemsPerPage);
+
+        $("#custeio-tbody").html(
+          pageData
+            .map((c) => {
+              // Busca o nome do cliente na lista carregada
+              let clienteNome = "";
+              if (
+                c.cliente_id &&
+                Array.isArray(clientesList) &&
+                clientesList.length
+              ) {
+                const cli = clientesList.find((cl) => cl.id === c.cliente_id);
+                clienteNome = cli ? cli.nome : "";
+              }
+              return `
+      <tr>
+        <td>${clienteNome || ""}</td>
+        <td>${c.produtor_tipo || ""}</td>
+        <td>${c.cpf_cnpj || ""}</td>
+        <td>${c.perfil_produtor || ""}</td>
+        <td>${c.municipio_anual || ""}</td>
+        <td>
+          <span class="badge px-3 py-2 ${
+            c.status === "inactive" ? "bg-warning" : "bg-success"
+          } text-white">
+            ${c.status === "inactive" ? "Pendente" : "Aprovado"}
+          </span>
+        </td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${
+            c.id
+          }')">Editar</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteCusteio('${
+            c.id
+          }')">Deletar</button>
+        </td>
+        <td>${c.addedBy || ""}</td>
+        <td>${
+          c.createdAt && c.createdAt.toDate
+            ? c.createdAt.toDate().toLocaleDateString()
+            : ""
+        }</td>
+      </tr>
+    `;
+            })
+            .join("") ||
+            `<tr><td colspan='9' class='text-center'>Nenhum registro encontrado</td></tr>`
+        );
+
+        renderPagination(filtered.length, itemsPerPage);
+
+        $("#pagination-info").text(
+          `Mostrando ${filtered.length === 0 ? 0 : start + 1} a ${Math.min(
+            start + itemsPerPage,
+            filtered.length
+          )} de ${filtered.length} registros`
+        );
+      }
+
+      function renderPagination(total, itemsPerPage) {
+        const pages = Math.ceil(total / itemsPerPage);
+        const pagination = $(".pagination").first();
+        pagination.html("");
+        for (let i = 1; i <= pages; i++) {
+          const li = $(
+            `<li class="page-item"><a href="#" class="page-link ${
+              i === currentPage ? "active" : ""
+            }">${i}</a></li>`
+          );
+          li.on("click", function (e) {
+            e.preventDefault();
+            currentPage = i;
+            renderTable();
+          });
+          pagination.append(li);
+        }
+      }
+
+      // Busca clientes do banco
+      // Busca clientes do banco
+      async function loadClientes() {
+        let snap = await db.collection("clientes").get();
+        clientesList = snap.docs.map((doc) => ({
+          id: doc.id,
+          nome:
+            doc.data().nome ||
+            doc.data().email ||
+            doc.data().empresa ||
+            doc.data().contato ||
+            "Cliente",
+        }));
+        let options = `<option value="">Selecione o cliente...</option>`;
+        clientesList.forEach(
+          (c) => (options += `<option value="${c.id}">${c.nome}</option>`)
+        );
+        $("#cliente_id").html(options);
+
+        // Destroy anterior antes de criar novamente
+        if ($("#cliente_id").hasClass("select2-hidden-accessible")) {
+          $("#cliente_id").select2("destroy");
+        }
+
+        $("#cliente_id").select2({
+          dropdownParent: $("#addCusteioModal"),
+          width: "100%",
+          placeholder: "Selecione o cliente...",
+          allowClear: true,
+        });
+      }
+
+      // Busca/filtro/paginação/lista sempre carrega clientes antes de montar a tabela
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          loadClientes().then(loadCusteios);
+        }
+      });
+
+      // Após salvar um novo registro, recarrega tabela:
+      $("#custeio-form").on("submit", function () {
+        setTimeout(loadCusteios, 1000);
+      });
+
+      // Eventos para busca, filtros e itens por página
+      $("#search-input").on("input", function () {
+        currentPage = 1;
+        renderTable();
+      });
+      $("#filter-status, #filter-tipo-produtor, #items-per-page").on(
+        "change",
+        function () {
+          currentPage = 1;
+          renderTable();
+        }
+      );
+
+      // Wizard edit: navegação por etapas
+      function showEditStepWizard(n) {
+        $(".edit-custeio-step").addClass("d-none");
+        $("#edit-step-" + n).removeClass("d-none");
+        $("#wizard-edit-steps .nav-link").removeClass("active");
+        $("#edit-nav-step-" + n).addClass("active");
+      }
+      $(document).on("click", "#wizard-edit-steps .nav-link", function () {
+        let n = $(this).data("step");
+        showEditStepWizard(n);
+      });
+      $("#editCusteioModal").on("shown.bs.modal", function () {
+        showEditStepWizard(1);
+      });
+
+      // Abre modal de edição preenchido
+      window.openEditCusteio = async function (id) {
+        const custeio = allCusteios.find((c) => c.id === id);
+        if (!custeio) return;
+        $("#edit_id").val(custeio.id);
+
+        // Etapa 1 - Produtor Rural
+        $("#edit_produtor_tipo").val(custeio.produtor_tipo || "");
+        $("#edit_cpf_cnpj").val(custeio.cpf_cnpj || "");
+        $("#edit_perfil_produtor").val(custeio.perfil_produtor || "");
+        $("#edit_experiencia").val(custeio.experiencia || "");
+        $("#edit_assistencia_tecnica").val(custeio.assistencia_tecnica || "");
+        $("#edit_desembolso_familiar").val(custeio.desembolso_familiar || "");
+        $("#edit_dividas_vencer").val(custeio.dividas_vencer || "");
+        $("#edit_dividas_fornecedores").val(custeio.dividas_fornecedores || "");
+        $("#edit_custeio_outras").val(custeio.custeio_outras || "");
+        $("#edit_custeio_prorrogado").val(custeio.custeio_prorrogado || "");
+        $("#edit_investimento_outras").val(custeio.investimento_outras || "");
+        $("#edit_atividade_rural").val(custeio.atividade_rural || "");
+
+        // Etapa 2 - Cultura Anual
+        $("#edit_cultura_anual").val(custeio.cultura_anual || "");
+        $("#edit_safra_prevista").val(custeio.safra_prevista || "");
+        $("#edit_ano_colheita").val(custeio.ano_colheita || "");
+        $("#edit_anterior_3").val(custeio.anterior_3 || "");
+        $("#edit_anterior_2").val(custeio.anterior_2 || "");
+        $("#edit_anterior_1").val(custeio.anterior_1 || "");
+        $("#edit_municipio_anual").val(custeio.municipio_anual || "");
+        $("#edit_matricula_anual").val(custeio.matricula_anual || "");
+        $("#edit_area_plantio_anual").val(custeio.area_plantio_anual || "");
+        $("#edit_pct_irrigacao_anual").val(custeio.pct_irrigacao_anual || "");
+        $("#edit_pct_mecanizacao_anual").val(
+          custeio.pct_mecanizacao_anual || ""
+        );
+        $("#edit_pct_consumo_anual").val(custeio.pct_consumo_anual || "");
+        $("#edit_pct_armazenamento_anual").val(
+          custeio.pct_armazenamento_anual || ""
+        );
+        $("#edit_produtividade_media_anual").val(
+          custeio.produtividade_media_anual || ""
+        );
+        $("#edit_nivel_tecnologico_anual").val(
+          custeio.nivel_tecnologico_anual || ""
+        );
+        $("#edit_receita_estim_anual").val(custeio.receita_estim_anual || "");
+        $("#edit_despesa_estim_anual").val(custeio.despesa_estim_anual || "");
+        $("#edit_ano_safra_anual").val(custeio.ano_safra_anual || "");
+
+        // Etapa 3 - Cultura Perene
+        $("#edit_cultura_perene").val(custeio.cultura_perene || "");
+        $("#edit_ano_colheita_perene").val(custeio.ano_colheita_perene || "");
+        $("#edit_area_plantada_3_perene").val(
+          custeio.area_plantada_3_perene || ""
+        );
+        $("#edit_area_plantada_2_perene").val(
+          custeio.area_plantada_2_perene || ""
+        );
+        $("#edit_area_plantada_1_perene").val(
+          custeio.area_plantada_1_perene || ""
+        );
+        $("#edit_area_renovada_3_perene").val(
+          custeio.area_renovada_3_perene || ""
+        );
+        $("#edit_area_renovada_2_perene").val(
+          custeio.area_renovada_2_perene || ""
+        );
+        $("#edit_area_renovada_1_perene").val(
+          custeio.area_renovada_1_perene || ""
+        );
+        $("#edit_municipio_perene").val(custeio.municipio_perene || "");
+        $("#edit_matricula_perene").val(custeio.matricula_perene || "");
+        $("#edit_safra_prevista_perene").val(
+          custeio.safra_prevista_perene || ""
+        );
+        $("#edit_area_plantio_atual_perene").val(
+          custeio.area_plantio_atual_perene || ""
+        );
+        $("#edit_area_renovada_safra_perene").val(
+          custeio.area_renovada_safra_perene || ""
+        );
+        $("#edit_pct_irrigacao_perene").val(custeio.pct_irrigacao_perene || "");
+        $("#edit_pct_mecanizacao_perene").val(
+          custeio.pct_mecanizacao_perene || ""
+        );
+        $("#edit_pct_consumo_perene").val(custeio.pct_consumo_perene || "");
+        $("#edit_pct_armazenamento_perene").val(
+          custeio.pct_armazenamento_perene || ""
+        );
+        $("#edit_produtividade_perene").val(custeio.produtividade_perene || "");
+        $("#edit_nivel_tecnologico_perene").val(
+          custeio.nivel_tecnologico_perene || ""
+        );
+        $("#edit_ano_safra_perene").val(custeio.ano_safra_perene || "");
+        $("#edit_preco_venda_perene").val(custeio.preco_venda_perene || "");
+        $("#edit_custo_producao_perene").val(
+          custeio.custo_producao_perene || ""
+        );
+        $("#edit_custo_renovacao_perene").val(
+          custeio.custo_renovacao_perene || ""
+        );
+
+        // Etapa 4 - Agricultura Geral
+        $("#edit_cultura_geral").val(custeio.cultura_geral || "");
+        $("#edit_ano_colheita_geral").val(custeio.ano_colheita_geral || "");
+        $("#edit_forma_cultivo_geral").val(custeio.forma_cultivo_geral || "");
+        $("#edit_ident_safra_geral").val(custeio.ident_safra_geral || "");
+        $("#edit_municipio_geral").val(custeio.municipio_geral || "");
+        $("#edit_matricula_geral").val(custeio.matricula_geral || "");
+        $("#edit_safra_prevista_geral").val(custeio.safra_prevista_geral || "");
+        $("#edit_area_plantio_geral").val(custeio.area_plantio_geral || "");
+        $("#edit_produtividade_geral").val(custeio.produtividade_geral || "");
+        $("#edit_contrato_pre_venda_geral").val(
+          custeio.contrato_pre_venda_geral || ""
+        );
+        $("#edit_nivel_tecnologico_geral").val(
+          custeio.nivel_tecnologico_geral || ""
+        );
+        $("#edit_ano_safra_geral").val(custeio.ano_safra_geral || "");
+        $("#edit_preco_venda_geral").val(custeio.preco_venda_geral || "");
+        $("#edit_custo_unitario_geral").val(custeio.custo_unitario_geral || "");
+
+        // Etapa 5 - Bovino de Corte (incluindo vendas)
+        $("#edit_municipio_corte").val(custeio.municipio_corte || "");
+        $("#edit_matricula_corte").val(custeio.matricula_corte || "");
+        $("#edit_ciclo_producao_corte").val(custeio.ciclo_producao_corte || "");
+        $("#edit_sistema_producao_corte").val(
+          custeio.sistema_producao_corte || ""
+        );
+        $("#edit_bezerros_machos_ate12_corte").val(
+          custeio.bezerros_machos_ate12_corte || ""
+        );
+        $("#edit_bezerras_femeas_ate12_corte").val(
+          custeio.bezerras_femeas_ate12_corte || ""
+        );
+        $("#edit_garrotes_machos_12a24_corte").val(
+          custeio.garrotes_machos_12a24_corte || ""
+        );
+        $("#edit_novilhotas_femeas_12a24_corte").val(
+          custeio.novilhotas_femeas_12a24_corte || ""
+        );
+        $("#edit_novilhos_machos_24a36_corte").val(
+          custeio.novilhos_machos_24a36_corte || ""
+        );
+        $("#edit_novilhas_femeas_24a36_corte").val(
+          custeio.novilhas_femeas_24a36_corte || ""
+        );
+        $("#edit_bois_acima36_corte").val(custeio.bois_acima36_corte || "");
+        $("#edit_vacas_acima36_corte").val(custeio.vacas_acima36_corte || "");
+        $("#edit_touros_reprodutores_corte").val(
+          custeio.touros_reprodutores_corte || ""
+        );
+        $("#edit_area_pastagem_corte").val(custeio.area_pastagem_corte || "");
+        $("#edit_custo_anual_corte").val(custeio.custo_anual_corte || "");
+        // Vendas - bovino de corte
+        $("#edit_bezerros_machos_venda_cab_corte").val(
+          custeio.bezerros_machos_venda_cab_corte || ""
+        );
+        $("#edit_bezerros_machos_venda_valor_corte").val(
+          custeio.bezerros_machos_venda_valor_corte || ""
+        );
+        $("#edit_bezerras_femeas_venda_cab_corte").val(
+          custeio.bezerras_femeas_venda_cab_corte || ""
+        );
+        $("#edit_bezerras_femeas_venda_valor_corte").val(
+          custeio.bezerras_femeas_venda_valor_corte || ""
+        );
+        $("#edit_garrotes_machos_venda_cab_corte").val(
+          custeio.garrotes_machos_venda_cab_corte || ""
+        );
+        $("#edit_garrotes_machos_venda_valor_corte").val(
+          custeio.garrotes_machos_venda_valor_corte || ""
+        );
+        $("#edit_novilhotas_femeas_venda_cab_corte").val(
+          custeio.novilhotas_femeas_venda_cab_corte || ""
+        );
+        $("#edit_novilhotas_femeas_venda_valor_corte").val(
+          custeio.novilhotas_femeas_venda_valor_corte || ""
+        );
+        $("#edit_novilhos_machos_venda_cab_corte").val(
+          custeio.novilhos_machos_venda_cab_corte || ""
+        );
+        $("#edit_novilhos_machos_venda_valor_corte").val(
+          custeio.novilhos_machos_venda_valor_corte || ""
+        );
+        $("#edit_novilhas_femeas_venda_cab_corte").val(
+          custeio.novilhas_femeas_venda_cab_corte || ""
+        );
+        $("#edit_novilhas_femeas_venda_valor_corte").val(
+          custeio.novilhas_femeas_venda_valor_corte || ""
+        );
+        $("#edit_bois_magros_venda_cab_corte").val(
+          custeio.bois_magros_venda_cab_corte || ""
+        );
+        $("#edit_bois_magros_venda_valor_corte").val(
+          custeio.bois_magros_venda_valor_corte || ""
+        );
+        $("#edit_vacas_magras_venda_cab_corte").val(
+          custeio.vacas_magras_venda_cab_corte || ""
+        );
+        $("#edit_vacas_magras_venda_valor_corte").val(
+          custeio.vacas_magras_venda_valor_corte || ""
+        );
+        $("#edit_bois_gordos_venda_cab_corte").val(
+          custeio.bois_gordos_venda_cab_corte || ""
+        );
+        $("#edit_bois_gordos_venda_valor_corte").val(
+          custeio.bois_gordos_venda_valor_corte || ""
+        );
+        $("#edit_vacas_gordas_venda_cab_corte").val(
+          custeio.vacas_gordas_venda_cab_corte || ""
+        );
+        $("#edit_vacas_gordas_venda_valor_corte").val(
+          custeio.vacas_gordas_venda_valor_corte || ""
+        );
+
+        // Etapa 6 - Bovino de Leite (incluindo vendas)
+        $("#edit_municipio_leite").val(custeio.municipio_leite || "");
+        $("#edit_matricula_leite").val(custeio.matricula_leite || "");
+        $("#edit_sistema_ordenha_leite").val(
+          custeio.sistema_ordenha_leite || ""
+        );
+        $("#edit_produtividade_media_leite").val(
+          custeio.produtividade_media_leite || ""
+        );
+        $("#edit_raca_predominante_leite").val(
+          custeio.raca_predominante_leite || ""
+        );
+        $("#edit_area_pastagem_leite").val(custeio.area_pastagem_leite || "");
+        $("#edit_bezerros_ate12_leite").val(custeio.bezerros_ate12_leite || "");
+        $("#edit_novilhos_leite").val(custeio.novilhos_leite || "");
+        $("#edit_novilhas_leite").val(custeio.novilhas_leite || "");
+        $("#edit_vacas_leiteiras_leite").val(
+          custeio.vacas_leiteiras_leite || ""
+        );
+        $("#edit_touros_reprodutores_leite").val(
+          custeio.touros_reprodutores_leite || ""
+        );
+        $("#edit_custo_anual_leite").val(custeio.custo_anual_leite || "");
+        $("#edit_qtd_leite_vendido_leite").val(
+          custeio.qtd_leite_vendido_leite || ""
+        );
+        $("#edit_valor_litro_leite").val(custeio.valor_litro_leite || "");
+        $("#edit_bezerros_nascidos_leite").val(
+          custeio.bezerros_nascidos_leite || ""
+        );
+        $("#edit_bezerros_nascidos_valor_leite").val(
+          custeio.bezerros_nascidos_valor_leite || ""
+        );
+        $("#edit_bezerros_desmamados_leite").val(
+          custeio.bezerros_desmamados_leite || ""
+        );
+        $("#edit_bezerros_desmamados_valor_leite").val(
+          custeio.bezerros_desmamados_valor_leite || ""
+        );
+        $("#edit_vacas_descarte_leite").val(custeio.vacas_descarte_leite || "");
+        $("#edit_vacas_descarte_valor_leite").val(
+          custeio.vacas_descarte_valor_leite || ""
+        );
+
+        $("#editCusteioModal").modal("show");
+      };
+
+      // Salva alterações
+      $("#edit-custeio-form").submit(async function (e) {
+        e.preventDefault();
+        const id = $("#edit_id").val();
+        const data = {};
+        $(this)
+          .find("input, select, textarea")
+          .each(function () {
+            if (this.id !== "edit_id") data[this.name] = $(this).val();
+          });
+        try {
+          await db.collection("custeio").doc(id).update(data);
+          alert("Solicitação atualizada com sucesso!");
+          $("#editCusteioModal").modal("hide");
+          loadCusteios();
+        } catch (err) {
+          alert("Erro ao atualizar: " + err.message);
+        }
+      });
+
+      // Deletar registro
+      window.deleteCusteio = async function (id) {
+        if (!confirm("Tem certeza que deseja deletar esta solicitação?"))
+          return;
+        try {
+          await db.collection("custeio").doc(id).delete();
+          loadCusteios();
+        } catch (err) {
+          alert("Erro ao deletar: " + err.message);
+        }
+      };
+
+      function renderUploadedFiles(prefix = "") {
+        // Lista dos campos de documentos (use o mesmo nome dos inputs)
+        const docFields = [
+          "doc_cnd",
+          "doc_cnh_proponente",
+          "doc_cnh_conjuge",
+          "doc_certidao_nascimento",
+          "doc_irpf",
+          "doc_irpf_recibo",
+          "doc_cmn",
+          "doc_ccir_beneficiado",
+          "doc_itr_beneficiado",
+          "doc_inteiro_teor",
+          "doc_onus",
+          "doc_lo",
+          "doc_roteiro_acesso",
+          "doc_car_inscricao",
+          "doc_car_demonstrativo",
+          "doc_cessao",
+          "doc_asv",
+          "doc_outorga",
+          "doc_kml_total",
+          "doc_kml_beneficiada",
+          // adicione mais conforme necessário...
+        ];
+
+        docFields.forEach((field) => {
+          const previewDiv = document.getElementById(
+            `${prefix}${field}_preview`
+          );
+          if (!previewDiv) return;
+
+          // Recupera a url do arquivo enviada (deve estar salva no Firestore)
+          // Exemplo: { doc_cnd: 'https://.../arquivo.pdf', ... }
+          const currentData = window.currentCusteioData || {};
+          const fileUrl =
+            currentData[`${prefix}${field}`] || currentData[field];
+
+          if (fileUrl) {
+            // Decide o ícone pelo tipo do arquivo
+            let icon = "ri-file-pdf-line";
+            if (fileUrl.match(/\.(jpg|jpeg|png)$/i)) icon = "ri-image-line";
+            else if (fileUrl.match(/\.pdf$/i)) icon = "ri-file-pdf-line";
+
+            previewDiv.innerHTML = `
+        <a href="${fileUrl}" target="_blank" class="text-white me-2">
+          <i class="ri-2x ${icon}" style="vertical-align: middle;"></i>
+          <span class="ms-1">${field.replace(/_/g, " ").toUpperCase()}</span>
+        </a>
+      `;
+          } else {
+            previewDiv.innerHTML = "";
+          }
+        });
+      }
+
+      // Exemplo de uso após carregar os dados para edição
+      // window.currentCusteioData = { ... }; // objeto do Firestore
+      renderUploadedFiles("edit_"); // Para modal de edição
+      renderUploadedFiles(""); // Para modal de criação (se necessário)
+    </script>
+
+    <style>
+      /* ================== SELECT2 DARK THEME CUSTOM ================== */
+
+      /* Select2 single, fundo escuro e largura total */
+      .select2-container--default .select2-selection--single {
+        background-color: #22252a !important;
+        border: 1px solid #40444b !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        border-radius: 8px !important;
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        box-shadow: none !important;
+      }
+
+      /* Container principal do select2 */
+      .select2-container {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        display: block;
+      }
+
+      /* Texto do item selecionado: branco, negrito */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__rendered {
+        color: #fff !important;
+        font-weight: bold !important;
+        opacity: 1 !important;
+        line-height: 48px !important;
+        font-size: 1rem !important;
+        padding-left: 12px !important;
+      }
+
+      /* Placeholder: cinza suave */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__placeholder {
+        color: #b0b0b0 !important;
+        opacity: 1 !important;
+        font-weight: normal !important;
+      }
+
+      /* Dropdown arrow */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__arrow
+        b {
+        border-color: #fff transparent transparent transparent !important;
+      }
+
+      /* Dropdown menu */
+      .select2-container--default .select2-dropdown {
+        background-color: #23272f !important;
+        border: 1px solid #40444b !important;
+        color: #fff !important;
+      }
+
+      /* Opções no dropdown */
+      .select2-container--default .select2-results__option {
+        background-color: #23272f !important;
+        color: #fff !important;
+        border-radius: 0 !important;
+      }
+
+      /* Hover/selecionado */
+      .select2-container--default
+        .select2-results__option--highlighted[aria-selected] {
+        background-color: #1d2228 !important;
+        color: #fff !important;
+      }
+
+      /* Estado de foco/ativo */
+      .select2-container--default .select2-selection--single:focus,
+      .select2-container--default .select2-selection--single:active {
+        border-color: #3ecf8e !important; /* verde claro */
+        box-shadow: 0 0 0 1px #3ecf8e !important;
+      }
+
+      /* Botão "x" (limpar seleção) */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__clear {
+        color: #fff !important;
+        font-size: 1.2em !important;
+        margin-right: 8px;
+        margin-left: 4px;
+        opacity: 1 !important;
+      }
+
+      /* Responsivo para telas menores */
+      @media (max-width: 600px) {
+        .select2-container--default .select2-selection--single {
+          min-height: 40px !important;
+          height: 40px !important;
+          font-size: 0.95rem !important;
+        }
+        .select2-container--default
+          .select2-selection--single
+          .select2-selection__rendered {
+          font-size: 0.95rem !important;
+          line-height: 40px !important;
+        }
+      }
+    </style>
+  </body>
+</html>

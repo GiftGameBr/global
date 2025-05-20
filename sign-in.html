@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wowdash - Bootstrap 5 Admin Dashboard HTML Template</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/images/favicon.png"
+      sizes="16x16"
+    />
+    <link rel="stylesheet" href="assets/css/remixicon.css" />
+    <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/lib/apexcharts.css" />
+    <link rel="stylesheet" href="assets/css/lib/dataTables.min.css" />
+    <link rel="stylesheet" href="assets/css/lib/editor-katex.min.css" />
+    <link rel="stylesheet" href="assets/css/lib/editor.atom-one-dark.min.css" />
+    <link rel="stylesheet" href="assets/css/lib/editor.quill.snow.css" />
+    <link rel="stylesheet" href="assets/css/lib/flatpickr.min.css" />
+    <link rel="stylesheet" href="assets/css/lib/full-calendar.css" />
+    <link rel="stylesheet" href="assets/css/lib/jquery-jvectormap-2.0.5.css" />
+    <link rel="stylesheet" href="assets/css/lib/magnific-popup.css" />
+    <link rel="stylesheet" href="assets/css/lib/slick.css" />
+    <link rel="stylesheet" href="assets/css/lib/prism.css" />
+    <link rel="stylesheet" href="assets/css/lib/file-upload.css" />
+    <link rel="stylesheet" href="assets/css/lib/audioplayer.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* Centraliza logo igual sign-up */
+      .logo-center {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .logo-center img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="auth bg-base d-flex flex-wrap">
+      <div class="auth-left d-lg-block d-none">
+        <div
+          class="d-flex align-items-center flex-column h-100 justify-content-center"
+        >
+          <img src="assets/images/auth/auth-img.png" alt="" />
+        </div>
+      </div>
+      <div
+        class="auth-right py-32 px-24 d-flex flex-column justify-content-center"
+      >
+        <div class="max-w-464-px mx-auto w-100">
+       <div class="max-w-464-px mx-auto w-100">
+          <div class="w-100 text-center mb-40">
+            <a href="index.html" class="d-inline-block">
+              <img
+                src="assets/images/logo2.png"
+                alt=""
+                style="max-width: 220px; width: 100%"
+              />
+            </a>
+            <h4 class="mb-12 mt-16">Seja bem-vindo!</h4>
+            <p class="mb-32 text-secondary-light text-lg">
+              Faça login para acessar as ferramentas de gestão e supervisão do
+              sistema.
+            </p>
+          </div>
+          <form id="login-form">
+            <div class="icon-field mb-16">
+              <span class="icon top-50 translate-middle-y">
+                <iconify-icon icon="mage:email"></iconify-icon>
+              </span>
+              <input
+                type="email"
+                id="email"
+                class="form-control h-56-px bg-neutral-50 radius-12"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="position-relative mb-20">
+              <div class="icon-field">
+                <span class="icon top-50 translate-middle-y">
+                  <iconify-icon
+                    icon="solar:lock-password-outline"
+                  ></iconify-icon>
+                </span>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control h-56-px bg-neutral-50 radius-12"
+                  placeholder="Senha"
+                  required
+                />
+              </div>
+              <span
+                class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light"
+                data-toggle="#password"
+                style="font-size: 1.25rem"
+                title="Mostrar/ocultar senha"
+              ></span>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between gap-2">
+                <div class="form-check style-check d-flex align-items-center">
+                  <input
+                    class="form-check-input border border-neutral-300"
+                    type="checkbox"
+                    value=""
+                    id="remember"
+                  />
+                  <label class="form-check-label" for="remember"
+                    >Manter Logado</label
+                  >
+                </div>
+                <a
+                  href="#"
+                  id="forgot-password-link"
+                  class="text-primary-600 fw-medium"
+                  >Esqueceu a Senha?</a
+                >
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32"
+            >
+              Logar
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Esqueceu Senha -->
+    <div
+      class="modal fade"
+      id="forgotPasswordModal"
+      tabindex="-1"
+      aria-labelledby="forgotPasswordModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content radius-12">
+          <div class="modal-header">
+            <h5 class="modal-title" id="forgotPasswordModalLabel">
+              Recuperar Senha
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="forgot-password-form">
+              <div class="mb-3">
+                <label for="forgot-email" class="form-label"
+                  >Informe seu e-mail cadastrado:</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="forgot-email"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Enviar link de recuperação
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery library js -->
+    <script src="assets/js/lib/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <!-- Iconify Font js -->
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <!-- main js -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+        measurementId: "G-HCP9MQ6YSW",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      // ========== VISUALIZAR SENHA ==========
+      $(".toggle-password").on("click", function () {
+        $(this).toggleClass("ri-eye-off-line");
+        const input = $($(this).attr("data-toggle"));
+        if (input.attr("type") === "password") {
+          input.attr("type", "text");
+        } else {
+          input.attr("type", "password");
+        }
+      });
+
+      // ========== LOGIN COM MANTER LOGADO ==========
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const remember = document.getElementById("remember").checked;
+
+          try {
+            // Se manter logado, use localStorage; senão, sessionStorage
+            if (remember) {
+              firebase
+                .auth()
+                .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+            } else {
+              firebase
+                .auth()
+                .setPersistence(firebase.auth.Auth.Persistence.SESSION);
+            }
+            await firebase.auth().signInWithEmailAndPassword(email, password);
+          
+            window.location.href = "index.html";
+          } catch (error) {
+            alert("Erro no login: " + error.message);
+          }
+        });
+
+      // ========== ESQUECEU SENHA ==========
+      // Mostra modal
+      document
+        .getElementById("forgot-password-link")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          var modal = new bootstrap.Modal(
+            document.getElementById("forgotPasswordModal")
+          );
+          modal.show();
+        });
+
+      // Envia recuperação
+      document
+        .getElementById("forgot-password-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const forgotEmail = document.getElementById("forgot-email").value;
+          try {
+            await firebase.auth().sendPasswordResetEmail(forgotEmail);
+            alert("E-mail de recuperação enviado!");
+            bootstrap.Modal.getInstance(
+              document.getElementById("forgotPasswordModal")
+            ).hide();
+          } catch (error) {
+            alert("Erro ao enviar recuperação: " + error.message);
+          }
+        });
+    </script>
+  </body>
+</html>

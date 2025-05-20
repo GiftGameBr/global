@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Cliente</title>
+    <link
+      href="assets/images/favicon.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link href="assets/css/remixicon.css" rel="stylesheet" />
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/apexcharts.css" rel="stylesheet" />
+    <link href="assets/css/lib/dataTables.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor-katex.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor.atom-one-dark.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor.quill.snow.css" rel="stylesheet" />
+    <link href="assets/css/lib/flatpickr.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/full-calendar.css" rel="stylesheet" />
+    <link href="assets/css/lib/jquery-jvectormap-2.0.5.css" rel="stylesheet" />
+    <link href="assets/css/lib/magnific-popup.css" rel="stylesheet" />
+    <link href="assets/css/lib/slick.css" rel="stylesheet" />
+    <link href="assets/css/lib/prism.css" rel="stylesheet" />
+    <link href="assets/css/lib/file-upload.css" rel="stylesheet" />
+    <link href="assets/css/lib/audioplayer.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- ... [sidebar e navbar permanecem iguais] ... -->
+    <aside class="sidebar">
+      <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+      </button>
+      <div>
+        <a href="index.html" class="sidebar-logo">
+          <img
+            src="assets/images/logo.png"
+            alt="site logo"
+            class="light-logo"
+          />
+          <img
+            src="assets/images/logo-light.png"
+            alt="site logo"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/logo-icon.png"
+            alt="site logo"
+            class="logo-icon"
+          />
+        </a>
+      </div>
+      <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="solar:home-smile-angle-outline"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Dashboard</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="index.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >AI</a
+                >
+              </li>
+              <li>
+                <a href="index-2.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >CRM</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-menu-group-title">Clientes</li>
+          <li>
+            <a href="lead-list.html">
+              <iconify-icon
+                icon="ri:user-add-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Leads</span>
+            </a>
+          </li>
+          <li>
+            <a href="client-list.html">
+              <iconify-icon
+                icon="ri:group-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Funcionarios</li>
+          <li>
+            <a href="gerente-list.html">
+              <iconify-icon
+                icon="ri:user-star-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Gerentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-list.html">
+              <iconify-icon
+                icon="ri:user-settings-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Admins</span>
+            </a>
+          </li>
+          <li>
+            <a href="agente-list.html">
+              <iconify-icon
+                icon="ri:user-search-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Agentes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Solicitações</li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bank-card-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Custeios</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bar-chart-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Investimento</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:exchange-dollar-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Comercialização</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:home-gear-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Avaliação Imóveis</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:leaf-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Licenciamento Ambiental</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Ajustes</li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <i class="ri-user-settings-line text-xl me-14 d-flex w-auto"></i>
+              <span>Regras</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="role-access.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Role & Access</a
+                >
+              </li>
+              <li>
+                <a href="assign-role.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Assign Role</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="icon-park-outline:setting-two"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Configurações</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="company.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="notification.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Notification</a
+                >
+              </li>
+              <li>
+                <a href="notification-alert.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-info-main w-auto"
+                  ></i
+                  >Notification Alert</a
+                >
+              </li>
+              <li>
+                <a href="theme.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Theme</a
+                >
+              </li>
+              <li>
+                <a href="currencies.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Currencies</a
+                >
+              </li>
+              <li>
+                <a href="language.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Languages</a
+                >
+              </li>
+              <li>
+                <a href="payment-gateway.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Payment Gateway</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+              <button type="button" class="sidebar-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon text-2xl non-active"
+                ></iconify-icon>
+                <iconify-icon
+                  icon="iconoir:arrow-right"
+                  class="icon text-2xl active"
+                ></iconify-icon>
+              </button>
+              <button type="button" class="sidebar-mobile-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <p class="mb-0 me-2 text-sm text-white" id="welcome-message">
+                Bem-vindo, <strong id="user-profile-name">...</strong>
+              </p>
+              <div class="dropdown">
+                <button
+                  class="d-flex justify-content-center align-items-center rounded-circle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="assets/images/user.png"
+                    alt="image"
+                    class="w-40-px h-40-px object-fit-cover rounded-circle"
+                  />
+                </button>
+                <div
+                  class="dropdown-menu to-top dropdown-menu-sm"
+                  style="min-width: 150px; max-width: 220px; width: 180px"
+                >
+                  <ul class="to-top-list">
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="view-profile.html"
+                        ><iconify-icon
+                          icon="solar:user-linear"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >My Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="email.html"
+                        ><iconify-icon
+                          icon="tabler:message-check"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Inbox</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="company.html"
+                        ><iconify-icon
+                          icon="icon-park-outline:setting-two"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Setting</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                        href="javascript:void(0)"
+                        id="logout-btn"
+                        ><iconify-icon
+                          icon="lucide:power"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Log Out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-main-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
+        >
+          <h6 class="fw-semibold mb-0">CLIENTES</h6>
+          <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+              <a
+                class="d-flex align-items-center gap-1 hover-text-primary"
+                href="index.html"
+              >
+                <iconify-icon
+                  class="icon text-lg"
+                  icon="solar:home-smile-angle-outline"
+                ></iconify-icon>
+                Dashboard
+              </a>
+            </li>
+            <li>-</li>
+            <li class="fw-medium">Clientes</li>
+          </ul>
+        </div>
+        <div class="card h-100 p-0 radius-12">
+          <div
+            class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
+          >
+            <div class="d-flex align-items-center flex-wrap gap-3 w-100">
+              <span class="text-md fw-medium text-secondary-light mb-0"
+                >Show</span
+              >
+              <select
+                id="items-per-page"
+                class="form-select form-select-sm w-auto"
+              >
+                <option value="1">1</option>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+              </select>
+              <div class="input-group w-auto">
+                <span class="input-group-text bg-transparent border-end-0">
+                  <iconify-icon icon="ion:search-outline"></iconify-icon>
+                </span>
+                <input
+                  type="text"
+                  id="search-input"
+                  class="form-control border-start-0"
+                  placeholder="Pesquisar..."
+                />
+              </div>
+              <select id="filter-status" class="form-select w-auto">
+                <option value="">Status</option>
+                <option value="inactive">Pendente</option>
+                <option value="active">Verificado</option>
+              </select>
+              <select id="order-by" class="form-select w-auto">
+                <option value="data_inclusao_desc">Mais Recentes</option>
+                <option value="data_inclusao_asc">Mais Antigos</option>
+                <option value="nome_completo_asc">Nome (A-Z)</option>
+                <option value="nome_completo_desc">Nome (Z-A)</option>
+                <option value="email_asc">Email (A-Z)</option>
+                <option value="email_desc">Email (Z-A)</option>
+                <option value="cidade_asc">Cidade (A-Z)</option>
+                <option value="cidade_desc">Cidade (Z-A)</option>
+                <option value="estado_asc">Estado (A-Z)</option>
+                <option value="estado_desc">Estado (Z-A)</option>
+              </select>
+              <button
+                class="btn btn-success ms-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#addClienteModal"
+              >
+                + Novo Cliente
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-24">
+            <div class="table-responsive scroll-sm">
+              <table class="table bordered-table sm-table mb-0">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Contato</th>
+                    <th>RG</th>
+                    <th>CPF</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                    <th>Criado por</th>
+                    <th>Data de Inclusão</th>
+                    <th>Empresa</th>
+                    <th>Endereço</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th>CEP</th>
+                  </tr>
+                </thead>
+                <tbody id="clientes-tbody"></tbody>
+              </table>
+            </div>
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24"
+            >
+              <span id="pagination-info">Mostrando 1 a 10 de 12 registros</span>
+              <ul
+                class="pagination d-flex flex-wrap align-items-center gap-2 justify-content-center"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0">
+              Made by <span class="text-primary-600">ComosTech</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- MODAL: Adicionar Cliente -->
+    <div
+      class="modal fade"
+      id="addClienteModal"
+      tabindex="-1"
+      aria-labelledby="addClienteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white rounded-4 shadow">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">
+              <iconify-icon
+                icon="solar:user-plus-linear"
+                class="me-2 text-primary"
+              ></iconify-icon
+              >Adicionar Cliente
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="cliente-form">
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="cliente_nome" class="form-label"
+                    >Nome Completo <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_nome"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_email" class="form-label"
+                    >Email <span class="text-danger">*</span></label
+                  ><input
+                    type="email"
+                    class="form-control"
+                    id="cliente_email"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_senha" class="form-label"
+                    >Senha <span class="text-danger">*</span></label
+                  ><input
+                    type="password"
+                    class="form-control"
+                    id="cliente_senha"
+                    required
+                    minlength="6"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_contato" class="form-label"
+                    >Número de Contato <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_contato"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_rg" class="form-label"
+                    >Número do RG <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_rg"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_cpf" class="form-label"
+                    >Número do CPF <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_cpf"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_nascimento" class="form-label"
+                    >Data de Nascimento
+                    <span class="text-danger">*</span></label
+                  ><input
+                    type="date"
+                    class="form-control"
+                    id="cliente_nascimento"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_estado_civil" class="form-label"
+                    >Estado Civil</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_estado_civil"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_empresa" class="form-label"
+                    >Nome da Empresa/Fazenda</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_empresa"
+                  />
+                </div>
+                <div class="col-6">
+                  <label for="cliente_cep" class="form-label"
+                    >Código CEP <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_cep"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="cliente_endereco" class="form-label"
+                    >Endereço <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_endereco"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="cliente_endereco1" class="form-label"
+                    >Linha de Endereço 1</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_endereco1"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_cidade" class="form-label"
+                    >Cidade <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_cidade"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_bairro" class="form-label"
+                    >Bairro <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_bairro"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="cliente_estado" class="form-label"
+                    >Estado <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="cliente_estado"
+                    required
+                  />
+                </div>
+              </div>
+              <hr class="my-4 bg-secondary" />
+              <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary px-4">
+                  Salvar Cliente
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Editar Cliente -->
+    <div
+      class="modal fade"
+      id="editClienteModal"
+      tabindex="-1"
+      aria-labelledby="editClienteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-white rounded-4 shadow">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">
+              <iconify-icon
+                icon="solar:user-edit-linear"
+                class="me-2 text-warning"
+              ></iconify-icon
+              >Editar Cliente
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="edit-cliente-form">
+              <input type="hidden" id="edit_id" />
+              <div class="row g-3">
+                <div class="col-12">
+                  <label for="edit_nome" class="form-label"
+                    >Nome Completo <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_nome"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_email" class="form-label"
+                    >Email <span class="text-danger">*</span></label
+                  ><input
+                    type="email"
+                    class="form-control"
+                    id="edit_email"
+                    required
+                    disabled
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_contato" class="form-label"
+                    >Número de Contato <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_contato"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_rg" class="form-label"
+                    >Número do RG <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_rg"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_cpf" class="form-label"
+                    >Número do CPF <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_cpf"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_nascimento" class="form-label"
+                    >Data de Nascimento
+                    <span class="text-danger">*</span></label
+                  ><input
+                    type="date"
+                    class="form-control"
+                    id="edit_nascimento"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_estado_civil" class="form-label"
+                    >Estado Civil</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_estado_civil"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_empresa" class="form-label"
+                    >Nome da Empresa/Fazenda</label
+                  ><input type="text" class="form-control" id="edit_empresa" />
+                </div>
+                <div class="col-6">
+                  <label for="edit_cep" class="form-label"
+                    >Código CEP <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_cep"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="edit_endereco" class="form-label"
+                    >Endereço <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_endereco"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="edit_endereco1" class="form-label"
+                    >Linha de Endereço 1</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_endereco1"
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_cidade" class="form-label"
+                    >Cidade <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_cidade"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_bairro" class="form-label"
+                    >Bairro <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_bairro"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_estado" class="form-label"
+                    >Estado <span class="text-danger">*</span></label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="edit_estado"
+                    required
+                  />
+                </div>
+                <div class="col-sm-6">
+                  <label for="edit_status" class="form-label">Status</label>
+                  <select id="edit_status" class="form-select">
+                    <option value="active">Verificado</option>
+                    <option value="inactive">Pendente</option>
+                  </select>
+                </div>
+              </div>
+              <hr class="my-4 bg-secondary" />
+              <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary px-4">
+                  Salvar Alterações
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/lib/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!-- Firebase libs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script>
+      // Firebase Configuração
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.firestore();
+
+      // ===== PERFIL USUÁRIO E LOGOUT =====
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          window.location.href = "sign-in.html";
+        } else {
+          const elName = document.getElementById("user-profile-name");
+          if (elName) {
+            elName.textContent =
+              user.displayName || user.email || user.phoneNumber || "Usuário";
+          }
+        }
+      });
+      const btnLogout = document.getElementById("logout-btn");
+      if (btnLogout) {
+        btnLogout.addEventListener("click", function () {
+          firebase
+            .auth()
+            .signOut()
+            .then(() => {
+              window.location.href = "sign-in.html";
+            });
+        });
+      }
+      // ===== FIM PERFIL USUÁRIO =====
+
+      // ======= CLIENTES ==========
+      const tbody = document.getElementById("clientes-tbody");
+      const searchInput = document.getElementById("search-input");
+      const pagination = document.querySelectorAll(".pagination")[0];
+      const paginationInfo = document.getElementById("pagination-info");
+      let allClientes = [];
+      let currentPage = 1;
+      let itemsPerPage = 10;
+
+      // Carregar clientes após login
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (!user) {
+          window.location.href = "sign-in.html";
+          return;
+        }
+        loadClientes();
+      });
+
+      async function loadClientes() {
+        const snapshot = await db
+          .collection("clientes")
+          .orderBy("data_inclusao", "desc")
+          .get();
+        allClientes = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        renderTable();
+      }
+
+      // Salvar Cliente (criar Auth + salvar Firestore)
+      document
+        .getElementById("cliente-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const nome = document.getElementById("cliente_nome").value;
+          const email = document.getElementById("cliente_email").value;
+          const senha = document.getElementById("cliente_senha").value;
+          const contato = document.getElementById("cliente_contato").value;
+          const rg = document.getElementById("cliente_rg").value;
+          const cpf = document.getElementById("cliente_cpf").value;
+          const nascimento =
+            document.getElementById("cliente_nascimento").value;
+          const estado_civil = document.getElementById(
+            "cliente_estado_civil"
+          ).value;
+          const empresa = document.getElementById("cliente_empresa").value;
+          const cep = document.getElementById("cliente_cep").value;
+          const endereco = document.getElementById("cliente_endereco").value;
+          const endereco1 = document.getElementById("cliente_endereco1").value;
+          const cidade = document.getElementById("cliente_cidade").value;
+          const bairro = document.getElementById("cliente_bairro").value;
+          const estado = document.getElementById("cliente_estado").value;
+          const criadoPor = firebase.auth().currentUser
+            ? firebase.auth().currentUser.displayName ||
+              firebase.auth().currentUser.email ||
+              firebase.auth().currentUser.phoneNumber
+            : "Admin";
+
+          try {
+            // Cria usuário no Auth
+            const cred = await firebase
+              .auth()
+              .createUserWithEmailAndPassword(email, senha);
+            // Salva no Firestore
+            await db.collection("clientes").doc(cred.user.uid).set({
+              nome_completo: nome,
+              email,
+              contato,
+              rg,
+              cpf,
+              nascimento,
+              estado_civil,
+              empresa,
+              cep,
+              endereco,
+              endereco1,
+              cidade,
+              bairro,
+              estado,
+              data_inclusao: new Date(),
+              tipo: "cliente",
+              status: "inactive",
+              criado_por: criadoPor,
+            });
+            alert("Cliente cadastrado com sucesso!");
+            e.target.reset();
+            bootstrap.Modal.getOrCreateInstance(
+              document.getElementById("addClienteModal")
+            ).hide();
+            loadClientes();
+          } catch (err) {
+            alert("Erro ao cadastrar cliente: " + err.message);
+          }
+        });
+
+      // Renderiza tabela de clientes
+      function renderTable() {
+        itemsPerPage = parseInt(
+          document.getElementById("items-per-page")?.value || 10,
+          10
+        );
+        // Filtros
+        const searchTerm = searchInput.value.toLowerCase();
+        const filterStatus = document.getElementById("filter-status").value;
+        const orderBy = document.getElementById("order-by").value;
+
+        let filtered = allClientes.filter((c) => {
+          const matchesSearch =
+            (c.nome_completo || "").toLowerCase().includes(searchTerm) ||
+            (c.email || "").toLowerCase().includes(searchTerm) ||
+            (c.contato || "").toLowerCase().includes(searchTerm) ||
+            (c.cpf || "").toLowerCase().includes(searchTerm) ||
+            (c.empresa || "").toLowerCase().includes(searchTerm) ||
+            (c.cidade || "").toLowerCase().includes(searchTerm) ||
+            (c.estado || "").toLowerCase().includes(searchTerm) ||
+            (c.cep || "").toLowerCase().includes(searchTerm);
+
+          const matchesStatus = !filterStatus || c.status === filterStatus;
+          return matchesSearch && matchesStatus;
+        });
+
+        // Ordenação
+        const [field, direction] = orderBy.split("_");
+        filtered.sort((a, b) => {
+          let aValue = a[field];
+          let bValue = b[field];
+          if (field === "data_inclusao") {
+            aValue = aValue?.toDate
+              ? aValue.toDate().getTime()
+              : new Date(aValue).getTime();
+            bValue = bValue?.toDate
+              ? bValue.toDate().getTime()
+              : new Date(bValue).getTime();
+          } else {
+            aValue = (aValue || "").toLowerCase();
+            bValue = (bValue || "").toLowerCase();
+          }
+          if (aValue < bValue) return direction === "asc" ? -1 : 1;
+          if (aValue > bValue) return direction === "asc" ? 1 : -1;
+          return 0;
+        });
+
+        // Paginação
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageData = filtered.slice(start, start + itemsPerPage);
+
+        tbody.innerHTML =
+          pageData
+            .map(
+              (c, i) => `
+            <tr>
+              <td>${c.nome_completo || ""}</td>
+              <td>${c.email || ""}</td>
+              <td>${c.contato || ""}</td>
+              <td>${c.rg || ""}</td>
+              <td>${c.cpf || ""}</td>
+              <td>
+                <button class="badge border-0 px-3 py-2 ${
+                  c.status === "inactive" ? "bg-warning" : "bg-success"
+                } text-white"
+                  style="min-width: 90px;" onclick="toggleStatus('${c.id}', '${
+                c.status === "inactive" ? "active" : "inactive"
+              }')" title="Clique para mudar status">
+                  ${c.status === "inactive" ? "Pendente" : "Verificado"}
+                </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-warning me-1" onclick="openEditCliente('${
+                  c.id
+                }')">Editar</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteCliente('${
+                  c.id
+                }')">Deletar</button>
+              </td>
+              <td>${c.criado_por || ""}</td>
+              <td>${
+                c.data_inclusao?.toDate
+                  ? c.data_inclusao.toDate().toLocaleDateString()
+                  : c.data_inclusao
+                  ? new Date(c.data_inclusao).toLocaleDateString()
+                  : ""
+              }</td>
+              <td>${c.empresa || ""}</td>
+              <td>${c.endereco || ""}</td>
+              <td>${c.bairro || ""}</td>
+              <td>${c.cidade || ""}</td>
+              <td>${c.estado || ""}</td>
+              <td>${c.cep || ""}</td>
+            </tr>
+          `
+            )
+            .join("") ||
+          `<tr><td colspan='15' class='text-center'>Nenhum resultado</td></tr>`;
+
+        renderPagination(filtered.length, itemsPerPage);
+        if (paginationInfo)
+          paginationInfo.textContent = `Mostrando ${
+            filtered.length === 0 ? 0 : start + 1
+          } a ${Math.min(start + itemsPerPage, filtered.length)} de ${
+            filtered.length
+          } registros`;
+      }
+
+      function renderPagination(total, itemsPerPage) {
+        const pages = Math.ceil(total / itemsPerPage);
+        pagination.innerHTML = "";
+        for (let i = 1; i <= pages; i++) {
+          const li = document.createElement("li");
+          li.className = "page-item";
+          li.innerHTML = `<a href="#" class="page-link ${
+            i === currentPage ? "active" : ""
+          }">${i}</a>`;
+          li.onclick = (e) => {
+            e.preventDefault();
+            currentPage = i;
+            renderTable();
+          };
+          pagination.appendChild(li);
+        }
+      }
+
+      searchInput.addEventListener("input", () => {
+        currentPage = 1;
+        renderTable();
+      });
+      document
+        .getElementById("filter-status")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          renderTable();
+        });
+      document.getElementById("order-by").addEventListener("change", () => {
+        currentPage = 1;
+        renderTable();
+      });
+      document
+        .getElementById("items-per-page")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          renderTable();
+        });
+
+      // ======= EDITAR CLIENTE =========
+      window.openEditCliente = function (id) {
+        const c = allClientes.find((cl) => cl.id === id);
+        if (!c) return;
+        document.getElementById("edit_id").value = c.id;
+        document.getElementById("edit_nome").value = c.nome_completo || "";
+        document.getElementById("edit_email").value = c.email || "";
+        document.getElementById("edit_contato").value = c.contato || "";
+        document.getElementById("edit_rg").value = c.rg || "";
+        document.getElementById("edit_cpf").value = c.cpf || "";
+        document.getElementById("edit_nascimento").value = c.nascimento || "";
+        document.getElementById("edit_estado_civil").value =
+          c.estado_civil || "";
+        document.getElementById("edit_empresa").value = c.empresa || "";
+        document.getElementById("edit_cep").value = c.cep || "";
+        document.getElementById("edit_endereco").value = c.endereco || "";
+        document.getElementById("edit_endereco1").value = c.endereco1 || "";
+        document.getElementById("edit_cidade").value = c.cidade || "";
+        document.getElementById("edit_bairro").value = c.bairro || "";
+        document.getElementById("edit_estado").value = c.estado || "";
+        document.getElementById("edit_status").value = c.status || "inactive";
+
+        bootstrap.Modal.getOrCreateInstance(
+          document.getElementById("editClienteModal")
+        ).show();
+      };
+
+      document
+        .getElementById("edit-cliente-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const id = document.getElementById("edit_id").value;
+          const data = {
+            nome_completo: document.getElementById("edit_nome").value,
+            contato: document.getElementById("edit_contato").value,
+            rg: document.getElementById("edit_rg").value,
+            cpf: document.getElementById("edit_cpf").value,
+            nascimento: document.getElementById("edit_nascimento").value,
+            estado_civil: document.getElementById("edit_estado_civil").value,
+            empresa: document.getElementById("edit_empresa").value,
+            cep: document.getElementById("edit_cep").value,
+            endereco: document.getElementById("edit_endereco").value,
+            endereco1: document.getElementById("edit_endereco1").value,
+            cidade: document.getElementById("edit_cidade").value,
+            bairro: document.getElementById("edit_bairro").value,
+            estado: document.getElementById("edit_estado").value,
+            status: document.getElementById("edit_status").value,
+          };
+          try {
+            await db.collection("clientes").doc(id).update(data);
+            alert("Cliente atualizado com sucesso!");
+            bootstrap.Modal.getOrCreateInstance(
+              document.getElementById("editClienteModal")
+            ).hide();
+            loadClientes();
+          } catch (err) {
+            alert("Erro ao atualizar: " + err.message);
+          }
+        });
+
+      // ======= DELETAR CLIENTE =========
+      window.deleteCliente = async function (id) {
+        if (!confirm("Tem certeza que deseja deletar este cliente?")) return;
+        try {
+          await db.collection("clientes").doc(id).delete();
+          alert("Cliente deletado com sucesso!");
+          loadClientes();
+        } catch (err) {
+          alert("Erro ao deletar: " + err.message);
+        }
+      };
+
+      // ======= MUDAR STATUS CLIENTE =========
+      window.toggleStatus = async function (id, newStatus) {
+        try {
+          await db.collection("clientes").doc(id).update({ status: newStatus });
+          loadClientes();
+        } catch (err) {
+          alert("Erro ao atualizar status: " + err.message);
+        }
+      };
+    </script>
+  </body>
+</html>

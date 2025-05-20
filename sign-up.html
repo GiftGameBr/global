@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro via Celular</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/images/favicon.png"
+      sizes="16x16"
+    />
+    <link rel="stylesheet" href="assets/css/remixicon.css" />
+    <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="auth bg-base d-flex flex-wrap">
+    <div class="auth-left d-lg-block d-none">
+      <div
+        class="d-flex align-items-center flex-column h-100 justify-content-center"
+      >
+        <img src="assets/images/auth/auth-img.png" alt="" />
+      </div>
+    </div>
+
+    <div
+      class="auth-right py-32 px-24 d-flex flex-column justify-content-center"
+    >
+      <div class="max-w-464-px mx-auto w-100">
+        <div class="mb-4 text-center">
+          <a href="index.html" class="mb-40 max-w-290-px d-block">
+            <img src="assets/images/logo.png" alt="Logo" class="mx-auto" />
+          </a>
+          <h4 class="mb-12">Cadastro por Telefone</h4>
+          <p class="mb-32 text-secondary-light text-lg">
+            Informe seu número de celular para continuar
+          </p>
+        </div>
+
+        <form id="phone-form">
+          <div class="icon-field mb-16">
+            <span class="icon top-50 translate-middle-y">
+              <iconify-icon icon="solar:phone-bold"></iconify-icon>
+            </span>
+            <input
+              type="tel"
+              id="phone"
+              class="form-control h-56-px bg-neutral-50 radius-12"
+              placeholder="+55 11 91234-5678"
+              required
+            />
+          </div>
+          <div id="recaptcha-container" class="mb-16"></div>
+          <button
+            type="button"
+            id="send-code"
+            class="btn btn-primary text-sm px-12 py-16 w-100 radius-12"
+          >
+            Enviar Código
+          </button>
+        </form>
+
+        <form id="code-form" style="display: none" class="mt-4">
+          <div class="icon-field mb-16">
+            <span class="icon top-50 translate-middle-y">
+              <iconify-icon icon="solar:password-check-linear"></iconify-icon>
+            </span>
+            <input
+              type="text"
+              id="code"
+              class="form-control h-56-px bg-neutral-50 radius-12"
+              placeholder="Código SMS"
+              required
+            />
+          </div>
+          <button
+            type="button"
+            id="verify-code"
+            class="btn btn-success text-sm px-12 py-16 w-100 radius-12"
+          >
+            Verificar
+          </button>
+        </form>
+
+        <div class="mt-32 text-center text-sm">
+          <p class="mb-0">
+            Já tem uma conta?
+            <a href="sign-in.html" class="text-primary-600 fw-semibold"
+              >Entrar</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      let confirmationResult;
+
+      window.onload = () => {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+          "recaptcha-container",
+          {
+            size: "normal",
+            callback: () => {
+              document.getElementById("send-code").disabled = false;
+            },
+            "expired-callback": () => {
+              alert("ReCAPTCHA expirou, recarregue a página.");
+            },
+          }
+        );
+        recaptchaVerifier.render();
+      };
+
+      document
+        .getElementById("send-code")
+        .addEventListener("click", async () => {
+          const phone = document.getElementById("phone").value;
+          try {
+            confirmationResult = await firebase
+              .auth()
+              .signInWithPhoneNumber(phone, window.recaptchaVerifier);
+            alert("Código enviado via SMS!");
+            document.getElementById("code-form").style.display = "block";
+          } catch (error) {
+            alert("Erro ao enviar código: " + error.message);
+          }
+        });
+
+      document
+        .getElementById("verify-code")
+        .addEventListener("click", async () => {
+          const code = document.getElementById("code").value;
+          try {
+            await confirmationResult.confirm(code);
+            alert("Usuário autenticado com sucesso!");
+            window.location.href = "index.html";
+          } catch (error) {
+            alert("Erro ao verificar código: " + error.message);
+          }
+        });
+    </script>
+  </body>
+</html>
