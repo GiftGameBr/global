@@ -435,12 +435,12 @@
                 <thead>
                   <tr>
                     <th>Cliente</th>
-                    <th>Produtor Rural</th>
-                    <th>CPF/CNPJ</th>
-                    <th>Perfil</th>
-                    <th>Município</th>
-                    <th>Status</th>
-                    <th>Ação</th>
+                    <th>Valor Crédito</th>
+                    <th>Responsável 1</th>
+                    <th>Responsável 2</th>
+                    <th>Status Documentação</th>
+                    <th>Status Solicitação</th>
+                    <th>Ações</th>
                     <th>Criado por</th>
                     <th>Data Solicitação</th>
                   </tr>
@@ -499,6 +499,44 @@
           </div>
           <div class="modal-body">
             <form id="custeio-form">
+              <div class="mb-6">
+                <label class="form-label text-white">
+                  Cliente <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-select bg-dark text-white border-secondary"
+                  id="cliente_id"
+                  name="cliente_id"
+                  required
+                  style="width: 100%"
+                >
+                  <option value="">Selecione o cliente...</option>
+                </select>
+              </div>
+              <!-- Adicionar no seu modal de ADD, por exemplo dentro do form -->
+              <div class="mb-3">
+                <label for="valor_credito_add" class="form-label"
+                  >Valor do Crédito Desejado (R$)</label
+                >
+                <div class="d-flex align-items-center gap-3">
+                 <!-- No modal de adicionar -->
+<input
+  type="range"
+  class="form-range"
+  min="1000000"
+  max="100000000"
+  step="10000"
+  id="valor_credito_add"
+  name="valor_credito"
+  value="1000000"
+  style="width: 80%"
+  oninput="document.getElementById('valorCreditoRangeLabelAdd').innerText = parseFloat(this.value).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})"
+/>
+<span id="valorCreditoRangeLabelAdd">1.000.000,00</span>
+
+                </div>
+              </div>
+
               <ul
                 class="nav nav-pills justify-content-center mb-4 gap-2"
                 id="wizard-steps"
@@ -580,20 +618,6 @@
               <div class="custeio-step" id="step-1">
                 <h6 class="fw-semibold mb-2 mt-3">Produtor Rural</h6>
                 <div class="row g-3">
-                  <div class="col-sm-4">
-                    <label class="form-label text-white">
-                      Cliente <span class="text-danger">*</span>
-                    </label>
-                    <select
-                      class="form-select bg-dark text-white border-secondary"
-                      id="cliente_id"
-                      name="cliente_id"
-                      required
-                      style="width: 100%"
-                    >
-                      <option value="">Selecione o cliente...</option>
-                    </select>
-                  </div>
                   <div class="col-sm-4">
                     <label class="form-label">Produtor Rural</label>
                     <select
@@ -2314,6 +2338,28 @@
                     <option value="">Não atribuído</option>
                     <!-- opções dinâmicas -->
                   </select>
+                </div>
+                <!-- Adicionar no seu modal de ADD, por exemplo dentro do form -->
+                     <div class="mb-3">
+                <label for="valor_credito_add" class="form-label"
+                  >Valor do Crédito Desejado (R$)</label
+                >
+                <div class="d-flex align-items-center gap-3">
+                  <!-- No modal de editar -->
+<input
+  type="range"
+  class="form-range"
+  min="1000000"
+  max="100000000"
+  step="10000"
+  id="valor_credito_edit"
+  name="valor_credito"
+  value="1000000"
+  style="width: 80%"
+  oninput="document.getElementById('valorCreditoRangeLabelEdit').innerText = parseFloat(this.value).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})"
+/>
+<span id="valorCreditoRangeLabelEdit">1.000.000,00</span>
+
                 </div>
               </div>
 
@@ -4096,16 +4142,31 @@
         $("#wizard-steps .nav-link").removeClass("active");
         $("#nav-step-" + n).addClass("active");
       }
-      $("#addCusteioModal").on("shown.bs.modal", function () {
-        showStepWizard(1);
-        $("#custeio-form")[0].reset();
-        loadClientes();
-      });
-      $(document).on("click", "#wizard-steps .nav-link", function () {
-        let n = $(this).data("step");
-        showStepWizard(n);
-      });
+$("#addCusteioModal").on("shown.bs.modal", function () {
+  showStepWizard(1);
+  $("#custeio-form")[0].reset();
+  loadClientes();
 
+  // Sempre zera o range do add
+  setTimeout(function () {
+    $("#valor_credito_add").val(1000000).trigger("input");
+    $("#valorCreditoRangeLabelAdd").text(
+      parseFloat(1000000).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    );
+  }, 50);
+});
+
+$("#valor_credito_add").on("input", function () {
+  $("#valorCreditoRangeLabelAdd").text(
+    parseFloat(this.value).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  );
+});
       // Submissão do formulário (salva no Firestore)
       $("#custeio-form").submit(async function (e) {
         e.preventDefault();
@@ -4139,7 +4200,24 @@
       let allCusteios = [];
       let currentPage = 1;
       let clientesList = [];
+      window.gerentesList = [];
+      window.agentesList = [];
+      async function loadGerentes() {
+        const snap = await db.collection("gerentes").get();
+        window.gerentesList = snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+      }
 
+      // Função para carregar agentes
+      async function loadAgentes() {
+        const snap = await db.collection("agentes").get();
+        window.agentesList = snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+      }
       // Função principal para buscar e renderizar
       async function loadCusteios() {
         let snapshot = await db
@@ -4183,7 +4261,7 @@
         $("#custeio-tbody").html(
           pageData
             .map((c) => {
-              // Busca o nome do cliente na lista carregada
+              // Nome do cliente
               let clienteNome = "";
               if (
                 c.cliente_id &&
@@ -4193,21 +4271,77 @@
                 const cli = clientesList.find((cl) => cl.id === c.cliente_id);
                 clienteNome = cli ? cli.nome : "";
               }
+
+              // Valor crédito (ajuste conforme o nome do seu campo)
+              let valorCredito = c.valor_credito || c.valorCredito || "";
+
+              // Buscar nome do gerente (Responsável 1)
+              let gerenteNome = "";
+              if (c.responsavelGerenteId && window.gerentesList) {
+                const gerente = window.gerentesList.find(
+                  (g) => g.id === c.responsavelGerenteId
+                );
+                gerenteNome =
+                  gerente && (gerente.nome_completo || gerente.email)
+                    ? gerente.nome_completo || gerente.email
+                    : c.responsavelGerenteId || "";
+              } else {
+                gerenteNome = c.responsavelGerenteId || "";
+              }
+
+              // Buscar nome do responsável 2 (pode ser gerente ou agente)
+              let resp2Nome = "";
+              if (c.responsavelSecundarioId) {
+                let agente = window.agentesList
+                  ? window.agentesList.find(
+                      (a) => a.id === c.responsavelSecundarioId
+                    )
+                  : null;
+                if (agente) {
+                  resp2Nome =
+                    (agente.nome_completo || agente.email || "") + " (Agente)";
+                } else if (window.gerentesList) {
+                  let gerente2 = window.gerentesList.find(
+                    (g) => g.id === c.responsavelSecundarioId
+                  );
+                  resp2Nome =
+                    gerente2 && (gerente2.nome_completo || gerente2.email)
+                      ? gerente2.nome_completo || gerente2.email
+                      : c.responsavelSecundarioId;
+                } else {
+                  resp2Nome = c.responsavelSecundarioId;
+                }
+              }
+
+              // Status documentação
+              let statusDocs = "Pendente";
+              if (c.documentos && Object.keys(c.documentos).length > 0) {
+                statusDocs = "Enviado";
+              }
+
+              // Status da solicitação (badge)
+              let statusBadge =
+                c.status === "inactive"
+                  ? '<span class="badge px-3 py-2 bg-warning text-white">Pendente</span>'
+                  : '<span class="badge px-3 py-2 bg-success text-white">Aprovado</span>';
+
+              // Botão documentos
+              const btnDocs = `<button class="btn btn-sm btn-info me-1" onclick="openEditCusteio('${c.id}'); showEditStepWizard(7);">Documentos</button>`;
+
               return `
       <tr>
         <td>${clienteNome || ""}</td>
-        <td>${c.produtor_tipo || ""}</td>
-        <td>${c.cpf_cnpj || ""}</td>
-        <td>${c.perfil_produtor || ""}</td>
-        <td>${c.municipio_anual || ""}</td>
+        <td>${valorCredito || ""}</td>
+        <td>${gerenteNome}</td>
+        <td>${resp2Nome}</td>
         <td>
           <span class="badge px-3 py-2 ${
-            c.status === "inactive" ? "bg-warning" : "bg-success"
-          } text-white">
-            ${c.status === "inactive" ? "Pendente" : "Aprovado"}
-          </span>
+            statusDocs === "Enviado" ? "bg-success" : "bg-warning"
+          } text-white">${statusDocs}</span>
         </td>
+        <td>${statusBadge}</td>
         <td class="text-center">
+          ${btnDocs}
           <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${
             c.id
           }')">Editar</button>
@@ -4292,7 +4426,9 @@
       // Busca/filtro/paginação/lista sempre carrega clientes antes de montar a tabela
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-          loadClientes().then(loadCusteios);
+          Promise.all([loadClientes(), loadGerentes(), loadAgentes()]).then(
+            loadCusteios
+          );
         }
       });
 
@@ -4342,6 +4478,24 @@
         $("#edit-responsavel-secundario").val(
           custeio.responsavelSecundarioId || ""
         );
+
+        // Valor do crédito
+          let valorCredito = custeio.valor_credito || 1000000;
+  $("#valor_credito_edit").val(valorCredito).trigger("input");
+  $("#valorCreditoRangeLabelEdit").text(
+    parseFloat(valorCredito).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  );
+  $("#valor_credito_edit").on("input", function () {
+  $("#valorCreditoRangeLabelEdit").text(
+    parseFloat(this.value).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  );
+});
 
         // Etapa 1 - Produtor Rural
         $("#edit_produtor_tipo").val(custeio.produtor_tipo || "");
