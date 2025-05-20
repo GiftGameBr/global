@@ -608,16 +608,7 @@
                     Bovino de Leite
                   </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    type="button"
-                    data-step="7"
-                    id="nav-step-7"
-                  >
-                    Documentos
-                  </button>
-                </li>
+    
               </ul>
 
               <!-- Etapa 1: PRODUTOR RURAL -->
@@ -2017,269 +2008,7 @@
                 </div>
               </div>
               <!-- Etapa 7: DOCUMENTOS -->
-              <div class="custeio-step d-none" id="step-7">
-                <h6 class="fw-semibold mt-4 mb-2">Envio de Documentação</h6>
-                <p class="mb-3 text-white-50">
-                  Anexe os documentos obrigatórios para análise do crédito.
-                  <span class="fw-semibold text-warning">
-                    Formatos aceitos: PDF, JPG, PNG.
-                  </span>
-                </p>
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >CND - Certidão Negativa de Débitos</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_cnd"
-                      id="doc_cnd"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">CNH - Proponente</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_cnh_proponente"
-                      id="doc_cnh_proponente"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_cnh_proponente_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">CNH - Cônjuge</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_cnh_conjuge"
-                      id="doc_cnh_conjuge"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_cnh_conjuge_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Certidão de Nascimento/Casamento</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_certidao_nascimento"
-                      id="doc_certidao_nascimento"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div
-                      id="doc_certidao_nascimento_preview"
-                      class="mt-2"
-                    ></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Declaração de IRPF</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_irpf"
-                      id="doc_irpf"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_irpf_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Recibo de IRPF</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_irpf_recibo"
-                      id="doc_irpf_recibo"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_irpf_recibo_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Declaração CMN (Renegociações)</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_cmn"
-                      id="doc_cmn"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_cmn_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">CCIR - Imóvel Beneficiado</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_ccir_beneficiado"
-                      id="doc_ccir_beneficiado"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_ccir_beneficiado_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >CND ou Quitação do ITR - Imóvel</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_itr_beneficiado"
-                      id="doc_itr_beneficiado"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_itr_beneficiado_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Certidão de Inteiro Teor</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_inteiro_teor"
-                      id="doc_inteiro_teor"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_inteiro_teor_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Certidão de Ônus</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_onus"
-                      id="doc_onus"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_onus_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Licença Ambiental de Operação (LO)</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_lo"
-                      id="doc_lo"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_lo_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Roteiro de Acesso ao Imóvel</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_roteiro_acesso"
-                      id="doc_roteiro_acesso"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_roteiro_acesso_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Cadastro Ambiental Rural (CAR) - Inscrição</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_car_inscricao"
-                      id="doc_car_inscricao"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_car_inscricao_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >CAR - Demonstrativo de Situação</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_car_demonstrativo"
-                      id="doc_car_demonstrativo"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_car_demonstrativo_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Documentos de Cessão</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_cessao"
-                      id="doc_cessao"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_cessao_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Autorização para Supressão de Vegetação (ASV)</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_asv"
-                      id="doc_asv"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_asv_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Outorga d'Água</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_outorga"
-                      id="doc_outorga"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_outorga_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >KML da Área Total do Imóvel</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_kml_total"
-                      id="doc_kml_total"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_kml_total_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">KML da Área Beneficiada</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="doc_kml_beneficiada"
-                      id="doc_kml_beneficiada"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="doc_kml_beneficiada_preview" class="mt-2"></div>
-                  </div>
-                  <!-- Adicione mais campos conforme necessário -->
-                  <div class="col-12 mt-4">
-                    <small class="text-white-50">
-                      Observação: O prazo de validade das certidões (Ônus,
-                      Escritura e Quinzenária) varia entre bancos (60 a 90 dias)
-                      e a exigência do tipo de certidão depende do banco
-                      financiador.
-                    </small>
-                  </div>
-                </div>
-              </div>
+           
 
               <!-- Botão de salvar sempre visível -->
               <div class="d-flex justify-content-end mt-4">
@@ -2437,16 +2166,7 @@
                     Bovino de Leite
                   </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="nav-link"
-                    type="button"
-                    data-step="7"
-                    id="edit-nav-step-7"
-                  >
-                    Documentos
-                  </button>
-                </li>
+  
               </ul>
               <!-- Etapa 1: PRODUTOR RURAL -->
               <div class="edit-custeio-step" id="edit-step-1">
@@ -3842,248 +3562,7 @@
                 </div>
               </div>
               <!-- Etapa 7: DOCUMENTOS (EDIT) -->
-              <div class="edit-custeio-step d-none" id="edit-step-7">
-                <h6 class="fw-semibold mt-4 mb-2">Envio de Documentação</h6>
-                <p class="mb-3 text-white-50">
-                  Anexe os documentos obrigatórios para análise do crédito.
-                  <span class="fw-semibold text-warning"
-                    >Formatos aceitos: PDF, JPG, PNG.</span
-                  >
-                </p>
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >CND - Certidão Negativa de Débitos</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_cnd"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">CNH - Proponente</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_cnh_proponente"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">CNH - Cônjuge</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_cnh_conjuge"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Certidão de Nascimento/Casamento</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_certidao_nascimento"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Declaração de IRPF</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_irpf"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Recibo de IRPF</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_irpf_recibo"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Declaração CMN (Renegociações)</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_cmn"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">CCIR - Imóvel Beneficiado</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_ccir_beneficiado"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >CND ou Quitação do ITR - Imóvel</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_itr_beneficiado"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Certidão de Inteiro Teor</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_inteiro_teor"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Certidão de Ônus</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_onus"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Licença Ambiental de Operação (LO)</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_lo"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Roteiro de Acesso ao Imóvel</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_roteiro_acesso"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Cadastro Ambiental Rural (CAR) - Inscrição</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_car_inscricao"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >CAR - Demonstrativo de Situação</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_car_demonstrativo"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Documentos de Cessão</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_cessao"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >Autorização para Supressão de Vegetação (ASV)</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_asv"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">Outorga d'Água</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_outorga"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label"
-                      >KML da Área Total do Imóvel</label
-                    >
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_kml_total"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label">KML da Área Beneficiada</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      name="edit_doc_kml_beneficiada"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                    />
-                    <div id="edit_doc_cnd_preview" class="mt-2"></div>
-                  </div>
-
-                  <!-- Adicione mais campos para imóveis em garantia, pecuária etc., conforme necessário -->
-
-                  <div class="col-12 mt-4">
-                    <small class="text-white-50">
-                      Observação: O prazo de validade das certidões (Ônus,
-                      Escritura e Quinzenária) varia entre bancos (60 a 90 dias)
-                      e a exigência do tipo de certidão depende do banco
-                      financiador.
-                    </small>
-                  </div>
-                </div>
-              </div>
+              
 
               <div class="d-flex justify-content-end mt-4">
                 <button type="submit" class="btn btn-primary">
@@ -4187,34 +3666,43 @@ $("#valorCreditoRangeLabelAdd").text(
 );
 
       // Submissão do formulário (salva no Firestore)
-      $("#custeio-form").submit(async function (e) {
-        e.preventDefault();
-        if (!$("#cliente_id").val()) {
-          alert("Selecione o cliente para continuar!");
-          $("#cliente_id").select2("open");
-          return;
-        }
-        const formData = {};
-        $(this)
-          .find("input, select, textarea")
-          .each(function () {
-            formData[this.name] = $(this).val();
-          });
-        formData.createdAt = new Date();
-        formData.status = "inactive";
-        // Grava quem criou
-        const user = firebase.auth().currentUser;
-        formData.addedBy =
-          (user && (user.displayName || user.email || user.phoneNumber)) ||
-          "Usuário";
-        try {
-          await db.collection("custeio").add(formData);
-          alert("Solicitação salva!");
-          $("#addCusteioModal").modal("hide");
-        } catch (err) {
-          alert("Erro ao salvar: " + err.message);
-        }
-      });
+     $("#custeio-form").submit(async function (e) {
+  e.preventDefault();
+
+  // Desabilita o botão para evitar duplo clique
+  $("#save-custeio").prop("disabled", true).text("Salvando...");
+
+  if (!$("#cliente_id").val()) {
+    alert("Selecione o cliente para continuar!");
+    $("#cliente_id").select2("open");
+    $("#save-custeio").prop("disabled", false).text("Salvar Solicitação");
+    return;
+  }
+  const formData = {};
+  $(this)
+    .find("input, select, textarea")
+    .each(function () {
+      formData[this.name] = $(this).val();
+    });
+  formData.createdAt = new Date();
+  formData.status = "inactive";
+  const user = firebase.auth().currentUser;
+  formData.addedBy =
+    (user && (user.displayName || user.email || user.phoneNumber)) ||
+    "Usuário";
+  try {
+    await db.collection("custeio").add(formData);
+    alert("Solicitação salva!");
+    $("#addCusteioModal").modal("hide");
+    // Reabilita o botão após sucesso
+    $("#save-custeio").prop("disabled", false).text("Salvar Solicitação");
+  } catch (err) {
+    alert("Erro ao salvar: " + err.message);
+    // Reabilita o botão também se der erro!
+    $("#save-custeio").prop("disabled", false).text("Salvar Solicitação");
+  }
+});
+
 
       let allCusteios = [];
       let currentPage = 1;
