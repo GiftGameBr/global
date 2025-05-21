@@ -2022,6 +2022,33 @@
       </div>
     </div>
 
+
+<div class="modal fade" id="uploadDocumentosModal" tabindex="-1" aria-labelledby="uploadDocumentosModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-dark text-white rounded-4 shadow">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold">
+          <iconify-icon icon="ri:file-upload-line" class="me-2 text-info"></iconify-icon>
+          Upload de Foto/Documento
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-upload-documento">
+          <div class="mb-3">
+            <label for="inputFotoDocumento" class="form-label">Selecione a foto ou documento:</label>
+            <input class="form-control" type="file" id="inputFotoDocumento" name="foto_documento" accept="image/*" required>
+          </div>
+          <div id="previewFotoDocumento" class="mb-3 text-center"></div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
     <!-- MODAL: Editar Solicitação de Crédito de Custeio -->
     <div
       class="modal fade"
@@ -3597,7 +3624,7 @@
       };
       if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
-
+   
       // Protege a página: redireciona para login se não estiver autenticado e exibe nome
       firebase.auth().onAuthStateChanged(function (user) {
         if (!user) {
@@ -3891,7 +3918,13 @@ function renderTable() {
             statusSolClass = "bg-secondary";
         }
 
-        const btnDocs = `<button class="btn btn-sm btn-info me-1" onclick="openEditCusteio('${c.id}'); showEditStepWizard(7);">Documentos</button>`;
+        const btnDocs = `<button
+  class="btn btn-secondary"
+  data-bs-toggle="modal"
+  data-bs-target="#uploadDocumentosModal"
+>
+  Documentos
+</button>`;
 
         return `
 <tr>
@@ -4489,6 +4522,31 @@ window.updateStatusSol = async function(id, status) {
       renderUploadedFiles("edit_"); // Para modal de edição
       renderUploadedFiles(""); // Para modal de criação (se necessário)
     </script>
+    <script>
+document.getElementById('inputFotoDocumento').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  const preview = document.getElementById('previewFotoDocumento');
+  preview.innerHTML = "";
+  if (file) {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.style.maxWidth = "200px";
+    img.style.maxHeight = "200px";
+    img.classList.add('img-thumbnail', 'mt-2');
+    preview.appendChild(img);
+  }
+});
+
+document.getElementById('form-upload-documento').addEventListener('submit', function(e) {
+  e.preventDefault();
+  // Aqui você pode implementar o envio do arquivo (por AJAX ou formulário normal)
+  alert('Arquivo enviado! (simulação)');
+  // Fechar modal após envio simulado
+  var modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
+  modal.hide();
+});
+</script>
+
     <script>
       async function preencherResponsaveisCusteio() {
         const gerenteSelect = document.getElementById(
