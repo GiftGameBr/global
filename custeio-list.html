@@ -4614,17 +4614,25 @@ $('#tipoDocumento').on('change', async function() {
   const data = docSnap.exists ? docSnap.data() : {};
   const documentos = data.documentos || {};
 
-  if (documentos[tipo]) {
-    const url = documentos[tipo];
-    $('#previewFotoDocumento').html(`
-      <div class="mb-2 text-center">
-        <a href="${url}" target="_blank">
-          <img src="${url}" alt="Documento ${tipo}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
-        </a>
-        <div class="mt-1"><a href="${url}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a></div>
+if (documentos[tipo]) {
+  const url = documentos[tipo];
+  $('#previewFotoDocumento').html(`
+    <div class="mb-2 text-center">
+      <a href="${url}" target="_blank">
+        <img src="${url}" alt="Documento ${tipo}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
+      </a>
+      <div class="mt-1">
+        <a href="${url}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a>
+        <button type="button" class="btn btn-danger btn-sm ms-2" id="btnExcluirDocumento">Excluir</button>
       </div>
-    `);
-  }
+    </div>
+  `);
+
+  // Adicione o evento do botão Excluir (dentro do bloco, para funcionar após cada render)
+  $('#btnExcluirDocumento').on('click', function() {
+    excluirDocumentoDoCliente(tipo, url);
+  });
+}
 });
 
 // Upload e gravação no Firestore (com tipo CNH/CPF)
@@ -4706,6 +4714,33 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
     }
   );
 });
+async function excluirDocumentoDoCliente(tipo, url) {
+  if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`)) return;
+  const clienteId = clienteIdSelecionado;
+  if (!clienteId) return alert('Cliente não definido.');
+
+  try {
+    // Remove o campo do documento do Firestore
+    await firebase.firestore()
+      .collection('clientes')
+      .doc(clienteId)
+      .update({
+        [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete()
+      });
+
+    // Remove o arquivo do Storage
+    if (url) {
+      const storageRef = storage.refFromURL(url);
+      await storageRef.delete();
+    }
+
+    // Limpa o preview
+    $('#previewFotoDocumento').html('');
+    alert('Documento excluído com sucesso!');
+  } catch (error) {
+    alert('Erro ao excluir documento: ' + error.message);
+  }
+}
 
 
 </script>
