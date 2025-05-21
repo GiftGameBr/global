@@ -4563,21 +4563,16 @@ window.updateStatusSol = async function(id, status) {
       renderUploadedFiles(""); // Para modal de criação (se necessário)
     </script>
     <script>
-// Variável global para o cliente selecionado na tabela
 let clienteIdSelecionado = null;
 
-// Ao clicar em qualquer botão "Documentos", guarda o clienteId
+// Capta o clienteId ao clicar no botão Documentos
 document.addEventListener('click', function(e) {
   if (e.target && e.target.classList.contains('btn-upload-documento')) {
     clienteIdSelecionado = e.target.getAttribute('data-cliente-id');
   }
 });
 
-function getClienteIdSelecionado() {
-  return clienteIdSelecionado;
-}
-
-// Preview antes do upload
+// Preview antes do upload (imagem local)
 document.getElementById('inputFotoDocumento').addEventListener('change', function(e) {
   const file = e.target.files[0];
   const preview = document.getElementById('previewFotoDocumento');
@@ -4592,11 +4587,50 @@ document.getElementById('inputFotoDocumento').addEventListener('change', functio
   }
 });
 
+// Limpa preview e campos ao abrir o modal
+$('#uploadDocumentosModal').on('show.bs.modal', function () {
+  $('#previewFotoDocumento').html('');
+  $('#inputFotoDocumento').val('');
+  $('#tipoDocumento').val('');
+});
+
+// Limpa preview e variáveis ao fechar o modal
+$('#uploadDocumentosModal').on('hidden.bs.modal', function () {
+  $('#previewFotoDocumento').html('');
+  $('#inputFotoDocumento').val('');
+  $('#tipoDocumento').val('');
+  clienteIdSelecionado = null;
+});
+
+// Sempre que selecionar um tipo, busca o doc desse cliente e mostra preview
+$('#tipoDocumento').on('change', async function() {
+  $('#previewFotoDocumento').html('');
+  const tipo = this.value;
+  const clienteId = clienteIdSelecionado;
+  if (!clienteId || !tipo) return;
+
+  // Busca o documento do cliente no Firestore
+  const docSnap = await firebase.firestore().collection('clientes').doc(clienteId).get();
+  const data = docSnap.exists ? docSnap.data() : {};
+  const documentos = data.documentos || {};
+
+  if (documentos[tipo]) {
+    const url = documentos[tipo];
+    $('#previewFotoDocumento').html(`
+      <div class="mb-2 text-center">
+        <a href="${url}" target="_blank">
+          <img src="${url}" alt="Documento ${tipo}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
+        </a>
+        <div class="mt-1"><a href="${url}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a></div>
+      </div>
+    `);
+  }
+});
+
 // Upload e gravação no Firestore (com tipo CNH/CPF)
 document.getElementById('form-upload-documento').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  // NOVO: tipo do documento
   const tipoDocumento = document.getElementById('tipoDocumento').value;
   if (!tipoDocumento) return alert('Selecione o tipo de documento!');
 
@@ -4604,7 +4638,7 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
   const file = fileInput.files[0];
   if (!file) return alert('Selecione uma imagem!');
 
-  const clienteId = getClienteIdSelecionado();
+  const clienteId = clienteIdSelecionado;
   if (!clienteId) return alert('Selecione um cliente antes de enviar documento.');
 
   const progressContainer = document.getElementById('uploadProgressBarContainer');
@@ -4634,49 +4668,45 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
       fileInput.disabled = false;
     },
     function() {
-      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+      uploadTask.snapshot.ref.getDownloadURL().then(async function(downloadURL) {
         // Grava como objeto tipo { CNH: url, CPF: url }
-        firebase.firestore()
+        await firebase.firestore()
           .collection('clientes')
           .doc(clienteId)
           .set({
             documentos: {
               [tipoDocumento]: downloadURL
             }
-          }, { merge: true })
-          .then(function() {
-            // Preview final
-            const preview = document.getElementById('previewFotoDocumento');
-            preview.innerHTML = "";
-            const img = document.createElement('img');
-            img.src = downloadURL;
-            img.style.maxWidth = "200px";
-            img.style.maxHeight = "200px";
-            img.classList.add('img-thumbnail', 'mt-2');
-            preview.appendChild(img);
+          }, { merge: true });
+        
+        // Mostra o preview atualizado após upload
+        $('#previewFotoDocumento').html(`
+          <div class="mb-2 text-center">
+            <a href="${downloadURL}" target="_blank">
+              <img src="${downloadURL}" alt="Documento ${tipoDocumento}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
+            </a>
+            <div class="mt-1"><a href="${downloadURL}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a></div>
+          </div>
+        `);
 
-            btnEnviar.disabled = false;
-            btnEnviar.textContent = 'Enviar';
-            fileInput.disabled = false;
+        btnEnviar.disabled = false;
+        btnEnviar.textContent = 'Enviar';
+        fileInput.disabled = false;
 
-            setTimeout(() => {
-              progressContainer.style.display = 'none';
-              progressBar.style.width = '0%';
-              progressBar.textContent = '0%';
-            }, 800);
+        setTimeout(() => {
+          progressContainer.style.display = 'none';
+          progressBar.style.width = '0%';
+          progressBar.textContent = '0%';
+        }, 800);
 
-            alert('Documento salvo para o cliente!');
-            // Fecha o modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
-            modal.hide();
-          })
-          .catch(function(error) {
-            alert('Erro ao salvar documento no cliente: ' + error.message);
-          });
+        alert('Documento salvo para o cliente!');
+        const modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
+        modal.hide();
       });
     }
   );
 });
+
 
 </script>
 
