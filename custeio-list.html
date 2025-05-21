@@ -2028,14 +2028,33 @@
       <div class="modal-header border-0 pb-0">
         <h5 class="modal-title fw-bold">
           <iconify-icon icon="ri:file-upload-line" class="me-2 text-info"></iconify-icon>
-          Upload de Foto/Documento
+          Upload de Documentos
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
 
+        <!-- Form de upload: fica acima das abas -->
+<form id="form-upload-documento" style="display:none;" class="mb-4">
+  <label for="inputFotoDocumento" class="form-label">Selecione a foto ou documento:</label>
+  <div class="d-flex align-items-center gap-2">
+    <input class="form-control" type="file" id="inputFotoDocumento" accept="image/*" required>
+    <button type="submit" id="btnEnviarDocumento" class="btn btn-success" disabled>Enviar</button>
+  </div>
+
+  <div id="previewFotoDocumento" class="text-center mt-3 mb-3"></div>
+
+  <div class="progress mb-3" style="height: 24px; display:none;" id="uploadProgressBarContainer">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+         id="uploadProgressBar" role="progressbar"
+         style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      0%
+    </div>
+  </div>
+</form>
+
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs mb-3" id="documentTabs" role="tablist">
+        <ul class="nav nav-tabs mb-3" id="tabDocumentos" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="pendentes-tab" data-bs-toggle="tab" data-bs-target="#pendentes" type="button" role="tab" aria-controls="pendentes" aria-selected="true">Pendentes</button>
           </li>
@@ -2048,49 +2067,21 @@
         </ul>
 
         <!-- Tab panes -->
-        <div class="tab-content" id="documentTabsContent" style="min-height: 250px;">
+        <div class="tab-content" id="tabDocumentosContent" style="min-height: 300px;">
 
           <!-- Pendentes -->
           <div class="tab-pane fade show active" id="pendentes" role="tabpanel" aria-labelledby="pendentes-tab">
-            <ul id="listaDocumentosPendentes" class="list-group"></ul>
-
-            <!-- Form de upload aparece só ao clicar no pendente -->
-            <form id="form-upload-documento" class="mt-3" style="display:none;">
-              <div class="mb-3">
-                <label for="inputFotoDocumento" class="form-label">Selecione a foto ou documento:</label>
-                <input class="form-control" type="file" id="inputFotoDocumento" name="foto_documento" accept="image/*" required>
-              </div>
-
-              <div id="previewFotoDocumento" class="mb-3 text-center"></div>
-
-              <div class="mb-3">
-                <div class="progress" style="height: 24px; display: none;" id="uploadProgressBarContainer">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                       id="uploadProgressBar"
-                       role="progressbar"
-                       style="width: 0%"
-                       aria-valuenow="0"
-                       aria-valuemin="0"
-                       aria-valuemax="100">
-                    0%
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-end">
-                <button type="submit" id="btnEnviarDocumento" class="btn btn-success" disabled>Enviar</button>
-              </div>
-            </form>
+            <ul id="listaPendentes" class="list-group mb-3"></ul>
           </div>
 
           <!-- Enviados -->
           <div class="tab-pane fade" id="enviados" role="tabpanel" aria-labelledby="enviados-tab">
-            <ul id="listaDocumentosEnviados" class="list-group"></ul>
+            <ul id="listaEnviados" class="list-group"></ul>
           </div>
 
           <!-- Aprovados -->
           <div class="tab-pane fade" id="aprovados" role="tabpanel" aria-labelledby="aprovados-tab">
-            <ul id="listaDocumentosAprovados" class="list-group"></ul>
+            <ul id="listaAprovados" class="list-group"></ul>
           </div>
 
         </div>
@@ -2098,6 +2089,7 @@
     </div>
   </div>
 </div>
+
 
 
     <!-- MODAL: Editar Solicitação de Crédito de Custeio -->
@@ -4580,12 +4572,34 @@ window.updateStatusSol = async function(id, status) {
     </script>
     <script>
 
-let clienteIdSelecionado = null;
-const tiposDocumentos = ['CNH', 'CPF'];
+// Lista fixa de documentos
+const listaDocumentosFixos = [
+  "CND - Certidão Negativa de Débitos(Tributos Federais e Dívida Ativa da União)",
+  "CNH - Proponente",
+  "CNH - Cônjuge",
+  "Certidão de Nascimento/Casamento",
+  "Declaração de IRPF",
+  "Recibo de IRPF",
+  "Declaração CMN - Declaração de Renegociações por Resoluções do CMN",
+  "Certificado de Cadastro do Imóvel Rural (CCIR) - Imóvel Beneficiado",
+  "Certidão Negativa de Débitos do Imóvel Rural ou Prova de Pagamento/Quitação do ITR",
+  "Certidão de Inteiro Teor do Objeto da Cessão (Validade de até 1 ano)",
+  "Certidão de Ônus do Imóvel Objeto da Cessão",
+  "Licença Ambiental de Operação (LO)",
+  "Roteiro de Acesso ao Imóvel",
+  "Cadastro Ambiental Rural (CAR) - Documento de Inscrição",
+  "Cadastro Ambiental Rural (CAR) - Demonstrativo de Situação",
+  "Documentos de Cessão (Contratos e/ou Anuência) - Crédito Rural",
+  "Autorização para Supressão de Vegetação (ASV)",
+  "Outorga d'Água",
+  "KML da Área Total do Imóvel",
+  "KML da Área Beneficiada no Custeio"
+];
 
-const listaPendentes = document.getElementById('listaDocumentosPendentes');
-const listaEnviados = document.getElementById('listaDocumentosEnviados');
-const listaAprovados = document.getElementById('listaDocumentosAprovados');
+// Elementos do DOM
+const listaPendentes = document.getElementById('listaPendentes');
+const listaEnviados = document.getElementById('listaEnviados');
+const listaAprovados = document.getElementById('listaAprovados');
 
 const formUpload = document.getElementById('form-upload-documento');
 const fileInput = document.getElementById('inputFotoDocumento');
@@ -4594,9 +4608,10 @@ const previewDiv = document.getElementById('previewFotoDocumento');
 const progressContainer = document.getElementById('uploadProgressBarContainer');
 const progressBar = document.getElementById('uploadProgressBar');
 
+let clienteIdSelecionado = null;
 let tipoDocumentoSelecionado = null;
 
-// Ao clicar no botão Documentos, abre modal, força aba pendente e carrega listas
+// Ao clicar no botão Documentos, abrir modal e carregar listas
 document.addEventListener('click', async e => {
   if (e.target && e.target.classList.contains('btn-upload-documento')) {
     clienteIdSelecionado = e.target.getAttribute('data-cliente-id');
@@ -4615,6 +4630,7 @@ document.addEventListener('click', async e => {
   }
 });
 
+// Limpar interface antes de carregar
 function limparTudo() {
   listaPendentes.innerHTML = '';
   listaEnviados.innerHTML = '';
@@ -4629,39 +4645,33 @@ function limparTudo() {
   formUpload.style.display = 'none';
 }
 
-fileInput.addEventListener('change', () => {
-  btnEnviar.disabled = !fileInput.files.length;
-});
-
-// Carrega documentos do Firestore
+// Carrega documentos do cliente do Firestore e separa pendentes, enviados e aprovados
 async function carregarDocumentosCliente(clienteId) {
   if (!clienteId) return;
 
   try {
     const docSnap = await firebase.firestore().collection('clientes').doc(clienteId).get();
-    if (!docSnap.exists) {
-      mostrarPendentes(tiposDocumentos);
-      mostrarEnviados([]);
-      mostrarAprovados([]);
-      return;
-    }
-
-    const data = docSnap.data() || {};
+    const data = docSnap.exists ? docSnap.data() : {};
     const documentos = data.documentos || {};
 
-    const pendentes = tiposDocumentos.filter(tipo => !documentos[tipo]);
+    // Separar documentos
     const enviados = [];
     const aprovados = [];
 
-    for (const tipo of tiposDocumentos) {
-      const doc = documentos[tipo];
+    for (const docName of Object.keys(documentos)) {
+      const doc = documentos[docName];
       if (doc && doc.url) {
-        if (doc.status === 'aprovado') aprovados.push({ tipo, url: doc.url });
-        else enviados.push({ tipo, url: doc.url });
+        if (doc.status === 'aprovado') aprovados.push({ tipo: docName, url: doc.url });
+        else enviados.push({ tipo: docName, url: doc.url });
       }
     }
 
-    mostrarPendentes(pendentes);
+    // Pendentes = lista fixa - docs enviados e aprovados
+    const docsPendentes = listaDocumentosFixos.filter(docName =>
+      !enviados.some(e => e.tipo === docName) && !aprovados.some(a => a.tipo === docName)
+    );
+
+    mostrarPendentes(docsPendentes);
     mostrarEnviados(enviados);
     mostrarAprovados(aprovados);
 
@@ -4670,6 +4680,7 @@ async function carregarDocumentosCliente(clienteId) {
   }
 }
 
+// Mostrar pendentes, clicáveis para iniciar upload
 function mostrarPendentes(pendentes) {
   listaPendentes.innerHTML = '';
   if (!pendentes.length) {
@@ -4677,10 +4688,9 @@ function mostrarPendentes(pendentes) {
     formUpload.style.display = 'none';
     return;
   }
-
   pendentes.forEach(tipo => {
     const li = document.createElement('li');
-    li.classList.add('list-group-item', 'list-group-item-action', 'bg-secondary', 'text-white', 'fw-bold');
+    li.className = 'list-group-item list-group-item-action';
     li.textContent = tipo;
     li.style.cursor = 'pointer';
     li.onclick = () => {
@@ -4691,16 +4701,16 @@ function mostrarPendentes(pendentes) {
   });
 }
 
+// Mostrar enviados com botões Aprovar e Desaprovar
 function mostrarEnviados(enviados) {
   listaEnviados.innerHTML = '';
   if (!enviados.length) {
     listaEnviados.innerHTML = '<li class="list-group-item text-center">Nenhum documento enviado</li>';
     return;
   }
-
   enviados.forEach(({ tipo, url }) => {
     const li = document.createElement('li');
-    li.classList.add('list-group-item', 'bg-warning', 'text-dark', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'rounded-3');
+    li.className = 'list-group-item d-flex justify-content-between align-items-center';
     li.innerHTML = `
       <span>${tipo}</span>
       <div>
@@ -4713,16 +4723,16 @@ function mostrarEnviados(enviados) {
   });
 }
 
+// Mostrar aprovados com botão Excluir
 function mostrarAprovados(aprovados) {
   listaAprovados.innerHTML = '';
   if (!aprovados.length) {
     listaAprovados.innerHTML = '<li class="list-group-item text-center">Nenhum documento aprovado</li>';
     return;
   }
-
   aprovados.forEach(({ tipo, url }) => {
     const li = document.createElement('li');
-    li.classList.add('list-group-item', 'bg-success', 'text-white', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'rounded-3');
+    li.className = 'list-group-item d-flex justify-content-between align-items-center bg-success text-white';
     li.innerHTML = `
       <span>${tipo}</span>
       <div>
@@ -4734,17 +4744,26 @@ function mostrarAprovados(aprovados) {
   });
 }
 
+// Mostrar formulário upload na aba Pendentes após selecionar um documento
 function mostrarFormUpload(tipo) {
   formUpload.style.display = 'block';
   previewDiv.innerHTML = '';
   btnEnviar.disabled = true;
   fileInput.value = '';
+  previewDiv.innerHTML = `<p>Enviando documento: <strong>${tipo}</strong></p>`;
 }
 
+// Habilitar botão enviar só se tiver arquivo selecionado
+fileInput.addEventListener('change', () => {
+  btnEnviar.disabled = !fileInput.files.length;
+});
+
+// Envio do documento para Storage e Firestore
 formUpload.addEventListener('submit', async e => {
   e.preventDefault();
   if (!tipoDocumentoSelecionado) return alert('Selecione um documento pendente para enviar.');
   if (!fileInput.files.length) return alert('Selecione um arquivo para enviar.');
+  if (!clienteIdSelecionado) return alert('Cliente não definido.');
 
   btnEnviar.disabled = true;
   btnEnviar.textContent = 'Enviando...';
@@ -4755,7 +4774,7 @@ formUpload.addEventListener('submit', async e => {
 
   try {
     const file = fileInput.files[0];
-    const storageRef = storage.ref('documentos/' + clienteIdSelecionado + '/' + Date.now() + '-' + file.name);
+    const storageRef = storage.ref(`documentos/${clienteIdSelecionado}/${Date.now()}-${file.name}`);
     const uploadTask = storageRef.put(file);
 
     uploadTask.on('state_changed',
@@ -4789,6 +4808,7 @@ formUpload.addEventListener('submit', async e => {
         alert('Documento enviado com sucesso!');
         await carregarDocumentosCliente(clienteIdSelecionado);
 
+        // Limpa e esconde o formulário
         fileInput.value = '';
         btnEnviar.disabled = true;
         btnEnviar.textContent = 'Enviar';
@@ -4808,6 +4828,7 @@ formUpload.addEventListener('submit', async e => {
   }
 });
 
+// Botões Aprovar e Desaprovar na aba enviados
 listaEnviados.addEventListener('click', async e => {
   if (e.target.classList.contains('btn-aprovar-doc')) {
     const tipo = e.target.getAttribute('data-tipo');
@@ -4819,59 +4840,53 @@ listaEnviados.addEventListener('click', async e => {
   }
 });
 
-[listaPendentes, listaEnviados, listaAprovados].forEach(lista => {
-  lista.addEventListener('click', async e => {
-    if (e.target.classList.contains('btn-excluir-doc')) {
-      const tipo = e.target.getAttribute('data-tipo');
-      const url = e.target.getAttribute('data-url');
-      if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`)) return;
+// Botão excluir na aba aprovados
+listaAprovados.addEventListener('click', async e => {
+  if (e.target.classList.contains('btn-excluir-doc')) {
+    const tipo = e.target.getAttribute('data-tipo');
+    const url = e.target.getAttribute('data-url');
+    if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`)) return;
+    try {
+      await firebase.firestore().collection('clientes').doc(clienteIdSelecionado)
+        .update({
+          [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete()
+        });
 
-      try {
-        await firebase.firestore()
-          .collection('clientes')
-          .doc(clienteIdSelecionado)
-          .update({
-            [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete()
-          });
-
-        if (url) {
-          const storageRef = storage.refFromURL(url);
-          await storageRef.delete();
-        }
-
-        alert('Documento excluído com sucesso!');
-        await carregarDocumentosCliente(clienteIdSelecionado);
-      } catch (error) {
-        alert('Erro ao excluir documento: ' + error.message);
+      if (url) {
+        const storageRef = storage.refFromURL(url);
+        await storageRef.delete();
       }
+
+      alert(`Documento "${tipo}" excluído com sucesso!`);
+      await carregarDocumentosCliente(clienteIdSelecionado);
+    } catch (error) {
+      alert('Erro ao excluir documento: ' + error.message);
     }
-  });
+  }
 });
 
+// Aprovar documento
 async function aprovarDocumento(tipo) {
   if (!clienteIdSelecionado) return alert('Cliente não definido.');
   try {
-    await firebase.firestore()
-      .collection('clientes')
-      .doc(clienteIdSelecionado)
+    await firebase.firestore().collection('clientes').doc(clienteIdSelecionado)
       .update({
         [`documentos.${tipo}.status`]: 'aprovado'
       });
-    alert(`Documento ${tipo} aprovado.`);
+    alert(`Documento "${tipo}" aprovado.`);
     await carregarDocumentosCliente(clienteIdSelecionado);
   } catch (error) {
     alert('Erro ao aprovar documento: ' + error.message);
   }
 }
 
+// Desaprovar documento (exclui e volta para pendentes)
 async function desaprovarDocumento(tipo, url) {
   if (!clienteIdSelecionado) return alert('Cliente não definido.');
   if (!confirm(`Tem certeza que deseja desaprovar e excluir o documento "${tipo}"?`)) return;
 
   try {
-    await firebase.firestore()
-      .collection('clientes')
-      .doc(clienteIdSelecionado)
+    await firebase.firestore().collection('clientes').doc(clienteIdSelecionado)
       .update({
         [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete()
       });
@@ -4881,13 +4896,12 @@ async function desaprovarDocumento(tipo, url) {
       await storageRef.delete();
     }
 
-    alert(`Documento ${tipo} desaprovado e excluído.`);
+    alert(`Documento "${tipo}" desaprovado e excluído.`);
     await carregarDocumentosCliente(clienteIdSelecionado);
   } catch (error) {
     alert('Erro ao desaprovar documento: ' + error.message);
   }
 }
-
 
 </script>
 
@@ -4937,6 +4951,42 @@ async function desaprovarDocumento(tipo, url) {
     </script>
 
     <style>
+
+
+/* Pendentes - amarelo */
+#listaPendentes .list-group-item {
+  background-color: #fff8dc; /* Cornsilk: amarelo claro */
+  color: #856404; /* amarelo escuro para texto */
+  font-weight: 600;
+  cursor: pointer;
+}
+#listaPendentes .list-group-item:hover {
+  background-color: #ffe8a1;
+  color: #5c3d00;
+}
+
+/* Enviados - azul */
+#listaEnviados .list-group-item {
+  background-color: #cce5ff; /* azul claro */
+  color: #004085; /* azul escuro */
+  font-weight: 600;
+}
+#listaEnviados .list-group-item:hover {
+  background-color: #99ccff;
+  color: #002752;
+}
+
+/* Aprovados - verde */
+#listaAprovados .list-group-item {
+  background-color: #d4edda; /* verde claro */
+  color: #155724; /* verde escuro */
+  font-weight: 600;
+}
+#listaAprovados .list-group-item:hover {
+  background-color: #a9d5b9;
+  color: #0b2e13;
+}
+
       /* Garante que o modal-content possa rolar se o conteúdo for maior que a tela */
 .modal-xl .modal-content {
   max-height: 90vh;
@@ -5088,6 +5138,7 @@ async function desaprovarDocumento(tipo, url) {
           line-height: 40px !important;
         }
       }
+      
     </style>
   </body>
 </html>
