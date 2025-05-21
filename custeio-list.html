@@ -2022,6 +2022,8 @@
       </div>
     </div>
 
+<!-- Modal Upload de Documento -->
+<!-- Modal Upload de Documento -->
 <!-- Modal de Upload de Documento -->
 <div class="modal fade" id="uploadDocumentosModal" tabindex="-1" aria-labelledby="uploadDocumentosModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -2035,30 +2037,46 @@
       </div>
       <div class="modal-body">
         <form id="form-upload-documento">
+          
+          <!-- Tipo de Documento -->
+          <div class="mb-3">
+            <label for="tipoDocumento" class="form-label">Tipo de Documento:</label>
+            <select class="form-select" id="tipoDocumento" required>
+              <option value="">Selecione...</option>
+              <option value="CNH">CNH</option>
+              <option value="CPF">CPF</option>
+            </select>
+          </div>
+          
+          <!-- Upload da imagem -->
           <div class="mb-3">
             <label for="inputFotoDocumento" class="form-label">Selecione a foto ou documento:</label>
             <input class="form-control" type="file" id="inputFotoDocumento" name="foto_documento" accept="image/*" required>
           </div>
+          
+          <!-- Preview -->
           <div id="previewFotoDocumento" class="mb-3 text-center"></div>
           
-          <!-- AQUI VAI A BARRA DE PROGRESSO -->
+          <!-- Barra de Progresso -->
           <div class="mb-3">
             <div class="progress" style="height: 24px; display: none;" id="uploadProgressBarContainer">
               <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                id="uploadProgressBar"
-                role="progressbar"
-                style="width: 0%"
-                aria-valuenow="0"
-                aria-valuemin="0"
-                aria-valuemax="100">
+                   id="uploadProgressBar"
+                   role="progressbar"
+                   style="width: 0%"
+                   aria-valuenow="0"
+                   aria-valuemin="0"
+                   aria-valuemax="100">
                 0%
               </div>
             </div>
           </div>
-
+          
+          <!-- Botão Enviar -->
           <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-success">Enviar</button>
           </div>
+          
         </form>
       </div>
     </div>
@@ -3939,10 +3957,10 @@ function renderTable() {
         }
 
         const btnDocs = `<button
-  class="btn btn-secondary"
+  class="btn btn-secondary btn-upload-documento"
+ data-cliente-id="${c.cliente_id}"
   data-bs-toggle="modal"
-  data-bs-target="#uploadDocumentosModal"
->
+  data-bs-target="#uploadDocumentosModal">
   Documentos
 </button>`;
 
@@ -4035,6 +4053,8 @@ function renderTable() {
     )} de ${filtered.length} registros`
   );
 }
+
+
 $("#search-input").on("input", function () {
   currentPage = 1;
   renderTable();
@@ -4543,7 +4563,21 @@ window.updateStatusSol = async function(id, status) {
       renderUploadedFiles(""); // Para modal de criação (se necessário)
     </script>
     <script>
-// Preview ANTES do upload
+// Variável global para o cliente selecionado na tabela
+let clienteIdSelecionado = null;
+
+// Ao clicar em qualquer botão "Documentos", guarda o clienteId
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.classList.contains('btn-upload-documento')) {
+    clienteIdSelecionado = e.target.getAttribute('data-cliente-id');
+  }
+});
+
+function getClienteIdSelecionado() {
+  return clienteIdSelecionado;
+}
+
+// Preview antes do upload
 document.getElementById('inputFotoDocumento').addEventListener('change', function(e) {
   const file = e.target.files[0];
   const preview = document.getElementById('previewFotoDocumento');
@@ -4558,39 +4592,38 @@ document.getElementById('inputFotoDocumento').addEventListener('change', functio
   }
 });
 
-// Upload com barra de progresso e preview DEPOIS
+// Upload e gravação no Firestore (com tipo CNH/CPF)
 document.getElementById('form-upload-documento').addEventListener('submit', function(e) {
   e.preventDefault();
+
+  // NOVO: tipo do documento
+  const tipoDocumento = document.getElementById('tipoDocumento').value;
+  if (!tipoDocumento) return alert('Selecione o tipo de documento!');
 
   const fileInput = document.getElementById('inputFotoDocumento');
   const file = fileInput.files[0];
   if (!file) return alert('Selecione uma imagem!');
 
-  // Referências barra/botão
+  const clienteId = getClienteIdSelecionado();
+  if (!clienteId) return alert('Selecione um cliente antes de enviar documento.');
+
   const progressContainer = document.getElementById('uploadProgressBarContainer');
   const progressBar = document.getElementById('uploadProgressBar');
   const btnEnviar = this.querySelector('button[type="submit"]');
-
-  // Reset e mostra barra de progresso
   progressContainer.style.display = 'block';
   progressBar.style.width = '0%';
-  progressBar.setAttribute('aria-valuenow', 0);
   progressBar.textContent = '0%';
-
-  // Desabilita o botão
   btnEnviar.disabled = true;
   btnEnviar.textContent = 'Enviando...';
   fileInput.disabled = true;
 
-  const storageRef = storage.ref('documentos/' + Date.now() + '-' + file.name);
+  const storageRef = storage.ref('documentos/' + clienteId + '/' + Date.now() + '-' + file.name);
   const uploadTask = storageRef.put(file);
 
   uploadTask.on('state_changed',
     function(snapshot) {
-      // Atualiza barra de progresso
       const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
       progressBar.style.width = progress + '%';
-      progressBar.setAttribute('aria-valuenow', progress);
       progressBar.textContent = progress + '%';
     },
     function(error) {
@@ -4601,38 +4634,45 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
       fileInput.disabled = false;
     },
     function() {
-      // Upload completo!
       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        // Preview FINAL do arquivo (depois do upload)
-        const preview = document.getElementById('previewFotoDocumento');
-        preview.innerHTML = "";
-        const img = document.createElement('img');
-        img.src = downloadURL;
-        img.style.maxWidth = "200px";
-        img.style.maxHeight = "200px";
-        img.classList.add('img-thumbnail', 'mt-2');
-        preview.appendChild(img);
+        // Grava como objeto tipo { CNH: url, CPF: url }
+        firebase.firestore()
+          .collection('clientes')
+          .doc(clienteId)
+          .set({
+            documentos: {
+              [tipoDocumento]: downloadURL
+            }
+          }, { merge: true })
+          .then(function() {
+            // Preview final
+            const preview = document.getElementById('previewFotoDocumento');
+            preview.innerHTML = "";
+            const img = document.createElement('img');
+            img.src = downloadURL;
+            img.style.maxWidth = "200px";
+            img.style.maxHeight = "200px";
+            img.classList.add('img-thumbnail', 'mt-2');
+            preview.appendChild(img);
 
-        // Habilita o botão "salvar" (ou fechar modal)
-        btnEnviar.disabled = false;
-        btnEnviar.textContent = 'Enviar';
-        fileInput.disabled = false;
+            btnEnviar.disabled = false;
+            btnEnviar.textContent = 'Enviar';
+            fileInput.disabled = false;
 
-        // Esconde barra de progresso
-        setTimeout(() => {
-          progressContainer.style.display = 'none';
-          progressBar.style.width = '0%';
-          progressBar.textContent = '0%';
-        }, 1000);
+            setTimeout(() => {
+              progressContainer.style.display = 'none';
+              progressBar.style.width = '0%';
+              progressBar.textContent = '0%';
+            }, 800);
 
-        // ALERT opcional: Upload concluído
-        alert('Upload concluído!');
-
-        // Se quiser fechar o modal automaticamente, descomente:
-        // const modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
-        // modal.hide();
-
-        // Se precisar salvar a URL no seu sistema, salve downloadURL onde quiser!
+            alert('Documento salvo para o cliente!');
+            // Fecha o modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
+            modal.hide();
+          })
+          .catch(function(error) {
+            alert('Erro ao salvar documento no cliente: ' + error.message);
+          });
       });
     }
   );
