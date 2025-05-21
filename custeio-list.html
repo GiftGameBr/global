@@ -2022,11 +2022,8 @@
       </div>
     </div>
 
-<!-- Modal Upload de Documento -->
-<!-- Modal Upload de Documento -->
-<!-- Modal de Upload de Documento -->
 <div class="modal fade" id="uploadDocumentosModal" tabindex="-1" aria-labelledby="uploadDocumentosModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content bg-dark text-white rounded-4 shadow">
       <div class="modal-header border-0 pb-0">
         <h5 class="modal-title fw-bold">
@@ -2036,53 +2033,71 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form id="form-upload-documento">
-          
-          <!-- Tipo de Documento -->
-          <div class="mb-3">
-            <label for="tipoDocumento" class="form-label">Tipo de Documento:</label>
-            <select class="form-select" id="tipoDocumento" required>
-              <option value="">Selecione...</option>
-              <option value="CNH">CNH</option>
-              <option value="CPF">CPF</option>
-            </select>
-          </div>
-          
-          <!-- Upload da imagem -->
-          <div class="mb-3">
-            <label for="inputFotoDocumento" class="form-label">Selecione a foto ou documento:</label>
-            <input class="form-control" type="file" id="inputFotoDocumento" name="foto_documento" accept="image/*" required>
-          </div>
-          
-          <!-- Preview -->
-          <div id="previewFotoDocumento" class="mb-3 text-center"></div>
-          
-          <!-- Barra de Progresso -->
-          <div class="mb-3">
-            <div class="progress" style="height: 24px; display: none;" id="uploadProgressBarContainer">
-              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                   id="uploadProgressBar"
-                   role="progressbar"
-                   style="width: 0%"
-                   aria-valuenow="0"
-                   aria-valuemin="0"
-                   aria-valuemax="100">
-                0%
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs mb-3" id="documentTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pendentes-tab" data-bs-toggle="tab" data-bs-target="#pendentes" type="button" role="tab" aria-controls="pendentes" aria-selected="true">Pendentes</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="enviados-tab" data-bs-toggle="tab" data-bs-target="#enviados" type="button" role="tab" aria-controls="enviados" aria-selected="false">Enviados</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="aprovados-tab" data-bs-toggle="tab" data-bs-target="#aprovados" type="button" role="tab" aria-controls="aprovados" aria-selected="false">Aprovados</button>
+          </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" id="documentTabsContent" style="min-height: 250px;">
+
+          <!-- Pendentes -->
+          <div class="tab-pane fade show active" id="pendentes" role="tabpanel" aria-labelledby="pendentes-tab">
+            <ul id="listaDocumentosPendentes" class="list-group"></ul>
+
+            <!-- Form de upload aparece só ao clicar no pendente -->
+            <form id="form-upload-documento" class="mt-3" style="display:none;">
+              <div class="mb-3">
+                <label for="inputFotoDocumento" class="form-label">Selecione a foto ou documento:</label>
+                <input class="form-control" type="file" id="inputFotoDocumento" name="foto_documento" accept="image/*" required>
               </div>
-            </div>
+
+              <div id="previewFotoDocumento" class="mb-3 text-center"></div>
+
+              <div class="mb-3">
+                <div class="progress" style="height: 24px; display: none;" id="uploadProgressBarContainer">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                       id="uploadProgressBar"
+                       role="progressbar"
+                       style="width: 0%"
+                       aria-valuenow="0"
+                       aria-valuemin="0"
+                       aria-valuemax="100">
+                    0%
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <button type="submit" id="btnEnviarDocumento" class="btn btn-success" disabled>Enviar</button>
+              </div>
+            </form>
           </div>
-          
-          <!-- Botão Enviar / Concluído -->
-          <div class="d-flex justify-content-end">
-            <button type="submit" id="btnEnviarDocumento" class="btn btn-success" disabled>Enviar</button>
+
+          <!-- Enviados -->
+          <div class="tab-pane fade" id="enviados" role="tabpanel" aria-labelledby="enviados-tab">
+            <ul id="listaDocumentosEnviados" class="list-group"></ul>
           </div>
-          
-        </form>
+
+          <!-- Aprovados -->
+          <div class="tab-pane fade" id="aprovados" role="tabpanel" aria-labelledby="aprovados-tab">
+            <ul id="listaDocumentosAprovados" class="list-group"></ul>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 
 
     <!-- MODAL: Editar Solicitação de Crédito de Custeio -->
@@ -4564,201 +4579,299 @@ window.updateStatusSol = async function(id, status) {
       renderUploadedFiles(""); // Para modal de criação (se necessário)
     </script>
     <script>
-let clienteIdSelecionado = null;
 
-// Capta o clienteId ao clicar no botão Documentos
-document.addEventListener('click', function(e) {
+let clienteIdSelecionado = null;
+const tiposDocumentos = ['CNH', 'CPF'];
+
+const listaPendentes = document.getElementById('listaDocumentosPendentes');
+const listaEnviados = document.getElementById('listaDocumentosEnviados');
+const listaAprovados = document.getElementById('listaDocumentosAprovados');
+
+const formUpload = document.getElementById('form-upload-documento');
+const fileInput = document.getElementById('inputFotoDocumento');
+const btnEnviar = document.getElementById('btnEnviarDocumento');
+const previewDiv = document.getElementById('previewFotoDocumento');
+const progressContainer = document.getElementById('uploadProgressBarContainer');
+const progressBar = document.getElementById('uploadProgressBar');
+
+let tipoDocumentoSelecionado = null;
+
+// Ao clicar no botão Documentos, abre modal, força aba pendente e carrega listas
+document.addEventListener('click', async e => {
   if (e.target && e.target.classList.contains('btn-upload-documento')) {
     clienteIdSelecionado = e.target.getAttribute('data-cliente-id');
+    tipoDocumentoSelecionado = null;
+
+    limparTudo();
+    await carregarDocumentosCliente(clienteIdSelecionado);
+
+    const modalEl = document.getElementById('uploadDocumentosModal');
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modal.show();
+
+    // Força abrir aba Pendentes
+    const tabTrigger = new bootstrap.Tab(document.querySelector('#pendentes-tab'));
+    tabTrigger.show();
   }
 });
 
-// Elementos para controlar o botão Enviar
-const fileInput = document.getElementById('inputFotoDocumento');
-const tipoSelect = document.getElementById('tipoDocumento');
-const btnEnviar = document.getElementById('btnEnviarDocumento');
-
-// Função que habilita/desabilita o botão Enviar
-function checaHabilitarBtnEnviar() {
-  btnEnviar.disabled = !(fileInput.files.length && tipoSelect.value);
-}
-
-// Preview antes do upload (imagem local) + controla o botão
-fileInput.addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  const preview = document.getElementById('previewFotoDocumento');
-  preview.innerHTML = "";
-  if (file) {
-    const img = document.createElement('img');
-    img.src = URL.createObjectURL(file);
-    img.style.maxWidth = "200px";
-    img.style.maxHeight = "200px";
-    img.classList.add('img-thumbnail', 'mt-2');
-    preview.appendChild(img);
-  }
-  checaHabilitarBtnEnviar();
-});
-
-// Controla o botão ao mudar tipo
-tipoSelect.addEventListener('change', checaHabilitarBtnEnviar);
-
-// Limpa preview e campos ao abrir o modal
-$('#uploadDocumentosModal').on('show.bs.modal', function () {
-  $('#previewFotoDocumento').html('');
-  $('#inputFotoDocumento').val('');
-  $('#tipoDocumento').val('');
-  resetBtnEnviar();
-});
-
-// Limpa preview e variáveis ao fechar o modal
-$('#uploadDocumentosModal').on('hidden.bs.modal', function () {
-  $('#previewFotoDocumento').html('');
-  $('#inputFotoDocumento').val('');
-  $('#tipoDocumento').val('');
-  clienteIdSelecionado = null;
-  resetBtnEnviar();
-});
-
-// Função para resetar botão para "Enviar"
-function resetBtnEnviar() {
-  btnEnviar.type = "submit";
-  btnEnviar.classList.remove('btn-primary');
-  btnEnviar.classList.add('btn-success');
-  btnEnviar.innerHTML = 'Enviar';
+function limparTudo() {
+  listaPendentes.innerHTML = '';
+  listaEnviados.innerHTML = '';
+  listaAprovados.innerHTML = '';
+  previewDiv.innerHTML = '';
+  fileInput.value = '';
   btnEnviar.disabled = true;
-  btnEnviar.onclick = null;
+  btnEnviar.textContent = 'Enviar';
+  progressContainer.style.display = 'none';
+  progressBar.style.width = '0%';
+  progressBar.textContent = '0%';
+  formUpload.style.display = 'none';
 }
 
-// Função para transformar botão em "Concluído"
-function mostrarBotaoConcluido() {
-  btnEnviar.type = "button";
-  btnEnviar.classList.remove('btn-success');
-  btnEnviar.classList.add('btn-primary');
-  btnEnviar.innerHTML = 'Concluído <i class="bi bi-check-circle ms-1"></i>';
-  btnEnviar.disabled = false;
-
-  btnEnviar.onclick = function() {
-    const modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
-    modal.hide();
-    setTimeout(resetBtnEnviar, 500);
-  };
-}
-
-// Sempre que selecionar um tipo, busca o doc desse cliente e mostra preview
-$('#tipoDocumento').on('change', async function() {
-  $('#previewFotoDocumento').html('');
-  const tipo = this.value;
-  const clienteId = clienteIdSelecionado;
-  if (!clienteId || !tipo) return;
-
-  // Busca o documento do cliente no Firestore
-  const docSnap = await firebase.firestore().collection('clientes').doc(clienteId).get();
-  const data = docSnap.exists ? docSnap.data() : {};
-  const documentos = data.documentos || {};
-
-  if (documentos[tipo]) {
-    const url = documentos[tipo];
-    $('#previewFotoDocumento').html(`
-      <div class="mb-2 text-center">
-        <a href="${url}" target="_blank">
-          <img src="${url}" alt="Documento ${tipo}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
-        </a>
-        <div class="mt-1">
-          <a href="${url}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a>
-          <button type="button" class="btn btn-danger btn-sm ms-2" id="btnExcluirDocumento">Excluir</button>
-        </div>
-      </div>
-    `);
-
-    $('#btnExcluirDocumento').on('click', function() {
-      excluirDocumentoDoCliente(tipo, url);
-    });
-  }
+fileInput.addEventListener('change', () => {
+  btnEnviar.disabled = !fileInput.files.length;
 });
 
-// Upload e gravação no Firestore (com tipo CNH/CPF)
-document.getElementById('form-upload-documento').addEventListener('submit', function(e) {
+// Carrega documentos do Firestore
+async function carregarDocumentosCliente(clienteId) {
+  if (!clienteId) return;
+
+  try {
+    const docSnap = await firebase.firestore().collection('clientes').doc(clienteId).get();
+    if (!docSnap.exists) {
+      mostrarPendentes(tiposDocumentos);
+      mostrarEnviados([]);
+      mostrarAprovados([]);
+      return;
+    }
+
+    const data = docSnap.data() || {};
+    const documentos = data.documentos || {};
+
+    const pendentes = tiposDocumentos.filter(tipo => !documentos[tipo]);
+    const enviados = [];
+    const aprovados = [];
+
+    for (const tipo of tiposDocumentos) {
+      const doc = documentos[tipo];
+      if (doc && doc.url) {
+        if (doc.status === 'aprovado') aprovados.push({ tipo, url: doc.url });
+        else enviados.push({ tipo, url: doc.url });
+      }
+    }
+
+    mostrarPendentes(pendentes);
+    mostrarEnviados(enviados);
+    mostrarAprovados(aprovados);
+
+  } catch (error) {
+    alert('Erro ao carregar documentos: ' + error.message);
+  }
+}
+
+function mostrarPendentes(pendentes) {
+  listaPendentes.innerHTML = '';
+  if (!pendentes.length) {
+    listaPendentes.innerHTML = '<li class="list-group-item text-center">Nenhum documento pendente</li>';
+    formUpload.style.display = 'none';
+    return;
+  }
+
+  pendentes.forEach(tipo => {
+    const li = document.createElement('li');
+    li.classList.add('list-group-item', 'list-group-item-action', 'bg-secondary', 'text-white', 'fw-bold');
+    li.textContent = tipo;
+    li.style.cursor = 'pointer';
+    li.onclick = () => {
+      tipoDocumentoSelecionado = tipo;
+      mostrarFormUpload(tipo);
+    };
+    listaPendentes.appendChild(li);
+  });
+}
+
+function mostrarEnviados(enviados) {
+  listaEnviados.innerHTML = '';
+  if (!enviados.length) {
+    listaEnviados.innerHTML = '<li class="list-group-item text-center">Nenhum documento enviado</li>';
+    return;
+  }
+
+  enviados.forEach(({ tipo, url }) => {
+    const li = document.createElement('li');
+    li.classList.add('list-group-item', 'bg-warning', 'text-dark', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'rounded-3');
+    li.innerHTML = `
+      <span>${tipo}</span>
+      <div>
+        <a href="${url}" target="_blank" class="btn btn-outline-dark btn-sm me-2">Ver</a>
+        <button class="btn btn-success btn-sm btn-aprovar-doc" data-tipo="${tipo}">Aprovar</button>
+        <button class="btn btn-danger btn-sm btn-desaprovar-doc" data-tipo="${tipo}" data-url="${url}">Desaprovar</button>
+      </div>
+    `;
+    listaEnviados.appendChild(li);
+  });
+}
+
+function mostrarAprovados(aprovados) {
+  listaAprovados.innerHTML = '';
+  if (!aprovados.length) {
+    listaAprovados.innerHTML = '<li class="list-group-item text-center">Nenhum documento aprovado</li>';
+    return;
+  }
+
+  aprovados.forEach(({ tipo, url }) => {
+    const li = document.createElement('li');
+    li.classList.add('list-group-item', 'bg-success', 'text-white', 'd-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'rounded-3');
+    li.innerHTML = `
+      <span>${tipo}</span>
+      <div>
+        <a href="${url}" target="_blank" class="btn btn-outline-light btn-sm me-2">Ver</a>
+        <button class="btn btn-danger btn-sm btn-excluir-doc" data-tipo="${tipo}" data-url="${url}">Excluir</button>
+      </div>
+    `;
+    listaAprovados.appendChild(li);
+  });
+}
+
+function mostrarFormUpload(tipo) {
+  formUpload.style.display = 'block';
+  previewDiv.innerHTML = '';
+  btnEnviar.disabled = true;
+  fileInput.value = '';
+}
+
+formUpload.addEventListener('submit', async e => {
   e.preventDefault();
+  if (!tipoDocumentoSelecionado) return alert('Selecione um documento pendente para enviar.');
+  if (!fileInput.files.length) return alert('Selecione um arquivo para enviar.');
 
-  const tipoDocumento = tipoSelect.value;
-  if (!tipoDocumento) return alert('Selecione o tipo de documento!');
-
-  const file = fileInput.files[0];
-  if (!file) return alert('Selecione uma imagem!');
-
-  const clienteId = clienteIdSelecionado;
-  if (!clienteId) return alert('Selecione um cliente antes de enviar documento.');
-
-  const progressContainer = document.getElementById('uploadProgressBarContainer');
-  const progressBar = document.getElementById('uploadProgressBar');
+  btnEnviar.disabled = true;
+  btnEnviar.textContent = 'Enviando...';
   progressContainer.style.display = 'block';
   progressBar.style.width = '0%';
   progressBar.textContent = '0%';
-  btnEnviar.disabled = true;
-  btnEnviar.textContent = 'Enviando...';
   fileInput.disabled = true;
-  tipoSelect.disabled = true;
 
-  const storageRef = storage.ref('documentos/' + clienteId + '/' + Date.now() + '-' + file.name);
-  const uploadTask = storageRef.put(file);
+  try {
+    const file = fileInput.files[0];
+    const storageRef = storage.ref('documentos/' + clienteIdSelecionado + '/' + Date.now() + '-' + file.name);
+    const uploadTask = storageRef.put(file);
 
-  uploadTask.on('state_changed',
-    function(snapshot) {
-      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      progressBar.style.width = progress + '%';
-      progressBar.textContent = progress + '%';
-    },
-    function(error) {
-      alert('Erro no upload: ' + error.message);
-      progressContainer.style.display = 'none';
-      btnEnviar.disabled = false;
-      btnEnviar.textContent = 'Enviar';
-      fileInput.disabled = false;
-      tipoSelect.disabled = false;
-    },
-    function() {
-      uploadTask.snapshot.ref.getDownloadURL().then(async function(downloadURL) {
+    uploadTask.on('state_changed',
+      snapshot => {
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        progressBar.style.width = progress + '%';
+        progressBar.textContent = progress + '%';
+      },
+      error => {
+        alert('Erro no upload: ' + error.message);
+        progressContainer.style.display = 'none';
+        btnEnviar.disabled = false;
+        btnEnviar.textContent = 'Enviar';
+        fileInput.disabled = false;
+      },
+      async () => {
+        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+
         await firebase.firestore()
           .collection('clientes')
-          .doc(clienteId)
+          .doc(clienteIdSelecionado)
           .set({
             documentos: {
-              [tipoDocumento]: downloadURL
+              [tipoDocumentoSelecionado]: {
+                url: downloadURL,
+                status: 'enviado'
+              }
             }
           }, { merge: true });
 
-        $('#previewFotoDocumento').html(`
-          <div class="mb-2 text-center">
-            <a href="${downloadURL}" target="_blank">
-              <img src="${downloadURL}" alt="Documento ${tipoDocumento}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
-            </a>
-            <div class="mt-1"><a href="${downloadURL}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a></div>
-          </div>
-        `);
+        alert('Documento enviado com sucesso!');
+        await carregarDocumentosCliente(clienteIdSelecionado);
 
-        fileInput.disabled = false;
-        tipoSelect.disabled = false;
+        fileInput.value = '';
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = 'Enviar';
+        formUpload.style.display = 'none';
+        previewDiv.innerHTML = '';
+
         progressContainer.style.display = 'none';
-        progressBar.style.width = '0%';
-        progressBar.textContent = '0%';
-
-        mostrarBotaoConcluido();
-
-        alert('Documento salvo para o cliente!');
-      });
-    }
-  );
+        fileInput.disabled = false;
+      }
+    );
+  } catch (error) {
+    alert('Erro ao enviar documento: ' + error.message);
+    progressContainer.style.display = 'none';
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar';
+    fileInput.disabled = false;
+  }
 });
 
-async function excluirDocumentoDoCliente(tipo, url) {
-  if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`)) return;
-  const clienteId = clienteIdSelecionado;
-  if (!clienteId) return alert('Cliente não definido.');
+listaEnviados.addEventListener('click', async e => {
+  if (e.target.classList.contains('btn-aprovar-doc')) {
+    const tipo = e.target.getAttribute('data-tipo');
+    await aprovarDocumento(tipo);
+  } else if (e.target.classList.contains('btn-desaprovar-doc')) {
+    const tipo = e.target.getAttribute('data-tipo');
+    const url = e.target.getAttribute('data-url');
+    await desaprovarDocumento(tipo, url);
+  }
+});
+
+[listaPendentes, listaEnviados, listaAprovados].forEach(lista => {
+  lista.addEventListener('click', async e => {
+    if (e.target.classList.contains('btn-excluir-doc')) {
+      const tipo = e.target.getAttribute('data-tipo');
+      const url = e.target.getAttribute('data-url');
+      if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`)) return;
+
+      try {
+        await firebase.firestore()
+          .collection('clientes')
+          .doc(clienteIdSelecionado)
+          .update({
+            [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete()
+          });
+
+        if (url) {
+          const storageRef = storage.refFromURL(url);
+          await storageRef.delete();
+        }
+
+        alert('Documento excluído com sucesso!');
+        await carregarDocumentosCliente(clienteIdSelecionado);
+      } catch (error) {
+        alert('Erro ao excluir documento: ' + error.message);
+      }
+    }
+  });
+});
+
+async function aprovarDocumento(tipo) {
+  if (!clienteIdSelecionado) return alert('Cliente não definido.');
+  try {
+    await firebase.firestore()
+      .collection('clientes')
+      .doc(clienteIdSelecionado)
+      .update({
+        [`documentos.${tipo}.status`]: 'aprovado'
+      });
+    alert(`Documento ${tipo} aprovado.`);
+    await carregarDocumentosCliente(clienteIdSelecionado);
+  } catch (error) {
+    alert('Erro ao aprovar documento: ' + error.message);
+  }
+}
+
+async function desaprovarDocumento(tipo, url) {
+  if (!clienteIdSelecionado) return alert('Cliente não definido.');
+  if (!confirm(`Tem certeza que deseja desaprovar e excluir o documento "${tipo}"?`)) return;
 
   try {
     await firebase.firestore()
       .collection('clientes')
-      .doc(clienteId)
+      .doc(clienteIdSelecionado)
       .update({
         [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete()
       });
@@ -4768,10 +4881,10 @@ async function excluirDocumentoDoCliente(tipo, url) {
       await storageRef.delete();
     }
 
-    $('#previewFotoDocumento').html('');
-    alert('Documento excluído com sucesso!');
+    alert(`Documento ${tipo} desaprovado e excluído.`);
+    await carregarDocumentosCliente(clienteIdSelecionado);
   } catch (error) {
-    alert('Erro ao excluir documento: ' + error.message);
+    alert('Erro ao desaprovar documento: ' + error.message);
   }
 }
 
