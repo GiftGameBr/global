@@ -2072,9 +2072,9 @@
             </div>
           </div>
           
-          <!-- Botão Enviar -->
+          <!-- Botão Enviar / Concluído -->
           <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-success">Enviar</button>
+            <button type="submit" id="btnEnviarDocumento" class="btn btn-success" disabled>Enviar</button>
           </div>
           
         </form>
@@ -2082,6 +2082,7 @@
     </div>
   </div>
 </div>
+
 
 
     <!-- MODAL: Editar Solicitação de Crédito de Custeio -->
@@ -4572,8 +4573,18 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// Preview antes do upload (imagem local)
-document.getElementById('inputFotoDocumento').addEventListener('change', function(e) {
+// Elementos para controlar o botão Enviar
+const fileInput = document.getElementById('inputFotoDocumento');
+const tipoSelect = document.getElementById('tipoDocumento');
+const btnEnviar = document.getElementById('btnEnviarDocumento');
+
+// Função que habilita/desabilita o botão Enviar
+function checaHabilitarBtnEnviar() {
+  btnEnviar.disabled = !(fileInput.files.length && tipoSelect.value);
+}
+
+// Preview antes do upload (imagem local) + controla o botão
+fileInput.addEventListener('change', function(e) {
   const file = e.target.files[0];
   const preview = document.getElementById('previewFotoDocumento');
   preview.innerHTML = "";
@@ -4585,13 +4596,18 @@ document.getElementById('inputFotoDocumento').addEventListener('change', functio
     img.classList.add('img-thumbnail', 'mt-2');
     preview.appendChild(img);
   }
+  checaHabilitarBtnEnviar();
 });
+
+// Controla o botão ao mudar tipo
+tipoSelect.addEventListener('change', checaHabilitarBtnEnviar);
 
 // Limpa preview e campos ao abrir o modal
 $('#uploadDocumentosModal').on('show.bs.modal', function () {
   $('#previewFotoDocumento').html('');
   $('#inputFotoDocumento').val('');
   $('#tipoDocumento').val('');
+  resetBtnEnviar();
 });
 
 // Limpa preview e variáveis ao fechar o modal
@@ -4600,7 +4616,33 @@ $('#uploadDocumentosModal').on('hidden.bs.modal', function () {
   $('#inputFotoDocumento').val('');
   $('#tipoDocumento').val('');
   clienteIdSelecionado = null;
+  resetBtnEnviar();
 });
+
+// Função para resetar botão para "Enviar"
+function resetBtnEnviar() {
+  btnEnviar.type = "submit";
+  btnEnviar.classList.remove('btn-primary');
+  btnEnviar.classList.add('btn-success');
+  btnEnviar.innerHTML = 'Enviar';
+  btnEnviar.disabled = true;
+  btnEnviar.onclick = null;
+}
+
+// Função para transformar botão em "Concluído"
+function mostrarBotaoConcluido() {
+  btnEnviar.type = "button";
+  btnEnviar.classList.remove('btn-success');
+  btnEnviar.classList.add('btn-primary');
+  btnEnviar.innerHTML = 'Concluído <i class="bi bi-check-circle ms-1"></i>';
+  btnEnviar.disabled = false;
+
+  btnEnviar.onclick = function() {
+    const modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
+    modal.hide();
+    setTimeout(resetBtnEnviar, 500);
+  };
+}
 
 // Sempre que selecionar um tipo, busca o doc desse cliente e mostra preview
 $('#tipoDocumento').on('change', async function() {
@@ -4614,35 +4656,33 @@ $('#tipoDocumento').on('change', async function() {
   const data = docSnap.exists ? docSnap.data() : {};
   const documentos = data.documentos || {};
 
-if (documentos[tipo]) {
-  const url = documentos[tipo];
-  $('#previewFotoDocumento').html(`
-    <div class="mb-2 text-center">
-      <a href="${url}" target="_blank">
-        <img src="${url}" alt="Documento ${tipo}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
-      </a>
-      <div class="mt-1">
-        <a href="${url}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a>
-        <button type="button" class="btn btn-danger btn-sm ms-2" id="btnExcluirDocumento">Excluir</button>
+  if (documentos[tipo]) {
+    const url = documentos[tipo];
+    $('#previewFotoDocumento').html(`
+      <div class="mb-2 text-center">
+        <a href="${url}" target="_blank">
+          <img src="${url}" alt="Documento ${tipo}" class="img-thumbnail mt-2" style="max-width:200px;max-height:200px;">
+        </a>
+        <div class="mt-1">
+          <a href="${url}" target="_blank" class="btn btn-link btn-sm text-white">Abrir em nova aba</a>
+          <button type="button" class="btn btn-danger btn-sm ms-2" id="btnExcluirDocumento">Excluir</button>
+        </div>
       </div>
-    </div>
-  `);
+    `);
 
-  // Adicione o evento do botão Excluir (dentro do bloco, para funcionar após cada render)
-  $('#btnExcluirDocumento').on('click', function() {
-    excluirDocumentoDoCliente(tipo, url);
-  });
-}
+    $('#btnExcluirDocumento').on('click', function() {
+      excluirDocumentoDoCliente(tipo, url);
+    });
+  }
 });
 
 // Upload e gravação no Firestore (com tipo CNH/CPF)
 document.getElementById('form-upload-documento').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const tipoDocumento = document.getElementById('tipoDocumento').value;
+  const tipoDocumento = tipoSelect.value;
   if (!tipoDocumento) return alert('Selecione o tipo de documento!');
 
-  const fileInput = document.getElementById('inputFotoDocumento');
   const file = fileInput.files[0];
   if (!file) return alert('Selecione uma imagem!');
 
@@ -4651,13 +4691,13 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
 
   const progressContainer = document.getElementById('uploadProgressBarContainer');
   const progressBar = document.getElementById('uploadProgressBar');
-  const btnEnviar = this.querySelector('button[type="submit"]');
   progressContainer.style.display = 'block';
   progressBar.style.width = '0%';
   progressBar.textContent = '0%';
   btnEnviar.disabled = true;
   btnEnviar.textContent = 'Enviando...';
   fileInput.disabled = true;
+  tipoSelect.disabled = true;
 
   const storageRef = storage.ref('documentos/' + clienteId + '/' + Date.now() + '-' + file.name);
   const uploadTask = storageRef.put(file);
@@ -4674,10 +4714,10 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
       btnEnviar.disabled = false;
       btnEnviar.textContent = 'Enviar';
       fileInput.disabled = false;
+      tipoSelect.disabled = false;
     },
     function() {
       uploadTask.snapshot.ref.getDownloadURL().then(async function(downloadURL) {
-        // Grava como objeto tipo { CNH: url, CPF: url }
         await firebase.firestore()
           .collection('clientes')
           .doc(clienteId)
@@ -4686,8 +4726,7 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
               [tipoDocumento]: downloadURL
             }
           }, { merge: true });
-        
-        // Mostra o preview atualizado após upload
+
         $('#previewFotoDocumento').html(`
           <div class="mb-2 text-center">
             <a href="${downloadURL}" target="_blank">
@@ -4697,30 +4736,26 @@ document.getElementById('form-upload-documento').addEventListener('submit', func
           </div>
         `);
 
-        btnEnviar.disabled = false;
-        btnEnviar.textContent = 'Enviar';
         fileInput.disabled = false;
+        tipoSelect.disabled = false;
+        progressContainer.style.display = 'none';
+        progressBar.style.width = '0%';
+        progressBar.textContent = '0%';
 
-        setTimeout(() => {
-          progressContainer.style.display = 'none';
-          progressBar.style.width = '0%';
-          progressBar.textContent = '0%';
-        }, 800);
+        mostrarBotaoConcluido();
 
         alert('Documento salvo para o cliente!');
-        const modal = bootstrap.Modal.getInstance(document.getElementById('uploadDocumentosModal'));
-        modal.hide();
       });
     }
   );
 });
+
 async function excluirDocumentoDoCliente(tipo, url) {
   if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`)) return;
   const clienteId = clienteIdSelecionado;
   if (!clienteId) return alert('Cliente não definido.');
 
   try {
-    // Remove o campo do documento do Firestore
     await firebase.firestore()
       .collection('clientes')
       .doc(clienteId)
@@ -4728,13 +4763,11 @@ async function excluirDocumentoDoCliente(tipo, url) {
         [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete()
       });
 
-    // Remove o arquivo do Storage
     if (url) {
       const storageRef = storage.refFromURL(url);
       await storageRef.delete();
     }
 
-    // Limpa o preview
     $('#previewFotoDocumento').html('');
     alert('Documento excluído com sucesso!');
   } catch (error) {
