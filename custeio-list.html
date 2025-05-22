@@ -4170,7 +4170,8 @@ $("#filter-status-docs, #filter-status-solic, #order-by, #items-per-page").on("c
         if (!custeio) return;
 
         // Carrega os responsáveis e só então seta os valores dos selects
-        await preencherResponsaveisCusteio();
+       await preencherResponsaveisCusteio(custeio.responsavelGerenteId || "", custeio.responsavelSecundarioId || "");
+
 
         $("#edit_id").val(custeio.id);
         $("#edit-responsavel-gerente").val(custeio.responsavelGerenteId || "");
@@ -4570,7 +4571,91 @@ window.updateStatusSol = async function(id, status) {
       renderUploadedFiles("edit_"); // Para modal de edição
       renderUploadedFiles(""); // Para modal de criação (se necessário)
     </script>
-    <script>
+  
+
+<script>
+  let gerentesAtivos = [];
+  let agentesAtivos = [];
+
+  async function preencherResponsaveisCusteio(valorGerenteSalvo = "", valorSecundarioSalvo = "") {
+    const gerenteSelect = document.getElementById("edit-responsavel-gerente");
+    const secundarioSelect = document.getElementById("edit-responsavel-secundario");
+
+    gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
+    secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+    // 1. Carrega gerentes ativos
+    const gerentesSnap = await firebase.firestore()
+      .collection("gerentes")
+      .where("status", "==", "active")
+      .get();
+
+    gerentesAtivos = gerentesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    gerentesAtivos.forEach((gerente) => {
+      const option = document.createElement("option");
+      option.value = gerente.id;
+      option.textContent = gerente.nome_completo || gerente.email || "(sem nome)";
+      gerenteSelect.appendChild(option);
+    });
+
+    // Seleciona gerente salvo, se houver
+    if (valorGerenteSalvo) {
+      gerenteSelect.value = valorGerenteSalvo;
+    }
+
+    // 2. Carrega agentes ativos
+    const agentesSnap = await firebase.firestore()
+      .collection("agentes")
+      .where("status", "==", "active")
+      .get();
+
+    agentesAtivos = agentesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    // 3. Atualiza os responsáveis secundários com base no gerente salvo
+    atualizarSecundario(valorGerenteSalvo, valorSecundarioSalvo);
+
+    // 4. Ao mudar o gerente, atualizar opções do secundário
+    gerenteSelect.addEventListener("change", () => {
+      atualizarSecundario(gerenteSelect.value);
+    });
+  }
+
+  function atualizarSecundario(gerenteIdSelecionado, valorSecundarioSalvo = "") {
+    const secundarioSelect = document.getElementById("edit-responsavel-secundario");
+    secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+    const gerenteSelecionado = gerentesAtivos.find(g => g.id === gerenteIdSelecionado);
+    if (!gerenteSelecionado) return;
+
+    const nomeGerente = gerenteSelecionado.nome_completo;
+
+    // Adiciona o próprio gerente como opção
+    const optionGerente = document.createElement("option");
+    optionGerente.value = gerenteSelecionado.id;
+    optionGerente.textContent = nomeGerente + " (Gerente)";
+    secundarioSelect.appendChild(optionGerente);
+
+    // Adiciona agentes que têm esse gerente como responsável
+    agentesAtivos
+      .filter(ag => ag.gerenteNome === nomeGerente)
+      .forEach(agente => {
+        const option = document.createElement("option");
+        option.value = agente.id;
+        option.textContent = (agente.nome_completo || agente.email || "(sem nome)") + " (Agente)";
+        secundarioSelect.appendChild(option);
+      });
+
+    // Seleciona valor salvo no secundário, se houver
+    if (valorSecundarioSalvo) {
+      secundarioSelect.value = valorSecundarioSalvo;
+    }
+  }
+</script>
+
+
+
+  <script>
 
 // Lista fixa de documentos
 const listaDocumentosFixos = [
@@ -4904,52 +4989,6 @@ async function desaprovarDocumento(tipo, url) {
 }
 
 </script>
-
-    <script>
-      async function preencherResponsaveisCusteio() {
-        const gerenteSelect = document.getElementById(
-          "edit-responsavel-gerente"
-        );
-        const secundarioSelect = document.getElementById(
-          "edit-responsavel-secundario"
-        );
-
-        gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
-        secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
-
-        // Gerentes
-        const gerentesSnap = await firebase
-          .firestore()
-          .collection("gerentes")
-          .get();
-        gerentesSnap.forEach((doc) => {
-          const gerente = doc.data();
-          const label = gerente.nome_completo || gerente.email || "(sem nome)";
-          const option = document.createElement("option");
-          option.value = doc.id;
-          option.textContent = label;
-          gerenteSelect.appendChild(option);
-          secundarioSelect.appendChild(option.cloneNode(true));
-        });
-
-        // Agentes (apenas no secundário)
-        const agentesSnap = await firebase
-          .firestore()
-          .collection("agentes")
-          .get();
-        agentesSnap.forEach((doc) => {
-          const agente = doc.data();
-          const label = agente.nome_completo || agente.email || "(sem nome)";
-          const option = document.createElement("option");
-          option.value = doc.id;
-          option.textContent = label + " (Agente)";
-          secundarioSelect.appendChild(option);
-        });
-      }
-
-     
-    </script>
-
     <style>
 
 
