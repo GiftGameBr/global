@@ -453,12 +453,15 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Contato</th>
+                    <th>Gerente Responsável</th>
+                    <!-- ← adicionado -->
                     <th>Status</th>
                     <th>Ação</th>
                     <th>Criado por</th>
                     <th>Data de Inclusão</th>
                   </tr>
                 </thead>
+
                 <tbody id="agentes-tbody"></tbody>
               </table>
             </div>
@@ -515,6 +518,14 @@
                     id="agente_nome"
                     required
                   />
+                </div>
+                <div class="col-sm-6">
+                  <label for="agente_gerente" class="form-label">
+                    Gerente Responsável <span class="text-danger">*</span>
+                  </label>
+                  <select id="agente_gerente" class="form-select" required>
+                    <option value="">Selecione um gerente...</option>
+                  </select>
                 </div>
                 <div class="col-sm-6">
                   <label for="agente_email" class="form-label"
@@ -698,11 +709,11 @@
         // CLIENTE: bloqueia tudo
         if (userType === "cliente") {
           document.querySelector(".dashboard-main-body").innerHTML = `
-        <div class="text-center py-5">
-          <h3 class="mb-4">Acesso restrito!</h3>
-          <p>Clientes não têm permissão para acessar esta página.</p>
-        </div>
-      `;
+              <div class="text-center py-5">
+                <h3 class="mb-4">Acesso restrito!</h3>
+                <p>Clientes não têm permissão para acessar esta página.</p>
+              </div>
+            `;
           document.getElementById("btn-add-agente").style.display = "none";
           return;
         }
@@ -761,27 +772,34 @@
             alert("Apenas administradores podem cadastrar agentes.");
             return;
           }
+
+          // 1) pega os valores do form
           const nome = document.getElementById("agente_nome").value;
           const email = document.getElementById("agente_email").value;
           const senha = document.getElementById("agente_senha").value;
           const contato = document.getElementById("agente_contato").value;
+          const gerenteId = document.getElementById("agente_gerente").value;
+          const gerenteNome =
+            document.getElementById("agente_gerente").selectedOptions[0]
+              .textContent;
           const criadoPor = firebase.auth().currentUser
             ? firebase.auth().currentUser.displayName ||
               firebase.auth().currentUser.email ||
               firebase.auth().currentUser.phoneNumber
             : "Admin";
-          let secondaryApp;
+
           try {
-            secondaryApp =
+            // 2) cria o usuário no Auth (app secundário)
+            const secondaryApp =
               firebase.apps.find((a) => a.name === "Secondary") ||
               firebase.initializeApp(firebaseConfig, "Secondary");
-
             const secondaryAuth = secondaryApp.auth();
             const cred = await secondaryAuth.createUserWithEmailAndPassword(
               email,
               senha
             );
 
+            // 3) grava no Firestore só **depois** de ter cred.user.uid
             await db.collection("agentes").doc(cred.user.uid).set({
               nome_completo: nome,
               email,
@@ -790,8 +808,11 @@
               tipo: "agente",
               status: "inactive",
               criado_por: criadoPor,
+              gerenteId, // agora incluso
+              gerenteNome, // agora incluso
             });
 
+            // 4) feedback e limpeza de formulário
             alert("Agente cadastrado com sucesso!");
             e.target.reset();
             bootstrap.Modal.getOrCreateInstance(
@@ -799,9 +820,10 @@
             ).hide();
             loadAgentes();
 
-            // Deslogar da conta do agente recém-criada no app secundário
+            // 5) desloga do app secundário
             await secondaryAuth.signOut();
           } catch (err) {
+            console.error(err);
             alert("Erro ao cadastrar agente: " + err.message);
           }
         });
@@ -855,46 +877,51 @@
           pageData
             .map(
               (g) => `
-        <tr>
-          <td>${g.nome_completo || ""}</td>
-          <td>${g.email || ""}</td>
-          <td>${g.contato || ""}</td>
-          <td>
-            ${
-              userType === "admin"
-                ? `<button class="badge border-0 px-3 py-2 ${
-                    g.status === "inactive" ? "bg-warning" : "bg-success"
-                  } text-white"
-                  style="min-width: 90px;" onclick="toggleStatus('${g.id}', '${
-                    g.status === "inactive" ? "active" : "inactive"
-                  }')" title="Clique para mudar status">
-                  ${g.status === "inactive" ? "Pendente" : "Verificado"}
-                </button>`
-                : `<span class="badge ${
-                    g.status === "inactive" ? "bg-warning" : "bg-success"
-                  } text-white px-3 py-2">${
-                    g.status === "inactive" ? "Pendente" : "Verificado"
-                  }</span>`
-            }
-          </td>
-          <td class="text-center">
-            ${
-              userType === "admin"
-                ? `<button class="btn btn-sm btn-warning me-1" onclick="openEditAgente('${g.id}')">Editar</button>
-                 <button class="btn btn-sm btn-danger" onclick="deleteAgente('${g.id}')">Deletar</button>`
-                : `<span class="text-muted">-</span>`
-            }
-          </td>
-          <td>${g.criado_por || ""}</td>
-          <td>${
-            g.data_inclusao?.toDate
-              ? g.data_inclusao.toDate().toLocaleDateString()
-              : g.data_inclusao
-              ? new Date(g.data_inclusao).toLocaleDateString()
-              : ""
-          }</td>
-        </tr>
-      `
+              <tr>
+                <td>${g.nome_completo || ""}</td>
+                <td>${g.email || ""}</td>
+                <td>${g.contato || ""}</td>
+                 <td>${
+                   g.gerenteNome || "<span class='text-muted'>—</span>"
+                 }</td>  <!-- ← aqui -->
+                <td>
+                  ${
+                    userType === "admin"
+                      ? `<button class="badge border-0 px-3 py-2 ${
+                          g.status === "inactive" ? "bg-warning" : "bg-success"
+                        } text-white"
+                        style="min-width: 90px;" onclick="toggleStatus('${
+                          g.id
+                        }', '${
+                          g.status === "inactive" ? "active" : "inactive"
+                        }')" title="Clique para mudar status">
+                        ${g.status === "inactive" ? "Pendente" : "Verificado"}
+                      </button>`
+                      : `<span class="badge ${
+                          g.status === "inactive" ? "bg-warning" : "bg-success"
+                        } text-white px-3 py-2">${
+                          g.status === "inactive" ? "Pendente" : "Verificado"
+                        }</span>`
+                  }
+                </td>
+                <td class="text-center">
+                  ${
+                    userType === "admin"
+                      ? `<button class="btn btn-sm btn-warning me-1" onclick="openEditAgente('${g.id}')">Editar</button>
+                       <button class="btn btn-sm btn-danger" onclick="deleteAgente('${g.id}')">Deletar</button>`
+                      : `<span class="text-muted">-</span>`
+                  }
+                </td>
+                <td>${g.criado_por || ""}</td>
+                <td>${
+                  g.data_inclusao?.toDate
+                    ? g.data_inclusao.toDate().toLocaleDateString()
+                    : g.data_inclusao
+                    ? new Date(g.data_inclusao).toLocaleDateString()
+                    : ""
+                }</td>
+              </tr>
+            `
             )
             .join("") ||
           `<tr><td colspan='7' class='text-center'>Nenhum resultado</td></tr>`;
@@ -1010,6 +1037,45 @@
           alert("Erro ao atualizar status: " + err.message);
         }
       };
+
+      async function preencherGerentesAgente() {
+        const select = document.getElementById("agente_gerente");
+        select.innerHTML = '<option value="">Selecione um gerente...</option>';
+
+        try {
+          const snap = await db
+            .collection("gerentes")
+            .where("status", "==", "active")
+            // .orderBy("nome_completo") // Comente para teste
+            .get();
+
+          if (snap.empty) {
+            select.disabled = true;
+            select.insertAdjacentHTML(
+              "afterend",
+              '<small class="text-warning">Nenhum gerente verificado disponível.</small>'
+            );
+          } else {
+            select.disabled = false;
+            snap.forEach((doc) => {
+              const g = doc.data();
+              const opt = document.createElement("option");
+              opt.value = doc.id;
+              opt.textContent = g.nome_completo || g.email || "(Sem nome)";
+              select.appendChild(opt);
+            });
+          }
+        } catch (error) {
+          console.error("Erro ao carregar gerentes ativos:", error);
+          alert("Erro ao carregar gerentes ativos. Veja console.");
+        }
+      }
+
+      // usando Bootstrap + jQuery, dentro do seu <script>:
+      $("#addAgenteModal").on("shown.bs.modal", () => {
+        preencherGerentesAgente();
+        $("#agente-form")[0].reset();
+      });
     </script>
   </body>
 </html>
