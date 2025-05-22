@@ -496,6 +496,17 @@
               ></iconify-icon>
               Nova Solicitação de Custeio
             </h5>
+              <div class="col">
+                  <label for="cliente_id" class="form-label text-white mb-0"><span class="text-danger"></span></label>
+                  <select
+                    class="form-select bg-dark text-white border-secondary"
+                    id="cliente_id"
+                    name="cliente_id"
+                    required
+                  >
+                    <option value="">Cliente*</option>
+                  </select>
+                </div>
             <button
               type="button"
               class="btn-close btn-close-white"
@@ -504,20 +515,24 @@
           </div>
           <div class="modal-body">
             <form id="custeio-form">
-              <div class="mb-6">
-                <label class="form-label text-white">
-                  Cliente <span class="text-danger">*</span>
-                </label>
-                <select
-                  class="form-select bg-dark text-white border-secondary"
-                  id="cliente_id"
-                  name="cliente_id"
-                  required
-                  style="width: 100%"
-                >
-                  <option value="">Selecione o cliente...</option>
-                </select>
-              </div>
+              <div class="row align-items-center g-3">
+
+
+  <div class="col-auto d-flex align-items-center gap-2">
+    <input class="form-check-input" type="checkbox" id="imovelGarantia" />
+    <label class="form-check-label text-white mb-0" for="imovelGarantia">
+      Imóvel dado como garantia no custeio
+    </label>
+  </div>
+
+  <div class="col-auto d-flex align-items-center gap-2">
+    <input class="form-check-input" type="checkbox" id="custeioPecuaria" />
+    <label class="form-check-label text-white mb-0" for="custeioPecuaria">
+      Custeio é pecuário
+    </label>
+  </div>
+</div>
+
               <!-- Adicionar no seu modal de ADD, por exemplo dentro do form -->
               <div class="mb-3">
                 <label for="valor_credito_add" class="form-label"
@@ -4103,7 +4118,7 @@ $("#filter-status-docs, #filter-status-solic, #order-by, #items-per-page").on("c
             doc.data().contato ||
             "Cliente",
         }));
-        let options = `<option value="">Selecione o cliente...</option>`;
+        let options = `<option value="">Cliente*</option>`;
         clientesList.forEach(
           (c) => (options += `<option value="${c.id}">${c.nome}</option>`)
         );
@@ -4117,7 +4132,7 @@ $("#filter-status-docs, #filter-status-solic, #order-by, #items-per-page").on("c
         $("#cliente_id").select2({
           dropdownParent: $("#addCusteioModal"),
           width: "100%",
-          placeholder: "Selecione o cliente...",
+          placeholder: "Cliente*",
           allowClear: true,
         });
       }
@@ -4905,53 +4920,104 @@ async function desaprovarDocumento(tipo, url) {
 
 </script>
 
-    <script>
-      async function preencherResponsaveisCusteio() {
-        const gerenteSelect = document.getElementById(
-          "edit-responsavel-gerente"
-        );
-        const secundarioSelect = document.getElementById(
-          "edit-responsavel-secundario"
-        );
+<script>
+  let todosGerentes = [];
+  let todosAgentes = [];
 
-        gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
-        secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+  async function preencherResponsaveisCusteio() {
+    const gerenteSelect = document.getElementById("edit-responsavel-gerente");
+    const secundarioSelect = document.getElementById("edit-responsavel-secundario");
 
-        // Gerentes
-        const gerentesSnap = await firebase
-          .firestore()
-          .collection("gerentes")
-          .get();
-        gerentesSnap.forEach((doc) => {
-          const gerente = doc.data();
-          const label = gerente.nome_completo || gerente.email || "(sem nome)";
-          const option = document.createElement("option");
-          option.value = doc.id;
-          option.textContent = label;
-          gerenteSelect.appendChild(option);
-          secundarioSelect.appendChild(option.cloneNode(true));
-        });
+    // Limpar selects
+    gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
+    secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
 
-        // Agentes (apenas no secundário)
-        const agentesSnap = await firebase
-          .firestore()
-          .collection("agentes")
-          .get();
-        agentesSnap.forEach((doc) => {
-          const agente = doc.data();
-          const label = agente.nome_completo || agente.email || "(sem nome)";
-          const option = document.createElement("option");
-          option.value = doc.id;
-          option.textContent = label + " (Agente)";
-          secundarioSelect.appendChild(option);
-        });
-      }
+    // Buscar gerentes ATIVOS
+    const gerentesSnap = await firebase.firestore()
+      .collection("gerentes")
+      .where("status", "==", "active")
+      .get();
 
-     
-    </script>
+    todosGerentes = [];
+    gerentesSnap.forEach((doc) => {
+      const data = doc.data();
+      todosGerentes.push({ id: doc.id, ...data });
+      const label = data.nome_completo || data.email || "(sem nome)";
+      const option = document.createElement("option");
+      option.value = doc.id;
+      option.textContent = label;
+      gerenteSelect.appendChild(option);
+    });
+
+    // Buscar agentes ATIVOS
+    const agentesSnap = await firebase.firestore()
+      .collection("agentes")
+      .where("status", "==", "active")
+      .get();
+
+    todosAgentes = [];
+    agentesSnap.forEach((doc) => {
+      todosAgentes.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Atualizar secundários quando gerente for selecionado
+    gerenteSelect.addEventListener("change", atualizarSecundarios);
+  }
+
+  function atualizarSecundarios() {
+    const gerenteSelect = document.getElementById("edit-responsavel-gerente");
+    const secundarioSelect = document.getElementById("edit-responsavel-secundario");
+    const gerenteSelecionadoId = gerenteSelect.value;
+
+    // Limpar opções
+    secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+    if (!gerenteSelecionadoId) return;
+
+    const gerenteSelecionado = todosGerentes.find(g => g.id === gerenteSelecionadoId);
+    if (!gerenteSelecionado) return;
+
+    const gerenteNome = gerenteSelecionado.nome_completo || gerenteSelecionado.email || "Sem nome";
+
+    // Adiciona o próprio gerente como opção
+    const optionGerente = document.createElement("option");
+    optionGerente.value = gerenteSelecionado.id;
+    optionGerente.textContent = gerenteNome;
+    secundarioSelect.appendChild(optionGerente);
+
+    // Filtra e adiciona agentes com gerenteNome igual ao selecionado
+    const agentesFiltrados = todosAgentes.filter(agente => agente.gerenteNome === gerenteNome);
+    agentesFiltrados.forEach((agente) => {
+      const label = agente.nome_completo || agente.email || "(sem nome)";
+      const option = document.createElement("option");
+      option.value = agente.id;
+      option.textContent = label + " (Agente)";
+      secundarioSelect.appendChild(option);
+    });
+  }
+
+  // Chamar ao carregar
+  preencherResponsaveisCusteio();
+</script>
+
 
     <style>
 
+#cliente_id {
+  width: 100%; /* ocupar todo o espaço da coluna */
+  max-width: 100%;
+  padding-right: 2.5rem !important; /* espaço para a seta */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px;
+  color: white;
+  background-color: #212529; /* mesma cor do bg-dark do Bootstrap */
+  border-color: #6c757d; /* border-secondary */
+}
 
 /* Pendentes - amarelo */
 #listaPendentes .list-group-item {
