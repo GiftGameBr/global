@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Global - Gerentes</title>
+    <title>Global - Relatório Anual</title>
     <link
       href="assets/images/favicon.png"
       rel="icon"
@@ -68,15 +68,23 @@
                   ><i
                     class="ri-circle-fill circle-icon text-primary-600 w-auto"
                   ></i
-                  >AI</a
+                  >Home</a
                 >
               </li>
               <li>
-                <a href="index-2.html"
+                <a href="relatorio-mes.html"
                   ><i
                     class="ri-circle-fill circle-icon text-warning-main w-auto"
                   ></i
-                  >CRM</a
+                  >Relatório Mensal</a
+                >
+              </li>
+                     <li>
+                <a href="relatorio-ano.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Anual</a
                 >
               </li>
             </ul>
@@ -370,7 +378,7 @@
         <div
           class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
         >
-          <h6 class="fw-semibold mb-0">RELATÓRIOS</h6>
+          <h6 class="fw-semibold mb-0">RELATÓRIO ANUAL</h6>
           <ul class="d-flex align-items-center gap-2">
             <li class="fw-medium">
               <a
@@ -385,14 +393,40 @@
               </a>
             </li>
             <li>-</li>
-            <li class="fw-medium">Gerentes</li>
+            <li class="fw-medium">Relatórios</li>
           </ul>
         </div>
-        <div class="card h-100 p-0 radius-12">
         
+        <div class="card h-100 p-0 radius-12">
+        <!-- Filtros e ordenação -->
+<div class="card mb-4 p-3">
+  <div class="row g-2">
+    <div class="col-md-4">
+      <input type="text" id="search-nome" class="form-control" placeholder="Pesquisar por Nome" />
+    </div>
+    <div class="col-md-3">
+      <select id="filter-tipo" class="form-select">
+        <option value="">Todos os Tipos</option>
+        <option value="Gerente">Gerente</option>
+        <option value="Agente">Agente</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <select id="order-by" class="form-select">
+        <option value="comissao_desc">Ordenar por Comissão (Maior)</option>
+        <option value="comissao_asc">Ordenar por Comissão (Menor)</option>
+        <option value="bonus_desc">Ordenar por Bônus (Maior)</option>
+        <option value="bonus_asc">Ordenar por Bônus (Menor)</option>
+        <option value="tipo_asc">Ordenar por Tipo (A-Z)</option>
+        <option value="tipo_desc">Ordenar por Tipo (Z-A)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
           <div class="card mt-4" id="tabela-relatorio">
             <div class="card-body">
-              <h5 class="mb-3">Relatório de Vendas - 2025</h5>
+              <h5 class="mb-3">Carregando...</h5>
               <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                   <thead class="table-dark">
@@ -400,8 +434,8 @@
                       <th>Tipo</th>
                       <th>Nome</th>
 
-                      <th>Comissão Total</th>
-                      <th>Bônus Total</th>
+                      <th>Comissão do Ano</th>
+                      <th>Bônus do Ano</th>
                     </tr>
                   </thead>
 
@@ -798,7 +832,7 @@
       };
     </script>
 
-   <script>
+<script>
   async function gerarRelatorioVendas() {
     const gerentesSnap = await db.collection("gerentes").get();
     const agentesSnap = await db.collection("agentes").get();
@@ -838,25 +872,25 @@
       const secundarioÉValido = usuariosBase[secundarioId];
 
       const dataConclusao = data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
-      const mesAno = dataConclusao.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+     const ano = dataConclusao.getFullYear().toString();
 
-      if (!relatoriosPorMes[mesAno]) relatoriosPorMes[mesAno] = {};
+if (!relatoriosPorMes[ano]) relatoriosPorMes[ano] = {};
 
-      function acumular(id, venda, comissao, bonus) {
-        if (!relatoriosPorMes[mesAno][id]) {
-          relatoriosPorMes[mesAno][id] = {
-            nome: usuariosBase[id]?.nome || "Desconhecido",
-            tipo: usuariosBase[id]?.tipo || "-",
-            totalVendas: 0,
-            comissaoTotal: 0,
-            bonusTotal: 0,
-          };
-        }
+function acumular(id, venda, comissao, bonus) {
+  if (!relatoriosPorMes[ano][id]) {
+    relatoriosPorMes[ano][id] = {
+      nome: usuariosBase[id]?.nome || "Desconhecido",
+      tipo: usuariosBase[id]?.tipo || "-",
+      totalVendas: 0,
+      comissaoTotal: 0,
+      bonusTotal: 0,
+    };
+  }
 
-        relatoriosPorMes[mesAno][id].totalVendas += venda;
-        relatoriosPorMes[mesAno][id].comissaoTotal += comissao;
-        relatoriosPorMes[mesAno][id].bonusTotal += bonus;
-      }
+  relatoriosPorMes[ano][id].totalVendas += venda;
+  relatoriosPorMes[ano][id].comissaoTotal += comissao;
+  relatoriosPorMes[ano][id].bonusTotal += bonus;
+}
 
       // Total vendido (uma vez só)
       const idParaVenda = gerenteÉValido ? gerenteId : secundarioId;
@@ -883,69 +917,102 @@
     });
   }
 
-  function exibirTabelasPorMes(relatorios) {
-    const container = document.getElementById("tabela-relatorio");
-    container.innerHTML = "";
+    function exibirTabelasPorMes(relatorios) {
+  const container = document.getElementById("tabela-relatorio");
+  container.innerHTML = "";
 
-    const mesesOrdenados = Object.keys(relatorios).sort((a, b) =>
-      new Date("01 " + b) - new Date("01 " + a)
-    );
+  // Pegando filtros
+  const nomeFiltro = document.getElementById("search-nome")?.value?.toLowerCase() || "";
+  const tipoFiltro = document.getElementById("filter-tipo")?.value || "";
+  const orderBy = document.getElementById("order-by")?.value || "comissao_desc";
 
-    mesesOrdenados.forEach((mes) => {
-      const dados = Object.values(relatorios[mes]);
+  const mesesOrdenados = Object.keys(relatorios).sort((a, b) =>
+    new Date("01 " + b) - new Date("01 " + a)
+  );
 
-      const tabela = document.createElement("div");
-      tabela.classList.add("card", "mb-4");
+  mesesOrdenados.forEach((mes) => {
+    let dados = Object.values(relatorios[mes]);
 
-      const html = `
-        <div class="card-body">
-          <h5 class="mb-3">Relatório Mensal - ${mes}</h5>
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-              <thead class="table-dark">
-                <tr>
-                  <th>Tipo</th>
-                  <th>Nome</th>
-               
-                  <th>Comissão</th>
-                  <th>Bônus</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${
-                  dados.length === 0
-                    ? `<tr><td colspan="5" class="text-center">Nenhum dado</td></tr>`
-                    : dados
-                        .map(
-                          (d) => `
-                  <tr>
-                    <td>${d.tipo}</td>
-                    <td>${d.nome}</td>
-                   
-                    <td>${formatarBR(d.comissaoTotal)}</td>
-                    <td>${formatarBR(d.bonusTotal)}</td>
-                  </tr>
-                `
-                        )
-                        .join("")
-                }
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
-
-      tabela.innerHTML = html;
-      container.appendChild(tabela);
+    // Aplicar filtros
+    dados = dados.filter((d) => {
+      const nomeMatch = d.nome.toLowerCase().includes(nomeFiltro);
+      const tipoMatch = tipoFiltro ? d.tipo === tipoFiltro : true;
+      return nomeMatch && tipoMatch;
     });
-  }
+
+    // Aplicar ordenação
+    dados.sort((a, b) => {
+      switch (orderBy) {
+        case "tipo_asc": return a.tipo.localeCompare(b.tipo);
+        case "tipo_desc": return b.tipo.localeCompare(a.tipo);
+        case "comissao_asc": return a.comissaoTotal - b.comissaoTotal;
+        case "comissao_desc": return b.comissaoTotal - a.comissaoTotal;
+        case "bonus_asc": return a.bonusTotal - b.bonusTotal;
+        case "bonus_desc": return b.bonusTotal - a.bonusTotal;
+        default: return 0;
+      }
+    });
+
+    // Gerar HTML da tabela
+    const tabela = document.createElement("div");
+    tabela.classList.add("card", "mb-4");
+
+    const html = `
+      <div class="card-body">
+        <h5 class="mb-3">Relatório Anual - ${mes}</h5>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Comissão do Ano</th>
+                <th>Bônus do Ano</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${
+                dados.length === 0
+                  ? `<tr><td colspan="4" class="text-center">Nenhum dado</td></tr>`
+                  : dados.map((d) => `
+                    <tr>
+                      <td>${d.tipo}</td>
+                      <td>${d.nome}</td>
+                      <td>${formatarBR(d.comissaoTotal)}</td>
+                      <td>${formatarBR(d.bonusTotal)}</td>
+                    </tr>
+                  `).join("")
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    tabela.innerHTML = html;
+    container.appendChild(tabela);
+  });
+}
+
 
   document.addEventListener("DOMContentLoaded", () => {
     if (typeof db !== "undefined") {
       gerarRelatorioVendas();
     }
   });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  if (typeof db !== "undefined") {
+    gerarRelatorioVendas();
+
+    document.getElementById("search-nome")?.addEventListener("input", gerarRelatorioVendas);
+    document.getElementById("filter-tipo")?.addEventListener("change", gerarRelatorioVendas);
+    document.getElementById("order-by")?.addEventListener("change", gerarRelatorioVendas);
+  }
+});
 </script>
+
 
   </body>
 </html>

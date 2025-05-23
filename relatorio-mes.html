@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Relatório Mensal</title>
+    <link
+      href="assets/images/favicon.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link href="assets/css/remixicon.css" rel="stylesheet" />
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/apexcharts.css" rel="stylesheet" />
+    <link href="assets/css/lib/dataTables.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor-katex.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor.atom-one-dark.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor.quill.snow.css" rel="stylesheet" />
+    <link href="assets/css/lib/flatpickr.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/full-calendar.css" rel="stylesheet" />
+    <link href="assets/css/lib/jquery-jvectormap-2.0.5.css" rel="stylesheet" />
+    <link href="assets/css/lib/magnific-popup.css" rel="stylesheet" />
+    <link href="assets/css/lib/slick.css" rel="stylesheet" />
+    <link href="assets/css/lib/prism.css" rel="stylesheet" />
+    <link href="assets/css/lib/file-upload.css" rel="stylesheet" />
+    <link href="assets/css/lib/audioplayer.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Sidebar idêntico ao padrão -->
+   <aside class="sidebar">
+      <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+      </button>
+      <div>
+        <a href="index.html" class="sidebar-logo">
+          <img
+            src="assets/images/logo.png"
+            alt="site logo"
+            class="light-logo"
+          />
+          <img
+            src="assets/images/logo-light.png"
+            alt="site logo"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/logo-icon.png"
+            alt="site logo"
+            class="logo-icon"
+          />
+        </a>
+      </div>
+      <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="solar:home-smile-angle-outline"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Dashboard</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="index.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="relatorio-mes.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Mensal</a
+                >
+              </li>
+                     <li>
+                <a href="relatorio-ano.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Anual</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-menu-group-title">Clientes</li>
+          <li>
+            <a href="lead-list.html">
+              <iconify-icon
+                icon="ri:user-add-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Leads</span>
+            </a>
+          </li>
+          <li>
+            <a href="client-list.html">
+              <iconify-icon
+                icon="ri:group-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Funcionarios</li>
+          <li>
+            <a href="gerente-list.html">
+              <iconify-icon
+                icon="ri:user-star-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Gerentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-list.html">
+              <iconify-icon
+                icon="ri:user-settings-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Admins</span>
+            </a>
+          </li>
+          <li>
+            <a href="agente-list.html">
+              <iconify-icon
+                icon="ri:user-search-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Agentes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Solicitações</li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bank-card-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Custeios</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bar-chart-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Investimento</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:exchange-dollar-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Comercialização</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:home-gear-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Avaliação Imóveis</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:leaf-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Licenciamento Ambiental</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Ajustes</li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <i class="ri-user-settings-line text-xl me-14 d-flex w-auto"></i>
+              <span>Regras</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="role-access.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Role & Access</a
+                >
+              </li>
+              <li>
+                <a href="assign-role.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Assign Role</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="icon-park-outline:setting-two"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Configurações</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="company.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="notification.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Notification</a
+                >
+              </li>
+              <li>
+                <a href="notification-alert.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-info-main w-auto"
+                  ></i
+                  >Notification Alert</a
+                >
+              </li>
+              <li>
+                <a href="theme.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Theme</a
+                >
+              </li>
+              <li>
+                <a href="currencies.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Currencies</a
+                >
+              </li>
+              <li>
+                <a href="language.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Languages</a
+                >
+              </li>
+              <li>
+                <a href="payment-gateway.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Payment Gateway</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <main class="dashboard-main">
+         <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+              <button type="button" class="sidebar-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon text-2xl non-active"
+                ></iconify-icon>
+                <iconify-icon
+                  icon="iconoir:arrow-right"
+                  class="icon text-2xl active"
+                ></iconify-icon>
+              </button>
+              <button type="button" class="sidebar-mobile-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <p class="mb-0 me-2 text-sm text-white" id="welcome-message">
+                Bem-vindo, <strong id="user-profile-name">...</strong>
+              </p>
+              <div class="dropdown">
+                <button
+                  class="d-flex justify-content-center align-items-center rounded-circle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="assets/images/user.png"
+                    alt="image"
+                    class="w-40-px h-40-px object-fit-cover rounded-circle"
+                  />
+                </button>
+                <div
+                  class="dropdown-menu to-top dropdown-menu-sm"
+                  style="min-width: 150px; max-width: 220px; width: 180px"
+                >
+                  <ul class="to-top-list">
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="view-profile.html"
+                        ><iconify-icon
+                          icon="solar:user-linear"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >My Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="email.html"
+                        ><iconify-icon
+                          icon="tabler:message-check"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Inbox</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="company.html"
+                        ><iconify-icon
+                          icon="icon-park-outline:setting-two"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Setting</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                        href="javascript:void(0)"
+                        id="logout-btn"
+                        ><iconify-icon
+                          icon="lucide:power"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Log Out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-main-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
+        >
+          <h6 class="fw-semibold mb-0">RELATÓRIO MENSAL</h6>
+          <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+              <a
+                class="d-flex align-items-center gap-1 hover-text-primary"
+                href="index.html"
+              >
+                <iconify-icon
+                  class="icon text-lg"
+                  icon="solar:home-smile-angle-outline"
+                ></iconify-icon>
+                Dashboard
+              </a>
+            </li>
+            <li>-</li>
+            <li class="fw-medium">Relatórios</li>
+          </ul>
+        </div>
+        
+        <div class="card h-100 p-0 radius-12">
+        <!-- Filtros e ordenação -->
+<div class="card mb-4 p-3">
+  <div class="row g-2">
+    <div class="col-md-4">
+      <input type="text" id="search-nome" class="form-control" placeholder="Pesquisar por Nome" />
+    </div>
+    <div class="col-md-3">
+      <select id="filter-tipo" class="form-select">
+        <option value="">Todos os Tipos</option>
+        <option value="Gerente">Gerente</option>
+        <option value="Agente">Agente</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <select id="order-by" class="form-select">
+        <option value="comissao_desc">Ordenar por Comissão (Maior)</option>
+        <option value="comissao_asc">Ordenar por Comissão (Menor)</option>
+        <option value="bonus_desc">Ordenar por Bônus (Maior)</option>
+        <option value="bonus_asc">Ordenar por Bônus (Menor)</option>
+        <option value="tipo_asc">Ordenar por Tipo (A-Z)</option>
+        <option value="tipo_desc">Ordenar por Tipo (Z-A)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+          <div class="card mt-4" id="tabela-relatorio">
+            <div class="card-body">
+              <h5 class="mb-3">Carregando...</h5>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Tipo</th>
+                      <th>Nome</th>
+
+                      <th>Comissão do Mês</th>
+                      <th>Bônus do Mês</th>
+                    </tr>
+                  </thead>
+
+                  <div id="tabela-relatorio"></div>
+
+                    <tr>
+                      <td colspan="8" class="text-center">Carregando...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0">
+              Made by <span class="text-primary-600">ComosTech</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/lib/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!-- Firebase libs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script>
+      // Firebase Configuração
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.firestore();
+
+      let userType = null; // 'admin' | 'gerente' | 'agente' | 'cliente' | null
+
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (!user) {
+          window.location.href = "sign-in.html";
+          return;
+        }
+
+        // Preenche nome
+        const elName = document.getElementById("user-profile-name");
+        if (elName) {
+          elName.textContent =
+            user.displayName || user.email || user.phoneNumber || "Usuário";
+        }
+
+        // Checa tipo de conta
+        if ((await db.collection("admins").doc(user.uid).get()).exists)
+          userType = "admin";
+        else if ((await db.collection("gerentes").doc(user.uid).get()).exists)
+          userType = "gerente";
+        else if ((await db.collection("agentes").doc(user.uid).get()).exists)
+          userType = "agente";
+        else if ((await db.collection("clientes").doc(user.uid).get()).exists)
+          userType = "cliente";
+        else userType = null;
+
+        // CLIENTE: bloqueia tudo
+        if (userType === "cliente") {
+          document.querySelector(".dashboard-main-body").innerHTML = `
+        <div class="text-center py-5">
+          <h3 class="mb-4">Acesso restrito!</h3>
+          <p>Clientes não têm permissão para acessar esta página.</p>
+        </div>
+      `;
+          document.getElementById("btn-add-gerente").style.display = "none";
+          return;
+        }
+
+        // ADMIN: pode tudo
+        if (userType === "admin") {
+          document.getElementById("btn-add-gerente").style.display = "block";
+        } else {
+          // GERENTE/AGENTE: só visualizam, não mostram botão de criar
+          document.getElementById("btn-add-gerente").style.display = "none";
+        }
+
+        loadGerentes();
+      });
+
+      // Logout padrão
+      const btnLogout = document.getElementById("logout-btn");
+      if (btnLogout) {
+        btnLogout.addEventListener("click", function () {
+          firebase
+            .auth()
+            .signOut()
+            .then(() => {
+              window.location.href = "sign-in.html";
+            });
+        });
+      }
+
+      // CRUD GERENTES
+      let allGerentes = [];
+      let currentPage = 1;
+      let itemsPerPage = 10;
+      const tbody = document.getElementById("gerentes-tbody");
+      const searchInput = document.getElementById("search-input");
+      const pagination = document.querySelectorAll(".pagination")[0];
+      const paginationInfo = document.getElementById("pagination-info");
+
+      async function loadGerentes() {
+        const snapshot = await db
+          .collection("gerentes")
+          .orderBy("data_inclusao", "desc")
+          .get();
+        allGerentes = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        renderTable();
+      }
+
+      // Salvar Gerente (só admin)
+      document
+        .getElementById("gerente-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          if (userType !== "admin") {
+            alert("Apenas administradores podem cadastrar gerentes.");
+            return;
+          }
+          const nome = document.getElementById("gerente_nome").value;
+          const email = document.getElementById("gerente_email").value;
+          const senha = document.getElementById("gerente_senha").value;
+          const contato = document.getElementById("gerente_contato").value;
+          const criadoPor = firebase.auth().currentUser
+            ? firebase.auth().currentUser.displayName ||
+              firebase.auth().currentUser.email ||
+              firebase.auth().currentUser.phoneNumber
+            : "Admin";
+          let secondaryApp;
+          try {
+            secondaryApp =
+              firebase.apps.find((a) => a.name === "Secondary") ||
+              firebase.initializeApp(firebaseConfig, "Secondary");
+
+            const secondaryAuth = secondaryApp.auth();
+            const cred = await secondaryAuth.createUserWithEmailAndPassword(
+              email,
+              senha
+            );
+
+            await db.collection("gerentes").doc(cred.user.uid).set({
+              nome_completo: nome,
+              email,
+              contato,
+              data_inclusao: new Date(),
+              tipo: "gerente",
+              status: "inactive",
+              criado_por: criadoPor,
+            });
+
+            alert("Gerente cadastrado com sucesso!");
+            e.target.reset();
+            bootstrap.Modal.getOrCreateInstance(
+              document.getElementById("addGerenteModal")
+            ).hide();
+            loadGerentes();
+
+            // Deslogar da conta do gerente recém-criada no app secundário
+            await secondaryAuth.signOut();
+          } catch (err) {
+            alert("Erro ao cadastrar gerente: " + err.message);
+          }
+        });
+
+      // Renderização da tabela de gerentes, só mostra ação se for admin
+      function renderTable() {
+        itemsPerPage = parseInt(
+          document.getElementById("items-per-page")?.value || 10,
+          10
+        );
+        const searchTerm = searchInput.value.toLowerCase();
+        const filterStatus = document.getElementById("filter-status").value;
+        const orderBy = document.getElementById("order-by").value;
+
+        let filtered = allGerentes.filter((g) => {
+          const matchesSearch =
+            (g.nome_completo || "").toLowerCase().includes(searchTerm) ||
+            (g.email || "").toLowerCase().includes(searchTerm) ||
+            (g.contato || "").toLowerCase().includes(searchTerm);
+
+          const matchesStatus = !filterStatus || g.status === filterStatus;
+          return matchesSearch && matchesStatus;
+        });
+
+        // Ordenação
+        const [field, direction] = orderBy.split("_");
+        filtered.sort((a, b) => {
+          let aValue = a[field];
+          let bValue = b[field];
+          if (field === "data_inclusao") {
+            aValue = aValue?.toDate
+              ? aValue.toDate().getTime()
+              : new Date(aValue).getTime();
+            bValue = bValue?.toDate
+              ? bValue.toDate().getTime()
+              : new Date(bValue).getTime();
+          } else {
+            aValue = (aValue || "").toLowerCase();
+            bValue = (bValue || "").toLowerCase();
+          }
+          if (aValue < bValue) return direction === "asc" ? -1 : 1;
+          if (aValue > bValue) return direction === "asc" ? 1 : -1;
+          return 0;
+        });
+
+        // Paginação
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageData = filtered.slice(start, start + itemsPerPage);
+
+        tbody.innerHTML =
+          pageData
+            .map(
+              (g) => `
+        <tr>
+          <td>${g.nome_completo || ""}</td>
+          <td>${g.email || ""}</td>
+          <td>${g.contato || ""}</td>
+          <td>
+            ${
+              userType === "admin"
+                ? `<button class="badge border-0 px-3 py-2 ${
+                    g.status === "inactive" ? "bg-warning" : "bg-success"
+                  } text-white"
+                  style="min-width: 90px;" onclick="toggleStatus('${g.id}', '${
+                    g.status === "inactive" ? "active" : "inactive"
+                  }')" title="Clique para mudar status">
+                  ${g.status === "inactive" ? "Pendente" : "Verificado"}
+                </button>`
+                : `<span class="badge ${
+                    g.status === "inactive" ? "bg-warning" : "bg-success"
+                  } text-white px-3 py-2">${
+                    g.status === "inactive" ? "Pendente" : "Verificado"
+                  }</span>`
+            }
+          </td>
+          <td class="text-center">
+            ${
+              userType === "admin"
+                ? `<button class="btn btn-sm btn-warning me-1" onclick="openEditGerente('${g.id}')">Editar</button>
+                 <button class="btn btn-sm btn-danger" onclick="deleteGerente('${g.id}')">Deletar</button>`
+                : `<span class="text-muted">-</span>`
+            }
+          </td>
+          <td>${g.criado_por || ""}</td>
+          <td>${
+            g.data_inclusao?.toDate
+              ? g.data_inclusao.toDate().toLocaleDateString()
+              : g.data_inclusao
+              ? new Date(g.data_inclusao).toLocaleDateString()
+              : ""
+          }</td>
+        </tr>
+      `
+            )
+            .join("") ||
+          `<tr><td colspan='7' class='text-center'>Nenhum resultado</td></tr>`;
+
+        renderPagination(filtered.length, itemsPerPage);
+        if (paginationInfo)
+          paginationInfo.textContent = `Mostrando ${
+            filtered.length === 0 ? 0 : start + 1
+          } a ${Math.min(start + itemsPerPage, filtered.length)} de ${
+            filtered.length
+          } registros`;
+      }
+
+      function renderPagination(total, itemsPerPage) {
+        const pages = Math.ceil(total / itemsPerPage);
+        pagination.innerHTML = "";
+        for (let i = 1; i <= pages; i++) {
+          const li = document.createElement("li");
+          li.className = "page-item";
+          li.innerHTML = `<a href="#" class="page-link ${
+            i === currentPage ? "active" : ""
+          }">${i}</a>`;
+          li.onclick = (e) => {
+            e.preventDefault();
+            currentPage = i;
+            renderTable();
+          };
+          pagination.appendChild(li);
+        }
+      }
+
+      if (searchInput)
+        searchInput.addEventListener("input", () => {
+          currentPage = 1;
+          renderTable();
+        });
+      document
+        .getElementById("filter-status")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          renderTable();
+        });
+      document.getElementById("order-by").addEventListener("change", () => {
+        currentPage = 1;
+        renderTable();
+      });
+      document
+        .getElementById("items-per-page")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          renderTable();
+        });
+
+      // ======= EDITAR GERENTE =========
+      window.openEditGerente = function (id) {
+        if (userType !== "admin") return; // Só admin pode editar
+        const g = allGerentes.find((gg) => gg.id === id);
+        if (!g) return;
+        document.getElementById("edit_id").value = g.id;
+        document.getElementById("edit_nome").value = g.nome_completo || "";
+        document.getElementById("edit_email").value = g.email || "";
+        document.getElementById("edit_contato").value = g.contato || "";
+        document.getElementById("edit_status").value = g.status || "inactive";
+
+        bootstrap.Modal.getOrCreateInstance(
+          document.getElementById("editGerenteModal")
+        ).show();
+      };
+
+      document
+        .getElementById("edit-gerente-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          if (userType !== "admin") return; // Só admin pode editar
+          const id = document.getElementById("edit_id").value;
+          const data = {
+            nome_completo: document.getElementById("edit_nome").value,
+            contato: document.getElementById("edit_contato").value,
+            status: document.getElementById("edit_status").value,
+          };
+          try {
+            await db.collection("gerentes").doc(id).update(data);
+            alert("Gerente atualizado com sucesso!");
+            bootstrap.Modal.getOrCreateInstance(
+              document.getElementById("editGerenteModal")
+            ).hide();
+            loadGerentes();
+          } catch (err) {
+            alert("Erro ao atualizar: " + err.message);
+          }
+        });
+
+      // ======= DELETAR GERENTE =========
+      window.deleteGerente = async function (id) {
+        if (userType !== "admin") return; // Só admin pode deletar
+        if (!confirm("Tem certeza que deseja deletar este gerente?")) return;
+        try {
+          await db.collection("gerentes").doc(id).delete();
+          alert("Gerente deletado com sucesso!");
+          loadGerentes();
+        } catch (err) {
+          alert("Erro ao deletar: " + err.message);
+        }
+      };
+
+      // ======= MUDAR STATUS GERENTE =========
+      window.toggleStatus = async function (id, newStatus) {
+        if (userType !== "admin") return; // Só admin pode mudar status
+        try {
+          await db.collection("gerentes").doc(id).update({ status: newStatus });
+          loadGerentes();
+        } catch (err) {
+          alert("Erro ao atualizar status: " + err.message);
+        }
+      };
+    </script>
+
+<script>
+  async function gerarRelatorioVendas() {
+    const gerentesSnap = await db.collection("gerentes").get();
+    const agentesSnap = await db.collection("agentes").get();
+
+    const custeiosSnap = await db
+      .collection("custeio")
+      .where("status_solicitacao", "==", "concluido")
+      .get();
+
+    const usuariosBase = {};
+
+    gerentesSnap.forEach((doc) => {
+      usuariosBase[doc.id] = {
+        nome: doc.data().nome_completo,
+        tipo: "Gerente",
+      };
+    });
+
+    agentesSnap.forEach((doc) => {
+      usuariosBase[doc.id] = {
+        nome: doc.data().nome_completo,
+        tipo: "Agente",
+      };
+    });
+
+    const relatoriosPorMes = {};
+
+    custeiosSnap.forEach((doc) => {
+      const data = doc.data();
+      const valorCredito = parseFloat(data.valor_credito || 0);
+      const valorEmpresa = valorCredito * 0.015;
+
+      const gerenteId = data.responsavelGerenteId;
+      const secundarioId = data.responsavelSecundarioId;
+
+      const gerenteÉValido = usuariosBase[gerenteId];
+      const secundarioÉValido = usuariosBase[secundarioId];
+
+      const dataConclusao = data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+      const mesAno = dataConclusao.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+
+      if (!relatoriosPorMes[mesAno]) relatoriosPorMes[mesAno] = {};
+
+      function acumular(id, venda, comissao, bonus) {
+        if (!relatoriosPorMes[mesAno][id]) {
+          relatoriosPorMes[mesAno][id] = {
+            nome: usuariosBase[id]?.nome || "Desconhecido",
+            tipo: usuariosBase[id]?.tipo || "-",
+            totalVendas: 0,
+            comissaoTotal: 0,
+            bonusTotal: 0,
+          };
+        }
+
+        relatoriosPorMes[mesAno][id].totalVendas += venda;
+        relatoriosPorMes[mesAno][id].comissaoTotal += comissao;
+        relatoriosPorMes[mesAno][id].bonusTotal += bonus;
+      }
+
+      // Total vendido (uma vez só)
+      const idParaVenda = gerenteÉValido ? gerenteId : secundarioId;
+      if (usuariosBase[idParaVenda]) {
+        acumular(idParaVenda, valorCredito, 0, 0);
+      }
+
+      // Comissão e bônus
+      if (gerenteId === secundarioId && usuariosBase[gerenteId]) {
+        acumular(gerenteId, 0, valorEmpresa * 0.2, valorEmpresa * 0.05);
+      } else {
+        if (gerenteÉValido) acumular(gerenteId, 0, valorEmpresa * 0.1, valorEmpresa * 0.025);
+        if (secundarioÉValido) acumular(secundarioId, 0, valorEmpresa * 0.1, valorEmpresa * 0.025);
+      }
+    });
+
+    exibirTabelasPorMes(relatoriosPorMes);
+  }
+
+  function formatarBR(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+    function exibirTabelasPorMes(relatorios) {
+  const container = document.getElementById("tabela-relatorio");
+  container.innerHTML = "";
+
+  // Pegando filtros
+  const nomeFiltro = document.getElementById("search-nome")?.value?.toLowerCase() || "";
+  const tipoFiltro = document.getElementById("filter-tipo")?.value || "";
+  const orderBy = document.getElementById("order-by")?.value || "comissao_desc";
+
+  const mesesOrdenados = Object.keys(relatorios).sort((a, b) =>
+    new Date("01 " + b) - new Date("01 " + a)
+  );
+
+  mesesOrdenados.forEach((mes) => {
+    let dados = Object.values(relatorios[mes]);
+
+    // Aplicar filtros
+    dados = dados.filter((d) => {
+      const nomeMatch = d.nome.toLowerCase().includes(nomeFiltro);
+      const tipoMatch = tipoFiltro ? d.tipo === tipoFiltro : true;
+      return nomeMatch && tipoMatch;
+    });
+
+    // Aplicar ordenação
+    dados.sort((a, b) => {
+      switch (orderBy) {
+        case "tipo_asc": return a.tipo.localeCompare(b.tipo);
+        case "tipo_desc": return b.tipo.localeCompare(a.tipo);
+        case "comissao_asc": return a.comissaoTotal - b.comissaoTotal;
+        case "comissao_desc": return b.comissaoTotal - a.comissaoTotal;
+        case "bonus_asc": return a.bonusTotal - b.bonusTotal;
+        case "bonus_desc": return b.bonusTotal - a.bonusTotal;
+        default: return 0;
+      }
+    });
+
+    // Gerar HTML da tabela
+    const tabela = document.createElement("div");
+    tabela.classList.add("card", "mb-4");
+
+    const html = `
+      <div class="card-body">
+        <h5 class="mb-3">Relatório Mensal - ${mes}</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Comissão do Mês</th>
+                <th>Bônus do Mês</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${
+                dados.length === 0
+                  ? `<tr><td colspan="4" class="text-center">Nenhum dado</td></tr>`
+                  : dados.map((d) => `
+                    <tr>
+                      <td>${d.tipo}</td>
+                      <td>${d.nome}</td>
+                      <td>${formatarBR(d.comissaoTotal)}</td>
+                      <td>${formatarBR(d.bonusTotal)}</td>
+                    </tr>
+                  `).join("")
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    tabela.innerHTML = html;
+    container.appendChild(tabela);
+  });
+}
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof db !== "undefined") {
+      gerarRelatorioVendas();
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+  if (typeof db !== "undefined") {
+    gerarRelatorioVendas();
+
+    document.getElementById("search-nome")?.addEventListener("input", gerarRelatorioVendas);
+    document.getElementById("filter-tipo")?.addEventListener("change", gerarRelatorioVendas);
+    document.getElementById("order-by")?.addEventListener("change", gerarRelatorioVendas);
+  }
+});
+</script>
+
+
+  </body>
+</html>
