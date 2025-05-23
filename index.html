@@ -10,6 +10,12 @@
       href="assets/images/favicon.png"
       sizes="16x16"
     />
+    <!-- Firebase App (Core SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.41.0"></script>
+
     <!-- remix icon font css  -->
     <link rel="stylesheet" href="assets/css/remixicon.css" />
     <!-- BootStrap css -->
@@ -381,8 +387,10 @@
                   class="d-flex flex-wrap align-items-center justify-content-between gap-3"
                 >
                   <div>
-                    <p class="fw-medium text-primary-light mb-1">Total Users</p>
-                    <h6 class="mb-0">20,000</h6>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Total Clientes
+                    </p>
+                    <h6 class="mb-0 dashboard-total-users">...</h6>
                   </div>
                   <div
                     class="w-50-px h-50-px bg-cyan rounded-circle d-flex justify-content-center align-items-center"
@@ -398,56 +406,20 @@
                 >
                   <span
                     class="d-inline-flex align-items-center gap-1 text-success-main"
-                    ><iconify-icon
+                  >
+                    <iconify-icon
                       icon="bxs:up-arrow"
                       class="text-xs"
                     ></iconify-icon>
-                    +5000</span
-                  >
-                  Last 30 days users
+                    <span class="dashboard-users-30d">+0</span>
+                  </span>
+                  Últimos 30 dias
                 </p>
               </div>
             </div>
             <!-- card end -->
           </div>
-          <div class="col">
-            <div class="card shadow-none border bg-gradient-start-2 h-100">
-              <div class="card-body p-20">
-                <div
-                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
-                >
-                  <div>
-                    <p class="fw-medium text-primary-light mb-1">
-                      Total Subscription
-                    </p>
-                    <h6 class="mb-0">15,000</h6>
-                  </div>
-                  <div
-                    class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center"
-                  >
-                    <iconify-icon
-                      icon="fa-solid:award"
-                      class="text-white text-2xl mb-0"
-                    ></iconify-icon>
-                  </div>
-                </div>
-                <p
-                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
-                >
-                  <span
-                    class="d-inline-flex align-items-center gap-1 text-danger-main"
-                    ><iconify-icon
-                      icon="bxs:down-arrow"
-                      class="text-xs"
-                    ></iconify-icon>
-                    -800</span
-                  >
-                  Last 30 days subscription
-                </p>
-              </div>
-            </div>
-            <!-- card end -->
-          </div>
+
           <div class="col">
             <div class="card shadow-none border bg-gradient-start-3 h-100">
               <div class="card-body p-20">
@@ -455,10 +427,8 @@
                   class="d-flex flex-wrap align-items-center justify-content-between gap-3"
                 >
                   <div>
-                    <p class="fw-medium text-primary-light mb-1">
-                      Total Free Users
-                    </p>
-                    <h6 class="mb-0">5,000</h6>
+                    <p class="fw-medium text-primary-light mb-1">Total Leads</p>
+                    <h6 class="mb-0 dashboard-leads-total">0</h6>
                   </div>
                   <div
                     class="w-50-px h-50-px bg-info rounded-circle d-flex justify-content-center align-items-center"
@@ -474,13 +444,54 @@
                 >
                   <span
                     class="d-inline-flex align-items-center gap-1 text-success-main"
-                    ><iconify-icon
+                  >
+                    <iconify-icon
                       icon="bxs:up-arrow"
                       class="text-xs"
                     ></iconify-icon>
-                    +200</span
+                    <span class="dashboard-leads-30d">+0</span>
+                  </span>
+                  Últimos 30 dias
+                </p>
+              </div>
+            </div>
+
+            <!-- card end -->
+          </div>
+          <div class="col">
+            <div class="card shadow-none border bg-gradient-start-2 h-100">
+              <div class="card-body p-20">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Créditos Aprovados
+                    </p>
+                    <h6 class="mb-0 dashboard-concluidas-total">0</h6>
+                  </div>
+                  <div
+                    class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center"
                   >
-                  Last 30 days users
+                    <iconify-icon
+                      icon="fa-solid:award"
+                      class="text-white text-2xl mb-0"
+                    ></iconify-icon>
+                  </div>
+                </div>
+                <p
+                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
+                >
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-success-main"
+                  >
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                    <span class="dashboard-concluidas-30d">+0</span>
+                  </span>
+                  Últimos 30 dias
                 </p>
               </div>
             </div>
@@ -494,7 +505,7 @@
                 >
                   <div>
                     <p class="fw-medium text-primary-light mb-1">
-                      Total Income
+                      Avaliação Imóveis
                     </p>
                     <h6 class="mb-0">$42,000</h6>
                   </div>
@@ -532,7 +543,7 @@
                 >
                   <div>
                     <p class="fw-medium text-primary-light mb-1">
-                      Total Expense
+                      Licenciamento
                     </p>
                     <h6 class="mb-0">$30,000</h6>
                   </div>
@@ -571,20 +582,12 @@
                 <div
                   class="d-flex flex-wrap align-items-center justify-content-between"
                 >
-                  <h6 class="text-lg mb-0">Sales Statistic</h6>
-                  <select
-                    class="form-select bg-base form-select-sm w-auto radius-8"
-                  >
-                    <option>Yearly</option>
-                    <option>Monthly</option>
-                    <option>Weekly</option>
-                    <option>Today</option>
-                  </select>
+                  <h6 class="text-lg mb-0">Total Crédito Aprovado</h6>
                 </div>
                 <div class="d-flex flex-wrap align-items-center gap-2 mt-8">
-                  <h6 class="mb-0">$27,200</h6>
+                  <h6 class="mb-0 approved-total">R$ 0,00</h6>
                   <span
-                    class="text-sm fw-semibold rounded-pill bg-success-focus text-success-main border br-success px-8 py-4 line-height-1 d-flex align-items-center gap-1"
+                    class="growth-percent text-sm fw-semibold rounded-pill bg-success-focus text-success-main border br-success px-8 py-4 line-height-1 d-flex align-items-center gap-1"
                   >
                     10%
                     <iconify-icon
@@ -592,7 +595,9 @@
                       class="text-xs"
                     ></iconify-icon>
                   </span>
-                  <span class="text-xs fw-medium">+ $1500 Per Day</span>
+                  <span class="text-xs fw-medium approved-per-day"
+                    >+ R$ 0,00 por dia</span
+                  >
                 </div>
                 <div id="chart" class="pt-28 apexcharts-tooltip-style-1"></div>
               </div>
@@ -630,7 +635,7 @@
                 <div
                   class="d-flex align-items-center flex-wrap gap-2 justify-content-between"
                 >
-                  <h6 class="mb-2 fw-bold text-lg">Users Overview</h6>
+                  <h6 class="mb-2 fw-bold text-lg">Tipos de Créditos</h6>
                   <div class="">
                     <select
                       class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8"
@@ -693,11 +698,12 @@
                         aria-controls="pills-to-do-list"
                         aria-selected="true"
                       >
-                        Latest Registered
+                        Novos Clientes
                         <span
-                          class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert"
-                          >35</span
+                          class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert notification-count-clientes"
                         >
+                          0
+                        </span>
                       </button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -712,11 +718,12 @@
                         aria-selected="false"
                         tabindex="-1"
                       >
-                        Latest Subscribe
+                        Novos Leads
                         <span
-                          class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert"
-                          >35</span
+                          class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert notification-count-leads"
                         >
+                          0
+                        </span>
                       </button>
                     </li>
                   </ul>
@@ -724,336 +731,50 @@
                     href="javascript:void(0)"
                     class="text-primary-600 hover-text-primary d-flex align-items-center gap-1"
                   >
-                    View All
-                    <iconify-icon
-                      icon="solar:alt-arrow-right-linear"
-                      class="icon"
-                    ></iconify-icon>
                   </a>
                 </div>
 
                 <div class="tab-content" id="pills-tabContent">
+                  <!-- Últimos Clientes -->
                   <div
                     class="tab-pane fade show active"
                     id="pills-to-do-list"
                     role="tabpanel"
                     aria-labelledby="pills-to-do-list-tab"
-                    tabindex="0"
                   >
                     <div class="table-responsive scroll-sm">
                       <table class="table bordered-table sm-table mb-0">
                         <thead>
                           <tr>
-                            <th scope="col">Users</th>
-                            <th scope="col">Registered On</th>
-                            <th scope="col">Plan</th>
+                            <th scope="col">Clientes</th>
+                            <th scope="col">Data de Inclusão</th>
+
                             <th scope="col" class="text-center">Status</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user1.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Dianne Russell
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >redaniel@gmail.com</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Free</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user2.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Wade Warren
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >xterris@gmail.com</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Basic</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user3.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Albert Flores
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >seannand@mail.ru</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Standard</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user4.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Bessie Cooper
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >igerrin@gmail.com</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Business</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user5.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Arlene McCoy
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >fellora@mail.ru</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Enterprise</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                        </tbody>
+                        <tbody id="clientes-table-body"></tbody>
                       </table>
                     </div>
                   </div>
+
+                  <!-- Últimos Leads -->
                   <div
                     class="tab-pane fade"
                     id="pills-recent-leads"
                     role="tabpanel"
                     aria-labelledby="pills-recent-leads-tab"
-                    tabindex="0"
                   >
                     <div class="table-responsive scroll-sm">
                       <table class="table bordered-table sm-table mb-0">
                         <thead>
                           <tr>
-                            <th scope="col">Users</th>
-                            <th scope="col">Registered On</th>
-                            <th scope="col">Plan</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Data de Inclusão</th>
+                            <th scope="col">Email</th>
                             <th scope="col" class="text-center">Status</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user1.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Dianne Russell
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >redaniel@gmail.com</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Free</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user2.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Wade Warren
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >xterris@gmail.com</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Basic</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user3.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Albert Flores
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >seannand@mail.ru</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Standard</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user4.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Bessie Cooper
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >igerrin@gmail.com</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Business</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <img
-                                  src="assets/images/users/user5.png"
-                                  alt=""
-                                  class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                                />
-                                <div class="flex-grow-1">
-                                  <h6 class="text-md mb-0 fw-medium">
-                                    Arlene McCoy
-                                  </h6>
-                                  <span
-                                    class="text-sm text-secondary-light fw-medium"
-                                    >fellora@mail.ru</span
-                                  >
-                                </div>
-                              </div>
-                            </td>
-                            <td>27 Mar 2024</td>
-                            <td>Enterprise</td>
-                            <td class="text-center">
-                              <span
-                                class="bg-success-focus text-success-main px-24 py-4 rounded-pill fw-medium text-sm"
-                                >Active</span
-                              >
-                            </td>
-                          </tr>
-                        </tbody>
+                        <tbody id="leads-table-body"></tbody>
                       </table>
                     </div>
                   </div>
@@ -1067,150 +788,18 @@
                 <div
                   class="d-flex align-items-center flex-wrap gap-2 justify-content-between"
                 >
-                  <h6 class="mb-2 fw-bold text-lg mb-0">Top Performer</h6>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-primary-600 hover-text-primary d-flex align-items-center gap-1"
-                  >
-                    View All
-                    <iconify-icon
-                      icon="solar:alt-arrow-right-linear"
-                      class="icon"
-                    ></iconify-icon>
-                  </a>
+                  <h6 class="mb-2 fw-bold text-lg mb-0">Melhor Desempenho</h6>
                 </div>
 
-                <div class="mt-32">
-                  <div
-                    class="d-flex align-items-center justify-content-between gap-3 mb-24"
-                  >
-                    <div class="d-flex align-items-center">
-                      <img
-                        src="assets/images/users/user1.png"
-                        alt=""
-                        class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                      />
-                      <div class="flex-grow-1">
-                        <h6 class="text-md mb-0 fw-medium">Dianne Russell</h6>
-                        <span class="text-sm text-secondary-light fw-medium"
-                          >Agent ID: 36254</span
-                        >
-                      </div>
-                    </div>
-                    <span class="text-primary-light text-md fw-medium"
-                      >$20</span
-                    >
-                  </div>
-
-                  <div
-                    class="d-flex align-items-center justify-content-between gap-3 mb-24"
-                  >
-                    <div class="d-flex align-items-center">
-                      <img
-                        src="assets/images/users/user2.png"
-                        alt=""
-                        class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                      />
-                      <div class="flex-grow-1">
-                        <h6 class="text-md mb-0 fw-medium">Wade Warren</h6>
-                        <span class="text-sm text-secondary-light fw-medium"
-                          >Agent ID: 36254</span
-                        >
-                      </div>
-                    </div>
-                    <span class="text-primary-light text-md fw-medium"
-                      >$20</span
-                    >
-                  </div>
-
-                  <div
-                    class="d-flex align-items-center justify-content-between gap-3 mb-24"
-                  >
-                    <div class="d-flex align-items-center">
-                      <img
-                        src="assets/images/users/user3.png"
-                        alt=""
-                        class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                      />
-                      <div class="flex-grow-1">
-                        <h6 class="text-md mb-0 fw-medium">Albert Flores</h6>
-                        <span class="text-sm text-secondary-light fw-medium"
-                          >Agent ID: 36254</span
-                        >
-                      </div>
-                    </div>
-                    <span class="text-primary-light text-md fw-medium"
-                      >$30</span
-                    >
-                  </div>
-
-                  <div
-                    class="d-flex align-items-center justify-content-between gap-3 mb-24"
-                  >
-                    <div class="d-flex align-items-center">
-                      <img
-                        src="assets/images/users/user4.png"
-                        alt=""
-                        class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                      />
-                      <div class="flex-grow-1">
-                        <h6 class="text-md mb-0 fw-medium">Bessie Cooper</h6>
-                        <span class="text-sm text-secondary-light fw-medium"
-                          >Agent ID: 36254</span
-                        >
-                      </div>
-                    </div>
-                    <span class="text-primary-light text-md fw-medium"
-                      >$40</span
-                    >
-                  </div>
-
-                  <div
-                    class="d-flex align-items-center justify-content-between gap-3 mb-24"
-                  >
-                    <div class="d-flex align-items-center">
-                      <img
-                        src="assets/images/users/user5.png"
-                        alt=""
-                        class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                      />
-                      <div class="flex-grow-1">
-                        <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
-                        <span class="text-sm text-secondary-light fw-medium"
-                          >Agent ID: 36254</span
-                        >
-                      </div>
-                    </div>
-                    <span class="text-primary-light text-md fw-medium"
-                      >$10</span
-                    >
-                  </div>
-
-                  <div
-                    class="d-flex align-items-center justify-content-between gap-3"
-                  >
-                    <div class="d-flex align-items-center">
-                      <img
-                        src="assets/images/users/user1.png"
-                        alt=""
-                        class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12 overflow-hidden"
-                      />
-                      <div class="flex-grow-1">
-                        <h6 class="text-md mb-0 fw-medium">Arlene McCoy</h6>
-                        <span class="text-sm text-secondary-light fw-medium"
-                          >Agent ID: 36254</span
-                        >
-                      </div>
-                    </div>
-                    <span class="text-primary-light text-md fw-medium"
-                      >$10</span
-                    >
-                  </div>
+                <!-- Aqui será preenchido via JS -->
+                <div class="mt-32" id="top-performers-list">
+                  <p class="text-sm text-muted">Carregando...</p>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-xxl-6 col-xl-12">
+
+          <!--  <div class="col-xxl-6 col-xl-12">
             <div class="card h-100">
               <div class="card-body">
                 <div
@@ -1524,7 +1113,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -1559,9 +1148,11 @@
     <script src="assets/js/app.js"></script>
     <script src="assets/js/homeOneChart.js"></script>
 
-    <!-- Firebase App e Auth (apenas UMA vez cada) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <!-- Firebase v8 (compatível com firebase.firestore()) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.41.0"></script>
     <script>
       const firebaseConfig = {
         apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
@@ -1571,6 +1162,7 @@
         messagingSenderId: "689137289621",
         appId: "1:689137289621:web:7595220d59d48d48960e9c",
       };
+
       // Inicializa o Firebase (apenas se não estiver inicializado)
       if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
@@ -1600,6 +1192,470 @@
               window.location.href = "sign-in.html";
             });
         });
+    </script>
+    <script>
+      const db = firebase.firestore();
+      let chartInstance = null; // controla gráfico atual
+      async function carregarResumoDashboard() {
+        try {
+          // ==== CLIENTES ====
+          const clientesSnap = await db.collection("clientes").get();
+          const totalUsers = clientesSnap.size;
+          const totalFreeUsers = clientesSnap.size;
+
+          const hoje = new Date();
+          const trintaDiasAtras = new Date();
+          trintaDiasAtras.setDate(hoje.getDate() - 30);
+
+          let clientesUltimos30Dias = 0;
+          clientesSnap.forEach((doc) => {
+            const data = doc.data().data_inclusao;
+            const dataCadastro = data?.toDate?.() || new Date(data);
+            if (dataCadastro >= trintaDiasAtras) {
+              clientesUltimos30Dias++;
+            }
+          });
+
+          const elUsers = document.querySelector(".dashboard-total-users");
+          if (elUsers) elUsers.textContent = totalUsers.toLocaleString();
+
+          const elFree = document.querySelector(".dashboard-total-free");
+          if (elFree) elFree.textContent = totalFreeUsers.toLocaleString();
+
+          const el30d = document.querySelector(".dashboard-users-30d");
+          if (el30d) el30d.textContent = `+${clientesUltimos30Dias}`;
+
+          // ==== SUBSCRIÇÕES ====
+          const subscriptionSnap = await db.collection("subscricoes").get();
+          const subscriptionCount = subscriptionSnap.size;
+
+          const elSub = document.querySelector(".dashboard-total-subscription");
+          if (elSub) elSub.textContent = subscriptionCount.toLocaleString();
+
+          // ==== INCOME & EXPENSE ====
+          const custeiosSnap = await db
+            .collection("custeio")
+            .where("status_solicitacao", "==", "concluido")
+            .get();
+
+          let totalIncome = 0;
+          let totalExpense = 0;
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const valorCredito = parseFloat(data.valor_credito || 0);
+            const valorEmpresa = valorCredito * 0.015;
+
+            if (dataConclusao >= trintaDiasAtras) {
+              totalIncome += valorEmpresa;
+              totalExpense += valorCredito;
+            }
+          });
+          // ==== CONCLUÍDAS ====
+          let totalConcluidas = 0;
+          let concluidas30Dias = 0;
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+
+            totalConcluidas++;
+
+            if (dataConclusao >= trintaDiasAtras) {
+              concluidas30Dias++;
+            }
+          });
+
+          const elConcluidas = document.querySelector(
+            ".dashboard-concluidas-total"
+          );
+          if (elConcluidas)
+            elConcluidas.textContent = totalConcluidas.toLocaleString();
+
+          const elConcluidas30d = document.querySelector(
+            ".dashboard-concluidas-30d"
+          );
+          if (elConcluidas30d)
+            elConcluidas30d.textContent = `+${concluidas30Dias}`;
+
+          const elIncome = document.querySelector(".dashboard-income");
+          if (elIncome) elIncome.textContent = formatarBR(totalIncome);
+
+          const elExpense = document.querySelector(".dashboard-expense");
+          if (elExpense) elExpense.textContent = formatarBR(totalExpense);
+          // ==== LEADS ====
+          // ==== LEADS ====
+          // ==== LEADS ====
+          const leadsSnap = await db.collection("leads").get();
+          let totalLeads = leadsSnap.size;
+          let leads30Dias = 0;
+
+          leadsSnap.forEach((doc) => {
+            const data = doc.data().createdAt;
+
+            if (!data) {
+              console.warn("Lead sem data_inclusao:", doc.id);
+              return;
+            }
+
+            const dataCadastro = data?.toDate?.() || new Date(data);
+            if (dataCadastro >= trintaDiasAtras) {
+              leads30Dias++;
+            }
+          });
+
+          const elLeadsTotal = document.querySelector(".dashboard-leads-total");
+          if (elLeadsTotal)
+            elLeadsTotal.textContent = totalLeads.toLocaleString();
+
+          const elLeads30d = document.querySelector(".dashboard-leads-30d");
+          if (elLeads30d) elLeads30d.textContent = `+${leads30Dias}`;
+
+          // ==== SALES STATISTIC (solicitações aprovadas) ====
+          const custeiosAprovadosSnap = await db
+            .collection("custeio")
+            .where("status_solicitacao", "==", "concluido")
+            .get();
+
+          let totalAprovado = 0;
+          let valoresPorMes = {};
+
+          custeiosAprovadosSnap.forEach((doc) => {
+            const data = doc.data();
+            const valor = parseFloat(data.valor_credito || 0);
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const mes = dataConclusao
+              .toLocaleDateString("pt-BR", { month: "short" })
+              .toLowerCase()
+              .replace(".", ""); // remove o ponto final
+            // ✅ Adicione este log para verificar os dados reais
+            console.log(
+              "Data:",
+              dataConclusao.toLocaleDateString("pt-BR"),
+              "Mês:",
+              mes,
+              "Valor:",
+              valor
+            );
+
+            totalAprovado += valor;
+            if (!valoresPorMes[mes]) valoresPorMes[mes] = 0;
+            valoresPorMes[mes] += valor;
+          });
+
+          // ✅ Log após o loop para ver resultado final
+          console.log("Totais por mês:", valoresPorMes);
+
+          const mesesOrdenados = [
+            "jan",
+            "fev",
+            "mar",
+            "abr",
+            "mai",
+            "jun",
+            "jul",
+            "ago",
+            "set",
+            "out",
+            "nov",
+            "dez",
+          ];
+          const labelsMeses = mesesOrdenados.map(
+            (m) => m.charAt(0).toUpperCase() + m.slice(1)
+          );
+          const seriesValores = mesesOrdenados.map(
+            (m) => valoresPorMes[m] || 0
+          );
+
+          document.querySelector(".approved-total").textContent =
+            formatarBR(totalAprovado);
+
+          const mediaPorDia = totalAprovado / 30;
+          document.querySelector(
+            ".approved-per-day"
+          ).textContent = `+ ${formatarBR(mediaPorDia)} por dia`;
+
+          // ==== CRESCIMENTO PERCENTUAL (últimos 30 dias vs 30 anteriores) ====
+          const sessentaDiasAtras = new Date();
+          sessentaDiasAtras.setDate(trintaDiasAtras.getDate() - 30);
+
+          let totalAnterior = 0;
+          let totalAtual = 0;
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const valor = parseFloat(data.valor_credito || 0);
+
+            if (dataConclusao >= trintaDiasAtras) {
+              totalAtual += valor;
+            } else if (
+              dataConclusao >= sessentaDiasAtras &&
+              dataConclusao < trintaDiasAtras
+            ) {
+              totalAnterior += valor;
+            }
+          });
+          let crescimento = 0;
+          if (totalAnterior > 0) {
+            crescimento = ((totalAtual - totalAnterior) / totalAnterior) * 100;
+          } else if (totalAtual > 0) {
+            crescimento = 100;
+          }
+
+          const elCrescimento = document.querySelector(".growth-percent");
+          if (elCrescimento) {
+            const percentual = `${
+              crescimento >= 0 ? "+" : ""
+            }${crescimento.toFixed(1)}%`;
+            const icon = crescimento >= 0 ? "bxs:up-arrow" : "bxs:down-arrow";
+
+            elCrescimento.innerHTML = `
+    ${percentual}
+    <iconify-icon icon="${icon}" class="text-xs"></iconify-icon>
+  `;
+
+            // Atualiza as classes de cor
+            elCrescimento.classList.remove(
+              "text-success-main",
+              "text-danger-main",
+              "bg-success-focus",
+              "bg-danger-focus"
+            );
+            elCrescimento.classList.add(
+              crescimento >= 0 ? "text-success-main" : "text-danger-main",
+              crescimento >= 0 ? "bg-success-focus" : "bg-danger-focus"
+            );
+          }
+
+          renderizarGraficoSolicitacoes(labelsMeses, seriesValores);
+        } catch (err) {
+          console.error("Erro ao carregar dashboard:", err);
+        }
+      }
+
+      function formatarBR(valor) {
+        return valor.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+      }
+      async function carregarUltimosRegistros() {
+        // Clientes
+        const clientesQuery = await db
+          .collection("clientes")
+          .orderBy("data_inclusao", "desc")
+          .limit(5)
+          .get();
+        const clientesTbody = document.getElementById("clientes-table-body");
+        clientesTbody.innerHTML = "";
+        clientesQuery.forEach((doc) => {
+          const c = doc.data();
+          const nome = c.nome_completo || "Sem nome";
+          const email = c.email || "-";
+          const data = c.data_inclusao?.toDate?.() || new Date(c.data_inclusao);
+          clientesTbody.innerHTML += `
+      <tr>
+        <td><strong>${nome}</strong><br><span class="text-sm text-secondary-light">${email}</span></td>
+        <td>${data.toLocaleDateString("pt-BR")}</td>
+        
+        <td class="text-center"><span class="badge bg-success">Ativo</span></td>
+      </tr>
+    `;
+        });
+
+        // Leads
+        const leadsQuery = await db
+          .collection("leads")
+          .orderBy("createdAt", "desc")
+          .limit(5)
+          .get();
+        const leadsTbody = document.getElementById("leads-table-body");
+        leadsTbody.innerHTML = "";
+        leadsQuery.forEach((doc) => {
+          const l = doc.data();
+          const nome = l.nome || "Sem nome";
+          const email = l.email || "-";
+          const data = l.createdAt?.toDate?.() || new Date(l.createdAt);
+          leadsTbody.innerHTML += `
+      <tr>
+        <td>${nome}</td>
+        <td>${data.toLocaleDateString("pt-BR")}</td>
+        <td>${email}</td>
+        <td class="text-center"><span class="badge bg-success">Novo</span></td>
+      </tr>
+    `;
+        });
+      }
+
+      // Executar ao carregar
+
+      function renderizarGraficoSolicitacoes(labels, valores) {
+        const chartEl = document.querySelector("#chart");
+        if (!chartEl) return;
+
+        // 🧹 Limpa DOM completamente antes de desenhar
+        chartEl.innerHTML = "";
+
+        // 🔄 Destroi instância anterior, se existir
+        if (chartInstance) {
+          chartInstance.destroy();
+          chartInstance = null;
+        }
+
+        const options = {
+          chart: {
+            type: "area",
+            height: 300,
+            toolbar: { show: false },
+          },
+          series: [
+            {
+              name: "Solicitações Aprovadas",
+              data: valores,
+            },
+          ],
+          yaxis: {
+            labels: {
+              formatter: function (value) {
+                return value.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                  maximumFractionDigits: 0,
+                });
+              },
+            },
+          },
+          colors: ["#00c292"],
+          stroke: {
+            curve: "smooth",
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return formatarBR(val);
+            },
+          },
+          tooltip: {
+            y: {
+              formatter: formatarBR,
+            },
+          },
+        };
+
+        chartInstance = new ApexCharts(chartEl, options);
+        chartInstance.render();
+
+        // 🛠 Força o resize após o primeiro frame
+      }
+      async function atualizarContadoresTabs() {
+        try {
+          // Clientes
+          const clientesSnap = await db.collection("clientes").get();
+          const clientesCount = clientesSnap.size;
+
+          const spanClientes = document.querySelector(
+            ".notification-count-clientes"
+          );
+          if (spanClientes) {
+            spanClientes.textContent = clientesCount.toLocaleString("pt-BR");
+          }
+
+          // Leads (separado)
+          const leadsSnap = await db.collection("leads").get();
+          const leadsCount = leadsSnap.size;
+
+          const spanLeads = document.querySelector(".notification-count-leads");
+          if (spanLeads) {
+            spanLeads.textContent = leadsCount.toLocaleString("pt-BR");
+          }
+        } catch (err) {
+          console.error("Erro ao buscar contadores:", err);
+        }
+      }
+
+      async function carregarTopPerformers() {
+        const container = document.getElementById("top-performers-list");
+        container.innerHTML = "";
+
+        try {
+          const [agentesSnap, gerentesSnap, custeiosSnap] = await Promise.all([
+            db.collection("agentes").get(),
+            db.collection("gerentes").get(),
+            db
+              .collection("custeio")
+              .where("status_solicitacao", "==", "concluido")
+              .get(),
+          ]);
+
+          const usuarios = {};
+
+          agentesSnap.forEach((doc) => {
+            const data = doc.data();
+            usuarios[doc.id] = {
+              nome: data.nome_completo || "Sem nome",
+              email: data.email || "Sem email",
+              total: 0,
+            };
+          });
+
+          gerentesSnap.forEach((doc) => {
+            const data = doc.data();
+            usuarios[doc.id] = {
+              nome: data.nome_completo || "Sem nome",
+              email: data.email || "Sem email",
+              total: 0,
+            };
+          });
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const valorCredito = parseFloat(data.valor_credito || 0);
+            const comissao = valorCredito * 0.01;
+            const bonus = valorCredito * 0.005;
+            const total = comissao + bonus;
+
+            const gerenteId = data.responsavelGerenteId;
+            const agenteId = data.responsavelSecundarioId;
+
+            if (usuarios[gerenteId]) usuarios[gerenteId].total += total;
+            if (usuarios[agenteId]) usuarios[agenteId].total += total;
+          });
+
+          const topUsuarios = Object.values(usuarios)
+            .sort((a, b) => b.total - a.total)
+            .slice(0, 5);
+
+          topUsuarios.forEach((u) => {
+            container.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between gap-3 mb-24">
+          <div class="flex-grow-1">
+            <h6 class="text-md mb-0 fw-medium">${u.nome}</h6>
+            <span class="text-sm text-secondary-light fw-medium">${
+              u.email
+            }</span>
+          </div>
+          <span class="text-primary-light text-md fw-medium">${formatarBR(
+            u.total
+          )}</span>
+        </div>
+      `;
+          });
+        } catch (err) {
+          console.error("Erro ao carregar top performers:", err);
+          container.innerHTML = `<p class="text-danger">Erro ao carregar dados.</p>`;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", atualizarContadoresTabs);
+      document.addEventListener("DOMContentLoaded", carregarUltimosRegistros);
+      document.addEventListener("DOMContentLoaded", carregarResumoDashboard);
+      document.addEventListener("DOMContentLoaded", carregarTopPerformers);
     </script>
   </body>
 </html>
