@@ -29,13 +29,348 @@
   </head>
   <body>
     <!-- Sidebar idêntico ao padrão -->
-
+   <aside class="sidebar">
+      <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+      </button>
+      <div>
+        <a href="index.html" class="sidebar-logo">
+          <img
+            src="assets/images/logo.png"
+            alt="site logo"
+            class="light-logo"
+          />
+          <img
+            src="assets/images/logo-light.png"
+            alt="site logo"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/logo-icon.png"
+            alt="site logo"
+            class="logo-icon"
+          />
+        </a>
+      </div>
+      <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="solar:home-smile-angle-outline"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Dashboard</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="index.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >AI</a
+                >
+              </li>
+              <li>
+                <a href="index-2.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >CRM</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-menu-group-title">Clientes</li>
+          <li>
+            <a href="lead-list.html">
+              <iconify-icon
+                icon="ri:user-add-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Leads</span>
+            </a>
+          </li>
+          <li>
+            <a href="client-list.html">
+              <iconify-icon
+                icon="ri:group-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Funcionarios</li>
+          <li>
+            <a href="gerente-list.html">
+              <iconify-icon
+                icon="ri:user-star-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Gerentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-list.html">
+              <iconify-icon
+                icon="ri:user-settings-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Admins</span>
+            </a>
+          </li>
+          <li>
+            <a href="agente-list.html">
+              <iconify-icon
+                icon="ri:user-search-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Agentes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Solicitações</li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bank-card-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Custeios</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bar-chart-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Investimento</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:exchange-dollar-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Comercialização</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:home-gear-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Avaliação Imóveis</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:leaf-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Licenciamento Ambiental</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Ajustes</li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <i class="ri-user-settings-line text-xl me-14 d-flex w-auto"></i>
+              <span>Regras</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="role-access.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Role & Access</a
+                >
+              </li>
+              <li>
+                <a href="assign-role.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Assign Role</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="icon-park-outline:setting-two"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Configurações</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="company.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="notification.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Notification</a
+                >
+              </li>
+              <li>
+                <a href="notification-alert.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-info-main w-auto"
+                  ></i
+                  >Notification Alert</a
+                >
+              </li>
+              <li>
+                <a href="theme.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Theme</a
+                >
+              </li>
+              <li>
+                <a href="currencies.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Currencies</a
+                >
+              </li>
+              <li>
+                <a href="language.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Languages</a
+                >
+              </li>
+              <li>
+                <a href="payment-gateway.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Payment Gateway</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
     <main class="dashboard-main">
+         <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+              <button type="button" class="sidebar-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon text-2xl non-active"
+                ></iconify-icon>
+                <iconify-icon
+                  icon="iconoir:arrow-right"
+                  class="icon text-2xl active"
+                ></iconify-icon>
+              </button>
+              <button type="button" class="sidebar-mobile-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <p class="mb-0 me-2 text-sm text-white" id="welcome-message">
+                Bem-vindo, <strong id="user-profile-name">...</strong>
+              </p>
+              <div class="dropdown">
+                <button
+                  class="d-flex justify-content-center align-items-center rounded-circle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="assets/images/user.png"
+                    alt="image"
+                    class="w-40-px h-40-px object-fit-cover rounded-circle"
+                  />
+                </button>
+                <div
+                  class="dropdown-menu to-top dropdown-menu-sm"
+                  style="min-width: 150px; max-width: 220px; width: 180px"
+                >
+                  <ul class="to-top-list">
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="view-profile.html"
+                        ><iconify-icon
+                          icon="solar:user-linear"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >My Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="email.html"
+                        ><iconify-icon
+                          icon="tabler:message-check"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Inbox</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="company.html"
+                        ><iconify-icon
+                          icon="icon-park-outline:setting-two"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Setting</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                        href="javascript:void(0)"
+                        id="logout-btn"
+                        ><iconify-icon
+                          icon="lucide:power"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Log Out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="dashboard-main-body">
         <div
           class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
         >
-          <h6 class="fw-semibold mb-0">GERENTES</h6>
+          <h6 class="fw-semibold mb-0">RELATÓRIOS</h6>
           <ul class="d-flex align-items-center gap-2">
             <li class="fw-medium">
               <a
@@ -54,48 +389,7 @@
           </ul>
         </div>
         <div class="card h-100 p-0 radius-12">
-          <div
-            class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
-          >
-            <div class="d-flex align-items-center flex-wrap gap-3 w-100">
-              <span class="text-md fw-medium text-secondary-light mb-0"
-                >Show</span
-              >
-              <select
-                id="items-per-page"
-                class="form-select form-select-sm w-auto"
-              >
-                <option value="1">1</option>
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-              </select>
-              <div class="input-group w-auto">
-                <span class="input-group-text bg-transparent border-end-0">
-                  <iconify-icon icon="ion:search-outline"></iconify-icon>
-                </span>
-                <input
-                  type="text"
-                  id="search-input"
-                  class="form-control border-start-0"
-                  placeholder="Pesquisar..."
-                />
-              </div>
-              <select id="filter-status" class="form-select w-auto">
-                <option value="">Status</option>
-                <option value="inactive">Pendente</option>
-                <option value="active">Verificado</option>
-              </select>
-              <select id="order-by" class="form-select w-auto">
-                <option value="data_inclusao_desc">Mais Recentes</option>
-                <option value="data_inclusao_asc">Mais Antigos</option>
-                <option value="nome_completo_asc">Nome (A-Z)</option>
-                <option value="nome_completo_desc">Nome (Z-A)</option>
-                <option value="email_asc">Email (A-Z)</option>
-                <option value="email_desc">Email (Z-A)</option>
-              </select>
-            </div>
-          </div>
+        
           <div class="card mt-4" id="tabela-relatorio">
             <div class="card-body">
               <h5 class="mb-3">Relatório de Vendas - 2025</h5>
@@ -111,7 +405,8 @@
                     </tr>
                   </thead>
 
-                  <tbody id="tbody-relatorio">
+                  <div id="tabela-relatorio"></div>
+
                     <tr>
                       <td colspan="8" class="text-center">Carregando...</td>
                     </tr>
@@ -503,127 +798,154 @@
       };
     </script>
 
-    <script>
-      async function gerarRelatorioVendas() {
-        const gerentesSnap = await db.collection("gerentes").get();
-        const agentesSnap = await db.collection("agentes").get();
+   <script>
+  async function gerarRelatorioVendas() {
+    const gerentesSnap = await db.collection("gerentes").get();
+    const agentesSnap = await db.collection("agentes").get();
 
-        const custeiosSnap = await db
-          .collection("custeio")
-          .where("status_solicitacao", "==", "concluido")
-          .get();
+    const custeiosSnap = await db
+      .collection("custeio")
+      .where("status_solicitacao", "==", "concluido")
+      .get();
 
-        const usuarios = {};
+    const usuariosBase = {};
 
-        // Inicializa gerentes
-        gerentesSnap.forEach((doc) => {
-          usuarios[doc.id] = {
-            nome: doc.data().nome_completo,
-            tipo: "Gerente",
+    gerentesSnap.forEach((doc) => {
+      usuariosBase[doc.id] = {
+        nome: doc.data().nome_completo,
+        tipo: "Gerente",
+      };
+    });
+
+    agentesSnap.forEach((doc) => {
+      usuariosBase[doc.id] = {
+        nome: doc.data().nome_completo,
+        tipo: "Agente",
+      };
+    });
+
+    const relatoriosPorMes = {};
+
+    custeiosSnap.forEach((doc) => {
+      const data = doc.data();
+      const valorCredito = parseFloat(data.valor_credito || 0);
+      const valorEmpresa = valorCredito * 0.015;
+
+      const gerenteId = data.responsavelGerenteId;
+      const secundarioId = data.responsavelSecundarioId;
+
+      const gerenteÉValido = usuariosBase[gerenteId];
+      const secundarioÉValido = usuariosBase[secundarioId];
+
+      const dataConclusao = data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+      const mesAno = dataConclusao.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+
+      if (!relatoriosPorMes[mesAno]) relatoriosPorMes[mesAno] = {};
+
+      function acumular(id, venda, comissao, bonus) {
+        if (!relatoriosPorMes[mesAno][id]) {
+          relatoriosPorMes[mesAno][id] = {
+            nome: usuariosBase[id]?.nome || "Desconhecido",
+            tipo: usuariosBase[id]?.tipo || "-",
             totalVendas: 0,
             comissaoTotal: 0,
             bonusTotal: 0,
           };
-        });
-
-        // Inicializa agentes
-        agentesSnap.forEach((doc) => {
-          usuarios[doc.id] = {
-            nome: doc.data().nome_completo,
-            tipo: "Agente",
-            totalVendas: 0,
-            comissaoTotal: 0,
-            bonusTotal: 0,
-          };
-        });
-
-        // Processa as solicitações concluídas
-        custeiosSnap.forEach((doc) => {
-          const data = doc.data();
-
-          // Ajuste de escala: valor_credito está em CENTAVOS, converte para REAIS
-          const valorCredito = parseFloat(data.valor_credito || 0);
-          const valorEmpresa = valorCredito * 0.015; // 1,5% do valor total
-
-          const gerenteId = data.responsavelGerenteId;
-          const secundarioId = data.responsavelSecundarioId;
-
-          const gerenteÉValido = usuarios[gerenteId];
-          const secundarioÉValido = usuarios[secundarioId];
-
-          // Soma valor total vendido apenas uma vez
-          if (gerenteÉValido || secundarioÉValido) {
-            const idParaTotal = gerenteÉValido ? gerenteId : secundarioId;
-            usuarios[idParaTotal].totalVendas += valorCredito;
-          }
-
-          // Se IDs são IGUAIS e o gerente é válido, recebe o dobro (20% + 5%)
-          if (gerenteId === secundarioId && gerenteÉValido) {
-            usuarios[gerenteId].comissaoTotal += valorEmpresa * 0.2;
-            usuarios[gerenteId].bonusTotal += valorEmpresa * 0.05;
-          }
-          // Se IDs são diferentes, aplica separadamente
-          else {
-            if (gerenteÉValido) {
-              usuarios[gerenteId].comissaoTotal += valorEmpresa * 0.1;
-              usuarios[gerenteId].bonusTotal += valorEmpresa * 0.025;
-            }
-
-            if (secundarioÉValido) {
-              usuarios[secundarioId].comissaoTotal += valorEmpresa * 0.1;
-              usuarios[secundarioId].bonusTotal += valorEmpresa * 0.025;
-            }
-          }
-        });
-
-        // Monta os dados para exibição
-        const resultado = Object.entries(usuarios).map(([id, u]) => ({
-          tipo: u.tipo,
-          nome: u.nome,
-          totalVendido: formatarBR(u.totalVendas),
-          comissaoTotal: formatarBR(u.comissaoTotal),
-          bonusTotal: formatarBR(u.bonusTotal),
-        }));
-
-        exibirTabela(resultado);
-      }
-
-      function formatarBR(valor) {
-        return valor.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        });
-      }
-
-      function exibirTabela(dados) {
-        const tbody = document.getElementById("tbody-relatorio");
-        if (!tbody) return;
-
-        if (dados.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" class="text-center">Nenhum dado encontrado.</td></tr>`;
-          return;
         }
 
-        tbody.innerHTML = dados
-          .map(
-            (d) => `
-        <tr>
-          <td>${d.tipo}</td>
-          <td>${d.nome}</td>
-       
-          <td>${d.comissaoTotal}</td>
-          <td>${d.bonusTotal}</td>
-        </tr>
-      `
-          )
-          .join("");
+        relatoriosPorMes[mesAno][id].totalVendas += venda;
+        relatoriosPorMes[mesAno][id].comissaoTotal += comissao;
+        relatoriosPorMes[mesAno][id].bonusTotal += bonus;
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        if (typeof db !== "undefined") {
-          gerarRelatorioVendas();
-        }
-      });
-    </script>
+      // Total vendido (uma vez só)
+      const idParaVenda = gerenteÉValido ? gerenteId : secundarioId;
+      if (usuariosBase[idParaVenda]) {
+        acumular(idParaVenda, valorCredito, 0, 0);
+      }
+
+      // Comissão e bônus
+      if (gerenteId === secundarioId && usuariosBase[gerenteId]) {
+        acumular(gerenteId, 0, valorEmpresa * 0.2, valorEmpresa * 0.05);
+      } else {
+        if (gerenteÉValido) acumular(gerenteId, 0, valorEmpresa * 0.1, valorEmpresa * 0.025);
+        if (secundarioÉValido) acumular(secundarioId, 0, valorEmpresa * 0.1, valorEmpresa * 0.025);
+      }
+    });
+
+    exibirTabelasPorMes(relatoriosPorMes);
+  }
+
+  function formatarBR(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  function exibirTabelasPorMes(relatorios) {
+    const container = document.getElementById("tabela-relatorio");
+    container.innerHTML = "";
+
+    const mesesOrdenados = Object.keys(relatorios).sort((a, b) =>
+      new Date("01 " + b) - new Date("01 " + a)
+    );
+
+    mesesOrdenados.forEach((mes) => {
+      const dados = Object.values(relatorios[mes]);
+
+      const tabela = document.createElement("div");
+      tabela.classList.add("card", "mb-4");
+
+      const html = `
+        <div class="card-body">
+          <h5 class="mb-3">Relatório Mensal - ${mes}</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead class="table-dark">
+                <tr>
+                  <th>Tipo</th>
+                  <th>Nome</th>
+               
+                  <th>Comissão</th>
+                  <th>Bônus</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${
+                  dados.length === 0
+                    ? `<tr><td colspan="5" class="text-center">Nenhum dado</td></tr>`
+                    : dados
+                        .map(
+                          (d) => `
+                  <tr>
+                    <td>${d.tipo}</td>
+                    <td>${d.nome}</td>
+                   
+                    <td>${formatarBR(d.comissaoTotal)}</td>
+                    <td>${formatarBR(d.bonusTotal)}</td>
+                  </tr>
+                `
+                        )
+                        .join("")
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      tabela.innerHTML = html;
+      container.appendChild(tabela);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof db !== "undefined") {
+      gerarRelatorioVendas();
+    }
+  });
+</script>
+
   </body>
 </html>
