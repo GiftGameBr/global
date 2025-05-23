@@ -4029,15 +4029,25 @@ function renderTable() {
           <a class="dropdown-item text-white bg-danger" href="#" onclick="updateStatusSol('${c.id}', 'nao_aprovado')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Não aprovado</a>
         </li>
         <li>
-          <a class="dropdown-item text-white bg-info" href="#" onclick="updateStatusSol('${c.id}', 'concluido')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Concluído</a>
+         <a class="dropdown-item text-white bg-info" href="#" onclick="confirmarConclusao('${c.id}')" ${!podeAlterarStatusSol ? "style='pointer-events:none;opacity:0.7;'" : ""}>Concluído</a>
+
         </li>
       </ul>
     </div>
   </td>
   <td class="text-center">
-    ${btnDocs}
-    <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${c.id}')">Editar</button>
-    <button class="btn btn-sm btn-danger" onclick="deleteCusteio('${c.id}')">Deletar</button>
+    ${(c.status_solicitacao === 'concluido' || c.status_documentacao === 'verificado') ? `
+  <button class="btn btn-sm btn-secondary me-1" disabled title="Envio de documentos bloqueado">${c.status_solicitacao === 'concluido' ? 'Documentos (concluído)' : 'Documentos (verificado)'}</button>
+` : `
+  ${btnDocs}
+`}
+${c.status_solicitacao === 'concluido' ? `
+  <button class="btn btn-sm btn-secondary me-1" disabled title="Edição bloqueada - solicitação concluída">Editar</button>
+` : `
+  <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${c.id}')">Editar</button>
+`}
+<button class="btn btn-sm btn-danger" onclick="deleteCusteio('${c.id}')">Deletar</button>
+
   </td>
   <td>${c.addedBy || ""}</td>
   <td>${
@@ -4499,16 +4509,23 @@ window.updateStatusDocs = async function(id, status) {
   }
 }
 
-window.updateStatusSol = async function(id, status) {
+window.updateStatusSol = async function(id, status, dataConclusao = null) {
   try {
-    await db.collection("custeio").doc(id).update({
+    const atualizacoes = {
       status_solicitacao: status
-    });
+    };
+
+    if (status === 'concluido' && dataConclusao) {
+      atualizacoes.data_conclusao = dataConclusao;
+    }
+
+    await db.collection("custeio").doc(id).update(atualizacoes);
     loadCusteios();
   } catch (err) {
     alert("Erro ao atualizar status da solicitação: " + err.message);
   }
 }
+
 
       function renderUploadedFiles(prefix = "") {
         // Lista dos campos de documentos (use o mesmo nome dos inputs)
@@ -4565,7 +4582,12 @@ window.updateStatusSol = async function(id, status) {
           }
         });
       }
-
+function confirmarConclusao(idSolicitacao) {
+  if (confirm("⚠️ Após marcar como CONCLUÍDO, esta solicitação não poderá ser alterada e só poderá ser excluída por um administrador.\n\nDeseja realmente concluir esta solicitação?")) {
+    const dataConclusao = new Date().toISOString(); // grava no formato ISO
+    updateStatusSol(idSolicitacao, 'concluido', dataConclusao);
+  }
+}
       // Exemplo de uso após carregar os dados para edição
       // window.currentCusteioData = { ... }; // objeto do Firestore
       renderUploadedFiles("edit_"); // Para modal de edição
