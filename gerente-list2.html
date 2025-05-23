@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Gerentes</title>
+    <link
+      href="assets/images/favicon.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link href="assets/css/remixicon.css" rel="stylesheet" />
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/apexcharts.css" rel="stylesheet" />
+    <link href="assets/css/lib/dataTables.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor-katex.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor.atom-one-dark.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/editor.quill.snow.css" rel="stylesheet" />
+    <link href="assets/css/lib/flatpickr.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/full-calendar.css" rel="stylesheet" />
+    <link href="assets/css/lib/jquery-jvectormap-2.0.5.css" rel="stylesheet" />
+    <link href="assets/css/lib/magnific-popup.css" rel="stylesheet" />
+    <link href="assets/css/lib/slick.css" rel="stylesheet" />
+    <link href="assets/css/lib/prism.css" rel="stylesheet" />
+    <link href="assets/css/lib/file-upload.css" rel="stylesheet" />
+    <link href="assets/css/lib/audioplayer.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Sidebar idêntico ao padrão -->
+
+    <main class="dashboard-main">
+      <div class="dashboard-main-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
+        >
+          <h6 class="fw-semibold mb-0">GERENTES</h6>
+          <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+              <a
+                class="d-flex align-items-center gap-1 hover-text-primary"
+                href="index.html"
+              >
+                <iconify-icon
+                  class="icon text-lg"
+                  icon="solar:home-smile-angle-outline"
+                ></iconify-icon>
+                Dashboard
+              </a>
+            </li>
+            <li>-</li>
+            <li class="fw-medium">Gerentes</li>
+          </ul>
+        </div>
+        <div class="card h-100 p-0 radius-12">
+          <div
+            class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
+          >
+            <div class="d-flex align-items-center flex-wrap gap-3 w-100">
+              <span class="text-md fw-medium text-secondary-light mb-0"
+                >Show</span
+              >
+              <select
+                id="items-per-page"
+                class="form-select form-select-sm w-auto"
+              >
+                <option value="1">1</option>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+              </select>
+              <div class="input-group w-auto">
+                <span class="input-group-text bg-transparent border-end-0">
+                  <iconify-icon icon="ion:search-outline"></iconify-icon>
+                </span>
+                <input
+                  type="text"
+                  id="search-input"
+                  class="form-control border-start-0"
+                  placeholder="Pesquisar..."
+                />
+              </div>
+              <select id="filter-status" class="form-select w-auto">
+                <option value="">Status</option>
+                <option value="inactive">Pendente</option>
+                <option value="active">Verificado</option>
+              </select>
+              <select id="order-by" class="form-select w-auto">
+                <option value="data_inclusao_desc">Mais Recentes</option>
+                <option value="data_inclusao_asc">Mais Antigos</option>
+                <option value="nome_completo_asc">Nome (A-Z)</option>
+                <option value="nome_completo_desc">Nome (Z-A)</option>
+                <option value="email_asc">Email (A-Z)</option>
+                <option value="email_desc">Email (Z-A)</option>
+              </select>
+            </div>
+          </div>
+          <div class="card mt-4" id="tabela-relatorio">
+            <div class="card-body">
+              <h5 class="mb-3">Relatório de Vendas - 2025</h5>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Tipo</th>
+                      <th>Nome</th>
+
+                      <th>Comissão Total</th>
+                      <th>Bônus Total</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tbody-relatorio">
+                    <tr>
+                      <td colspan="8" class="text-center">Carregando...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0">
+              Made by <span class="text-primary-600">ComosTech</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/lib/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <!-- Firebase libs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script>
+      // Firebase Configuração
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.firestore();
+
+      let userType = null; // 'admin' | 'gerente' | 'agente' | 'cliente' | null
+
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (!user) {
+          window.location.href = "sign-in.html";
+          return;
+        }
+
+        // Preenche nome
+        const elName = document.getElementById("user-profile-name");
+        if (elName) {
+          elName.textContent =
+            user.displayName || user.email || user.phoneNumber || "Usuário";
+        }
+
+        // Checa tipo de conta
+        if ((await db.collection("admins").doc(user.uid).get()).exists)
+          userType = "admin";
+        else if ((await db.collection("gerentes").doc(user.uid).get()).exists)
+          userType = "gerente";
+        else if ((await db.collection("agentes").doc(user.uid).get()).exists)
+          userType = "agente";
+        else if ((await db.collection("clientes").doc(user.uid).get()).exists)
+          userType = "cliente";
+        else userType = null;
+
+        // CLIENTE: bloqueia tudo
+        if (userType === "cliente") {
+          document.querySelector(".dashboard-main-body").innerHTML = `
+        <div class="text-center py-5">
+          <h3 class="mb-4">Acesso restrito!</h3>
+          <p>Clientes não têm permissão para acessar esta página.</p>
+        </div>
+      `;
+          document.getElementById("btn-add-gerente").style.display = "none";
+          return;
+        }
+
+        // ADMIN: pode tudo
+        if (userType === "admin") {
+          document.getElementById("btn-add-gerente").style.display = "block";
+        } else {
+          // GERENTE/AGENTE: só visualizam, não mostram botão de criar
+          document.getElementById("btn-add-gerente").style.display = "none";
+        }
+
+        loadGerentes();
+      });
+
+      // Logout padrão
+      const btnLogout = document.getElementById("logout-btn");
+      if (btnLogout) {
+        btnLogout.addEventListener("click", function () {
+          firebase
+            .auth()
+            .signOut()
+            .then(() => {
+              window.location.href = "sign-in.html";
+            });
+        });
+      }
+
+      // CRUD GERENTES
+      let allGerentes = [];
+      let currentPage = 1;
+      let itemsPerPage = 10;
+      const tbody = document.getElementById("gerentes-tbody");
+      const searchInput = document.getElementById("search-input");
+      const pagination = document.querySelectorAll(".pagination")[0];
+      const paginationInfo = document.getElementById("pagination-info");
+
+      async function loadGerentes() {
+        const snapshot = await db
+          .collection("gerentes")
+          .orderBy("data_inclusao", "desc")
+          .get();
+        allGerentes = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        renderTable();
+      }
+
+      // Salvar Gerente (só admin)
+      document
+        .getElementById("gerente-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          if (userType !== "admin") {
+            alert("Apenas administradores podem cadastrar gerentes.");
+            return;
+          }
+          const nome = document.getElementById("gerente_nome").value;
+          const email = document.getElementById("gerente_email").value;
+          const senha = document.getElementById("gerente_senha").value;
+          const contato = document.getElementById("gerente_contato").value;
+          const criadoPor = firebase.auth().currentUser
+            ? firebase.auth().currentUser.displayName ||
+              firebase.auth().currentUser.email ||
+              firebase.auth().currentUser.phoneNumber
+            : "Admin";
+          let secondaryApp;
+          try {
+            secondaryApp =
+              firebase.apps.find((a) => a.name === "Secondary") ||
+              firebase.initializeApp(firebaseConfig, "Secondary");
+
+            const secondaryAuth = secondaryApp.auth();
+            const cred = await secondaryAuth.createUserWithEmailAndPassword(
+              email,
+              senha
+            );
+
+            await db.collection("gerentes").doc(cred.user.uid).set({
+              nome_completo: nome,
+              email,
+              contato,
+              data_inclusao: new Date(),
+              tipo: "gerente",
+              status: "inactive",
+              criado_por: criadoPor,
+            });
+
+            alert("Gerente cadastrado com sucesso!");
+            e.target.reset();
+            bootstrap.Modal.getOrCreateInstance(
+              document.getElementById("addGerenteModal")
+            ).hide();
+            loadGerentes();
+
+            // Deslogar da conta do gerente recém-criada no app secundário
+            await secondaryAuth.signOut();
+          } catch (err) {
+            alert("Erro ao cadastrar gerente: " + err.message);
+          }
+        });
+
+      // Renderização da tabela de gerentes, só mostra ação se for admin
+      function renderTable() {
+        itemsPerPage = parseInt(
+          document.getElementById("items-per-page")?.value || 10,
+          10
+        );
+        const searchTerm = searchInput.value.toLowerCase();
+        const filterStatus = document.getElementById("filter-status").value;
+        const orderBy = document.getElementById("order-by").value;
+
+        let filtered = allGerentes.filter((g) => {
+          const matchesSearch =
+            (g.nome_completo || "").toLowerCase().includes(searchTerm) ||
+            (g.email || "").toLowerCase().includes(searchTerm) ||
+            (g.contato || "").toLowerCase().includes(searchTerm);
+
+          const matchesStatus = !filterStatus || g.status === filterStatus;
+          return matchesSearch && matchesStatus;
+        });
+
+        // Ordenação
+        const [field, direction] = orderBy.split("_");
+        filtered.sort((a, b) => {
+          let aValue = a[field];
+          let bValue = b[field];
+          if (field === "data_inclusao") {
+            aValue = aValue?.toDate
+              ? aValue.toDate().getTime()
+              : new Date(aValue).getTime();
+            bValue = bValue?.toDate
+              ? bValue.toDate().getTime()
+              : new Date(bValue).getTime();
+          } else {
+            aValue = (aValue || "").toLowerCase();
+            bValue = (bValue || "").toLowerCase();
+          }
+          if (aValue < bValue) return direction === "asc" ? -1 : 1;
+          if (aValue > bValue) return direction === "asc" ? 1 : -1;
+          return 0;
+        });
+
+        // Paginação
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageData = filtered.slice(start, start + itemsPerPage);
+
+        tbody.innerHTML =
+          pageData
+            .map(
+              (g) => `
+        <tr>
+          <td>${g.nome_completo || ""}</td>
+          <td>${g.email || ""}</td>
+          <td>${g.contato || ""}</td>
+          <td>
+            ${
+              userType === "admin"
+                ? `<button class="badge border-0 px-3 py-2 ${
+                    g.status === "inactive" ? "bg-warning" : "bg-success"
+                  } text-white"
+                  style="min-width: 90px;" onclick="toggleStatus('${g.id}', '${
+                    g.status === "inactive" ? "active" : "inactive"
+                  }')" title="Clique para mudar status">
+                  ${g.status === "inactive" ? "Pendente" : "Verificado"}
+                </button>`
+                : `<span class="badge ${
+                    g.status === "inactive" ? "bg-warning" : "bg-success"
+                  } text-white px-3 py-2">${
+                    g.status === "inactive" ? "Pendente" : "Verificado"
+                  }</span>`
+            }
+          </td>
+          <td class="text-center">
+            ${
+              userType === "admin"
+                ? `<button class="btn btn-sm btn-warning me-1" onclick="openEditGerente('${g.id}')">Editar</button>
+                 <button class="btn btn-sm btn-danger" onclick="deleteGerente('${g.id}')">Deletar</button>`
+                : `<span class="text-muted">-</span>`
+            }
+          </td>
+          <td>${g.criado_por || ""}</td>
+          <td>${
+            g.data_inclusao?.toDate
+              ? g.data_inclusao.toDate().toLocaleDateString()
+              : g.data_inclusao
+              ? new Date(g.data_inclusao).toLocaleDateString()
+              : ""
+          }</td>
+        </tr>
+      `
+            )
+            .join("") ||
+          `<tr><td colspan='7' class='text-center'>Nenhum resultado</td></tr>`;
+
+        renderPagination(filtered.length, itemsPerPage);
+        if (paginationInfo)
+          paginationInfo.textContent = `Mostrando ${
+            filtered.length === 0 ? 0 : start + 1
+          } a ${Math.min(start + itemsPerPage, filtered.length)} de ${
+            filtered.length
+          } registros`;
+      }
+
+      function renderPagination(total, itemsPerPage) {
+        const pages = Math.ceil(total / itemsPerPage);
+        pagination.innerHTML = "";
+        for (let i = 1; i <= pages; i++) {
+          const li = document.createElement("li");
+          li.className = "page-item";
+          li.innerHTML = `<a href="#" class="page-link ${
+            i === currentPage ? "active" : ""
+          }">${i}</a>`;
+          li.onclick = (e) => {
+            e.preventDefault();
+            currentPage = i;
+            renderTable();
+          };
+          pagination.appendChild(li);
+        }
+      }
+
+      if (searchInput)
+        searchInput.addEventListener("input", () => {
+          currentPage = 1;
+          renderTable();
+        });
+      document
+        .getElementById("filter-status")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          renderTable();
+        });
+      document.getElementById("order-by").addEventListener("change", () => {
+        currentPage = 1;
+        renderTable();
+      });
+      document
+        .getElementById("items-per-page")
+        .addEventListener("change", () => {
+          currentPage = 1;
+          renderTable();
+        });
+
+      // ======= EDITAR GERENTE =========
+      window.openEditGerente = function (id) {
+        if (userType !== "admin") return; // Só admin pode editar
+        const g = allGerentes.find((gg) => gg.id === id);
+        if (!g) return;
+        document.getElementById("edit_id").value = g.id;
+        document.getElementById("edit_nome").value = g.nome_completo || "";
+        document.getElementById("edit_email").value = g.email || "";
+        document.getElementById("edit_contato").value = g.contato || "";
+        document.getElementById("edit_status").value = g.status || "inactive";
+
+        bootstrap.Modal.getOrCreateInstance(
+          document.getElementById("editGerenteModal")
+        ).show();
+      };
+
+      document
+        .getElementById("edit-gerente-form")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          if (userType !== "admin") return; // Só admin pode editar
+          const id = document.getElementById("edit_id").value;
+          const data = {
+            nome_completo: document.getElementById("edit_nome").value,
+            contato: document.getElementById("edit_contato").value,
+            status: document.getElementById("edit_status").value,
+          };
+          try {
+            await db.collection("gerentes").doc(id).update(data);
+            alert("Gerente atualizado com sucesso!");
+            bootstrap.Modal.getOrCreateInstance(
+              document.getElementById("editGerenteModal")
+            ).hide();
+            loadGerentes();
+          } catch (err) {
+            alert("Erro ao atualizar: " + err.message);
+          }
+        });
+
+      // ======= DELETAR GERENTE =========
+      window.deleteGerente = async function (id) {
+        if (userType !== "admin") return; // Só admin pode deletar
+        if (!confirm("Tem certeza que deseja deletar este gerente?")) return;
+        try {
+          await db.collection("gerentes").doc(id).delete();
+          alert("Gerente deletado com sucesso!");
+          loadGerentes();
+        } catch (err) {
+          alert("Erro ao deletar: " + err.message);
+        }
+      };
+
+      // ======= MUDAR STATUS GERENTE =========
+      window.toggleStatus = async function (id, newStatus) {
+        if (userType !== "admin") return; // Só admin pode mudar status
+        try {
+          await db.collection("gerentes").doc(id).update({ status: newStatus });
+          loadGerentes();
+        } catch (err) {
+          alert("Erro ao atualizar status: " + err.message);
+        }
+      };
+    </script>
+
+    <script>
+      async function gerarRelatorioVendas() {
+        const gerentesSnap = await db.collection("gerentes").get();
+        const agentesSnap = await db.collection("agentes").get();
+
+        const custeiosSnap = await db
+          .collection("custeio")
+          .where("status_solicitacao", "==", "concluido")
+          .get();
+
+        const usuarios = {};
+
+        // Inicializa gerentes
+        gerentesSnap.forEach((doc) => {
+          usuarios[doc.id] = {
+            nome: doc.data().nome_completo,
+            tipo: "Gerente",
+            totalVendas: 0,
+            comissaoTotal: 0,
+            bonusTotal: 0,
+          };
+        });
+
+        // Inicializa agentes
+        agentesSnap.forEach((doc) => {
+          usuarios[doc.id] = {
+            nome: doc.data().nome_completo,
+            tipo: "Agente",
+            totalVendas: 0,
+            comissaoTotal: 0,
+            bonusTotal: 0,
+          };
+        });
+
+        // Processa as solicitações concluídas
+        custeiosSnap.forEach((doc) => {
+          const data = doc.data();
+
+          // Ajuste de escala: valor_credito está em CENTAVOS, converte para REAIS
+          const valorCredito = parseFloat(data.valor_credito || 0);
+          const valorEmpresa = valorCredito * 0.015; // 1,5% do valor total
+
+          const gerenteId = data.responsavelGerenteId;
+          const secundarioId = data.responsavelSecundarioId;
+
+          const gerenteÉValido = usuarios[gerenteId];
+          const secundarioÉValido = usuarios[secundarioId];
+
+          // Soma valor total vendido apenas uma vez
+          if (gerenteÉValido || secundarioÉValido) {
+            const idParaTotal = gerenteÉValido ? gerenteId : secundarioId;
+            usuarios[idParaTotal].totalVendas += valorCredito;
+          }
+
+          // Se IDs são IGUAIS e o gerente é válido, recebe o dobro (20% + 5%)
+          if (gerenteId === secundarioId && gerenteÉValido) {
+            usuarios[gerenteId].comissaoTotal += valorEmpresa * 0.2;
+            usuarios[gerenteId].bonusTotal += valorEmpresa * 0.05;
+          }
+          // Se IDs são diferentes, aplica separadamente
+          else {
+            if (gerenteÉValido) {
+              usuarios[gerenteId].comissaoTotal += valorEmpresa * 0.1;
+              usuarios[gerenteId].bonusTotal += valorEmpresa * 0.025;
+            }
+
+            if (secundarioÉValido) {
+              usuarios[secundarioId].comissaoTotal += valorEmpresa * 0.1;
+              usuarios[secundarioId].bonusTotal += valorEmpresa * 0.025;
+            }
+          }
+        });
+
+        // Monta os dados para exibição
+        const resultado = Object.entries(usuarios).map(([id, u]) => ({
+          tipo: u.tipo,
+          nome: u.nome,
+          totalVendido: formatarBR(u.totalVendas),
+          comissaoTotal: formatarBR(u.comissaoTotal),
+          bonusTotal: formatarBR(u.bonusTotal),
+        }));
+
+        exibirTabela(resultado);
+      }
+
+      function formatarBR(valor) {
+        return valor.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+      }
+
+      function exibirTabela(dados) {
+        const tbody = document.getElementById("tbody-relatorio");
+        if (!tbody) return;
+
+        if (dados.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center">Nenhum dado encontrado.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = dados
+          .map(
+            (d) => `
+        <tr>
+          <td>${d.tipo}</td>
+          <td>${d.nome}</td>
+       
+          <td>${d.comissaoTotal}</td>
+          <td>${d.bonusTotal}</td>
+        </tr>
+      `
+          )
+          .join("");
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof db !== "undefined") {
+          gerarRelatorioVendas();
+        }
+      });
+    </script>
+  </body>
+</html>
