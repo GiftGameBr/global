@@ -1287,13 +1287,10 @@
         });
       }
 
-      // Executar ao carregar
       function formatarNumero(valor) {
         if (valor >= 1000000) {
-          // Exibe o valor em milhões sem casa decimal
           return (valor / 1000000).toFixed(0) + "M"; // Exemplo: 10M para 10.000.000
         } else if (valor >= 1000) {
-          // Exibe o valor em milhares sem casa decimal
           return (valor / 1000).toFixed(0) + "K"; // Exemplo: 1K para 1.200
         } else {
           return valor.toLocaleString("pt-BR"); // Para valores abaixo de mil
@@ -1313,6 +1310,22 @@
           chartInstance = null;
         }
 
+        // Define os meses para o eixo X
+        const meses = [
+          "Jan",
+          "Fev",
+          "Mar",
+          "Abr",
+          "Mai",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Set",
+          "Out",
+          "Nov",
+          "Dez",
+        ];
+
         const options = {
           chart: {
             type: "area",
@@ -1325,6 +1338,9 @@
               data: valores,
             },
           ],
+          xaxis: {
+            categories: meses, // Substitui os números por meses
+          },
           yaxis: {
             labels: {
               formatter: function (value) {
@@ -1354,6 +1370,7 @@
 
         // 🛠 Força o resize após o primeiro frame
       }
+
       async function atualizarContadoresTabs() {
         try {
           // Clientes
