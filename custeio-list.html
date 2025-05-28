@@ -3765,8 +3765,10 @@ $("#valorCreditoRangeLabelAdd").text(
     .each(function () {
       formData[this.name] = $(this).val();
     });
-  formData.createdAt = new Date();
-  formData.status = "inactive";
+ formData.createdAt = new Date();
+formData.status = "inactive";
+formData.status_documentacao = "pendente";
+formData.status_solicitacao = "aguardando";
   const user = firebase.auth().currentUser;
   formData.addedBy =
     (user && (user.displayName || user.email || user.phoneNumber)) ||

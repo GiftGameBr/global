@@ -366,7 +366,7 @@
         <div
           class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
         >
-          <h6 class="fw-semibold mb-0">Dashboard</h6>
+          <h6 class="fw-semibold mb-0">Solicitações Concluídas</h6>
           <ul class="d-flex align-items-center gap-2">
             <li class="fw-medium">
               <a
@@ -377,17 +377,56 @@
                   icon="solar:home-smile-angle-outline"
                   class="icon text-lg"
                 ></iconify-icon>
-                Dashboard
+                Home
               </a>
             </li>
             <li>-</li>
-            <li class="fw-medium">AI</li>
+            <li class="fw-medium">Dashboard</li>
           </ul>
         </div>
 
         <div
           class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4"
         >
+          <div class="col">
+            <div class="card shadow-none border bg-gradient-start-2 h-100">
+              <div class="card-body p-20">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Créditos Custeio
+                    </p>
+                    <h6 class="mb-0 dashboard-concluidas-total">0</h6>
+                  </div>
+                  <div
+                    class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center"
+                  >
+                    <iconify-icon
+                      icon="fa-solid:award"
+                      class="text-white text-2xl mb-0"
+                    ></iconify-icon>
+                  </div>
+                </div>
+                <p
+                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
+                >
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-success-main"
+                  >
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                    <span class="dashboard-concluidas-30d">+0</span>
+                  </span>
+                  Últimos 30 dias
+                </p>
+              </div>
+            </div>
+            <!-- card end -->
+          </div>
           <div class="col">
             <div class="card shadow-none border bg-gradient-start-1 h-100">
               <div class="card-body p-20">
@@ -396,7 +435,7 @@
                 >
                   <div>
                     <p class="fw-medium text-primary-light mb-1">
-                      Total Clientes
+                      Crédito Investimento
                     </p>
                     <h6 class="mb-0 dashboard-total-users">...</h6>
                   </div>
@@ -435,7 +474,9 @@
                   class="d-flex flex-wrap align-items-center justify-content-between gap-3"
                 >
                   <div>
-                    <p class="fw-medium text-primary-light mb-1">Total Leads</p>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Comercialização
+                    </p>
                     <h6 class="mb-0 dashboard-leads-total">0</h6>
                   </div>
                   <div
@@ -466,45 +507,7 @@
 
             <!-- card end -->
           </div>
-          <div class="col">
-            <div class="card shadow-none border bg-gradient-start-2 h-100">
-              <div class="card-body p-20">
-                <div
-                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
-                >
-                  <div>
-                    <p class="fw-medium text-primary-light mb-1">
-                      Créditos Aprovados
-                    </p>
-                    <h6 class="mb-0 dashboard-concluidas-total">0</h6>
-                  </div>
-                  <div
-                    class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center"
-                  >
-                    <iconify-icon
-                      icon="fa-solid:award"
-                      class="text-white text-2xl mb-0"
-                    ></iconify-icon>
-                  </div>
-                </div>
-                <p
-                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
-                >
-                  <span
-                    class="d-inline-flex align-items-center gap-1 text-success-main"
-                  >
-                    <iconify-icon
-                      icon="bxs:up-arrow"
-                      class="text-xs"
-                    ></iconify-icon>
-                    <span class="dashboard-concluidas-30d">+0</span>
-                  </span>
-                  Últimos 30 dias
-                </p>
-              </div>
-            </div>
-            <!-- card end -->
-          </div>
+
           <div class="col">
             <div class="card shadow-none border bg-gradient-start-4 h-100">
               <div class="card-body p-20">
@@ -515,7 +518,7 @@
                     <p class="fw-medium text-primary-light mb-1">
                       Avaliação Imóveis
                     </p>
-                    <h6 class="mb-0">$42,000</h6>
+                    <h6 class="mb-0">4</h6>
                   </div>
                   <div
                     class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center"
@@ -535,9 +538,9 @@
                       icon="bxs:up-arrow"
                       class="text-xs"
                     ></iconify-icon>
-                    +$20,000</span
+                    +4</span
                   >
-                  Last 30 days income
+                  Últimos 30 dias
                 </p>
               </div>
             </div>
@@ -553,7 +556,7 @@
                     <p class="fw-medium text-primary-light mb-1">
                       Licenciamento
                     </p>
-                    <h6 class="mb-0">$30,000</h6>
+                    <h6 class="mb-0">5</h6>
                   </div>
                   <div
                     class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center"
@@ -573,9 +576,9 @@
                       icon="bxs:up-arrow"
                       class="text-xs"
                     ></iconify-icon>
-                    +$5,000</span
+                    +5</span
                   >
-                  Last 30 days expense
+                  Últimos 30 dias
                 </p>
               </div>
             </div>
@@ -611,32 +614,23 @@
               </div>
             </div>
           </div>
+          <!-- Exemplo de estrutura HTML para o gráfico -->
+          <!-- Exemplo de exibição do Total e da Variação Percentual -->
           <div class="col-xxl-3 col-xl-6">
-            <div class="card h-100 radius-8 border">
+            <div class="card h-100">
               <div class="card-body p-24">
-                <h6 class="mb-12 fw-semibold text-lg mb-16">
-                  Total Subscriber
-                </h6>
+                <h6 class="fw-semibold mb-0">Solicitações Concluídas</h6>
                 <div class="d-flex align-items-center gap-2 mb-20">
-                  <h6 class="fw-semibold mb-0">5,000</h6>
-                  <p class="text-sm mb-0">
-                    <span
-                      class="bg-danger-focus border br-danger px-8 py-2 rounded-pill fw-semibold text-danger-main text-sm d-inline-flex align-items-center gap-1"
-                    >
-                      10%
-                      <iconify-icon
-                        icon="iconamoon:arrow-down-2-fill"
-                        class="icon"
-                      ></iconify-icon>
-                    </span>
-                    - 20 Per Day
-                  </p>
+                  <h8 class="fw-semibold mb-0">Total:</h8>
+                  <h6 class="fw-semibold mb-0 dashboard-total-concluidas">0</h6>
                 </div>
 
+                <!-- Chart Container -->
                 <div id="barChart" class="barChart"></div>
               </div>
             </div>
           </div>
+
           <div class="col-xxl-3 col-xl-6">
             <div class="card h-100 radius-8 border-0 overflow-hidden">
               <div class="card-body p-24">
@@ -843,264 +837,33 @@
           <div class="col-xxl-6 col-xl-12">
             <div class="card h-100">
               <div class="card-body">
-                <div
-                  class="d-flex align-items-center flex-wrap gap-2 justify-content-between mb-20"
-                >
-                  <h6 class="mb-2 fw-bold text-lg mb-0">Top Countries</h6>
-                  <select
-                    class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8"
-                  >
-                    <option>Today</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                  </select>
-                </div>
-
-                <div class="row gy-4">
-                  <div class="col-lg-6">
-                    <div id="world-map" class="h-100 border radius-8"></div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="h-100 border p-16 pe-0 radius-8">
-                      <div class="max-h-266-px overflow-y-auto scroll-sm pe-16">
-                        <div
-                          class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2"
-                        >
-                          <div class="d-flex align-items-center w-100">
-                            <img
-                              src="assets/images/flags/flag1.png"
-                              alt=""
-                              class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12"
-                            />
-                            <div class="flex-grow-1">
-                              <h6 class="text-sm mb-0">USA</h6>
-                              <span
-                                class="text-xs text-secondary-light fw-medium"
-                                >1,240 Users</span
-                              >
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-center gap-2 w-100">
-                            <div class="w-100 max-w-66 ms-auto">
-                              <div
-                                class="progress progress-sm rounded-pill"
-                                role="progressbar"
-                                aria-label="Success example"
-                                aria-valuenow="25"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                <div
-                                  class="progress-bar bg-primary-600 rounded-pill"
-                                  style="width: 80%"
-                                ></div>
-                              </div>
-                            </div>
-                            <span
-                              class="text-secondary-light font-xs fw-semibold"
-                              >80%</span
-                            >
+                <div class="col-12">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="row gy-4">
+                        <!-- Últimos Clientes -->
+                        <div class="col-12 col-md-6">
+                          <h6 class="text-lg fw-bold text-center mb-16">
+                            Últimos Clientes
+                          </h6>
+                          <div class="border p-16 radius-8">
+                            <div
+                              class="max-h-266-px overflow-y-auto scroll-sm pe-16"
+                              id="lista-clientes"
+                            ></div>
                           </div>
                         </div>
 
-                        <div
-                          class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2"
-                        >
-                          <div class="d-flex align-items-center w-100">
-                            <img
-                              src="assets/images/flags/flag2.png"
-                              alt=""
-                              class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12"
-                            />
-                            <div class="flex-grow-1">
-                              <h6 class="text-sm mb-0">Japan</h6>
-                              <span
-                                class="text-xs text-secondary-light fw-medium"
-                                >1,240 Users</span
-                              >
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-center gap-2 w-100">
-                            <div class="w-100 max-w-66 ms-auto">
-                              <div
-                                class="progress progress-sm rounded-pill"
-                                role="progressbar"
-                                aria-label="Success example"
-                                aria-valuenow="25"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                <div
-                                  class="progress-bar bg-orange rounded-pill"
-                                  style="width: 60%"
-                                ></div>
-                              </div>
-                            </div>
-                            <span
-                              class="text-secondary-light font-xs fw-semibold"
-                              >60%</span
-                            >
-                          </div>
-                        </div>
-
-                        <div
-                          class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2"
-                        >
-                          <div class="d-flex align-items-center w-100">
-                            <img
-                              src="assets/images/flags/flag3.png"
-                              alt=""
-                              class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12"
-                            />
-                            <div class="flex-grow-1">
-                              <h6 class="text-sm mb-0">France</h6>
-                              <span
-                                class="text-xs text-secondary-light fw-medium"
-                                >1,240 Users</span
-                              >
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-center gap-2 w-100">
-                            <div class="w-100 max-w-66 ms-auto">
-                              <div
-                                class="progress progress-sm rounded-pill"
-                                role="progressbar"
-                                aria-label="Success example"
-                                aria-valuenow="25"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                <div
-                                  class="progress-bar bg-yellow rounded-pill"
-                                  style="width: 49%"
-                                ></div>
-                              </div>
-                            </div>
-                            <span
-                              class="text-secondary-light font-xs fw-semibold"
-                              >49%</span
-                            >
-                          </div>
-                        </div>
-
-                        <div
-                          class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2"
-                        >
-                          <div class="d-flex align-items-center w-100">
-                            <img
-                              src="assets/images/flags/flag4.png"
-                              alt=""
-                              class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12"
-                            />
-                            <div class="flex-grow-1">
-                              <h6 class="text-sm mb-0">Germany</h6>
-                              <span
-                                class="text-xs text-secondary-light fw-medium"
-                                >1,240 Users</span
-                              >
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-center gap-2 w-100">
-                            <div class="w-100 max-w-66 ms-auto">
-                              <div
-                                class="progress progress-sm rounded-pill"
-                                role="progressbar"
-                                aria-label="Success example"
-                                aria-valuenow="25"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                <div
-                                  class="progress-bar bg-success-main rounded-pill"
-                                  style="width: 100%"
-                                ></div>
-                              </div>
-                            </div>
-                            <span
-                              class="text-secondary-light font-xs fw-semibold"
-                              >100%</span
-                            >
-                          </div>
-                        </div>
-
-                        <div
-                          class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2"
-                        >
-                          <div class="d-flex align-items-center w-100">
-                            <img
-                              src="assets/images/flags/flag5.png"
-                              alt=""
-                              class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12"
-                            />
-                            <div class="flex-grow-1">
-                              <h6 class="text-sm mb-0">South Korea</h6>
-                              <span
-                                class="text-xs text-secondary-light fw-medium"
-                                >1,240 Users</span
-                              >
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-center gap-2 w-100">
-                            <div class="w-100 max-w-66 ms-auto">
-                              <div
-                                class="progress progress-sm rounded-pill"
-                                role="progressbar"
-                                aria-label="Success example"
-                                aria-valuenow="25"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                <div
-                                  class="progress-bar bg-info-main rounded-pill"
-                                  style="width: 30%"
-                                ></div>
-                              </div>
-                            </div>
-                            <span
-                              class="text-secondary-light font-xs fw-semibold"
-                              >30%</span
-                            >
-                          </div>
-                        </div>
-                        <div
-                          class="d-flex align-items-center justify-content-between gap-3"
-                        >
-                          <div class="d-flex align-items-center w-100">
-                            <img
-                              src="assets/images/flags/flag1.png"
-                              alt=""
-                              class="w-40-px h-40-px rounded-circle flex-shrink-0 me-12"
-                            />
-                            <div class="flex-grow-1">
-                              <h6 class="text-sm mb-0">USA</h6>
-                              <span
-                                class="text-xs text-secondary-light fw-medium"
-                                >1,240 Users</span
-                              >
-                            </div>
-                          </div>
-                          <div class="d-flex align-items-center gap-2 w-100">
-                            <div class="w-100 max-w-66 ms-auto">
-                              <div
-                                class="progress progress-sm rounded-pill"
-                                role="progressbar"
-                                aria-label="Success example"
-                                aria-valuenow="25"
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                <div
-                                  class="progress-bar bg-primary-600 rounded-pill"
-                                  style="width: 80%"
-                                ></div>
-                              </div>
-                            </div>
-                            <span
-                              class="text-secondary-light font-xs fw-semibold"
-                              >80%</span
-                            >
+                        <!-- Últimos Leads -->
+                        <div class="col-12 col-md-6">
+                          <h6 class="text-lg fw-bold text-center mb-16">
+                            Últimos Leads
+                          </h6>
+                          <div class="border p-16 radius-8">
+                            <div
+                              class="max-h-266-px overflow-y-auto scroll-sm pe-16"
+                              id="lista-leads"
+                            ></div>
                           </div>
                         </div>
                       </div>
@@ -1117,15 +880,9 @@
                 <div
                   class="d-flex align-items-center flex-wrap gap-2 justify-content-between"
                 >
-                  <h6 class="mb-2 fw-bold text-lg mb-0">Generated Content</h6>
-                  <select
-                    class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8"
-                  >
-                    <option>Today</option>
-                    <option>Weekly</option>
-                    <option>Monthly</option>
-                    <option>Yearly</option>
-                  </select>
+                  <h6 class="mb-2 fw-bold text-lg mb-0">
+                    Clientes x Leads por Mês
+                  </h6>
                 </div>
 
                 <ul class="d-flex flex-wrap align-items-center mt-3 gap-3">
@@ -1133,24 +890,22 @@
                     <span
                       class="w-12-px h-12-px rounded-circle bg-primary-600"
                     ></span>
-                    <span class="text-secondary-light text-sm fw-semibold"
-                      >Word:
-                      <span class="text-primary-light fw-bold">500</span>
+                    <span class="text-secondary-light text-sm fw-semibold">
+                      Clientes
                     </span>
                   </li>
                   <li class="d-flex align-items-center gap-2">
                     <span
                       class="w-12-px h-12-px rounded-circle bg-yellow"
                     ></span>
-                    <span class="text-secondary-light text-sm fw-semibold"
-                      >Image:
-                      <span class="text-primary-light fw-bold">300</span>
+                    <span class="text-secondary-light text-sm fw-semibold">
+                      Leads
                     </span>
                   </li>
                 </ul>
 
                 <div class="mt-40">
-                  <div id="paymentStatusChart" class="margin-16-minus"></div>
+                  <div id="clientesLeadsChart" class="margin-16-minus"></div>
                 </div>
               </div>
             </div>
@@ -1161,11 +916,11 @@
       <footer class="d-footer">
         <div class="row align-items-center justify-content-between">
           <div class="col-auto">
-            <p class="mb-0">© 2024 WowDash. All Rights Reserved.</p>
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
           </div>
           <div class="col-auto">
             <p class="mb-0">
-              Made by <span class="text-primary-600">wowtheme7</span>
+              Made by <span class="text-primary-600">ComosTech</span>
             </p>
           </div>
         </div>
@@ -1801,116 +1556,7 @@
         carregarSolicitacoesPorFiltro
       );
     </script>
-    <script>
-      async function carregarSolicitacoesPorFiltro() {
-        try {
-          const [custeioSnap, clientesSnap] = await Promise.all([
-            db.collection("custeio").get(),
-            db.collection("clientes").get(),
-          ]);
 
-          const clientesMap = {};
-          clientesSnap.forEach((doc) => {
-            clientesMap[doc.id] = doc.data().nome_completo || "Sem nome";
-          });
-
-          const data = custeioSnap.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            cliente_nome: clientesMap[doc.data().cliente_id] || "Desconhecido",
-          }));
-
-          // Filtros
-          const semResponsaveis = data.filter(
-            (item) =>
-              (!item.responsavelGerenteId ||
-                item.responsavelGerenteId === "") &&
-              (!item.responsavelSecundarioId ||
-                item.responsavelSecundarioId === "")
-          );
-          preencherTabela("solicitacoes-sem-responsaveis", semResponsaveis, [
-            "cliente_nome",
-            "valor_credito",
-            "status_solicitacao",
-            "data_solicitacao",
-          ]);
-
-          const aguardandoDocs = data.filter(
-            (item) => item.status_documentacao !== "Verificado"
-          );
-          preencherTabela("solicitacoes-aguardando-docs", aguardandoDocs, [
-            "cliente_nome",
-            "valor_credito",
-            "status_documentacao",
-            "data_solicitacao",
-          ]);
-
-          const aguardandoAprovacao = data.filter(
-            (item) => item.status_solicitacao !== "Aprovado"
-          );
-          preencherTabela(
-            "solicitacoes-aguardando-aprovacao",
-            aguardandoAprovacao,
-            [
-              "cliente_nome",
-              "valor_credito",
-              "status_solicitacao",
-              "data_solicitacao",
-            ]
-          );
-
-          const aguardandoConclusao = data.filter(
-            (item) => item.status_solicitacao !== "Concluído"
-          );
-          preencherTabela(
-            "solicitacoes-aguardando-conclusao",
-            aguardandoConclusao,
-            [
-              "cliente_nome",
-              "valor_credito",
-              "status_solicitacao",
-              "data_solicitacao",
-            ]
-          );
-        } catch (error) {
-          console.error("Erro ao carregar solicitações:", error);
-        }
-      }
-
-      function preencherTabela(tbodyId, lista, campos) {
-        const tbody = document.getElementById(tbodyId);
-        if (!tbody) return;
-        tbody.innerHTML = "";
-
-        lista.forEach((item) => {
-          const tr = document.createElement("tr");
-
-          campos.forEach((campo) => {
-            const td = document.createElement("td");
-
-            if (campo.includes("data")) {
-              try {
-                const data = item[campo]?.toDate?.() || new Date(item[campo]);
-                td.textContent = data.toLocaleDateString("pt-BR");
-              } catch {
-                td.textContent = "-";
-              }
-            } else {
-              td.textContent = item[campo] ?? "-";
-            }
-
-            tr.appendChild(td);
-          });
-
-          tbody.appendChild(tr);
-        });
-      }
-
-      document.addEventListener(
-        "DOMContentLoaded",
-        carregarSolicitacoesPorFiltro
-      );
-    </script>
     <script>
       async function carregarSolicitacoesPorFiltro() {
         try {
@@ -1934,6 +1580,13 @@
               ...item,
               cliente_nome: clientesMap[item.cliente_id] || "Desconhecido",
             };
+          });
+
+          // 🟢 Ordenar do mais novo para o mais velho por createdAt (ou data_solicitacao se for o caso)
+          data.sort((a, b) => {
+            const aData = a.createdAt?.toDate?.() || new Date(a.createdAt);
+            const bData = b.createdAt?.toDate?.() || new Date(b.createdAt);
+            return bData - aData; // mais novo primeiro
           });
 
           // Aba 1: Sem Responsáveis
@@ -2038,6 +1691,323 @@
         "DOMContentLoaded",
         carregarSolicitacoesPorFiltro
       );
+    </script>
+    <script>
+      async function renderizarGraficoClientesLeads() {
+        const chartEl = document.querySelector("#clientesLeadsChart");
+
+        if (!chartEl) return;
+
+        const meses = [
+          "jan",
+          "fev",
+          "mar",
+          "abr",
+          "mai",
+          "jun",
+          "jul",
+          "ago",
+          "set",
+          "out",
+          "nov",
+          "dez",
+        ];
+
+        const clientesPorMes = {};
+        const leadsPorMes = {};
+
+        meses.forEach((m) => {
+          clientesPorMes[m] = 0;
+          leadsPorMes[m] = 0;
+        });
+
+        const [clientesSnap, leadsSnap] = await Promise.all([
+          db.collection("clientes").get(),
+          db.collection("leads").get(),
+        ]);
+
+        clientesSnap.forEach((doc) => {
+          const data = doc.data().data_inclusao;
+          const dataInclusao = data?.toDate?.() || new Date(data);
+          const mes = dataInclusao
+            .toLocaleDateString("pt-BR", { month: "short" })
+            .toLowerCase()
+            .replace(".", "");
+          if (clientesPorMes[mes] !== undefined) clientesPorMes[mes]++;
+        });
+
+        leadsSnap.forEach((doc) => {
+          const data = doc.data().createdAt;
+          const dataCriacao = data?.toDate?.() || new Date(data);
+          const mes = dataCriacao
+            .toLocaleDateString("pt-BR", { month: "short" })
+            .toLowerCase()
+            .replace(".", "");
+          if (leadsPorMes[mes] !== undefined) leadsPorMes[mes]++;
+        });
+
+        const labels = meses.map((m) => m.charAt(0).toUpperCase() + m.slice(1));
+        const clientesSeries = meses.map((m) => clientesPorMes[m]);
+        const leadsSeries = meses.map((m) => leadsPorMes[m]);
+
+        const options = {
+          chart: {
+            type: "bar",
+            height: 350,
+            stacked: false,
+            toolbar: { show: false },
+          },
+          series: [
+            { name: "Clientes", data: clientesSeries },
+            { name: "Leads", data: leadsSeries },
+          ],
+          xaxis: { categories: labels },
+          colors: ["#008FFB", "#FEB019"],
+          plotOptions: {
+            bar: { columnWidth: "45%", borderRadius: 4 },
+          },
+          dataLabels: { enabled: false },
+          legend: { position: "top" },
+        };
+
+        const chart = new ApexCharts(chartEl, options);
+        chart.render();
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        renderizarGraficoClientesLeads
+      );
+    </script>
+
+    <script>
+      async function carregarUltimosRegistrosEstilizados() {
+        const clientesSnap = await db
+          .collection("clientes")
+          .orderBy("data_inclusao", "desc")
+          .limit(5)
+          .get();
+
+        const leadsSnap = await db
+          .collection("leads")
+          .orderBy("createdAt", "desc")
+          .limit(5)
+          .get();
+
+        const listaClientes = document.getElementById("lista-clientes");
+        const listaLeads = document.getElementById("lista-leads");
+
+        listaClientes.innerHTML = "";
+        listaLeads.innerHTML = "";
+
+        clientesSnap.forEach((doc) => {
+          const c = doc.data();
+          const nome = c.nome_completo || "Sem nome";
+          const email = c.email || "-";
+          const data = c.data_inclusao?.toDate?.() || new Date(c.data_inclusao);
+
+          listaClientes.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+          <div class="flex-grow-1">
+            <h6 class="text-sm mb-0 text-white">${nome}</h6>
+            <span class="text-xs text-secondary-light fw-medium">${email}</span>
+          </div>
+          <span class="text-xs text-secondary-light fw-semibold">${data.toLocaleDateString(
+            "pt-BR"
+          )}</span>
+        </div>`;
+        });
+
+        leadsSnap.forEach((doc) => {
+          const l = doc.data();
+          const nome = l.nome || "Sem nome";
+          const email = l.email || "-";
+          const data = l.createdAt?.toDate?.() || new Date(l.createdAt);
+
+          listaLeads.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+          <div class="flex-grow-1">
+            <h6 class="text-sm mb-0 text-white">${nome}</h6>
+            <span class="text-xs text-secondary-light fw-medium">${email}</span>
+          </div>
+          <span class="text-xs text-secondary-light fw-semibold">${data.toLocaleDateString(
+            "pt-BR"
+          )}</span>
+        </div>`;
+        });
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarUltimosRegistrosEstilizados
+      );
+    </script>
+
+    <script>
+      // Função para buscar as solicitações concluídas e renderizar o gráfico
+      async function carregarSolicitacoesConcluidas() {
+        try {
+          // Limpar o gráfico anterior
+          const chartEl = document.querySelector("#barChart");
+          if (chartEl) chartEl.innerHTML = ""; // Limpa a área do gráfico
+
+          // ==== SOLICITAÇÕES CONCLUÍDAS ====
+          const custeiosSnap = await db
+            .collection("custeio")
+            .where("status_solicitacao", "==", "concluido")
+            .get();
+
+          let solicitacoesConcluidasPorMes = {};
+          let totalConcluidas = 0;
+          let totalUltimos30Dias = 0;
+          let totalUltimos30DiasAnteriores = 0;
+
+          // Contabiliza as solicitações concluídas por mês e total
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const mes = dataConclusao
+              .toLocaleDateString("pt-BR", { month: "short" })
+              .toLowerCase()
+              .replace(".", ""); // Remove o ponto final da string mês
+
+            // Conta as solicitações concluídas por mês
+            if (!solicitacoesConcluidasPorMes[mes]) {
+              solicitacoesConcluidasPorMes[mes] = 0;
+            }
+            solicitacoesConcluidasPorMes[mes]++;
+
+            totalConcluidas++;
+
+            // Contabiliza os últimos 30 dias
+            const hoje = new Date();
+            const trintaDiasAtras = new Date();
+            trintaDiasAtras.setDate(hoje.getDate() - 30);
+            if (dataConclusao >= trintaDiasAtras) {
+              totalUltimos30Dias++;
+            } else if (dataConclusao < trintaDiasAtras) {
+              totalUltimos30DiasAnteriores++;
+            }
+          });
+
+          // Organize the data for the chart
+          const mesesOrdenados = [
+            "jan",
+            "fev",
+            "mar",
+            "abr",
+            "mai",
+            "jun",
+            "jul",
+            "ago",
+            "set",
+            "out",
+            "nov",
+            "dez",
+          ];
+
+          const labelsMeses = mesesOrdenados.map(
+            (m) => m.charAt(0).toUpperCase() + m.slice(1)
+          );
+          const seriesSolicitacoesConcluidas = mesesOrdenados.map(
+            (m) => solicitacoesConcluidasPorMes[m] || 0
+          );
+
+          // Renderize o gráfico de barras com as solicitações concluídas
+          renderizarGraficoSolicitacoesConcluidas(
+            labelsMeses,
+            seriesSolicitacoesConcluidas
+          );
+
+          // Exibe o total de solicitações concluídas
+          const elTotalConcluidas = document.querySelector(
+            ".dashboard-total-concluidas"
+          );
+          if (elTotalConcluidas)
+            elTotalConcluidas.textContent = totalConcluidas.toLocaleString();
+
+          // Calcula a variação percentual diária (para o campo de variação)
+          const variacaoPercentual =
+            totalUltimos30DiasAnteriores > 0
+              ? ((totalUltimos30Dias - totalUltimos30DiasAnteriores) /
+                  totalUltimos30DiasAnteriores) *
+                100
+              : 0;
+
+          const elVariação = document.querySelector(".dashboard-variacao-perc");
+          if (elVariação) {
+            const percentual = `${variacaoPercentual.toFixed(1)}%`;
+            const icon =
+              variacaoPercentual >= 0 ? "bxs:up-arrow" : "bxs:down-arrow";
+            elVariação.innerHTML = `
+        ${percentual}
+        <iconify-icon icon="${icon}" class="text-xs"></iconify-icon>
+      `;
+            elVariação.classList.remove(
+              "text-success-main",
+              "text-danger-main",
+              "bg-success-focus",
+              "bg-danger-focus"
+            );
+            elVariação.classList.add(
+              variacaoPercentual >= 0
+                ? "text-success-main"
+                : "text-danger-main",
+              variacaoPercentual >= 0 ? "bg-success-focus" : "bg-danger-focus"
+            );
+          }
+        } catch (err) {
+          console.error("Erro ao carregar solicitações concluídas:", err);
+        }
+      }
+
+      // Função para renderizar gráfico de solicitações concluídas
+      function renderizarGraficoSolicitacoesConcluidas(labels, valores) {
+        const chartEl = document.querySelector("#barChart");
+        if (!chartEl) return;
+
+        // Configuração do gráfico
+        const options = {
+          chart: {
+            type: "bar",
+            height: 300,
+            toolbar: { show: false },
+          },
+          series: [
+            {
+              name: "Solicitações Concluídas",
+              data: valores,
+            },
+          ],
+          xaxis: {
+            categories: labels,
+          },
+          colors: ["#00c292"], // Cor para o gráfico
+          dataLabels: {
+            enabled: false,
+          },
+          legend: {
+            position: "top",
+          },
+          tooltip: {
+            y: {
+              formatter: function (value) {
+                return value; // Exibe o valor das solicitações concluídas
+              },
+            },
+          },
+        };
+
+        // Cria o gráfico
+        const chart = new ApexCharts(chartEl, options);
+        chart.render();
+      }
+
+      // Chama a função para carregar o gráfico quando o DOM estiver pronto
+      document.addEventListener("DOMContentLoaded", () => {
+        carregarSolicitacoesConcluidas(); // Atualiza o gráfico de solicitações concluídas
+      });
     </script>
   </body>
 </html>
