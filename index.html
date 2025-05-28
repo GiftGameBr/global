@@ -404,7 +404,7 @@
                     class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center"
                   >
                     <iconify-icon
-                      icon="fa-solid:award"
+                      icon="ri:seedling-line"
                       class="text-white text-2xl mb-0"
                     ></iconify-icon>
                   </div>
@@ -425,8 +425,8 @@
                 </p>
               </div>
             </div>
-            <!-- card end -->
           </div>
+
           <div class="col">
             <div class="card shadow-none border bg-gradient-start-1 h-100">
               <div class="card-body p-20">
@@ -443,7 +443,7 @@
                     class="w-50-px h-50-px bg-cyan rounded-circle d-flex justify-content-center align-items-center"
                   >
                     <iconify-icon
-                      icon="gridicons:multiple-users"
+                      icon="fa-solid:tractor"
                       class="text-white text-2xl mb-0"
                     ></iconify-icon>
                   </div>
@@ -464,7 +464,6 @@
                 </p>
               </div>
             </div>
-            <!-- card end -->
           </div>
 
           <div class="col">
@@ -483,7 +482,7 @@
                     class="w-50-px h-50-px bg-info rounded-circle d-flex justify-content-center align-items-center"
                   >
                     <iconify-icon
-                      icon="fluent:people-20-filled"
+                      icon="ri:truck-line"
                       class="text-white text-2xl mb-0"
                     ></iconify-icon>
                   </div>
@@ -504,8 +503,6 @@
                 </p>
               </div>
             </div>
-
-            <!-- card end -->
           </div>
 
           <div class="col">
@@ -524,7 +521,7 @@
                     class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center"
                   >
                     <iconify-icon
-                      icon="solar:wallet-bold"
+                      icon="ri:home-gear-line"
                       class="text-white text-2xl mb-0"
                     ></iconify-icon>
                   </div>
@@ -534,18 +531,19 @@
                 >
                   <span
                     class="d-inline-flex align-items-center gap-1 text-success-main"
-                    ><iconify-icon
+                  >
+                    <iconify-icon
                       icon="bxs:up-arrow"
                       class="text-xs"
                     ></iconify-icon>
-                    +4</span
-                  >
+                    +4
+                  </span>
                   Últimos 30 dias
                 </p>
               </div>
             </div>
-            <!-- card end -->
           </div>
+
           <div class="col">
             <div class="card shadow-none border bg-gradient-start-5 h-100">
               <div class="card-body p-20">
@@ -562,7 +560,7 @@
                     class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center"
                   >
                     <iconify-icon
-                      icon="fa6-solid:file-invoice-dollar"
+                      icon="ri:leaf-line"
                       class="text-white text-2xl mb-0"
                     ></iconify-icon>
                   </div>
@@ -572,17 +570,17 @@
                 >
                   <span
                     class="d-inline-flex align-items-center gap-1 text-success-main"
-                    ><iconify-icon
+                  >
+                    <iconify-icon
                       icon="bxs:up-arrow"
                       class="text-xs"
                     ></iconify-icon>
-                    +5</span
-                  >
+                    +5
+                  </span>
                   Últimos 30 dias
                 </p>
               </div>
             </div>
-            <!-- card end -->
           </div>
         </div>
 
@@ -1290,6 +1288,17 @@
       }
 
       // Executar ao carregar
+      function formatarNumero(valor) {
+        if (valor >= 1000000) {
+          // Exibe o valor em milhões sem casa decimal
+          return (valor / 1000000).toFixed(0) + "M"; // Exemplo: 10M para 10.000.000
+        } else if (valor >= 1000) {
+          // Exibe o valor em milhares sem casa decimal
+          return (valor / 1000).toFixed(0) + "K"; // Exemplo: 1K para 1.200
+        } else {
+          return valor.toLocaleString("pt-BR"); // Para valores abaixo de mil
+        }
+      }
 
       function renderizarGraficoSolicitacoes(labels, valores) {
         const chartEl = document.querySelector("#chart");
@@ -1319,11 +1328,7 @@
           yaxis: {
             labels: {
               formatter: function (value) {
-                return value.toLocaleString("pt-BR", {
-                  style: "currency",
-                  currency: "BRL",
-                  maximumFractionDigits: 0,
-                });
+                return formatarNumero(value); // Aplica a formatação de milhões (M) no eixo Y
               },
             },
           },
@@ -1334,12 +1339,12 @@
           dataLabels: {
             enabled: true,
             formatter: function (val) {
-              return formatarBR(val);
+              return formatarNumero(val); // Aplica a formatação de milhões (M) nas etiquetas de dados
             },
           },
           tooltip: {
             y: {
-              formatter: formatarBR,
+              formatter: formatarNumero, // Aplica a formatação no tooltip
             },
           },
         };
