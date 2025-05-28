@@ -697,92 +697,124 @@
                   >
                     <li class="nav-item" role="presentation">
                       <button
-                        class="nav-link d-flex align-items-center active"
-                        id="pills-to-do-list-tab"
+                        class="nav-link active"
+                        id="tab1"
                         data-bs-toggle="pill"
-                        data-bs-target="#pills-to-do-list"
+                        data-bs-target="#content1"
                         type="button"
                         role="tab"
-                        aria-controls="pills-to-do-list"
-                        aria-selected="true"
                       >
-                        Novos Clientes
-                        <span
-                          class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert notification-count-clientes"
-                        >
-                          0
-                        </span>
+                        Sem Responsáveis
                       </button>
                     </li>
                     <li class="nav-item" role="presentation">
                       <button
-                        class="nav-link d-flex align-items-center"
-                        id="pills-recent-leads-tab"
+                        class="nav-link"
+                        id="tab2"
                         data-bs-toggle="pill"
-                        data-bs-target="#pills-recent-leads"
+                        data-bs-target="#content2"
                         type="button"
                         role="tab"
-                        aria-controls="pills-recent-leads"
-                        aria-selected="false"
-                        tabindex="-1"
                       >
-                        Novos Leads
-                        <span
-                          class="text-sm fw-semibold py-6 px-12 bg-neutral-500 rounded-pill text-white line-height-1 ms-12 notification-alert notification-count-leads"
-                        >
-                          0
-                        </span>
+                        Aguardando Documentação
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="tab3"
+                        data-bs-toggle="pill"
+                        data-bs-target="#content3"
+                        type="button"
+                        role="tab"
+                      >
+                        Aguardando Aprovação
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="tab4"
+                        data-bs-toggle="pill"
+                        data-bs-target="#content4"
+                        type="button"
+                        role="tab"
+                      >
+                        Aguardando Conclusão
                       </button>
                     </li>
                   </ul>
-                  <a
-                    href="javascript:void(0)"
-                    class="text-primary-600 hover-text-primary d-flex align-items-center gap-1"
-                  >
-                  </a>
                 </div>
 
                 <div class="tab-content" id="pills-tabContent">
-                  <!-- Últimos Clientes -->
+                  <!-- Aba 1: Sem Responsáveis -->
                   <div
                     class="tab-pane fade show active"
-                    id="pills-to-do-list"
+                    id="content1"
                     role="tabpanel"
-                    aria-labelledby="pills-to-do-list-tab"
                   >
                     <div class="table-responsive scroll-sm">
                       <table class="table bordered-table sm-table mb-0">
                         <thead>
                           <tr>
-                            <th scope="col">Clientes</th>
-                            <th scope="col">Data de Inclusão</th>
-
-                            <th scope="col" class="text-center">Status</th>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Solicitação</th>
+                            <th>Data Solicitação</th>
                           </tr>
                         </thead>
-                        <tbody id="clientes-table-body"></tbody>
+                        <tbody id="solicitacoes-sem-responsaveis"></tbody>
                       </table>
                     </div>
                   </div>
 
-                  <!-- Últimos Leads -->
-                  <div
-                    class="tab-pane fade"
-                    id="pills-recent-leads"
-                    role="tabpanel"
-                    aria-labelledby="pills-recent-leads-tab"
-                  >
+                  <!-- Aba 2: Aguardando Documentação -->
+                  <div class="tab-pane fade" id="content2" role="tabpanel">
                     <div class="table-responsive scroll-sm">
                       <table class="table bordered-table sm-table mb-0">
                         <thead>
                           <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Data de Inclusão</th>
-                            <th scope="col">Email</th>
-                            <th scope="col" class="text-center">Status</th>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Documentação</th>
+                            <th>Data Solicitação</th>
                           </tr>
                         </thead>
-                        <tbody id="leads-table-body"></tbody>
+                        <tbody id="solicitacoes-aguardando-docs"></tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Aba 3: Aguardando Aprovação -->
+                  <div class="tab-pane fade" id="content3" role="tabpanel">
+                    <div class="table-responsive scroll-sm">
+                      <table class="table bordered-table sm-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Solicitação</th>
+                            <th>Data Solicitação</th>
+                          </tr>
+                        </thead>
+                        <tbody id="solicitacoes-aguardando-aprovacao"></tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Aba 4: Aguardando Conclusão -->
+                  <div class="tab-pane fade" id="content4" role="tabpanel">
+                    <div class="table-responsive scroll-sm">
+                      <table class="table bordered-table sm-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Solicitação</th>
+                            <th>Data Solicitação</th>
+                          </tr>
+                        </thead>
+                        <tbody id="solicitacoes-aguardando-conclusao"></tbody>
                       </table>
                     </div>
                   </div>
@@ -790,6 +822,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-xxl-3 col-xl-12">
             <div class="card h-100">
               <div class="card-body">
@@ -807,7 +840,7 @@
             </div>
           </div>
 
-          <!--  <div class="col-xxl-6 col-xl-12">
+          <div class="col-xxl-6 col-xl-12">
             <div class="card h-100">
               <div class="card-body">
                 <div
@@ -1121,7 +1154,7 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
 
@@ -1667,6 +1700,344 @@
     </script>
     <script>
       document.documentElement.setAttribute("data-theme", "dark");
+    </script>
+    <script>
+      async function carregarSolicitacoesPorFiltro() {
+        try {
+          const snapshot = await db.collection("custeio").get();
+          const data = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+          // Aba 1: Sem Responsáveis
+          const semResponsaveis = data.filter(
+            (item) =>
+              (!item.responsavelGerenteId ||
+                item.responsavelGerenteId === "") &&
+              (!item.responsavelSecundarioId ||
+                item.responsavelSecundarioId === "")
+          );
+          preencherTabela("solicitacoes-sem-responsaveis", semResponsaveis, [
+            "cliente_nome",
+            "valor_credito",
+            "status_solicitacao",
+            "data_solicitacao",
+          ]);
+
+          // Aba 2: Aguardando Documentação
+          const aguardandoDocs = data.filter(
+            (item) => item.status_documentacao !== "Verificado"
+          );
+          preencherTabela("solicitacoes-aguardando-docs", aguardandoDocs, [
+            "cliente_nome",
+            "valor_credito",
+            "status_documentacao",
+            "data_solicitacao",
+          ]);
+
+          // Aba 3: Aguardando Aprovação
+          const aguardandoAprovacao = data.filter(
+            (item) => item.status_solicitacao !== "Aprovado"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-aprovacao",
+            aguardandoAprovacao,
+            [
+              "cliente_nome",
+              "valor_credito",
+              "status_solicitacao",
+              "data_solicitacao",
+            ]
+          );
+
+          // Aba 4: Aguardando Conclusão
+          const aguardandoConclusao = data.filter(
+            (item) => item.status_solicitacao !== "Concluído"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-conclusao",
+            aguardandoConclusao,
+            [
+              "cliente_nome",
+              "valor_credito",
+              "status_solicitacao",
+              "data_solicitacao",
+            ]
+          );
+        } catch (error) {
+          console.error("Erro ao carregar solicitações:", error);
+        }
+      }
+
+      function preencherTabela(tbodyId, lista, campos) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+
+        tbody.innerHTML = "";
+
+        lista.forEach((item) => {
+          const tr = document.createElement("tr");
+
+          campos.forEach((campo) => {
+            const td = document.createElement("td");
+
+            if (campo.includes("data")) {
+              const data = item[campo]?.toDate?.() || new Date(item[campo]);
+              td.textContent = data.toLocaleDateString("pt-BR");
+            } else {
+              td.textContent = item[campo] ?? "-";
+            }
+
+            tr.appendChild(td);
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarSolicitacoesPorFiltro
+      );
+    </script>
+    <script>
+      async function carregarSolicitacoesPorFiltro() {
+        try {
+          const [custeioSnap, clientesSnap] = await Promise.all([
+            db.collection("custeio").get(),
+            db.collection("clientes").get(),
+          ]);
+
+          const clientesMap = {};
+          clientesSnap.forEach((doc) => {
+            clientesMap[doc.id] = doc.data().nome_completo || "Sem nome";
+          });
+
+          const data = custeioSnap.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+            cliente_nome: clientesMap[doc.data().cliente_id] || "Desconhecido",
+          }));
+
+          // Filtros
+          const semResponsaveis = data.filter(
+            (item) =>
+              (!item.responsavelGerenteId ||
+                item.responsavelGerenteId === "") &&
+              (!item.responsavelSecundarioId ||
+                item.responsavelSecundarioId === "")
+          );
+          preencherTabela("solicitacoes-sem-responsaveis", semResponsaveis, [
+            "cliente_nome",
+            "valor_credito",
+            "status_solicitacao",
+            "data_solicitacao",
+          ]);
+
+          const aguardandoDocs = data.filter(
+            (item) => item.status_documentacao !== "Verificado"
+          );
+          preencherTabela("solicitacoes-aguardando-docs", aguardandoDocs, [
+            "cliente_nome",
+            "valor_credito",
+            "status_documentacao",
+            "data_solicitacao",
+          ]);
+
+          const aguardandoAprovacao = data.filter(
+            (item) => item.status_solicitacao !== "Aprovado"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-aprovacao",
+            aguardandoAprovacao,
+            [
+              "cliente_nome",
+              "valor_credito",
+              "status_solicitacao",
+              "data_solicitacao",
+            ]
+          );
+
+          const aguardandoConclusao = data.filter(
+            (item) => item.status_solicitacao !== "Concluído"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-conclusao",
+            aguardandoConclusao,
+            [
+              "cliente_nome",
+              "valor_credito",
+              "status_solicitacao",
+              "data_solicitacao",
+            ]
+          );
+        } catch (error) {
+          console.error("Erro ao carregar solicitações:", error);
+        }
+      }
+
+      function preencherTabela(tbodyId, lista, campos) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+        tbody.innerHTML = "";
+
+        lista.forEach((item) => {
+          const tr = document.createElement("tr");
+
+          campos.forEach((campo) => {
+            const td = document.createElement("td");
+
+            if (campo.includes("data")) {
+              try {
+                const data = item[campo]?.toDate?.() || new Date(item[campo]);
+                td.textContent = data.toLocaleDateString("pt-BR");
+              } catch {
+                td.textContent = "-";
+              }
+            } else {
+              td.textContent = item[campo] ?? "-";
+            }
+
+            tr.appendChild(td);
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarSolicitacoesPorFiltro
+      );
+    </script>
+    <script>
+      async function carregarSolicitacoesPorFiltro() {
+        try {
+          // Busca todas as solicitações e todos os clientes
+          const [custeioSnap, clientesSnap] = await Promise.all([
+            db.collection("custeio").get(),
+            db.collection("clientes").get(),
+          ]);
+
+          // Cria um mapa de ID -> Nome do Cliente
+          const clientesMap = {};
+          clientesSnap.forEach((doc) => {
+            clientesMap[doc.id] = doc.data().nome_completo || "Sem nome";
+          });
+
+          // Junta os dados das solicitações com o nome do cliente
+          const data = custeioSnap.docs.map((doc) => {
+            const item = doc.data();
+            return {
+              id: doc.id,
+              ...item,
+              cliente_nome: clientesMap[item.cliente_id] || "Desconhecido",
+            };
+          });
+
+          // Aba 1: Sem Responsáveis
+          const semResponsaveis = data.filter(
+            (item) =>
+              (!item.responsavelGerenteId ||
+                item.responsavelGerenteId === "") &&
+              (!item.responsavelSecundarioId ||
+                item.responsavelSecundarioId === "")
+          );
+          preencherTabela("solicitacoes-sem-responsaveis", semResponsaveis, [
+            "cliente_nome",
+            "valor_credito",
+            "status_solicitacao",
+            "createdAt",
+          ]);
+
+          // Aba 2: Aguardando Documentação
+          // Aba 2: Aguardando Documentação (somente status_documentacao === "verificado")
+          const aguardandoDocs = data.filter(
+            (item) => item.status_documentacao?.toLowerCase?.() === "pendente"
+          );
+          preencherTabela("solicitacoes-aguardando-docs", aguardandoDocs, [
+            "cliente_nome",
+            "valor_credito",
+            "status_documentacao",
+            "createdAt",
+          ]);
+
+          // Aba 3: Aguardando Aprovação
+          // Aba 3: Aguardando Aprovação (somente status = "processando")
+          const aguardandoAprovacao = data.filter(
+            (item) => item.status_solicitacao?.toLowerCase?.() === "processando"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-aprovacao",
+            aguardandoAprovacao,
+            ["cliente_nome", "valor_credito", "status_solicitacao", "createdAt"]
+          );
+
+          // Aba 4: Aguardando Conclusão (somente status = "aprovado")
+          const aguardandoConclusao = data.filter(
+            (item) => item.status_solicitacao?.toLowerCase?.() === "aprovado"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-conclusao",
+            aguardandoConclusao,
+            ["cliente_nome", "valor_credito", "status_solicitacao", "createdAt"]
+          );
+        } catch (error) {
+          console.error("Erro ao carregar solicitações:", error);
+        }
+      }
+
+      function preencherTabela(tbodyId, lista, campos) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+
+        tbody.innerHTML = "";
+
+        lista.forEach((item) => {
+          const tr = document.createElement("tr");
+
+          campos.forEach((campo) => {
+            const td = document.createElement("td");
+            const valor = item[campo];
+
+            if (
+              campo.toLowerCase().includes("data") ||
+              campo.toLowerCase().includes("createdat")
+            ) {
+              if (valor && typeof valor.toDate === "function") {
+                const dataObj = valor.toDate();
+                td.textContent = dataObj.toLocaleDateString("pt-BR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "2-digit",
+                });
+              } else {
+                td.textContent = "-";
+              }
+            } else if (campo === "valor_credito") {
+              const numero = parseFloat(valor);
+              td.textContent = isNaN(numero)
+                ? "-"
+                : numero.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  });
+            } else {
+              td.textContent = valor ?? "-";
+            }
+
+            tr.appendChild(td);
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarSolicitacoesPorFiltro
+      );
     </script>
   </body>
 </html>
