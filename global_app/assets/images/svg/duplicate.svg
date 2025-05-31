@@ -1,0 +1,16 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon">
+<mask id="mask0_125_6921" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+<rect id="Bounding box" width="20" height="20" fill="white"/>
+</mask>
+<g mask="url(#mask0_125_6921)">
+<g id="Icon_2">
+<path id="Vector" opacity="0.4" d="M14.166 11.1667V13.6667C14.166 17 12.8327 18.3333 9.49935 18.3333H6.33268C2.99935 18.3333 1.66602 17 1.66602 13.6667V10.5C1.66602 7.16668 2.99935 5.83334 6.33268 5.83334H8.83268" stroke="#0F0F0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M14.1654 11.1667H11.4987C9.4987 11.1667 8.83203 10.5 8.83203 8.50001V5.83334L14.1654 11.1667Z" stroke="#0F0F0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" opacity="0.4" d="M5.83301 4.16667C5.83301 2.78334 6.94967 1.66667 8.33301 1.66667H13.333" stroke="#0F0F0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" opacity="0.4" d="M18.3329 6.66667V11.825C18.3329 13.1167 17.2829 14.1667 15.9912 14.1667" stroke="#0F0F0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" d="M18.333 6.66667H15.833C13.958 6.66667 13.333 6.04167 13.333 4.16667V1.66667L18.333 6.66667Z" stroke="#0F0F0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</svg>

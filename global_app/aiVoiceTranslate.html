@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEvoice</title>
+<link href="assets/images/svg/favicon.svg" rel="icon"/>
+<link href="assets/css/swap.css" rel="stylesheet"/>
+<link href="assets/css/slick.css" rel="stylesheet"/>
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/media_query.css" rel="stylesheet"/>
+<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
+<body>
+<div class="site_content">
+<!-- ====================================== Preloader ===================================== -->
+<div class="page-loader" id="page-loader">
+<img alt="logo" src="assets/images/svg/logo.svg"/>
+<p class="loade-text" data-text="WEvoice">WEvoice</p>
+</div>
+<!-- ====================================== Header ===================================== -->
+<header class="site_lr-spacer homeHeader-main" id="top-navbar">
+<div class="back-with-text border-bottom-0">
+<a href="javascript:history.go(-1)">
+<img alt="back-btn-top" class="nav-header back-btn" src="assets/images/svg/back-btn-top.svg"/>
+</a>
+<div class="header-title">
+<h1>AI Voice Translate</h1>
+</div>
+</div>
+</header>
+<!-- ====================================== AI Voice Translate Screen Start ===================================== -->
+<section class="section-main section-main-ver">
+<div class="kjao-mian">
+<h2 class="expor-ciomp pt-0">Upload Audio File 🎵</h2>
+<p class="skjao">Upload your audio file to get started.</p>
+</div>
+<div class="muisc-uploade-main" id="uploadBox">
+<div id="defaultState">
+<img alt="uploade" class="upload-icon" src="assets/images/svg/uploade.svg"/>
+<div class="sjkqWav">Supports .mp3, .wav, .flac, .aac</div>
+</div>
+<div class="progress-container-audio" id="progressState">
+<img alt="uplode-loader" class="rotate-icon" src="assets/images/svg/uplode-loader.svg"/>
+<div class="upload-text" id="fileName">Uploading...</div>
+<div class="upload-text" id="progressPercentage">(0%)</div>
+</div>
+</div>
+<input id="fileInput" style="display: none;" type="file"/>
+</section>
+<div class="button-main Verify-btn">
+<a class="main-bg-color-btn" href="#">Continue</a>
+</div>
+</div>
+<script src="assets/javascript/jquery.js"></script>
+<script src="assets/javascript/slick.min.js"></script>
+<script src="assets/javascript/bootstrap.min.js"></script>
+<script src="assets/javascript/script.js"></script>
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadBox = document.getElementById("uploadBox");
+            const fileInput = document.getElementById("fileInput");
+            const defaultState = document.getElementById("defaultState");
+            const progressState = document.getElementById("progressState");
+            const fileNameDisplay = document.getElementById("fileName");
+            const progressPercentage = document.getElementById("progressPercentage");
+            uploadBox.addEventListener("click", () => {
+                fileInput.click();
+            });
+            fileInput.addEventListener("change", (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    defaultState.style.display = "none";
+                    progressState.style.display = "flex";
+                    fileNameDisplay.innerText = `Uploading "${file.name}"`;
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            progressPercentage.innerText = "Upload Complete!";
+                            setTimeout(() => {
+                                window.location.href = "aiVoiceAudio.html";
+                            }, 1000);
+                        } else {
+                            progress += 1;
+                            progressPercentage.innerText = `(${progress}%)`;
+                        }
+                    }, 50);
+                }
+            });
+        });
+    </script>
+<script src="assets/javascript/custom-popup.js"></script></body>
+</html>

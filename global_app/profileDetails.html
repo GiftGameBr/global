@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEvoice</title>
+<link href="assets/images/svg/favicon.svg" rel="icon"/>
+<link href="assets/css/swap.css" rel="stylesheet"/>
+<link href="assets/css/slick.css" rel="stylesheet"/>
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/media_query.css" rel="stylesheet"/>
+<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
+<body>
+<div class="site_content">
+<!-- ====================================== Preloader ===================================== -->
+<div class="page-loader" id="page-loader">
+<img alt="logo" src="assets/images/svg/logo.svg"/>
+<p class="loade-text" data-text="WEvoice">WEvoice</p>
+</div>
+<!-- ====================================== Header ===================================== -->
+<header class="lets-section site_lr-spacer" id="top-navbar">
+<a href="javascript:history.go(-1)">
+<img alt="back-btn-top" class="nav-header back-btn" src="assets/images/svg/back-btn-top.svg"/>
+</a>
+</header>
+<!-- ====================================== Profile Details Screen Start ===================================== -->
+<section class="section-main section-main-ver">
+<h1 class="lets-text join-mani">Complete Profile 👤</h1>
+<p class="into into-sub">Your profile is your canvas - express yourself!</p>
+<div class="camera-main">
+<div class="circle-img-girl">
+<img alt="profile-img" class="profile-pic" src="assets/images/personal-info-screen/profile-img.jpg"/>
+</div>
+<div class="camera-img-main">
+<img alt="camera" class="upload-button" src="assets/images/svg/camera.svg"/>
+</div>
+<input accept="image/*" class="file-upload" type="file"/>
+</div>
+<div class="inpt-la-main">
+<label class="sign-text-nam" for="name">Name</label>
+<div class="sign-input-main">
+<div class="media-icons-lets">
+<img alt="person-icon" src="assets/images/svg/person-icon.svg"/>
+</div>
+<input autocomplete="off" id="name" name="name" placeholder="Your Name" type="text"/>
+</div>
+</div>
+<div class="inpt-la-main">
+<label class="sign-text-nam" for="email">Email</label>
+<div class="sign-input-main">
+<div class="media-icons-lets">
+<img alt="email" src="assets/images/svg/email.svg"/>
+</div>
+<input autocomplete="off" id="email" name="email" placeholder="Email Address" type="email"/>
+</div>
+</div>
+<div class="inpt-la-main">
+<label class="sign-text-nam" for="datepicker">BIRTH DATE</label>
+<div class="sign-input-main">
+<div class="media-icons-lets">
+<img alt="calendar" src="assets/images/svg/calendar.svg"/>
+</div>
+<input autocomplete="off" id="datepicker" name="date" placeholder="DD/MM/YYYY" type="text"/>
+</div>
+</div>
+<div class="inpt-la-main">
+<label class="sign-text-nam" for="gender">GENDER</label>
+<div class="sign-input-main">
+<div class="media-icons-lets">
+<img alt="gender" src="assets/images/svg/gender.svg"/>
+</div>
+<div class="custom-dropdown">
+<input autocomplete="off" id="gender" name="gender" placeholder="Select Gender" readonly="" type="text"/>
+<span class="dropdown-arrow">
+<img alt="dropdown" src="assets/images/svg/dropdown.svg"/>
+</span>
+<div class="dropdown-options">
+<div class="dropdown-option" data-value="Male">Male</div>
+<div class="dropdown-option" data-value="Female">Female</div>
+<div class="dropdown-option" data-value="Other">Other</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="button-main Verify-btn">
+<a class="main-bg-color-btn" href="account-set.html">Continue</a>
+</div>
+</div>
+<script src="assets/javascript/jquery.js"></script>
+<script src="assets/javascript/slick.min.js"></script>
+<script src="assets/javascript/bootstrap.min.js"></script>
+<script src="assets/javascript/cal.min.js"></script>
+<script src="assets/javascript/script.js"></script>
+<script>
+        $("#datepicker").datepicker({
+            dateFormat: "dd-mm-yy"
+            , duration: "fast"
+        });
+    </script>
+<script src="assets/javascript/custom-popup.js"></script></body>
+</html>

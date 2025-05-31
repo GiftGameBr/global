@@ -1,0 +1,33 @@
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="/assets/js/auth.js"></script>
+<!-- seu auth.js com config -->
+
+<body>
+  <p style="text-align: center">Finalizando login... Aguarde.</p>
+
+  <script>
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then((result) => {
+        if (result.user) {
+          const splashVisto = localStorage.getItem("splashVisto");
+          if (!splashVisto) {
+            localStorage.setItem("splashVisto", "true");
+            window.location.href = "/splash.html";
+          } else {
+            window.location.href = "/homeScreen.html";
+          }
+        } else {
+          showErrorPopup("Não foi possível autenticar. Tente novamente.");
+          window.location.href = "/let-you-screen.html";
+        }
+      })
+      .catch((error) => {
+        console.error("Erro no redirecionamento:", error);
+        showErrorPopup("Erro: " + error.message);
+        window.location.href = "/let-you-screen.html";
+      });
+  </script>
+</body>

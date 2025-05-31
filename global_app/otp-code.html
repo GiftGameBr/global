@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEvoice</title>
+<link href="assets/images/svg/favicon.svg" rel="icon"/>
+<link href="assets/css/swap.css" rel="stylesheet"/>
+<link href="assets/css/slick.css" rel="stylesheet"/>
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/media_query.css" rel="stylesheet"/>
+<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
+<body>
+<div class="site_content">
+<!-- ====================================== Preloader ===================================== -->
+<div class="page-loader" id="page-loader">
+<img alt="logo" src="assets/images/svg/logo.svg"/>
+<p class="loade-text" data-text="WEvoice">WEvoice</p>
+</div>
+<!-- ====================================== Header ===================================== -->
+<header class="lets-section site_lr-spacer" id="top-navbar">
+<a href="javascript:history.go(-1)">
+<img alt="back-btn-top" class="nav-header back-btn" src="assets/images/svg/back-btn-top.svg"/>
+</a>
+</header>
+<!-- ====================================== Otp Code Screen Start ===================================== -->
+<section class="section-main section-main-ver">
+<h1 class="lets-text join-mani">OTP Code 👁‍</h1>
+<p class="into into-sub">Please check your email inbox for a message from WEvoice. Enter the one-time
+                verification code below.</p>
+<div class="otp-field">
+<input class="no-spinners" name="input1" oninput="validateInput(this)" type="number"/>
+<input class="no-spinners" name="input2" oninput="validateInput(this)" type="number"/>
+<input class="no-spinners" name="input3" oninput="validateInput(this)" type="number"/>
+<input class="no-spinners" name="input4" oninput="validateInput(this)" type="number"/>
+<input class="no-spinners" name="input5" oninput="validateInput(this)" type="number"/>
+<input class="no-spinners" name="input6" oninput="validateInput(this)" type="number"/>
+</div>
+<p class="esend">You can resend the code in <span id="countdowntimer">0</span> seconds</p>
+<a class="reasebnd" href="otp-code.html">Resend</a>
+</section>
+<div class="button-main Verify-btn">
+<a class="main-bg-color-btn" href="reset-password.html">Submit</a>
+</div>
+</div>
+<script src="assets/javascript/jquery.js"></script>
+<script src="assets/javascript/slick.min.js"></script>
+<script src="assets/javascript/bootstrap.min.js"></script>
+<script src="assets/javascript/script.js"></script>
+<script>
+        // Mobile Confirm second counter OTP 
+        var timeleft = 59;
+        var downloadTimer = setInterval(function () {
+            timeleft--;
+            document.getElementById("countdowntimer").textContent = timeleft;
+            if (timeleft <= 0) {
+                clearInterval(downloadTimer);
+            }
+        }, 1000);
+    </script>
+<script src="assets/javascript/custom-popup.js"></script></body>
+</html>

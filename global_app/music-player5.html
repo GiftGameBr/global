@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEvoice</title>
+<link href="assets/images/svg/favicon.svg" rel="icon"/>
+<link href="assets/css/swap.css" rel="stylesheet"/>
+<link href="assets/css/slick.css" rel="stylesheet"/>
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/media_query.css" rel="stylesheet"/>
+<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
+<body>
+<div class="site_content">
+<!-- ====================================== Preloader ===================================== -->
+<div class="page-loader" id="page-loader">
+<img alt="logo" src="assets/images/svg/logo.svg"/>
+<p class="loade-text" data-text="WEvoice">WEvoice</p>
+</div>
+<!-- ====================================== Header ===================================== -->
+<header class="site_lr-spacer" id="top-navbar">
+<div class="back-with-text border-bottom-0">
+<a href="aiVoices.html">
+<img alt="buttonClose" class="nav-header back-btn" src="assets/images/svg/buttonClose.svg"/>
+</a>
+</div>
+</header>
+<!-- ====================================== Let’s Get Screen Start ===================================== -->
+<section class="section-main section-main-ver mt-3">
+<div class="kjao-mian">
+<img alt="expo-complete" src="assets/images/svg/expo-complete.svg"/>
+<h1 class="expor-ciomp">Export Completed!</h1>
+<h2 class="skjao">Exporting “YouTube Channel Video 1.mp3” is complete!</h2>
+</div>
+<div class="music-container">
+<div class="spectrum d-none" id="spectrum"></div>
+<img alt="Wave5" src="assets/images/spectrum/Wave5.png"/>
+<div class="button-main music-player">
+<div class="progress-container">
+<input id="progress" max="100" min="0" type="range" value="0"/>
+</div>
+<div class="time-container">
+<span id="current-time">00:00</span>
+<span id="total-time">00:33</span>
+</div>
+<button class="play-pause-btn pulse" id="playPause">
+<span class="play-icon">
+<img alt="music-pause-btn-white" src="assets/images/svg/music-pause-btn-white.svg"/>
+</span>
+<span class="pause-icon">
+<img alt="white-play-btn" src="assets/images/svg/white-play-btn.svg"/>
+</span>
+</button>
+<div class="misuo-pla">
+<a class="skip-btn" data-bs-target="#offcanvasBottom" data-bs-toggle="offcanvas" href="#">Share</a>
+<a class="main-bg-color-btn" data-bs-target="#offcanvasDownload" data-bs-toggle="offcanvas" href="select-language.html">Download</a>
+</div>
+</div>
+</div>
+<audio id="audio">
+<source src="assets/audio/music1.mp3" type="audio/mp3"/>
+</audio>
+</section>
+<!-- ====================================== Share Bottom Offcanvas ===================================== -->
+<div class="offcanvas offcanvas-bottom offcanvas-texttoSpeech" id="offcanvasBottom" tabindex="-1">
+<div class="offcanvas-header offcanvas-headertexttoSpeech">
+<div class="offcanva-line" data-bs-dismiss="offcanvas"></div>
+<h3 class="offcanvas-title texttoSpeech">Share</h3>
+</div>
+<div class="offcanvas-body small">
+<div class="share-media-mainss">
+<a href="https://www.facebook.com">
+<img alt="facebook" src="assets/images/home-screen/facebook.png"/>
+<p>Facebook</p>
+</a>
+<a href="https://wa.me/+12345678899">
+<img alt="whatsapp" src="assets/images/home-screen/whatsapp.png"/>
+<p>WhatsApp</p>
+</a>
+<a href="viber://chat?number=%2B12345678899">
+<img alt="viber" src="assets/images/home-screen/viber.png"/>
+<p>Viber</p>
+</a>
+<a href="https://www.instagram.com">
+<img alt="insta" src="assets/images/home-screen/insta.png"/>
+<p>Instagram</p>
+</a>
+</div>
+<div class="share-media-mainss pb-0">
+<a href="https://www.wechat.com">
+<img alt="wechat" src="assets/images/home-screen/wechat.png"/>
+<p>WeChat</p>
+</a>
+<a href="tel:+12345678899">
+<img alt="callMe" src="assets/images/home-screen/callMe.png"/>
+<p>Call Me</p>
+</a>
+<a href="https://www.skype.com">
+<img alt="skype" src="assets/images/home-screen/skype.png"/>
+<p>Skype</p>
+</a>
+<a href="https://x.com">
+<img alt="twitter" src="assets/images/home-screen/twitter.png"/>
+<p>Twitter</p>
+</a>
+</div>
+</div>
+</div>
+<!-- ====================================== Share Bottom Offcanvas ===================================== -->
+<div class="offcanvas offcanvas-bottom" id="offcanvasDownload" tabindex="-1">
+<div class="offcanvas-header offcanvas-headertexttoSpeech">
+<div class="offcanva-line" data-bs-dismiss="offcanvas"></div>
+<h3 class="offcanvas-title texttoSpeech">Download</h3>
+</div>
+<div class="offcanvas-body small">
+<div class="kjao-mian mt-0 mb-0">
+<img alt="expo-complete" class="kjasnqq" src="assets/images/svg/expo-complete.svg"/>
+<p class="skjao">“YouTube Channel Video 1.mp3” has been successfully downloaded!</p>
+</div>
+</div>
+</div>
+</div>
+<script src="assets/javascript/jquery.js"></script>
+<script src="assets/javascript/slick.min.js"></script>
+<script src="assets/javascript/bootstrap.min.js"></script>
+<script src="assets/javascript/spectrum-music.js"></script>
+<script src="assets/javascript/script.js"></script>
+<script src="assets/javascript/custom-popup.js"></script></body>
+</html>

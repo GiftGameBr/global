@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEvoice</title>
+<link href="assets/images/svg/favicon.svg" rel="icon"/>
+<link href="assets/css/swap.css" rel="stylesheet"/>
+<link href="assets/css/slick.css" rel="stylesheet"/>
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/media_query.css" rel="stylesheet"/>
+<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
+<body>
+<div class="site_content">
+<!-- ====================================== Preloader ===================================== -->
+<div class="page-loader" id="page-loader">
+<img alt="logo" src="assets/images/svg/logo.svg"/>
+<p class="loade-text" data-text="WEvoice">WEvoice</p>
+</div>
+<!-- ====================================== Header ===================================== -->
+<header class="site_lr-spacer homeHeader-main" id="top-navbar">
+<div class="back-with-text border-bottom-0">
+<a href="javascript:history.go(-1)">
+<img alt="back-btn-top" class="nav-header back-btn" src="assets/images/svg/back-btn-top.svg"/>
+</a>
+<div class="header-title">
+<h1>AI Voice Translate</h1>
+</div>
+</div>
+</header>
+<!-- ====================================== AI Voice Audio Screen Start ===================================== -->
+<section class="section-main section-main-ver mt-3">
+<div class="kjao-mian">
+<h2 class="expor-ciomp pt-0">Upload Audio File 🎵</h2>
+<p class="skjao">Upload your audio file to get started.</p>
+</div>
+<div class="music-container">
+<div class="spectrum" id="spectrum"></div>
+<div class="button-main music-player">
+<div class="progress-container">
+<input id="progress" max="100" min="0" type="range" value="0"/>
+</div>
+<div class="time-container">
+<span id="current-time">00:00</span>
+<span id="total-time">00:15</span>
+</div>
+<button class="play-pause-btn pulse" id="playPause">
+<span class="play-icon">
+<img alt="music-pause-btn-white" src="assets/images/svg/music-pause-btn-white.svg"/>
+</span>
+<span class="pause-icon">
+<img alt="white-play-btn" src="assets/images/svg/white-play-btn.svg"/>
+</span>
+</button>
+<div class="misuo-pla">
+<a class="skip-btn" data-bs-target="#offcanvasBottom" data-bs-toggle="offcanvas" href="#">Share</a>
+<a class="main-bg-color-btn" data-bs-target="#offcanvasDownload" data-bs-toggle="offcanvas" href="select-language.html">Download</a>
+</div>
+</div>
+</div>
+<audio id="audio">
+<source src="assets/audio/music2.mp3" type="audio/mp3"/>
+</audio>
+</section>
+<div class="button-main Verify-btn">
+<a class="main-bg-color-btn" href="selectaiVoice.html">Continue</a>
+</div>
+</div>
+<script src="assets/javascript/jquery.js"></script>
+<script src="assets/javascript/slick.min.js"></script>
+<script src="assets/javascript/bootstrap.min.js"></script>
+<script src="assets/javascript/spectrum-music.js"></script>
+<script src="assets/javascript/script.js"></script>
+<script src="assets/javascript/custom-popup.js"></script></body>
+</html>

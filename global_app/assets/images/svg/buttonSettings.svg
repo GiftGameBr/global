@@ -1,0 +1,18 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Button - Settings">
+<circle id="Ellipse 13" cx="18" cy="18" r="17.5" stroke="#F5F5F5"/>
+<g id="Icon">
+<mask id="mask0_125_8421" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="6" width="24" height="24">
+<rect id="Bounding box" x="6" y="6" width="24" height="24" fill="white"/>
+</mask>
+<g mask="url(#mask0_125_8421)">
+<g id="Icon_2">
+<path id="Vector" d="M23 16H25C27 16 28 15 28 13V11C28 9 27 8 25 8H23C21 8 20 9 20 11V13C20 15 21 16 23 16Z" stroke="#0F0F0F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M11 28H13C15 28 16 27 16 25V23C16 21 15 20 13 20H11C9 20 8 21 8 23V25C8 27 9 28 11 28Z" stroke="#0F0F0F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" opacity="0.34" d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#0F0F0F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" opacity="0.34" d="M24 28C26.2091 28 28 26.2091 28 24C28 21.7909 26.2091 20 24 20C21.7909 20 20 21.7909 20 24C20 26.2091 21.7909 28 24 28Z" stroke="#0F0F0F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</svg>

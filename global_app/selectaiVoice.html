@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WEvoice</title>
+<link href="assets/images/svg/favicon.svg" rel="icon"/>
+<link href="assets/css/swap.css" rel="stylesheet"/>
+<link href="assets/css/slick.css" rel="stylesheet"/>
+<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<link href="assets/css/media_query.css" rel="stylesheet"/>
+<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
+<body>
+<div class="site_content">
+<!-- ====================================== Preloader ===================================== -->
+<div class="page-loader" id="page-loader">
+<img alt="logo" src="assets/images/svg/logo.svg"/>
+<p class="loade-text" data-text="WEvoice">WEvoice</p>
+</div>
+<!-- ====================================== Header ===================================== -->
+<header class="site_lr-spacer homeHeader-main" id="top-navbar">
+<div class="back-with-text border-bottom-0">
+<a href="javascript:history.go(-1)">
+<img alt="back-btn-top" class="nav-header back-btn" src="assets/images/svg/back-btn-top.svg"/>
+</a>
+<div class="header-title">
+<h1>Select AI Voice</h1>
+</div>
+</div>
+<div class="homeHeader">
+<a href="filter.html">
+<img alt="filter1" src="assets/images/svg/filter1.svg"/>
+</a>
+</div>
+</header>
+<!-- ====================================== Select AI Voice Screen Start ===================================== -->
+<section class="section-main mb-3">
+<h2 class="d-none">hidden</h2>
+<div class="language-select">
+<div class="sign-input-main">
+<div class="media-icons-lets">
+<img alt="search" src="assets/images/svg/search.svg"/>
+</div>
+<input autocomplete="off" id="name" name="name" placeholder="Search" type="text"/>
+</div>
+<div class="tab-btn-main mt-0" id="ongoing">
+<a class="ongoing tab-active" data-tab="one" href="javascript:void(0);">All AI Voices</a>
+<a class="ongoing" data-tab="two" href="javascript:void(0);">Favorites Voices</a>
+<div class="clear"></div>
+</div>
+<div class="tabContainer">
+<div class="Tabcondent kuean tab-active" id="one">
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag1" class="flag" src="assets/images/home-screen/flag1.jpg"/>
+<svg class="heart-icon" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<div class="crowen-sm"><img alt="crowen-sm" src="assets/images/svg/crowen-sm.svg"/>
+</div>
+<img alt="PerAI-img1" src="assets/images/home-screen/PerAI-img1.jpg"/>
+</div>
+<p class="olivia-name">Olivia (F)</p>
+<p class="olivia-lagu">English</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music1.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag3" class="flag" src="assets/images/home-screen/flag3.jpg"/>
+<svg class="heart-icon" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img2" src="assets/images/home-screen/PerAI-img2.jpg"/>
+</div>
+<p class="olivia-name">Matthew (M)</p>
+<p class="olivia-lagu">Hindi</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music2.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag2" class="flag" src="assets/images/home-screen/flag2.jpg"/>
+<svg class="heart-icon" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img3" src="assets/images/home-screen/PerAI-img3.jpg"/>
+</div>
+<p class="olivia-name">Céline (F)</p>
+<p class="olivia-lagu">French</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music3.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag4" class="flag" src="assets/images/home-screen/flag4.jpg"/>
+<svg class="heart-icon" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<div class="crowen-sm"><img alt="crowen-sm" src="assets/images/svg/crowen-sm.svg"/>
+</div>
+<img alt="PerAI-img4" src="assets/images/home-screen/PerAI-img4.jpg"/>
+</div>
+<p class="olivia-name">Brian (M)</p>
+<p class="olivia-lagu">Arabic</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music1.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag5" class="flag" src="assets/images/home-screen/flag5.jpg"/>
+<svg class="heart-icon" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img5" src="assets/images/home-screen/PerAI-img5.jpg"/>
+</div>
+<p class="olivia-name">Mads (M)</p>
+<p class="olivia-lagu">French</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music2.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag6" class="flag" src="assets/images/home-screen/flag6.jpg"/>
+<svg class="heart-icon" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img6" src="assets/images/home-screen/PerAI-img6.jpg"/>
+</div>
+<p class="olivia-name">Emma (F)</p>
+<p class="olivia-lagu">Hindi</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music3.mp3"></audio>
+</div>
+</div>
+<div class="Tabcondent kuean" id="two">
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag3" class="flag" src="assets/images/home-screen/flag3.jpg"/>
+<svg class="heart-icon filled" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img2" src="assets/images/home-screen/PerAI-img2.jpg"/>
+</div>
+<p class="olivia-name">Matthew (M)</p>
+<p class="olivia-lagu">Hindi</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music1.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag1" class="flag" src="assets/images/home-screen/flag1.jpg"/>
+<svg class="heart-icon filled" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<div class="crowen-sm"><img alt="crowen-sm" src="assets/images/svg/crowen-sm.svg"/>
+</div>
+<img alt="PerAI-img1" src="assets/images/home-screen/PerAI-img1.jpg"/>
+</div>
+<p class="olivia-name">Olivia (F)</p>
+<p class="olivia-lagu">English</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music2.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag2" class="flag" src="assets/images/home-screen/flag2.jpg"/>
+<svg class="heart-icon filled" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img3" src="assets/images/home-screen/PerAI-img3.jpg"/>
+</div>
+<p class="olivia-name">Céline (F)</p>
+<p class="olivia-lagu">French</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music3.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag4" class="flag" src="assets/images/home-screen/flag4.jpg"/>
+<svg class="heart-icon filled" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<div class="crowen-sm"><img alt="crowen-sm" src="assets/images/svg/crowen-sm.svg"/>
+</div>
+<img alt="PerAI-img4" src="assets/images/home-screen/PerAI-img4.jpg"/>
+</div>
+<p class="olivia-name">Brian (M)</p>
+<p class="olivia-lagu">Arabic</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music1.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag5" class="flag" src="assets/images/home-screen/flag5.jpg"/>
+<svg class="heart-icon filled" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img5" src="assets/images/home-screen/PerAI-img5.jpg"/>
+</div>
+<p class="olivia-name">Mads (M)</p>
+<p class="olivia-lagu">French</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn" href="#">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music2.mp3"></audio>
+</div>
+<div class="ai-voice-car-main">
+<div class="flg-main-like">
+<img alt="flag6" class="flag" src="assets/images/home-screen/flag6.jpg"/>
+<svg class="heart-icon filled" fill="none" height="20" viewbox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.516 17.3413C10.2327 17.4413 9.76602 17.4413 9.48268 17.3413C7.06602 16.5163 1.66602 13.0747 1.66602 7.24134C1.66602 4.66634 3.74102 2.58301 6.29935 2.58301C7.81602 2.58301 9.15768 3.31634 9.99935 4.44967C10.841 3.31634 12.191 2.58301 13.6993 2.58301C16.2577 2.58301 18.3327 4.66634 18.3327 7.24134C18.3327 13.0747 12.9327 16.5163 10.516 17.3413Z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div class="PerAI-img-main">
+<img alt="PerAI-img6" src="assets/images/home-screen/PerAI-img6.jpg"/>
+</div>
+<p class="olivia-name">Emma (F)</p>
+<p class="olivia-lagu">Hindi</p>
+<div class="play-btn-selct-btn-main">
+<div class="play-btn">
+<img alt="play-btn" class="play-icon" src="assets/images/svg/play-btn.svg"/>
+</div>
+<div class="button-main select">
+<a class="main-bg-color-btn continue-btn" data-bs-toggle="modal" data-url="translationCompleted.html" href="#exporting-audio-modal">
+<span class="music-graph">Select</span>
+<div class="waveform-animation">
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+<span class="wave"></span>
+</div>
+</a>
+</div>
+</div>
+<audio class="audio-player" src="assets/audio/music3.mp3"></audio>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ======================= Personal information Screen Modal =========================== -->
+<div aria-hidden="true" class="modal fade" id="exporting-audio-modal" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content finger-modal-content">
+<div class="modal-body">
+<h2 class="sjhj">Translate Voice To...</h2>
+<div class="flg-img-vic-main">
+<img alt="ellipse" class="ellipse" src="assets/images/home-screen/ellipse.png"/>
+<img alt="flag1" class="ksafalaghe" src="assets/images/home-screen/flag1.jpg"/>
+</div>
+<p class="sadEnglisj">English</p>
+<div class="finger-print-modal-popup">
+<div class="finger-content-sec">
+<div class="loader2 mt-4">
+<div class="sk-fading-circle">
+<div class="sk-circle1 sk-circle"></div>
+<div class="sk-circle2 sk-circle"></div>
+<div class="sk-circle3 sk-circle"></div>
+<div class="sk-circle4 sk-circle"></div>
+<div class="sk-circle5 sk-circle"></div>
+<div class="sk-circle6 sk-circle"></div>
+<div class="sk-circle7 sk-circle"></div>
+<div class="sk-circle8 sk-circle"></div>
+<div class="sk-circle9 sk-circle"></div>
+<div class="sk-circle10 sk-circle"></div>
+<div class="sk-circle11 sk-circle"></div>
+<div class="sk-circle12 sk-circle"></div>
+</div>
+</div>
+<h2 class="congratulations">Exporting Audio...</h2>
+<p class="few-sec" id="counter-audio">65%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="assets/javascript/jquery.js"></script>
+<script src="assets/javascript/slick.min.js"></script>
+<script src="assets/javascript/bootstrap.min.js"></script>
+<script src="assets/javascript/audio-song-play.js"></script>
+<script src="assets/javascript/script.js"></script>
+<script src="assets/javascript/custom-popup.js"></script></body>
+</html>
