@@ -34,7 +34,14 @@ function loginWithGoogle() {
   auth
     .signInWithPopup(provider)
     .then(() => redirecionarPosLogin())
-    .catch((error) => showErrorPopup("Erro no login com Google: " + error.message));
+    .catch((error) => {
+      // Não mostrar erro quando o usuário fecha o popup intencionalmente
+      if (error.code !== 'auth/popup-closed-by-user') {
+        showErrorPopup("Erro no login com Google: " + error.message);
+      } else {
+        console.log("Usuário fechou o popup de login do Google.");
+      }
+    });
 }
 
 // 4. Login com Facebook
@@ -43,7 +50,14 @@ function loginWithFacebook() {
   auth
     .signInWithPopup(provider)
     .then(() => redirecionarPosLogin())
-    .catch((error) => showErrorPopup("Erro no login com Facebook: " + error.message));
+    .catch((error) => {
+      // Não mostrar erro quando o usuário fecha o popup intencionalmente
+      if (error.code !== 'auth/popup-closed-by-user') {
+        showErrorPopup("Erro no login com Facebook: " + error.message);
+      } else {
+        console.log("Usuário fechou o popup de login do Facebook.");
+      }
+    });
 }
 
 // 5. Login com Apple (redirecionamento)
@@ -101,6 +115,7 @@ function initializeRecaptcha() {
 function sendPhoneCode() {
   const phoneNumberInput = document.getElementById("phone-number");
   const phoneNumber = phoneNumberInput.value.trim();
+  const sendButton = document.querySelector("button[onclick='sendPhoneCode()']");
 
   if (!phoneNumber.startsWith("+")) {
     showInfoPopup("Inclua o código do país (DDI) no número. Ex: +55 11 912345678");
@@ -113,6 +128,12 @@ function sendPhoneCode() {
     );
     if (!window.recaptchaVerifier) initializeRecaptcha();
     return;
+  }
+
+  // Mostrar estado de carregando no botão
+  if (sendButton) {
+    sendButton.disabled = true;
+    sendButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...';
   }
 
   const appVerifier = window.recaptchaVerifier;
@@ -145,12 +166,20 @@ function sendPhoneCode() {
           console.error("Erro ao resetar reCAPTCHA:", resetError);
         }
       }
+    })
+    .finally(() => {
+      // Restaurar o botão ao estado original
+      if (sendButton) {
+        sendButton.disabled = false;
+        sendButton.innerHTML = 'Enviar Código';
+      }
     });
 }
 
 // 8. Verifica o código SMS inserido nos campos OTP do modal
 function verifyPhoneCodeInModal() {
   const otpInputs = document.querySelectorAll("#otp-inputs .otp-input");
+  const verifyButton = document.querySelector("button[onclick='verifyPhoneCodeInModal()']");
   let code = "";
   otpInputs.forEach((input) => {
     code += input.value.trim();
@@ -173,12 +202,18 @@ function verifyPhoneCodeInModal() {
     return;
   }
 
+  // Mostrar estado de carregando no botão
+  if (verifyButton) {
+    verifyButton.disabled = true;
+    verifyButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Verificando...';
+  }
+
   window.confirmationResult
     .confirm(code)
     .then((result) => {
       const user = result.user;
       console.log("Número verificado com sucesso! Usuário:", user);
-      showSuccessPopup("Número verificado com sucesso!");
+      // Removida a mensagem de sucesso para continuar o fluxo automaticamente
       const modalElement = document.getElementById("modalTelefone");
       const modalInstance = bootstrap.Modal.getInstance(modalElement);
       if (modalInstance) modalInstance.hide();
@@ -189,6 +224,13 @@ function verifyPhoneCodeInModal() {
       showErrorPopup("Código inválido ou expirado. Por favor, tente novamente.");
       otpInputs.forEach((input) => (input.value = ""));
       if (otpInputs.length > 0) otpInputs[0].focus();
+    })
+    .finally(() => {
+      // Restaurar o botão ao estado original
+      if (verifyButton) {
+        verifyButton.disabled = false;
+        verifyButton.innerHTML = 'Verificar Código';
+      }
     });
 }
 

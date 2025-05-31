@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-br">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>WEvoice</title>
+<title>Global</title>
 <link href="assets/images/svg/favicon.svg" rel="icon"/>
 <link href="assets/css/swap.css" rel="stylesheet"/>
 <link href="assets/css/slick.css" rel="stylesheet"/>
 <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="assets/css/style.css" rel="stylesheet"/>
 <link href="assets/css/media_query.css" rel="stylesheet"/>
-<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
+<link href="assets/css/custom-popup.css" rel="stylesheet"/>
+</head>
 <body>
 <div class="site_content">
 <!-- ====================================== Preloader ===================================== -->
 <div class="page-loader" id="page-loader">
 <img alt="logo" src="assets/images/svg/logo.svg"/>
-<p class="loade-text" data-text="WEvoice">WEvoice</p>
+<p class="loade-text" data-text="Global">Global</p>
 </div>
 <!-- ====================================== Header ===================================== -->
 <header class="lets-section site_lr-spacer" id="top-navbar">
@@ -27,23 +28,162 @@
 </header>
 <!-- ====================================== Verify Email Screen Start ===================================== -->
 <section class="section-main section-main-ver">
-<h1 class="lets-text join-mani">Verify Email 📧‍</h1>
-<p class="into into-sub">We sent a verify email to your mail. Please verify to continue use WEvoice app.</p>
+<h1 class="lets-text join-mani">Verificar Email 📧‍</h1>
+<p class="into into-sub">Enviamos um email de verificação para <span id="userEmailDisplay"></span>. Por favor, verifique seu email para continuar usando o aplicativo Global.</p>
 <div class="vector-images-box">
 <img alt="img3" src="assets/images/vector-images/img3.png"/>
 </div>
-<p class="esend">Did not receive the email? Check your spam folder or
-                <a href="sign-up.html">try another email address</a>
+<p class="esend">Não recebeu o email? Verifique sua pasta de spam ou
+<button id="resendButton" class="btn btn-link p-0" style="text-decoration: underline; vertical-align: baseline; border: none; background: none; color: #6218FF; cursor: pointer;">tente novamente</button>
 </p>
 </section>
 <div class="button-main Verify-btn">
-<a class="confirm-later" href="notification-allow.html">Skip, I’ll confirm later</a>
-<a class="main-bg-color-btn" href="mailto:help@wevoice.com">Open Email App</a>
+<a class="confirm-later" href="#" id="resendEmailBtn">Re-enviar email de verificação</a>
+<a class="main-bg-color-btn" href="sign-in.html" id="emailVerifiedBtn" style="display: none;">Email Verificado Fazer login</a>
 </div>
 </div>
+
+<!-- Scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="assets/javascript/jquery.js"></script>
 <script src="assets/javascript/slick.min.js"></script>
 <script src="assets/javascript/bootstrap.min.js"></script>
 <script src="assets/javascript/script.js"></script>
-<script src="assets/javascript/custom-popup.js"></script></body>
+<script src="assets/javascript/custom-popup.js"></script>
+<script src="assets/js/auth.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Exibir o email do usuário na página
+    const userEmail = localStorage.getItem('userEmail');
+    const userEmailDisplay = document.getElementById('userEmailDisplay');
+    
+    if (userEmail && userEmailDisplay) {
+      userEmailDisplay.textContent = userEmail;
+    }
+    
+    // Configurar botões de reenvio de email
+    const resendButton = document.getElementById('resendButton');
+    const resendEmailBtn = document.getElementById('resendEmailBtn');
+    const emailVerifiedBtn = document.getElementById('emailVerifiedBtn');
+    
+    if (resendButton) {
+      resendButton.addEventListener('click', function() {
+        resendVerificationEmail();
+      });
+    }
+    
+    if (resendEmailBtn) {
+      resendEmailBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        resendVerificationEmail();
+      });
+    }
+    
+    // Verificar estado de autenticação e status de verificação de email
+    function checkEmailVerification() {
+      const user = auth.currentUser;
+      
+      if (user) {
+        // Forçar atualização do token para verificar status atual
+        user.reload().then(() => {
+          if (user.emailVerified) {
+            // Email verificado, mostrar botão de login
+            if (emailVerifiedBtn) {
+              emailVerifiedBtn.style.display = 'block';
+            }
+            if (resendEmailBtn) {
+              resendEmailBtn.style.display = 'none';
+            }
+            showSuccessPopup("Email verificado com sucesso!");
+          } else {
+            // Email ainda não verificado
+            if (emailVerifiedBtn) {
+              emailVerifiedBtn.style.display = 'none';
+            }
+            if (resendEmailBtn) {
+              resendEmailBtn.style.display = 'block';
+            }
+          }
+        }).catch(error => {
+          console.error("Erro ao atualizar status do usuário:", error);
+        });
+      } else {
+        // Usuário não está logado
+        console.log("Nenhum usuário logado.");
+        setTimeout(() => {
+          window.location.href = "sign-in.html";
+        }, 2000);
+      }
+    }
+    
+    // Verificar inicialmente e configurar verificação periódica
+    checkEmailVerification();
+    
+    // Verificar a cada 5 segundos se o email foi verificado
+    const verificationInterval = setInterval(checkEmailVerification, 5000);
+    
+    // Limpar intervalo quando a página for fechada
+    window.addEventListener('beforeunload', function() {
+      clearInterval(verificationInterval);
+    });
+  });
+  
+  // Função para reenviar o email de verificação
+  function resendVerificationEmail() {
+    const user = auth.currentUser;
+    const resendEmailBtn = document.getElementById('resendEmailBtn');
+    const resendButton = document.getElementById('resendButton');
+    
+    if (user) {
+      // Desabilitar os botões para evitar múltiplos cliques
+      if (resendEmailBtn) {
+        resendEmailBtn.classList.add('disabled');
+        resendEmailBtn.textContent = "Enviando...";
+      }
+      
+      if (resendButton) {
+        resendButton.disabled = true;
+        resendButton.textContent = "Enviando...";
+      }
+      
+      user.sendEmailVerification()
+        .then(() => {
+          showSuccessPopup("Email de verificação reenviado com sucesso!");
+        })
+        .catch((error) => {
+          console.error("Erro ao reenviar email:", error);
+          
+          let errorMessage = "Erro ao reenviar email. Tente novamente mais tarde.";
+          
+          if (error.code === 'auth/too-many-requests') {
+            errorMessage = "Muitas tentativas. Aguarde alguns minutos antes de tentar novamente.";
+          }
+          
+          showErrorPopup(errorMessage);
+        })
+        .finally(() => {
+          // Restaurar os botões após 30 segundos (limite de tempo do Firebase)
+          setTimeout(() => {
+            if (resendEmailBtn) {
+              resendEmailBtn.classList.remove('disabled');
+              resendEmailBtn.textContent = "Re-enviar email de verificação";
+            }
+            
+            if (resendButton) {
+              resendButton.disabled = false;
+              resendButton.textContent = "tente novamente";
+            }
+          }, 30000);
+        });
+    } else {
+      showErrorPopup("Você precisa estar logado para reenviar o email de verificação.");
+      setTimeout(() => {
+        window.location.href = "sign-in.html";
+      }, 2000);
+    }
+  }
+</script>
+</body>
 </html>

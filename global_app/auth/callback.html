@@ -2,11 +2,9 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 <script src="/assets/js/auth.js"></script>
 <!-- seu auth.js com config -->
-
 <body>
-  <p style="text-align: center">Finalizando login... Aguarde.</p>
-
-  <script>
+<p style="text-align: center">Finalizando login... Aguarde.</p>
+<script>
     firebase
       .auth()
       .getRedirectResult()
@@ -30,4 +28,4 @@
         window.location.href = "/let-you-screen.html";
       });
   </script>
-</body>
+<script src="assets/javascript/custom-popup.js"></script></body>

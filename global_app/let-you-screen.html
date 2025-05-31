@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 
 <html lang="pt-br">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Global - Começar</title>
-<!-- Estilos -->
-<link href="assets/css/swap.css" rel="stylesheet"/>
-<link href="assets/css/slick.css" rel="stylesheet"/>
-<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="assets/css/style.css" rel="stylesheet"/>
-<!-- intl-tel-input (opcional) -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css" /> -->
-<!-- Estilo para os campos OTP no modal -->
-<style>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Começar</title>
+    <!-- Estilos -->
+    <link href="assets/css/swap.css" rel="stylesheet" />
+    <link href="assets/css/slick.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <!-- intl-tel-input (opcional) -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css" /> -->
+    <!-- Estilo para os campos OTP no modal -->
+    <style>
       .otp-field-modal {
         display: flex;
         justify-content: center;
@@ -36,114 +36,168 @@
         margin: 0;
       }
     </style>
-<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
-<body>
-<div class="site_content">
-<div class="page-loader" id="page-loader">
-<img alt="logo" src="assets/images/svg/logo.svg"/>
-</div>
-<section class="section-main lets-sec">
-<div class="lets-screen-Logomain" style="margin-top: -150px">
-<img alt="logo" src="assets/images/svg/logo2.svg"/>
-</div>
-<h1 class="lets-text">Vamos começar?</h1>
-<p class="into">
+    <link href="assets/css/custom-popup.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="site_content">
+      <div class="page-loader" id="page-loader">
+        <img alt="logo" src="assets/images/svg/logo.svg" />
+      </div>
+      <section class="section-main lets-sec">
+        <div class="lets-screen-Logomain" style="margin-top: -150px">
+          <img alt="logo" src="assets/images/svg/logo2.svg" />
+        </div>
+        <h1 class="lets-text">Vamos começar?</h1>
+        <p class="into">
           Conecte-se à sua conta e inicie sua solicitação de crédito rural agora
           mesmo.
         </p>
-<div class="lets-media-maiom">
-<!-- Outros botões de login -->
-<a class="lets-mdia" href="#" onclick="loginWithGoogle()">
-<div class="media-icons-lets">
-<img alt="google" src="assets/images/svg/google.svg"/>
-</div>
-<p>Continuar com Google</p>
-</a>
-<a class="lets-mdia" href="#" onclick="loginWithApple()">
-<div class="media-icons-lets">
-<img alt="apple" src="assets/images/svg/apple.svg"/>
-</div>
-<p>Continuar com Apple</p>
-</a>
-<a class="lets-mdia" href="#" onclick="loginWithFacebook()">
-<div class="media-icons-lets">
-<img alt="facebook" src="assets/images/svg/facebook.svg"/>
-</div>
-<p>Continuar com Facebook</p>
-</a>
-<!-- Botão que abre o modal -->
-<a class="lets-mdia" data-bs-target="#modalTelefone" data-bs-toggle="modal" href="#">
-<div class="media-icons-lets">
-<img alt="telefone" src="assets/images/svg/whatsapp.svg"/>
-</div>
-<p>Continuar com Celular</p>
-</a>
-</div>
-<div class="button-main let-screen-btns-main">
-<a class="main-bg-color-btn" href="sign-up.html">Criar Conta</a>
-<a class="main-bg-color-btn sign-in" href="sign-in.html">Entrar</a>
-</div>
-</section>
-<p class="left-footer">
-<a href="dataPrivacy.html">Política de Privacidade</a> |
+        <div class="lets-media-maiom">
+          <!-- Outros botões de login -->
+          <a class="lets-mdia" href="#" onclick="loginWithGoogle()">
+            <div class="media-icons-lets">
+              <img alt="google" src="assets/images/svg/google.svg" />
+            </div>
+            <p>Continuar com Google</p>
+          </a>
+          <a class="lets-mdia" href="#" onclick="loginWithApple()">
+            <div class="media-icons-lets">
+              <img alt="apple" src="assets/images/svg/apple.svg" />
+            </div>
+            <p>Continuar com Apple</p>
+          </a>
+
+          <!-- Botão que abre o modal -->
+          <a
+            class="lets-mdia"
+            data-bs-target="#modalTelefone"
+            data-bs-toggle="modal"
+            href="#"
+          >
+            <div class="media-icons-lets">
+              <img alt="telefone" src="assets/images/svg/whatsapp.svg" />
+            </div>
+            <p>Continuar com Celular</p>
+          </a>
+        </div>
+      </section>
+      <p class="left-footer">
+        <a href="dataPrivacy.html">Política de Privacidade</a> |
         <a href="dataPrivacy.html">Termos de Serviço</a>
-</p>
-</div>
-<!-- Modal de telefone -->
-<div aria-hidden="true" aria-labelledby="modalTelefoneLabel" class="modal fade" id="modalTelefone" tabindex="-1">
-<div class="modal-dialog modal-dialog-centered">
-<div class="modal-content p-4">
-<div class="modal-header border-0">
-<h5 class="modal-title" id="modalTelefoneLabel">
+      </p>
+    </div>
+    <!-- Modal de telefone -->
+    <div
+      aria-hidden="true"
+      aria-labelledby="modalTelefoneLabel"
+      class="modal fade"
+      id="modalTelefone"
+      tabindex="-1"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4">
+          <div class="modal-header border-0">
+            <h5 class="modal-title" id="modalTelefoneLabel">
               Entrar com seu número
             </h5>
-<button aria-label="Fechar" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-</div>
-<div class="modal-body text-center">
-<!-- Etapa 1: Inserir número e reCAPTCHA -->
-<div id="step1-phone-input">
-<input class="form-control mb-3" id="phone-number" placeholder="Ex: +55 11 912345678" type="tel"/>
-<div class="mb-3 d-flex justify-content-center" id="recaptcha-container" style="
+            <button
+              aria-label="Fechar"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              type="button"
+            ></button>
+          </div>
+          <div class="modal-body text-center">
+            <!-- Etapa 1: Inserir número e reCAPTCHA -->
+            <div id="step1-phone-input">
+              <input
+                class="form-control mb-3"
+                id="phone-number"
+                placeholder="Ex: +55 11 912345678"
+                type="tel"
+              />
+              <div
+                class="mb-3 d-flex justify-content-center"
+                id="recaptcha-container"
+                style="
                   min-height: 78px;
                   transform: scale(0.9);
                   transform-origin: center;
-                "></div>
-<button class="btn btn-primary w-100 mb-2" onclick="sendPhoneCode()">
+                "
+              ></div>
+              <button
+                class="btn btn-primary w-100 mb-2"
+                onclick="sendPhoneCode()"
+              >
                 Enviar Código
               </button>
-</div>
-<!-- Etapa 2: Inserir código de verificação (OTP) -->
-<div id="step2-verification" style="display: none">
-<div class="text-success mt-2 mb-3" id="sms-feedback">
+            </div>
+            <!-- Etapa 2: Inserir código de verificação (OTP) -->
+            <div id="step2-verification" style="display: none">
+              <div class="text-success mt-2 mb-3" id="sms-feedback">
                 Código enviado! Verifique seu celular.
               </div>
-<!-- Campos OTP individuais -->
-<div class="otp-field-modal" id="otp-inputs">
-<input class="form-control otp-input" maxlength="1" name="otp1" type="number"/>
-<input class="form-control otp-input" maxlength="1" name="otp2" type="number"/>
-<input class="form-control otp-input" maxlength="1" name="otp3" type="number"/>
-<input class="form-control otp-input" maxlength="1" name="otp4" type="number"/>
-<input class="form-control otp-input" maxlength="1" name="otp5" type="number"/>
-<input class="form-control otp-input" maxlength="1" name="otp6" type="number"/>
-</div>
-<button class="btn btn-success w-100" id="btn-verificar" onclick="verifyPhoneCodeInModal()">
+              <!-- Campos OTP individuais -->
+              <div class="otp-field-modal" id="otp-inputs">
+                <input
+                  class="form-control otp-input"
+                  maxlength="1"
+                  name="otp1"
+                  type="number"
+                />
+                <input
+                  class="form-control otp-input"
+                  maxlength="1"
+                  name="otp2"
+                  type="number"
+                />
+                <input
+                  class="form-control otp-input"
+                  maxlength="1"
+                  name="otp3"
+                  type="number"
+                />
+                <input
+                  class="form-control otp-input"
+                  maxlength="1"
+                  name="otp4"
+                  type="number"
+                />
+                <input
+                  class="form-control otp-input"
+                  maxlength="1"
+                  name="otp5"
+                  type="number"
+                />
+                <input
+                  class="form-control otp-input"
+                  maxlength="1"
+                  name="otp6"
+                  type="number"
+                />
+              </div>
+              <button
+                class="btn btn-success w-100"
+                id="btn-verificar"
+                onclick="verifyPhoneCodeInModal()"
+              >
                 Verificar Código
               </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Scripts -->
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/javascript/jquery.js"></script>
-<script src="assets/javascript/slick.min.js"></script>
-<script src="assets/javascript/script.js"></script>
-<!-- Script para inicializar reCAPTCHA e Lógica OTP -->
-<script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/slick.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+    <!-- Script para inicializar reCAPTCHA e Lógica OTP -->
+    <script>
       const phoneModal = document.getElementById("modalTelefone");
       const otpInputsContainer = document.getElementById("otp-inputs");
       const otpInputs = otpInputsContainer
@@ -198,12 +252,35 @@
       if (otpInputsContainer) {
         otpInputs.forEach((input, index) => {
           input.addEventListener("input", (e) => {
-            // Se um dígito for inserido, move para o próximo campo
-            if (input.value.length === 1 && index < otpInputs.length - 1) {
-              otpInputs[index + 1].focus();
-            }
             // Remove caracteres não numéricos (segurança extra)
             input.value = input.value.replace(/[^0-9]/g, "");
+
+            // Se um dígito for inserido
+            if (input.value.length === 1) {
+              // Se não for o último campo, move para o próximo
+              if (index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+              }
+              // Se for o último campo e tiver um dígito, verifica automaticamente
+              else if (index === otpInputs.length - 1) {
+                // Verificar se todos os campos estão preenchidos
+                let allFilled = true;
+                let code = "";
+                otpInputs.forEach((input) => {
+                  code += input.value.trim();
+                  if (input.value.trim() === "") {
+                    allFilled = false;
+                  }
+                });
+
+                // Se todos os campos estiverem preenchidos (código completo), verifica automaticamente
+                if (allFilled && code.length === otpInputs.length) {
+                  setTimeout(() => {
+                    verifyPhoneCodeInModal();
+                  }, 300); // Pequeno delay para melhor experiência do usuário
+                }
+              }
+            }
           });
 
           input.addEventListener("keydown", (e) => {
@@ -227,6 +304,11 @@
                 otpInput.value = pastedText[i];
               });
               otpInputs[otpInputs.length - 1].focus(); // Foca no último campo após colar
+
+              // Verificar automaticamente após colar o código completo
+              setTimeout(() => {
+                verifyPhoneCodeInModal();
+              }, 300); // Pequeno delay para melhor experiência do usuário
             } else if (pastedText.length > 0) {
               // Se colar algo menor, preenche a partir do campo atual
               let currentInputIndex = index;
@@ -243,11 +325,27 @@
                 otpInputs[currentInputIndex].focus();
               } else {
                 otpInputs[otpInputs.length - 1].focus();
+
+                // Verificar se todos os campos estão preenchidos após colar
+                let allFilled = true;
+                otpInputs.forEach((input) => {
+                  if (input.value.trim() === "") {
+                    allFilled = false;
+                  }
+                });
+
+                // Se todos os campos estiverem preenchidos, verifica automaticamente
+                if (allFilled) {
+                  setTimeout(() => {
+                    verifyPhoneCodeInModal();
+                  }, 300); // Pequeno delay para melhor experiência do usuário
+                }
               }
             }
           });
         });
       }
     </script>
-<script src="assets/javascript/custom-popup.js"></script></body>
+    <script src="assets/javascript/custom-popup.js"></script>
+  </body>
 </html>
