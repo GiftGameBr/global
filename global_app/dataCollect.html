@@ -1,158 +1,317 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>WEvoice - Coleta de Dados</title>
-    <link href="assets/images/svg/favicon.svg" rel="icon"/>
-    <link href="assets/css/swap.css" rel="stylesheet"/>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="assets/css/style.css" rel="stylesheet"/>
-    <link href="assets/css/media_query.css" rel="stylesheet"/>
-    <link href="assets/css/custom-popup.css" rel="stylesheet"/>
+    <link href="assets/images/svg/favicon.svg" rel="icon" />
+    <link href="assets/css/swap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/media_query.css" rel="stylesheet" />
+    <link href="assets/css/custom-popup.css" rel="stylesheet" />
     <!-- Adicionar CSS do Slick se necessário -->
-    <link href="assets/css/slick.css" rel="stylesheet"/>
+    <link href="assets/css/slick.css" rel="stylesheet" />
     <style>
-        .step { display: none; }
-        .step.active { display: block; }
-        .form-label { margin-top: 1rem; }
-        .error-message { color: red; font-size: 0.8em; display: none; }
-        .nav-buttons { margin-top: 2rem; display: flex; justify-content: space-between; }
-        .progress-indicator { text-align: center; margin-bottom: 1rem; font-weight: bold; }
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+      .form-label {
+        margin-top: 1rem;
+      }
+      .error-message {
+        color: red;
+        font-size: 0.8em;
+        display: none;
+      }
+      .nav-buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .progress-indicator {
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="site_content">
-        <!-- ====================================== Preloader ===================================== -->
-        <div class="page-loader" id="page-loader">
-            <img alt="logo" src="assets/images/svg/logo.svg"/>
-            <p class="loade-text" data-text="WEvoice">WEvoice</p>
+      <!-- ====================================== Preloader ===================================== -->
+      <div class="page-loader" id="page-loader">
+        <img alt="logo" src="assets/images/svg/logo.svg" />
+        <p class="loade-text" data-text="WEvoice">WEvoice</p>
+      </div>
+      <!-- ====================================== Header ===================================== -->
+      <header class="lets-section site_lr-spacer" id="top-navbar">
+        <h2 class="header-title" style="text-align: center; width: 100%">
+          Complete seu Cadastro
+        </h2>
+      </header>
+
+      <!-- ====================================== Data Collect Screen Start ===================================== -->
+      <section class="section-main section-main-ver site_lr-spacer">
+        <div class="progress-indicator" id="progress-indicator">
+          Etapa 1 de 3
         </div>
-        <!-- ====================================== Header ===================================== -->
-        <header class="lets-section site_lr-spacer" id="top-navbar">
-            <h2 class="header-title" style="text-align: center; width: 100%;">Complete seu Cadastro</h2>
-        </header>
+        <form id="dataCollectForm">
+          <!-- Etapa 1: Informações Pessoais -->
+          <div class="step active" id="step-1">
+            <h3 class="step-title">Informações Pessoais</h3>
+            <div class="mb-3">
+              <label class="form-label" for="nome_completo"
+                >Nome Completo</label
+              >
+              <input
+                class="form-control"
+                id="nome_completo"
+                name="nome_completo"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-nome_completo">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="email">Email</label>
+              <input
+                class="form-control"
+                disabled
+                id="email"
+                name="email"
+                required
+                type="email"
+              />
+              <div class="error-message" id="error-email">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="contato">Contato (Telefone)</label>
+              <input
+                class="form-control"
+                id="contato"
+                name="contato"
+                required
+                type="tel"
+              />
+              <div class="error-message" id="error-contato">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="nascimento"
+                >Data de Nascimento</label
+              >
+              <input
+                class="form-control"
+                id="nascimento"
+                name="nascimento"
+                required
+                type="date"
+              />
+              <div class="error-message" id="error-nascimento">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" disabled type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-1" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
 
-        <!-- ====================================== Data Collect Screen Start ===================================== -->
-        <section class="section-main section-main-ver site_lr-spacer">
-            <div class="progress-indicator" id="progress-indicator">Etapa 1 de 3</div>
-            <form id="dataCollectForm">
+          <!-- Etapa 2: Documentos -->
+          <div class="step" id="step-2">
+            <h3 class="step-title">Documentos</h3>
+            <div class="mb-3">
+              <label class="form-label" for="rg">RG</label>
+              <input
+                class="form-control"
+                id="rg"
+                name="rg"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-rg">Campo obrigatório.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="cpf">CPF</label>
+              <input
+                class="form-control"
+                id="cpf"
+                name="cpf"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-cpf">Campo obrigatório.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="estado_civil">Estado Civil</label>
+              <select
+                class="form-control"
+                id="estado_civil"
+                name="estado_civil"
+                required
+              >
+                <option value="" disabled selected>
+                  Selecione seu estado civil
+                </option>
+                <option value="Solteiro">Solteiro</option>
+                <option value="Casado">Casado</option>
+                <option value="Separado Judicialmente">
+                  Separado Judicialmente
+                </option>
+                <option value="Divorciado">Divorciado</option>
+                <option value="Viúvo">Viúvo</option>
+              </select>
+              <div class="error-message" id="error-estado_civil">
+                Campo obrigatório.
+              </div>
+            </div>
 
-                <!-- Etapa 1: Informações Pessoais -->
-                <div class="step active" id="step-1">
-                    <h3 class="step-title">Informações Pessoais</h3>
-                    <div class="mb-3">
-                        <label class="form-label" for="nome_completo">Nome Completo</label>
-                        <input class="form-control" id="nome_completo" name="nome_completo" required type="text"/>
-                        <div class="error-message" id="error-nome_completo">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="email">Email</label>
-                        <input class="form-control" disabled id="email" name="email" required type="email"/>
-                        <div class="error-message" id="error-email">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="contato">Contato (Telefone)</label>
-                        <input class="form-control" id="contato" name="contato" required type="tel"/>
-                        <div class="error-message" id="error-contato">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="nascimento">Data de Nascimento</label>
-                        <input class="form-control" id="nascimento" name="nascimento" required type="date"/>
-                        <div class="error-message" id="error-nascimento">Campo obrigatório.</div>
-                    </div>
-                    <div class="nav-buttons">
-                        <button class="btn btn-secondary" disabled type="button">Anterior</button>
-                        <button class="btn main-bg-color-btn" id="next-1" type="button">Próximo</button>
-                    </div>
-                </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-2" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-2" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
 
-                <!-- Etapa 2: Documentos -->
-                <div class="step" id="step-2">
-                    <h3 class="step-title">Documentos</h3>
-                    <div class="mb-3">
-                        <label class="form-label" for="rg">RG</label>
-                        <input class="form-control" id="rg" name="rg" required type="text"/>
-                        <div class="error-message" id="error-rg">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="cpf">CPF</label>
-                        <input class="form-control" id="cpf" name="cpf" required type="text"/>
-                        <div class="error-message" id="error-cpf">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="estado_civil">Estado Civil</label>
-                        <input class="form-control" id="estado_civil" name="estado_civil" required type="text"/>
-                        <div class="error-message" id="error-estado_civil">Campo obrigatório.</div>
-                    </div>
-                    <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-2" type="button">Anterior</button>
-                        <button class="btn main-bg-color-btn" id="next-2" type="button">Próximo</button>
-                    </div>
-                </div>
-
-                <!-- Etapa 3: Endereço Comercial -->
-                <div class="step" id="step-3">
-                    <h3 class="step-title">Endereço Comercial</h3>
-                    <div class="mb-3">
-                        <label class="form-label" for="empresa">Empresa</label>
-                        <input class="form-control" id="empresa" name="empresa" required type="text"/>
-                        <div class="error-message" id="error-empresa">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="cep">CEP</label>
-                        <input class="form-control" id="cep" name="cep" required type="text"/>
-                        <div class="error-message" id="error-cep">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="endereco">Endereço</label>
-                        <input class="form-control" id="endereco" name="endereco" required type="text"/>
-                        <div class="error-message" id="error-endereco">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="endereco1">Complemento</label>
-                        <input class="form-control" id="endereco1" name="endereco1" required type="text"/>
-                        <div class="error-message" id="error-endereco1">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="cidade">Cidade</label>
-                        <input class="form-control" id="cidade" name="cidade" required type="text"/>
-                        <div class="error-message" id="error-cidade">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="bairro">Bairro</label>
-                        <input class="form-control" id="bairro" name="bairro" required type="text"/>
-                        <div class="error-message" id="error-bairro">Campo obrigatório.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="estado">Estado</label>
-                        <input class="form-control" id="estado" name="estado" required type="text"/>
-                        <div class="error-message" id="error-estado">Campo obrigatório.</div>
-                    </div>
-                    <div class="nav-buttons">
-                        <button class="btn btn-secondary" id="prev-3" type="button">Anterior</button>
-                        <button class="btn main-bg-color-btn" id="submit-data" type="submit">Finalizar Cadastro</button>
-                    </div>
-                </div>
-            </form>
-        </section>
+          <!-- Etapa 3: Endereço Comercial -->
+          <div class="step" id="step-3">
+            <h3 class="step-title">Endereço Comercial</h3>
+            <div class="mb-3">
+              <label class="form-label" for="empresa">Empresa</label>
+              <input
+                class="form-control"
+                id="empresa"
+                name="empresa"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-empresa">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="cep">CEP</label>
+              <input
+                class="form-control"
+                id="cep"
+                name="cep"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-cep">Campo obrigatório.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="endereco">Endereço</label>
+              <input
+                class="form-control"
+                id="endereco"
+                name="endereco"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-endereco">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="endereco1">Complemento</label>
+              <input
+                class="form-control"
+                id="endereco1"
+                name="endereco1"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-endereco1">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="cidade">Cidade</label>
+              <input
+                class="form-control"
+                id="cidade"
+                name="cidade"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-cidade">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="bairro">Bairro</label>
+              <input
+                class="form-control"
+                id="bairro"
+                name="bairro"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-bairro">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="estado">Estado</label>
+              <input
+                class="form-control"
+                id="estado"
+                name="estado"
+                required
+                type="text"
+              />
+              <div class="error-message" id="error-estado">
+                Campo obrigatório.
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-3" type="button">
+                Anterior
+              </button>
+              <button
+                class="btn main-bg-color-btn"
+                id="submit-data"
+                type="submit"
+              >
+                Finalizar Cadastro
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
     </div>
 
     <!-- Scripts Essenciais - Ordem corrigida -->
     <script src="assets/javascript/jquery.js"></script>
     <script src="assets/javascript/bootstrap.min.js"></script>
-    
+
     <!-- Firebase SDK - Antes de qualquer script que use Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    
+
     <!-- Script de autenticação - Após Firebase SDK -->
     <script src="assets/js/auth.js"></script>
-    
+
     <!-- Slick JS - Antes de script.js -->
     <script src="assets/javascript/slick.min.js"></script>
-    
+
     <!-- Scripts do tema - Após todas as dependências -->
     <script src="assets/javascript/script.js"></script>
     <script src="assets/javascript/custom-popup.js"></script>
@@ -162,27 +321,31 @@
 
     <!-- Script para verificar autenticação -->
     <script>
-        // Verificar autenticação quando o documento estiver pronto
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se o usuário está autenticado
-            if (typeof firebase !== 'undefined' && firebase.auth) {
-                firebase.auth().onAuthStateChanged(function(user) {
-                    if (!user) {
-                        // Usuário não está autenticado, redirecionar para a página de login
-                        console.log('Usuário não autenticado. Redirecionando para login...');
-                        window.location.href = 'let-you-screen.html';
-                    } else {
-                        console.log('Usuário autenticado:', user.uid);
-                        // Preencher o campo de email com o email do usuário
-                        document.getElementById('email').value = user.email || '';
-                    }
-                });
+      // Verificar autenticação quando o documento estiver pronto
+      document.addEventListener("DOMContentLoaded", function () {
+        // Verificar se o usuário está autenticado
+        if (typeof firebase !== "undefined" && firebase.auth) {
+          firebase.auth().onAuthStateChanged(function (user) {
+            if (!user) {
+              // Usuário não está autenticado, redirecionar para a página de login
+              console.log(
+                "Usuário não autenticado. Redirecionando para login..."
+              );
+              window.location.href = "let-you-screen.html";
             } else {
-                console.error("Firebase Auth não está disponível. Verifique se o SDK do Firebase foi carregado corretamente.");
-                // Redirecionar para a página de login em caso de erro
-                window.location.href = 'let-you-screen.html';
+              console.log("Usuário autenticado:", user.uid);
+              // Preencher o campo de email com o email do usuário
+              document.getElementById("email").value = user.email || "";
             }
-        });
+          });
+        } else {
+          console.error(
+            "Firebase Auth não está disponível. Verifique se o SDK do Firebase foi carregado corretamente."
+          );
+          // Redirecionar para a página de login em caso de erro
+          window.location.href = "let-you-screen.html";
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
