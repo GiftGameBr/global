@@ -1,106 +1,563 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>WEvoice - Perfil Completo</title>
+    <link href="assets/images/svg/favicon.svg" rel="icon" />
+    <link href="assets/css/swap.css" rel="stylesheet" />
+    <link href="assets/css/slick.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/media_query.css" rel="stylesheet" />
+    <!-- Importa estilos do pop‐up -->
+    <link href="assets/css/custom-popup.css" rel="stylesheet" />
+    <style>
+      .error-message {
+        color: red;
+        font-size: 0.8em;
+        display: none;
+      }
+      .is-invalid {
+        border-color: #dc3545;
+      }
+      .is-valid {
+        border-color: #28a745;
+      }
+      .profile-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+      .profile-form h3 {
+        margin-bottom: 1rem;
+      }
+      .profile-img-section {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .profile-img-section .circle-img-girl {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 0.5rem;
+      }
+      .profile-img-section .profile-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .upload-button {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site_content">
+      <!-- ====================================== Header ===================================== -->
+      <header class="site_lr-spacer back-with-text" id="top-navbar">
+        <a href="javascript:history.go(-1)" style="text-decoration: none">
+          <img
+            alt="back-btn-top"
+            class="nav-header back-btn"
+            src="assets/images/svg/back-btn-top.svg"
+          />
+        </a>
+        <div class="header-title">
+          <h1>Perfil</h1>
+        </div>
+      </header>
 
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>WEvoice</title>
-<link href="assets/images/svg/favicon.svg" rel="icon"/>
-<link href="assets/css/swap.css" rel="stylesheet"/>
-<link href="assets/css/slick.css" rel="stylesheet"/>
-<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="assets/css/style.css" rel="stylesheet"/>
-<link href="assets/css/media_query.css" rel="stylesheet"/>
-<link href="assets/css/custom-popup.css" rel="stylesheet"/></head>
-<body>
-<div class="site_content">
-<!-- ====================================== Preloader ===================================== -->
-<div class="page-loader" id="page-loader">
-<img alt="logo" src="assets/images/svg/logo.svg"/>
-<p class="loade-text" data-text="WEvoice">WEvoice</p>
-</div>
-<!-- ====================================== Header ===================================== -->
-<header class="site_lr-spacer back-with-text" id="top-navbar">
-<a href="javascript:history.go(-1)">
-<img alt="back-btn-top" class="nav-header back-btn" src="assets/images/svg/back-btn-top.svg"/>
-</a>
-<div class="header-title">
-<h1>Profile</h1>
-</div>
-</header>
-<!-- ====================================== Profile Screen Start ===================================== -->
-<section class="section-main section-main-ver">
-<h2 class="d-none">hidden</h2>
-<div class="camera-main">
-<div class="circle-img-girl">
-<img alt="profile-img" class="profile-pic" src="assets/images/personal-info-screen/profile-img.jpg"/>
-</div>
-<div class="camera-img-main">
-<img alt="camera" class="upload-button" src="assets/images/svg/camera.svg"/>
-</div>
-<input accept="image/*" class="file-upload" type="file"/>
-</div>
-<div class="inpt-la-main">
-<label class="sign-text-nam" for="name">Name</label>
-<div class="sign-input-main">
-<div class="media-icons-lets">
-<img alt="person-icon" src="assets/images/svg/person-icon.svg"/>
-</div>
-<input autocomplete="off" id="name" name="name" placeholder="Your Name" type="text"/>
-</div>
-</div>
-<div class="inpt-la-main">
-<label class="sign-text-nam" for="email">Email</label>
-<div class="sign-input-main">
-<div class="media-icons-lets">
-<img alt="email" src="assets/images/svg/email.svg"/>
-</div>
-<input autocomplete="off" id="email" name="email" placeholder="Email Address" type="email"/>
-</div>
-</div>
-<div class="inpt-la-main">
-<label class="sign-text-nam" for="datepicker">BIRTH DATE</label>
-<div class="sign-input-main">
-<div class="media-icons-lets">
-<img alt="calendar" src="assets/images/svg/calendar.svg"/>
-</div>
-<input autocomplete="off" id="datepicker" name="date" placeholder="DD/MM/YYYY" type="text"/>
-</div>
-</div>
-<div class="inpt-la-main">
-<label class="sign-text-nam" for="gender">GENDER</label>
-<div class="sign-input-main">
-<div class="media-icons-lets">
-<img alt="gender" src="assets/images/svg/gender.svg"/>
-</div>
-<div class="custom-dropdown">
-<input autocomplete="off" id="gender" name="gender" placeholder="Select Gender" readonly="" type="text"/>
-<span class="dropdown-arrow">
-<img alt="dropdown" src="assets/images/svg/dropdown.svg"/>
-</span>
-<div class="dropdown-options">
-<div class="dropdown-option" data-value="Male">Male</div>
-<div class="dropdown-option" data-value="Female">Female</div>
-<div class="dropdown-option" data-value="Other">Other</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<div class="button-main Verify-btn">
-<a class="main-bg-color-btn" href="account.html">Update Changes</a>
-</div>
-</div>
-<script src="assets/javascript/jquery.js"></script>
-<script src="assets/javascript/slick.min.js"></script>
-<script src="assets/javascript/bootstrap.min.js"></script>
-<script src="assets/javascript/cal.min.js"></script>
-<script src="assets/javascript/script.js"></script>
-<script>
-        $("#datepicker").datepicker({
-            dateFormat: "dd-mm-yy"
-            , duration: "fast"
+      <!-- ====================================== Profile Form ===================================== -->
+      <section class="section-main section-main-ver">
+        <form id="profileForm" class="profile-form">
+          <h3>Atualize suas Informações</h3>
+
+          <!-- Nome Completo -->
+          <div class="mb-3">
+            <label class="form-label" for="nome_completo">Nome Completo</label>
+            <input
+              class="form-control"
+              id="nome_completo"
+              name="nome_completo"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-nome_completo">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Email (desabilitado se veio do Google) -->
+          <div class="mb-3">
+            <label class="form-label" for="email">E-mail</label>
+            <input
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="seu@exemplo.com"
+              type="email"
+              disabled
+              required
+            />
+            <div class="error-message" id="error-email">Campo obrigatório.</div>
+          </div>
+
+          <!-- Data de Nascimento -->
+          <div class="mb-3">
+            <label class="form-label" for="nascimento"
+              >Data de Nascimento</label
+            >
+            <input
+              class="form-control"
+              id="nascimento"
+              name="nascimento"
+              required
+              type="date"
+            />
+            <div class="error-message" id="error-nascimento">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Contato (Telefone) -->
+          <div class="mb-3">
+            <label class="form-label" for="contato">Contato (Telefone)</label>
+            <input
+              class="form-control"
+              id="contato"
+              name="contato"
+              required
+              type="tel"
+              placeholder="+55 XX 9 XXXX XXXX"
+            />
+            <div class="error-message" id="error-contato">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- RG -->
+          <div class="mb-3">
+            <label class="form-label" for="rg">RG</label>
+            <input
+              class="form-control"
+              id="rg"
+              name="rg"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-rg">Campo obrigatório.</div>
+          </div>
+
+          <!-- CPF -->
+          <div class="mb-3">
+            <label class="form-label" for="cpf">CPF</label>
+            <input
+              class="form-control"
+              id="cpf"
+              name="cpf"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-cpf">Campo obrigatório.</div>
+          </div>
+
+          <!-- Estado Civil -->
+          <div class="mb-3">
+            <label class="form-label" for="estado_civil">Estado Civil</label>
+            <select
+              class="form-control"
+              id="estado_civil"
+              name="estado_civil"
+              required
+            >
+              <option value="" disabled selected>
+                Selecione seu estado civil
+              </option>
+              <option value="Solteiro">Solteiro</option>
+              <option value="Casado">Casado</option>
+              <option value="Separado Judicialmente">
+                Separado Judicialmente
+              </option>
+              <option value="Divorciado">Divorciado</option>
+              <option value="Viúvo">Viúvo</option>
+            </select>
+            <div class="error-message" id="error-estado_civil">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Empresa -->
+          <div class="mb-3">
+            <label class="form-label" for="empresa">Empresa</label>
+            <input
+              class="form-control"
+              id="empresa"
+              name="empresa"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-empresa">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- CEP -->
+          <div class="mb-3">
+            <label class="form-label" for="cep">CEP</label>
+            <input
+              class="form-control"
+              id="cep"
+              name="cep"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-cep">Campo obrigatório.</div>
+          </div>
+
+          <!-- Endereço -->
+          <div class="mb-3">
+            <label class="form-label" for="endereco">Endereço</label>
+            <input
+              class="form-control"
+              id="endereco"
+              name="endereco"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-endereco">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Complemento (não obrigatório) -->
+          <div class="mb-3">
+            <label class="form-label" for="endereco1">Complemento</label>
+            <input
+              class="form-control"
+              id="endereco1"
+              name="endereco1"
+              type="text"
+            />
+            <div class="error-message" id="error-endereco1">
+              <!-- Não será acionada pois não há required -->
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Cidade -->
+          <div class="mb-3">
+            <label class="form-label" for="cidade">Cidade</label>
+            <input
+              class="form-control"
+              id="cidade"
+              name="cidade"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-cidade">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Bairro -->
+          <div class="mb-3">
+            <label class="form-label" for="bairro">Bairro</label>
+            <input
+              class="form-control"
+              id="bairro"
+              name="bairro"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-bairro">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Estado -->
+          <div class="mb-3">
+            <label class="form-label" for="estado">Estado</label>
+            <input
+              class="form-control"
+              id="estado"
+              name="estado"
+              required
+              type="text"
+            />
+            <div class="error-message" id="error-estado">
+              Campo obrigatório.
+            </div>
+          </div>
+
+          <!-- Botão de Atualizar -->
+          <div class="button-main Verify-btn text-center">
+            <button
+              class="btn main-bg-color-btn"
+              id="submit-profile"
+              type="submit"
+            >
+              Atualizar Alterações
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Scripts Essenciais -->
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/slick.min.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Script de autenticação -->
+    <script src="assets/js/auth.js"></script>
+
+    <script>
+      /**
+       * Valida um campo específico (input ou select)
+       * @param {string} campoId - ID do campo a ser validado
+       * @returns {boolean} - Retorna true se o campo for válido
+       */
+      function validarCampo(campoId) {
+        const campo = document.getElementById(campoId);
+        const errorElement = document.getElementById(`error-${campoId}`);
+
+        if (!campo || !errorElement) return true;
+
+        if (!campo.value || !campo.value.trim()) {
+          errorElement.style.display = "block";
+          campo.classList.add("is-invalid");
+          return false;
+        } else {
+          errorElement.style.display = "none";
+          campo.classList.remove("is-invalid");
+          campo.classList.add("is-valid");
+          return true;
+        }
+      }
+
+      /**
+       * Valida todos os campos obrigatórios do formulário
+       * @returns {boolean} - Retorna true se todos forem válidos
+       */
+      function validarFormulario() {
+        const campos = document.querySelectorAll(
+          "#profileForm input[required], #profileForm select[required]"
+        );
+        let todosValidos = true;
+        campos.forEach((campo) => {
+          if (!validarCampo(campo.id)) {
+            todosValidos = false;
+          }
         });
+        return todosValidos;
+      }
+
+      /**
+       * Carrega os dados do usuário do Firestore e preenche o formulário
+       * @param {string} uid - ID do usuário
+       */
+      function carregarDadosUsuario(uid) {
+        const db = firebase.firestore();
+        db.collection("clientes")
+          .doc(uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              const dados = doc.data();
+
+              // Referências aos inputs
+              const nomeInput = document.getElementById("nome_completo");
+              const emailInput = document.getElementById("email");
+              const nascimentoInput = document.getElementById("nascimento");
+              const contatoInput = document.getElementById("contato");
+              const rgInput = document.getElementById("rg");
+              const cpfInput = document.getElementById("cpf");
+              const estadoCivilSelect = document.getElementById("estado_civil");
+              const empresaInput = document.getElementById("empresa");
+              const cepInput = document.getElementById("cep");
+              const enderecoInput = document.getElementById("endereco");
+              const endereco1Input = document.getElementById("endereco1");
+              const cidadeInput = document.getElementById("cidade");
+              const bairroInput = document.getElementById("bairro");
+              const estadoInput = document.getElementById("estado");
+
+              // Preencher cada campo se existir
+              if (dados.nome_completo) nomeInput.value = dados.nome_completo;
+              if (dados.email) emailInput.value = dados.email;
+              if (dados.nascimento) nascimentoInput.value = dados.nascimento;
+              if (dados.contato) contatoInput.value = dados.contato;
+              if (dados.rg) rgInput.value = dados.rg;
+              if (dados.cpf) cpfInput.value = dados.cpf;
+              if (dados.estado_civil)
+                estadoCivilSelect.value = dados.estado_civil;
+              if (dados.empresa) empresaInput.value = dados.empresa;
+              if (dados.cep) cepInput.value = dados.cep;
+              if (dados.endereco) enderecoInput.value = dados.endereco;
+              if (dados.endereco1) endereco1Input.value = dados.endereco1;
+              if (dados.cidade) cidadeInput.value = dados.cidade;
+              if (dados.bairro) bairroInput.value = dados.bairro;
+              if (dados.estado) estadoInput.value = dados.estado;
+
+              // Desabilitar email se veio do Google
+              const user = firebase.auth().currentUser;
+              const providers = user.providerData.map((pd) => pd.providerId);
+              if (providers.includes("google.com")) {
+                emailInput.disabled = true;
+              }
+            }
+          })
+          .catch((error) => {
+            console.error("Erro ao carregar dados do usuário:", error);
+            showErrorPopup(
+              "Não foi possível carregar seu perfil. Tente novamente."
+            );
+          });
+      }
+
+      /**
+       * Salva os dados atualizados no Firestore
+       */
+      function salvarDados() {
+        const user = firebase.auth().currentUser;
+        if (!user) {
+          showErrorPopup("Usuário não autenticado.");
+          return;
+        }
+        const db = firebase.firestore();
+
+        // Montar formData a partir do perfil
+        const formData = {};
+        const campos = document.querySelectorAll(
+          "#profileForm input, #profileForm select"
+        );
+        campos.forEach((campo) => {
+          if (campo.name) {
+            formData[campo.name] = campo.value.trim();
+          }
+        });
+
+        // Campos adicionais (mantenha se já existirem na coleção)
+        formData.tipo = "cliente";
+        formData.status = "active"; // ou mantenha conforme seu fluxo
+        formData.atualizado_em = firebase.firestore.Timestamp.now();
+        formData.criado_por = user.email || user.uid;
+
+        // Verificação de unicidade de contato (e-mail não muda pois está desabilitado)
+        const checks = [];
+        if (formData.contato) {
+          const contatoCheck = db
+            .collection("clientes")
+            .where("contato", "==", formData.contato)
+            .get()
+            .then((snapshot) => {
+              if (!snapshot.empty) {
+                let conflito = false;
+                snapshot.forEach((doc) => {
+                  if (doc.id !== user.uid) {
+                    conflito = true;
+                  }
+                });
+                if (conflito) {
+                  return Promise.reject("contato-conflict");
+                }
+              }
+            });
+          checks.push(contatoCheck);
+        }
+
+        Promise.all(checks)
+          .then(() => {
+            // Se passou na verificação, atualiza o documento
+            db.collection("clientes")
+              .doc(user.uid)
+              .set(formData, { merge: true })
+              .then(() => {
+                // AO INVÉS DE alert(), usamos pop-up de sucesso:
+                showSuccessPopup("Perfil atualizado com sucesso!");
+              })
+              .catch((error) => {
+                console.error("Erro ao salvar dados:", error);
+                // Pop-up de erro em vez de alert():
+                showErrorPopup(
+                  "Erro ao salvar dados. Por favor, tente novamente."
+                );
+              });
+          })
+          .catch((error) => {
+            if (error === "contato-conflict") {
+              // Pop-up de erro de telefone duplicado:
+              showErrorPopup("Esse número de celular já está em uso.");
+            } else {
+              console.error("Erro na verificação de unicidade:", error);
+              showErrorPopup("Erro ao verificar telefone. Tente novamente.");
+            }
+          });
+      }
+
+      // Ao carregar o DOM
+      document.addEventListener("DOMContentLoaded", function () {
+        // Verificação de autenticação
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            // Carregar dados existentes
+            carregarDadosUsuario(user.uid);
+
+            // Configurar validação imediata (blur) para inputs e selects obrigatórios
+            const camposValidar = document.querySelectorAll(
+              "#profileForm input[required], #profileForm select[required]"
+            );
+            camposValidar.forEach((campo) => {
+              campo.addEventListener("blur", function () {
+                validarCampo(this.id);
+              });
+            });
+
+            // Configurar formatação de telefone
+            const contatoInput = document.getElementById("contato");
+            contatoInput.addEventListener("blur", function () {
+              let raw = contatoInput.value.replace(/\D/g, "");
+              if (raw.length === 11) {
+                const area = raw.slice(0, 2);
+                const nove = raw.slice(2, 3);
+                const parte1 = raw.slice(3, 7);
+                const parte2 = raw.slice(7, 11);
+                contatoInput.value = `+55 ${area} ${nove} ${parte1} ${parte2}`;
+              } else if (raw.length === 13 && raw.startsWith("55")) {
+                const area = raw.slice(2, 4);
+                const nove = raw.slice(4, 5);
+                const parte1 = raw.slice(5, 9);
+                const parte2 = raw.slice(9, 13);
+                contatoInput.value = `+55 ${area} ${nove} ${parte1} ${parte2}`;
+              }
+            });
+
+            // Submissão do formulário
+            document
+              .getElementById("profileForm")
+              .addEventListener("submit", function (e) {
+                e.preventDefault();
+                if (validarFormulario()) {
+                  salvarDados();
+                }
+              });
+          } else {
+            // Redirecionar se não autenticado
+            window.location.href = "let-you-screen.html";
+          }
+        });
+      });
     </script>
-<script src="assets/javascript/custom-popup.js"></script></body>
+
+    <!-- Importa o script de pop‐up POR ÚLTIMO, para que as funções showSuccessPopup e showErrorPopup já estejam disponíveis -->
+    <script src="assets/javascript/custom-popup.js"></script>
+  </body>
 </html>
