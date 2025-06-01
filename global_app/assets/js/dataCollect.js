@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Configurar validação em tempo real para inputs **e selects**
   const camposValidar = document.querySelectorAll(
     "input[required], select[required]"
-  ); // <<<– ATENÇÃO AQUI: inclui selects
+  );
   camposValidar.forEach((campo) => {
     campo.addEventListener("blur", function () {
       validarCampo(this.id);
@@ -112,7 +112,8 @@ function carregarDadosUsuario(uid) {
         // Obter referência aos inputs e provedor atual
         const emailInput = document.getElementById("email");
         const contatoInput = document.getElementById("contato");
-        const estadoCivilSelect = document.getElementById("estado_civil"); // <<<– ATENÇÃO AQUI
+        const estadoCivilSelect = document.getElementById("estado_civil");
+        const endereco1Input = document.getElementById("endereco1");
         const user = firebase.auth().currentUser;
         const providers = user.providerData.map((pd) => pd.providerId);
         const isGoogle = providers.includes("google.com");
@@ -141,7 +142,12 @@ function carregarDadosUsuario(uid) {
 
         // Preencher estado civil, se existir
         if (dados.estado_civil && estadoCivilSelect) {
-          estadoCivilSelect.value = dados.estado_civil; // <<<– ATENÇÃO AQUI
+          estadoCivilSelect.value = dados.estado_civil;
+        }
+
+        // Preencher complemento (endereco1), se existir
+        if (dados.endereco1 && endereco1Input) {
+          endereco1Input.value = dados.endereco1;
         }
 
         // Preencher demais campos do formulário (outros inputs)
@@ -149,7 +155,8 @@ function carregarDadosUsuario(uid) {
           if (
             campo === "email" ||
             campo === "contato" ||
-            campo === "estado_civil"
+            campo === "estado_civil" ||
+            campo === "endereco1"
           )
             continue;
           const elemento = document.getElementById(campo);
@@ -200,7 +207,7 @@ function voltarEtapa(etapa) {
 function validarEtapa(etapa) {
   const step = document.getElementById(`step-${etapa}`);
   // Incluir inputs e selects obrigatórios na validação de etapa
-  const campos = step.querySelectorAll("input[required], select[required]"); // <<<– ATENÇÃO AQUI
+  const campos = step.querySelectorAll("input[required], select[required]");
   let valido = true;
 
   campos.forEach((campo) => {
@@ -250,7 +257,7 @@ function salvarDados() {
   // Coletar todos os dados do formulário: inputs **e selects**
   const campos = document.querySelectorAll(
     "#dataCollectForm input, #dataCollectForm select"
-  ); // <<<– ATENÇÃO AQUI: inclui selects
+  );
   const formData = {};
 
   campos.forEach((campo) => {

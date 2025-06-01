@@ -230,14 +230,15 @@
             </div>
             <div class="mb-3">
               <label class="form-label" for="endereco1">Complemento</label>
+              <!-- REMOVIDO required para deixar não obrigatório -->
               <input
                 class="form-control"
                 id="endereco1"
                 name="endereco1"
-                required
                 type="text"
               />
               <div class="error-message" id="error-endereco1">
+                <!-- Pode permanecer a mensagem, mas não aparecerá se não tiver required -->
                 Campo obrigatório.
               </div>
             </div>
@@ -345,6 +346,38 @@
           // Redirecionar para a página de login em caso de erro
           window.location.href = "let-you-screen.html";
         }
+      });
+    </script>
+
+    <!-- ---------------- ADICIONAR FORMATAÇÃO DE CELULAR AQUI ---------------- -->
+    <script>
+      // Ao sair do campo "contato", reformata para "+55 XX 9 XXXX XXXX"
+      document.addEventListener("DOMContentLoaded", function () {
+        const contatoInput = document.getElementById("contato");
+        if (!contatoInput) return;
+
+        contatoInput.addEventListener("blur", function () {
+          let raw = contatoInput.value.replace(/\D/g, ""); // só dígitos
+
+          // Se o usuário digitou sem código de país (11 dígitos ex: 86 933008396)
+          if (raw.length === 11) {
+            // Assume que é brasileiro: 2 dígitos de DDD + código 9 + oito dígitos finais
+            const area = raw.slice(0, 2);
+            const nove = raw.slice(2, 3);
+            const parte1 = raw.slice(3, 7);
+            const parte2 = raw.slice(7, 11);
+            contatoInput.value = `+55 ${area} ${nove} ${parte1} ${parte2}`;
+          }
+          // Se já incluiu "55" + DDD + 9 + oito dígitos (13 dígitos)
+          else if (raw.length === 13 && raw.startsWith("55")) {
+            const area = raw.slice(2, 4);
+            const nove = raw.slice(4, 5);
+            const parte1 = raw.slice(5, 9);
+            const parte2 = raw.slice(9, 13);
+            contatoInput.value = `+55 ${area} ${nove} ${parte1} ${parte2}`;
+          }
+          // Para outros casos (menos/muito dígitos), não altera o valor
+        });
       });
     </script>
   </body>
