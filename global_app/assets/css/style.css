@@ -1327,6 +1327,29 @@ a.ui-datepicker-next.ui-corner-all span.ui-icon.ui-icon-circle-triangle-e {
     padding: 12px;
 }
 
+.upgradePro-main2 {
+    background-image: linear-gradient(90deg, #0F0F0F 0%, rgba(15, 15, 15, 0.80) 50%, rgba(15, 15, 15, 0.20) 100%), url('../images/home-screen/upgardeNow-img2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: calc(100% - 60px);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.upgradePro-main3 {
+    background-image: linear-gradient(90deg, #0F0F0F 0%, rgba(15, 15, 15, 0.80) 50%, rgba(15, 15, 15, 0.20) 100%), url('../images/home-screen/upgardeNow-img3.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+    width: calc(100% - 60px);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+
 .crown-main {
     width: 40px;
     height: 40px;
@@ -1485,12 +1508,12 @@ a.ui-datepicker-next.ui-corner-all span.ui-icon.ui-icon-circle-triangle-e {
     align-items: center;
     justify-content: center;
     margin-bottom: 8px;
-    margin-top: -10px;
+    margin-top: 8px;
     position: relative;
 }
 
 .PerAI-img-main img {
-    border-radius: 50%;
+    border-radius: 10%;
 }
 
 .olivia-name {
