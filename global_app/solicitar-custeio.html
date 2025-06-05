@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Crédito de Custeio</title>
+    <!-- Favicon e CSS originais -->
+    <link href="assets/images/svg/favicon.svg" rel="icon" />
+    <link href="assets/css/swap.css" rel="stylesheet" />
+    <link href="assets/css/slick.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/media_query.css" rel="stylesheet" />
+    <link href="assets/css/custom-popup.css" rel="stylesheet" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      /* =========================
+         Regras para exibir/ocultar steps
+         ========================= */
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+
+      /* Formatação do indicador de progresso */
+      .progress-indicator {
+        text-align: center;
+        margin: 1.5rem 0;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      /* Espaçamento entre botões de navegação */
+      .nav-buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .obrigatorio-label::after {
+        content: " (Obrigatório)";
+        color: red;
+        font-weight: normal;
+        font-size: 0.85em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site_content">
+      <!-- ====================================== Preloader ===================================== -->
+      <div class="page-loader" id="page-loader">
+        <img alt="logo" src="assets/images/svg/logo.svg" />
+        <p class="loade-text" data-text="Global">Global</p>
+      </div>
+      <!-- ====================================== Header ===================================== -->
+      <header class="site_lr-spacer back-with-text" id="top-navbar">
+        <a href="javascript:history.go(-1)">
+          <img
+            alt="back-btn-top"
+            class="nav-header back-btn"
+            src="assets/images/svg/back-btn-top.svg"
+          />
+        </a>
+        <div class="header-title">
+          <h1>Solicitação - Crédito de Custeio</h1>
+        </div>
+      </header>
+      <!-- ====================================== Wizard “Coleta de Dados” ===================================== -->
+      <section class="section-main section-main-ver site_lr-spacer">
+        <!-- Indicador de progresso: Etapa X de 3 -->
+        <div class="progress-indicator" id="progress-indicator">
+          Etapa 1 de 6
+        </div>
+        <!-- Início do formulário wizard -->
+        <form id="upgradeForm">
+          <!-- =========================
+     Etapa 1: PRODUTOR RURAL
+     ========================= -->
+          <div class="step active" id="step-1">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">Etapa 1: Produtor Rural</h6>
+                <div class="row g-3">
+                  <div class="col-12 mb-4">
+                    <label for="valor_credito" class="form-label fw-semibold"
+                      >Valor do Crédito Desejado (R$)</label
+                    >
+                    <div class="d-flex align-items-center">
+                      <input
+                        type="range"
+                        class="form-range me-3"
+                        min="1000000"
+                        max="100000000"
+                        step="100000"
+                        value="1000000"
+                        id="valor_credito"
+                        name="valor_credito"
+                        oninput="atualizarValorCredito(this.value)"
+                      />
+                      <span id="valor_credito_exibido" class="fw-bold"
+                        >R$ 1.000.000,00</span
+                      >
+                    </div>
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <label class="form-label"> Produtor Rural </label>
+                    <select
+                      class="form-select"
+                      id="produtor_tipo"
+                      name="produtor_tipo"
+                      required=""
+                    >
+                      <option selected="" value="">Selecione...</option>
+                      <option value="PRONAF">PRONAF</option>
+                      <option value="PRONAMP">PRONAMP</option>
+                      <option value="Demais Produtores">
+                        Demais Produtores
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label"> CPF/CNPJ </label>
+                    <input
+                      class="form-control"
+                      id="cpf_cnpj"
+                      name="cpf_cnpj"
+                      placeholder="CPF ou CNPJ"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label"> Perfil do Produtor </label>
+                    <input
+                      class="form-control"
+                      id="perfil_produtor"
+                      name="perfil_produtor"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Experiência na atividade principal (anos)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="experiencia"
+                      min="0"
+                      name="experiencia"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Assistência Técnica Agropecuária
+                    </label>
+                    <select
+                      class="form-select"
+                      id="assistencia_tecnica"
+                      name="assistencia_tecnica"
+                      required=""
+                    >
+                      <option selected="" value="">Selecione...</option>
+                      <option>Sim: Órgão Estadual</option>
+                      <option>Sim: Própria</option>
+                      <option>Não possui</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Desembolso anual manutenção familiar (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="desembolso_familiar"
+                      name="desembolso_familiar"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Dívidas a vencer próximos 12 meses?
+                    </label>
+                    <input
+                      class="form-control"
+                      id="dividas_vencer"
+                      name="dividas_vencer"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Dívidas direto com fornecedores (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="dividas_fornecedores"
+                      name="dividas_fornecedores"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Custeio normal de outras instituições (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="custeio_outras"
+                      name="custeio_outras"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Custeio prorrogado em outras instituições (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="custeio_prorrogado"
+                      name="custeio_prorrogado"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Investimento em outras instituições (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="investimento_outras"
+                      name="investimento_outras"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Botões de navegação da Etapa 1 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" disabled="" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-1" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <!-- =========================
+     Etapa 2: PROPRIEDADE RURAL
+     ========================= -->
+          <div class="step" id="step-2">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">Etapa 2: Propriedade Rural</h6>
+                <p class="mb-3">
+                  Dados da propriedade
+                  <strong> PRINCIPAL </strong>
+                </p>
+                <div class="row g-3">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Número do CCIR </label>
+                    <input
+                      class="form-control"
+                      id="numero_ccir"
+                      name="numero_ccir"
+                      placeholder="Digite o CCIR"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Nome da propriedade </label>
+                    <input
+                      class="form-control"
+                      id="nome_propriedade"
+                      name="nome_propriedade"
+                      placeholder="Nome da propriedade"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">
+                      Município da propriedade rural / UF
+                    </label>
+                    <input
+                      class="form-control"
+                      id="municipio_propriedade"
+                      name="municipio_propriedade"
+                      placeholder="Município / UF"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Número de matrícula </label>
+                    <input
+                      class="form-control"
+                      id="numero_matricula"
+                      name="numero_matricula"
+                      placeholder="Nº de matrícula"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Existe alienação ou gravame que incide sobre a matrícula?
+                    </label>
+                    <input
+                      class="form-control"
+                      id="alienacao_gravame"
+                      name="alienacao_gravame"
+                      placeholder="Sim/Não e detalhes"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Textura do solo predominante na área explorada
+                    </label>
+                    <input
+                      class="form-control"
+                      id="textura_solo"
+                      name="textura_solo"
+                      placeholder="Ex: Argiloso, Arenoso, etc."
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Botões de navegação da Etapa 2 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-2" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-2" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <!-- =========================
+     Etapa 3: ATIVIDADE RURAL NAS PROPRIEDADES
+     ========================= -->
+          <div class="step" id="step-3">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4 obrigatorio-label">
+                  Etapa 3: Atividade Rural nas Propriedades
+                </h6>
+                <p class="mb-3">
+                  Qual atividade rural é desempenhada nas propriedades
+                </p>
+                <div class="row g-3">
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade1"
+                      name="atividade_props[]"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Cultura Anual"
+                    />
+                    <label class="btn btn-primary w-100" for="atividade1">
+                      Cultura Anual
+                    </label>
+                  </div>
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade2"
+                      name="atividade_props[]"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Cultura Perene"
+                    />
+                    <label class="btn btn-success w-100" for="atividade2">
+                      Cultura Perene
+                    </label>
+                  </div>
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade3"
+                      name="atividade_props[]"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Agricultura Geral"
+                    />
+                    <label class="btn btn-danger w-100" for="atividade3">
+                      Agricultura Geral
+                    </label>
+                  </div>
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade4"
+                      name="atividade_props[]"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Bovino de Corte"
+                    />
+                    <label class="btn btn-warning w-100" for="atividade4">
+                      Bovino de Corte
+                    </label>
+                  </div>
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade5"
+                      name="atividade_props[]"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Bovino de Leite"
+                    />
+                    <label class="btn btn-info w-100" for="atividade5">
+                      Bovino de Leite
+                    </label>
+                  </div>
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade6"
+                      name="atividade_props[]"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Pecuária Geral"
+                    />
+                    <label class="btn btn-dark w-100" for="atividade6">
+                      Pecuária Geral
+                    </label>
+                  </div>
+                </div>
+                <!-- Seção de seleções -->
+                <div class="mt-3">
+                  <h6 class="fw-semibold">Atividades Selecionadas:</h6>
+                  <ul class="list-group" id="selecaoAtividades">
+                    <!-- As seleções do usuário aparecem aqui -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Botões de navegação da Etapa 3 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-3" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-3" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <!-- =========================
+     Etapa 4: Proprietário do Imóvel
+     ========================= -->
+          <!-- =========================
+   Etapa 4: Proprietário do Imóvel
+   ========================= -->
+          <div class="step" id="step-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">
+                  Etapa 4: Proprietário do Imóvel/Matrícula
+                </h6>
+                <p class="mb-3">
+                  Caso o produtor rural NÃO seja proprietário do
+                  imóvel/matrícula, preencher os campos abaixo.
+                </p>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label">
+                      Nome ou Razão Social do Proprietário
+                    </label>
+                    <input
+                      class="form-control"
+                      id="nome_proprietario"
+                      name="nome_proprietario"
+                      placeholder="Nome ou Razão Social"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> CPF/CNPJ </label>
+                    <input
+                      class="form-control"
+                      id="cpf_cnpj_proprietario"
+                      name="cpf_cnpj_proprietario"
+                      placeholder="CPF ou CNPJ"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">
+                      Porcentagem de Propriedade (%)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="percentual_propriedade"
+                      max="100"
+                      min="0"
+                      name="percentual_propriedade"
+                      placeholder="%"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">
+                      A propriedade possui contrato de
+                      arrendamento/comodato/parceria/usufruto? Ou condição de
+                      posseiro?
+                    </label>
+                    <input
+                      class="form-control"
+                      id="condicao_posseiro"
+                      name="condicao_posseiro"
+                      placeholder="Descreva a condição"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> Perfil </label>
+                    <input
+                      class="form-control"
+                      id="perfil"
+                      name="perfil"
+                      placeholder="Perfil"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">
+                      Tamanho da área no contrato (ha)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="tamanho_area_contrato"
+                      name="tamanho_area_contrato"
+                      placeholder="Tamanho da área"
+                      required=""
+                      step="0.01"
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> Vencimento do contrato </label>
+                    <input
+                      class="form-control"
+                      id="vencimento_contrato"
+                      name="vencimento_contrato"
+                      required=""
+                      type="date"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> Valor do contrato (R$) </label>
+                    <input
+                      class="form-control"
+                      id="valor_contrato"
+                      name="valor_contrato"
+                      placeholder="Valor do contrato"
+                      required=""
+                      step="0.01"
+                      type="number"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Botões de navegação da Etapa 4 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-4" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-4" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <div class="step" id="step-5">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">
+                  Etapa 5: Propriedades Secundárias
+                </h6>
+                <p class="mb-3 obrigatorio-label">
+                  Selecione quantas propriedades secundárias deseja cadastrar:
+                </p>
+                <select
+                  class="form-select mb-4"
+                  id="num_secundarias"
+                  onchange="renderSecundarias(this.value)"
+                >
+                  <option value="">Selecione...</option>
+                  <option value="0">0 propriedade</option>
+                  <option value="1">1 propriedade</option>
+                  <option value="2">2 propriedades</option>
+                  <option value="3">3 propriedades</option>
+                  <option value="4">4 propriedades</option>
+                  <option value="5">5 propriedades</option>
+                  <option value="6">6 propriedade</option>
+                  <option value="7">7 propriedades</option>
+                  <option value="8">8 propriedades</option>
+                  <option value="9">9 propriedades</option>
+                  <option value="10">10 propriedades</option>
+                </select>
+                <div id="secundariasContainer"></div>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-5" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-5" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <!-- =========================
+     Etapa 6: Autorização
+     ========================= -->
+          <div class="step" id="step-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">
+                  Etapa 6: Autorização e Declarações
+                </h6>
+
+                <div class="mb-3">
+                  <p class="form-text small">
+                    Autorizo, nos termos da Resolução CMN nº 3.658 de
+                    17.12.2008, a <strong>GLOBAL</strong> a consultar as
+                    informações consolidadas, relativas à minha pessoa ou à
+                    empresa e seus sócios, se for o caso, constantes no Sistema
+                    de Informações de Créditos (SCR) do BACEN.
+                  </p>
+                  <p class="form-text small">
+                    Autorizo, ainda, a GLOBAL a fornecer informações sobre as
+                    operações de crédito com ela realizadas, no sentido de
+                    compor o cadastro do citado sistema. Os presentes dados são
+                    verdadeiros e visam facilitar os processos de negociação e
+                    transações comerciais, pela antecipação de informações a meu
+                    respeito.
+                  </p>
+                  <p class="form-text small">
+                    Autorizo o arquivamento dos meus dados pessoais e de
+                    idoneidade na <strong>SERASA</strong> - Centralização de
+                    Serviços dos Bancos S/A, que poderá deles se utilizar,
+                    respeitadas as disposições legais em vigor. Para os devidos
+                    fins de direito, declaro(amos) responsável(eis) pela
+                    veracidade das informações prestadas neste formulário e
+                    autorizamos sua confirmação.
+                  </p>
+                  <p class="form-text small">
+                    Declaro que:<br />
+                    • as informações por mim prestadas sobre renda/faturamento e
+                    patrimônio são lícitas;<br />
+                    • tenho ciência da Lei nº 9.613/98, que dispõe sobre os
+                    crimes de “lavagem” ou ocultação de bens, direitos e
+                    valores, com as alterações introduzidas, e dos arts. 297,
+                    298 e 299 do Código Penal;<br />
+                    • estou ciente de que a falsidade dos dados declarados
+                    configura crime previsto na legislação brasileira, passível
+                    de responsabilização civil, criminal e administrativa,
+                    podendo implicar na imediata revogação das avaliações de
+                    risco de crédito, das operações avaliadas e não contratadas
+                    e do vencimento antecipado das operações de crédito vigentes
+                    vinculadas a tais dados.
+                  </p>
+                </div>
+
+                <div class="form-check mt-4">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="aceite_final"
+                    required
+                  />
+                  <label class="form-check-label" for="aceite_final">
+                    Declaro que li e aceito os termos acima.
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="nav-buttons mt-3">
+              <button class="btn btn-secondary" type="button" id="prev-6">
+                Anterior
+              </button>
+              <button
+                class="btn btn-success"
+                id="enviarFormulario"
+                type="button"
+              >
+                Enviar Formulário
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+    <!-- ====================================== Scripts ===================================== -->
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/slick.min.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+    <script src="assets/javascript/custom-popup.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Script de autenticação -->
+    <script src="assets/js/auth.js"></script>
+    <!-- =========================
+       JavaScript para controlar a navegação entre steps
+       ========================= -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const steps = document.querySelectorAll(".step");
+        const progressIndicator = document.getElementById("progress-indicator");
+
+        let currentStep = 0; // index de steps (0 => step-1, 1 => step-2, 2 => step-3, 3 => step-4)
+
+        // Função para exibir somente o step “index” e atualizar indicador
+        function showStep(index) {
+          steps.forEach((stepDiv, i) => {
+            if (i === index) {
+              stepDiv.classList.add("active");
+            } else {
+              stepDiv.classList.remove("active");
+            }
+          });
+          progressIndicator.textContent = `Etapa ${index + 1} de ${
+            steps.length
+          }`;
+          currentStep = index;
+        }
+
+        // Botão “Próximo” da Etapa 1
+        document.getElementById("next-1").addEventListener("click", () => {
+          // Aqui você pode validar campos de step 1 antes de avançar, se desejar
+          showStep(1);
+        });
+
+        // Botão “Próximo” da Etapa 2
+        document.getElementById("next-2").addEventListener("click", () => {
+          // Aqui você pode validar campos de step 2 antes de avançar, se desejar
+          showStep(2);
+        });
+
+        // Botão “Próximo” da Etapa 3
+        document.getElementById("next-3").addEventListener("click", () => {
+          const selecionadas = document.querySelectorAll(
+            'input[name="atividade_props[]"]:checked'
+          );
+          if (selecionadas.length === 0) {
+            alert("Por favor, selecione pelo menos uma atividade rural.");
+            return;
+          }
+          showStep(3); // Avançar para Etapa 4
+        });
+
+        // Botão “Anterior” da Etapa 2
+        document.getElementById("prev-2").addEventListener("click", () => {
+          showStep(0);
+        });
+
+        // Botão “Anterior” da Etapa 3
+        document.getElementById("prev-3").addEventListener("click", () => {
+          showStep(1);
+        });
+
+        // Botão “Anterior” da Etapa 4
+        document.getElementById("prev-4").addEventListener("click", () => {
+          showStep(2);
+        });
+        // Botão “Próximo” da Etapa 4
+        document.getElementById("next-4").addEventListener("click", () => {
+          showStep(4); // Avançar para a Etapa 5
+        });
+        // Botão “Anterior” da Etapa 5
+        document.getElementById("prev-5").addEventListener("click", () => {
+          showStep(3); // Voltar para a Etapa 4
+        });
+        document.getElementById("next-5").addEventListener("click", () => {
+          const quantidade = parseInt(
+            document.getElementById("num_secundarias").value
+          );
+
+          if (isNaN(quantidade)) {
+            alert(
+              "Por favor, selecione a quantidade de propriedades secundárias."
+            );
+            return;
+          }
+
+          if (quantidade === 0) {
+            showStep(5); // Avança direto se não tiver propriedades secundárias
+            return;
+          }
+
+          let valid = true;
+          for (let i = 1; i <= quantidade; i++) {
+            const select = document.querySelector(
+              `[name="secundaria_proprietario_${i}"]`
+            );
+            if (!select || select.value === "") {
+              valid = false;
+            }
+          }
+
+          if (!valid) {
+            alert(
+              'Preencha o campo "Você é o proprietário?" para todas as propriedades secundárias.'
+            );
+            return;
+          }
+
+          showStep(5); // Avançar para Etapa 6
+        });
+
+        document
+          .getElementById("prev-6")
+          .addEventListener("click", () => showStep(4));
+        // Botão “Finalizar” da Etapa 4
+        document.getElementById("finish").addEventListener("click", () => {
+          // Se quiser submeter o formulário, use:
+          // document.getElementById("upgradeForm").submit();
+          //
+          // No exemplo anterior, havia um link “Continue” para paymentMethod.html.
+          // Caso queira apenas redirecionar para a próxima página, use:
+          window.location.href = "paymentMethod.html"; // Redireciona para outra página (se necessário)
+        });
+      });
+    </script>
+    <script>
+      function updateSelections() {
+        // Pega todos os checkboxes e o elemento da lista
+        const checkboxes = document.querySelectorAll(
+          'input[type="checkbox"]:checked'
+        );
+        const selecaoAtividades = document.getElementById("selecaoAtividades");
+
+        // Limpa as seleções anteriores
+        selecaoAtividades.innerHTML = "";
+
+        // Para cada checkbox marcado, adiciona uma lista com o valor da atividade
+        checkboxes.forEach((checkbox) => {
+          const listItem = document.createElement("li");
+          listItem.classList.add("list-group-item");
+          listItem.textContent = checkbox.value;
+          selecaoAtividades.appendChild(listItem);
+        });
+      }
+    </script>
+    <script>
+      function renderSecundarias(qtd) {
+        const container = document.getElementById("secundariasContainer");
+        container.innerHTML = "";
+        for (let i = 1; i <= qtd; i++) {
+          container.innerHTML += `
+      <div class="border p-3 mb-4">
+        <h6 class="fw-bold mb-3">Propriedade Secundária ${i}</h6>
+        <div class="mb-3">
+          <label class="form-label">Nome da Propriedade</label>
+          <input type="text" class="form-control" name="secundaria_nome_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Município / UF</label>
+          <input type="text" class="form-control" name="secundaria_municipio_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Número de matrícula</label>
+          <input type="text" class="form-control" name="secundaria_matricula_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Área utilizada (ha)</label>
+          <input type="number" step="0.01" class="form-control" name="secundaria_area_${i}" required />
+        </div>
+        <div class="mb-3 obrigatorio-label">
+          <label class="form-label">Você é o proprietário?</label>
+          <select class="form-select" name="secundaria_proprietario_${i}" onchange="toggleProprietarioExtras(this, ${i})" required>
+            <option value="">Selecione...</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+        </div>
+        <div id="extras_${i}" style="display:none;">
+          <div class="mb-3">
+            <label class="form-label">Nome ou Razão Social do Proprietário</label>
+            <input type="text" class="form-control" name="secundaria_nome_proprietario_${i}" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">CPF/CNPJ</label>
+            <input type="text" class="form-control" name="secundaria_cpf_cnpj_${i}" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Percentual de Propriedade (%)</label>
+            <input type="number" class="form-control" name="secundaria_percentual_${i}" />
+          </div>
+        </div>
+      </div>
+    `;
+        }
+      }
+
+      function toggleProprietarioExtras(select, index) {
+        const extras = document.getElementById("extras_" + index);
+        if (select.value === "Não") {
+          extras.style.display = "block";
+        } else {
+          extras.style.display = "none";
+        }
+      }
+
+      function atualizarValorCredito(valor) {
+        const exibido = document.getElementById("valor_credito_exibido");
+        const valorFormatado = Number(valor).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+          minimumFractionDigits: 2,
+        });
+        exibido.textContent = valorFormatado;
+      }
+    </script>
+    <!-- Modal de Aviso -->
+    <div
+      class="modal fade"
+      id="avisoModal"
+      tabindex="-1"
+      aria-labelledby="avisoLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="font-family: Arial, sans-serif">
+          <div class="modal-header" style="background-color: #f0f8ff">
+            <h5 class="modal-title" id="avisoLabel" style="color: #007bff">
+              📢 Aviso Importante
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body" style="background-color: #f0f8ff">
+            <p>
+              Preencha o máximo de informações que você tiver em mãos no
+              momento.
+            </p>
+            <p>
+              Caso não tenha acesso a todos os dados agora, não se preocupe —
+              será possível
+              <strong
+                >editar, complementar e atualizar sua solicitação
+                posteriormente</strong
+              >.
+            </p>
+            <p>
+              Além disso, nossa equipe entrará em contato com você para
+              <strong>ajudar no preenchimento completo</strong> e esclarecer
+              <strong>qualquer dúvida</strong> que você tiver durante o
+              processo.
+            </p>
+          </div>
+          <div class="modal-footer" style="background-color: #f0f8ff">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Entendi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const avisoModal = new bootstrap.Modal(
+          document.getElementById("avisoModal")
+        );
+        avisoModal.show();
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (!user) {
+            alert("Você precisa estar logado para enviar a solicitação.");
+            window.location.href = "sign-in.html";
+            return;
+          }
+
+          const form = document.getElementById("upgradeForm");
+          const btnEnviar = document.getElementById("enviarFormulario");
+
+          btnEnviar.addEventListener("click", async function (e) {
+            e.preventDefault();
+
+            // Estado "carregando"
+            btnEnviar.innerHTML =
+              'Enviando... <span class="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"></span>';
+            btnEnviar.disabled = true;
+
+            const formData = new FormData(form);
+            const dados = {};
+
+            formData.forEach((valor, chave) => {
+              if (dados[chave]) {
+                if (!Array.isArray(dados[chave])) {
+                  dados[chave] = [dados[chave]];
+                }
+                dados[chave].push(valor);
+              } else {
+                dados[chave] = valor;
+              }
+            });
+
+            // Adiciona os campos fixos
+            dados.status = "inactive";
+            dados.status_documentacao = "pendente";
+            dados.status_solicitacao = "aguardando";
+            dados.createdAt = firebase.firestore.Timestamp.now();
+            dados.cliente_id = user.uid;
+            dados.addedBy = user.email;
+
+            try {
+              await firebase.firestore().collection("custeio").add(dados);
+
+              // Pop-up bonito
+              Swal.fire({
+                icon: "success",
+                title: "Solicitação enviada com sucesso!",
+                html: `Agora é hora de <strong>concluir sua solicitação</strong> com os documentos e informações necessárias.<br><br>
+                   Nossa equipe irá acompanhar tudo de perto para garantir a aprovação do seu crédito junto aos nossos bancos parceiros.`,
+                confirmButtonText: "Entendi!",
+                confirmButtonColor: "#198754",
+              }).then(() => {
+                window.location.href = "solicitacoes.html";
+              });
+            } catch (err) {
+              console.error("Erro ao gravar no Firestore:", err);
+              alert("Erro ao enviar. Tente novamente.");
+              btnEnviar.innerHTML = "Enviar Formulário";
+              btnEnviar.disabled = false;
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
