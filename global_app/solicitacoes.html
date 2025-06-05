@@ -226,7 +226,7 @@
       <!-- ====================================== Preloader ===================================== -->
       <div class="page-loader" id="page-loader">
         <img alt="logo" src="assets/images/svg/logo.svg" />
-        <p class="loade-text" data-text="WEvoice">Crédito</p>
+        <p class="loade-text" data-text="Crédito">Crédito</p>
       </div>
       <!-- ====================================== Header ===================================== -->
       <header
@@ -656,6 +656,18 @@
         const auth = firebase.auth();
         const cardsContainer = document.getElementById("cardsContainer");
         let todasSolicitacoes = [];
+        const nomesUsuarios = {};
+
+        async function carregarUsuarios() {
+          const colecoes = ["gerentes", "agentes"];
+          for (const colecao of colecoes) {
+            const snap = await db.collection(colecao).get();
+            snap.forEach((doc) => {
+              nomesUsuarios[doc.id] =
+                doc.data().nome_completo || "Não informado";
+            });
+          }
+        }
 
         auth.onAuthStateChanged(async (user) => {
           if (!user) {
@@ -663,10 +675,12 @@
             return;
           }
 
-          const welcomeMessage = document.getElementById("welcome-message");
-          welcomeMessage.textContent = user.displayName || "";
+          document.getElementById("welcome-message").textContent =
+            user.displayName || "";
 
           try {
+            await carregarUsuarios();
+
             const snapshot = await db
               .collection("custeio")
               .where("cliente_id", "==", user.uid)
@@ -678,14 +692,9 @@
             }
 
             todasSolicitacoes = snapshot.docs.map((doc) => doc.data());
-
-            // Mostra todas EXCETO aprovadas
-            const naoAprovadas = todasSolicitacoes.filter(
-              (s) => (s.status_solicitacao || "").toLowerCase() !== "aprovado"
-            );
-            renderizarCards(naoAprovadas);
+            document.querySelector('[data-tab="one"]').click();
           } catch (e) {
-            console.error("Erro ao carregar solicitações:", e);
+            console.error("Erro ao carregar dados:", e);
             cardsContainer.innerHTML = `<div>Erro ao carregar solicitações.</div>`;
           }
         });
@@ -697,18 +706,119 @@
             const status = (
               data.status_solicitacao || "aguardando"
             ).toLowerCase();
+            const isAprovadoOuConcluido =
+              status === "concluido" || status === "aprovado";
+
             let statusColor = "#6c757d";
-            if (status === "processando") statusColor = "#0d6efd";
-            if (status === "aprovado") statusColor = "#198754";
-            if (status === "não aprovado" || status === "nao aprovado")
-              statusColor = "#dc3545";
-            if (status === "concluído" || status === "concluido")
-              statusColor = "#0dcaf0";
+            switch (status) {
+              case "processando":
+                statusColor = "#0d6efd";
+                break;
+              case "aprovado":
+                statusColor = "#198754";
+                break;
+              case "não aprovado":
+              case "nao aprovado":
+                statusColor = "#dc3545";
+                break;
+              case "concluído":
+              case "concluido":
+                statusColor = "#0dcaf0";
+                break;
+            }
+
+            const gerente =
+              nomesUsuarios[data.responsavelGerenteId] || "Não informado";
+            const agente =
+              nomesUsuarios[data.responsavelSecundarioId] || "Não informado";
 
             const card = document.createElement("div");
             card.className = "custom-card";
 
-            card.innerHTML = `
+            if (isAprovadoOuConcluido) {
+              card.innerHTML = `
+<div class="card-content" style="position: relative; background-image: url('assets/images/card.jpg'); background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
+  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); border-radius: 20px;"></div>
+  <div style="position: relative; z-index: 1;">
+
+    <div class="card-header-top" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+      <div class="card-logo" style="display: flex; flex-direction: column;">
+        <img src="assets/images/svg/homeLogo.png" alt="Logo" style="max-height: 40px;" />
+        <div style="display: flex; flex-direction: row; gap: 16px; margin-top: 8px;">
+          <div style="font-size: 12px; color: #ccc;"><strong>Concluído:</strong><br />${
+            data.data_conclusao
+              ? new Date(
+                  typeof data.data_conclusao === "string"
+                    ? data.data_conclusao
+                    : data.data_conclusao.seconds * 1000
+                ).toLocaleDateString("pt-BR")
+              : "-"
+          }</div>
+          <div style="font-size: 12px; color: #ccc;"><strong>Criado:</strong><br />${
+            data.createdAt
+              ? new Date(data.createdAt.seconds * 1000).toLocaleDateString(
+                  "pt-BR"
+                )
+              : "-"
+          }</div>
+        </div>
+      </div>
+      <div class="card-title-valor" style="margin-left: auto; text-align: right;">
+        <h4 style="color: #ccc; margin-bottom: 4px;">CRÉDITO DE CUSTEIO</h4>
+        <p style="background-color: #198754; padding: 4px 10px; border-radius: 5px; font-weight: bold;">
+          R$ ${Number(data.valor_credito || 0).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+          })}
+        </p>
+      </div>
+    </div>
+
+    <div class="card-columns" style="margin: 16px 0 8px;">
+      <div class="card-column">
+        <h4 style="color: #ccc;">Gerente</h4>
+        <p style="font-weight: bold;">${gerente}</p>
+      </div>
+      <div class="card-column">
+        <h4 style="color: #ccc;">Agente</h4>
+        <p style="font-weight: bold;">${agente}</p>
+      </div>
+    </div>
+
+    <div class="card-columns" style="margin-top: 8px;">
+      <div class="card-column">
+        <h4>Contrato do Crédito:</h4>
+        <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">${
+          data.status_pagamento || "Ver Contrato"
+        }</p>
+      </div>
+      <div class="card-column">
+        <h4>Boletos de Pagamento:</h4>
+        <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">${
+          data.tipo_fatura || "Ver Boletos"
+        }</p>
+      </div>
+    </div>
+
+    <div class="card-columns" style="margin-top: 16px;">
+      <div class="card-column">
+        <h4>Cadastro Aprovado</h4>
+        <button style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">Ver Cadastro</button>
+      </div>
+      <div class="card-column">
+        <h4>Documentos Aprovados</h4>
+        <button style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">Ver Documentos</button>
+      </div>
+    </div>
+
+    <div style="background-color: ${statusColor}; color: white; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 13px; text-align: center; margin-top: 20px;">
+      ${data.status_solicitacao || "Concluído"}
+    </div>
+
+  </div>
+</div>`;
+            } else {
+              // layout antigo
+              card.innerHTML = `
           <div class="card-content" style="position: relative; background-image: url('assets/images/card.jpg'); background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); border-radius: 20px;"></div>
             <div style="position: relative; z-index: 1;">
@@ -720,9 +830,7 @@
                   <p>${
                     data.createdAt
                       ? new Date(
-                          data.createdAt.seconds
-                            ? data.createdAt.seconds * 1000
-                            : data.createdAt
+                          data.createdAt.seconds * 1000
                         ).toLocaleDateString("pt-BR")
                       : ""
                   }</p>
@@ -747,32 +855,22 @@
                   <p style="margin: 0; font-size: 12px; color: #ccc;">Verificação: ${
                     data.status_documentacao || "pendente"
                   }</p>
-                  <button style="
-                    background-color: #928BFF;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 4px 10px;
-                    font-size: 12px;
-                    cursor: ${
-                      data.status_documentacao === "verificado" ||
-                      data.status_documentacao === "processando"
-                        ? "not-allowed"
-                        : "pointer"
-                    };
-                    opacity: ${
-                      data.status_documentacao === "verificado" ||
-                      data.status_documentacao === "processando"
-                        ? 0.5
-                        : 1
-                    };
-                    font-weight: 500;
-                  " ${
+                  <button style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 4px 10px; font-size: 12px; cursor: ${
                     data.status_documentacao === "verificado" ||
                     data.status_documentacao === "processando"
-                      ? "disabled"
-                      : ""
-                  }>Completar Cadastro</button>
+                      ? "not-allowed"
+                      : "pointer"
+                  }; opacity: ${
+                data.status_documentacao === "verificado" ||
+                data.status_documentacao === "processando"
+                  ? 0.5
+                  : 1
+              };" ${
+                data.status_documentacao === "verificado" ||
+                data.status_documentacao === "processando"
+                  ? "disabled"
+                  : ""
+              }>Completar Cadastro</button>
                 </div>
 
                 <div class="card-column">
@@ -783,53 +881,44 @@
                   <p style="margin: 0; font-size: 12px; color: #ccc;">Verificação: ${
                     data.status_documentacao || "pendente"
                   }</p>
-                  <button style="
-                    background-color: #928BFF;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 4px 10px;
-                    font-size: 12px;
-                    cursor: ${
-                      data.status_documentacao === "verificado" ||
-                      data.status_documentacao === "processando"
-                        ? "not-allowed"
-                        : "pointer"
-                    };
-                    opacity: ${
-                      data.status_documentacao === "verificado" ||
-                      data.status_documentacao === "processando"
-                        ? 0.5
-                        : 1
-                    };
-                    font-weight: 500;
-                  " ${
+                  <button style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 4px 10px; font-size: 12px; cursor: ${
                     data.status_documentacao === "verificado" ||
                     data.status_documentacao === "processando"
-                      ? "disabled"
-                      : ""
-                  }>Enviar Documentos</button>
+                      ? "not-allowed"
+                      : "pointer"
+                  }; opacity: ${
+                data.status_documentacao === "verificado" ||
+                data.status_documentacao === "processando"
+                  ? 0.5
+                  : 1
+              };" ${
+                data.status_documentacao === "verificado" ||
+                data.status_documentacao === "processando"
+                  ? "disabled"
+                  : ""
+              }>Enviar Documentos</button>
                 </div>
               </div>
 
-              <div style="background-color: ${
-                status === "aguardando" ? "#6c757d" : statusColor
-              }; color: white; padding: 6px 12px; border-radius: 0 0 8px 8px; font-weight: bold; font-size: 13px; text-align: center; margin-top: 16px;">
-                ${
-                  status === "aguardando"
-                    ? "Aguardando Documentação"
-                    : data.status_solicitacao || "Aguardando documentação"
-                }
+              <div style="background-color: ${statusColor}; color: white; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 13px; text-align: center; margin-top: 16px;">
+                ${data.status_solicitacao || "Aguardando Documentação"}
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
+            }
 
             cardsContainer.appendChild(card);
           });
         }
 
-        // Tabs
+        function ordenarPorDataDesc(lista) {
+          return lista.sort((a, b) => {
+            const dataA = a.data_solicitacao?.toDate?.() || new Date(0);
+            const dataB = b.data_solicitacao?.toDate?.() || new Date(0);
+            return dataB - dataA;
+          });
+        }
+
         document
           .querySelector('[data-tab="one"]')
           .addEventListener("click", () => {
@@ -840,10 +929,12 @@
               .querySelector('[data-tab="one"]')
               .classList.add("tab-active");
 
-            const naoAprovadas = todasSolicitacoes.filter(
-              (s) => (s.status_solicitacao || "").toLowerCase() !== "aprovado"
-            );
-            renderizarCards(naoAprovadas);
+            const filtradas = todasSolicitacoes.filter((s) => {
+              const status = (s.status_solicitacao || "").toLowerCase();
+              return status !== "concluido" && status !== "aprovado";
+            });
+
+            renderizarCards(ordenarPorDataDesc(filtradas));
           });
 
         document
@@ -856,11 +947,15 @@
               .querySelector('[data-tab="two"]')
               .classList.add("tab-active");
 
-            const aprovadas = todasSolicitacoes.filter(
-              (s) => (s.status_solicitacao || "").toLowerCase() === "aprovado"
-            );
-            renderizarCards(aprovadas);
+            const filtradas = todasSolicitacoes.filter((s) => {
+              const status = (s.status_solicitacao || "").toLowerCase();
+              return status === "concluido" || status === "aprovado";
+            });
+
+            renderizarCards(ordenarPorDataDesc(filtradas));
           });
+
+        document.querySelector('[data-tab="one"]').click();
       });
     </script>
   </body>
