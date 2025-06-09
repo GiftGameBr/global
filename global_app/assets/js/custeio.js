@@ -1,3 +1,15 @@
+function detectarCulturasAnuaisDoFirestore(data) {
+  const culturasEncontradas = new Set();
+  Object.keys(data).forEach((chave) => {
+    const match = chave.match(/^([A-Za-zÀ-ÿ\s]+)_cultura_anual_/);
+    if (match) {
+      const cultura = match[1].trim();
+      culturasEncontradas.add(cultura);
+    }
+  });
+  return Array.from(culturasEncontradas);
+}
+
 // ===================================================================
 // 1. SISTEMA DE GERENCIAMENTO DE ESTADO GLOBAL
 // ===================================================================
@@ -143,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const form = document.getElementById("upgradeForm");
 
           if (form) {
+            // Preenche campos simples
             Object.keys(data).forEach((field) => {
               const input = form.querySelector(`[name="${field}"]`);
               if (input) {
@@ -154,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             });
 
-            // ✅ Marcar atividades rurais e atualizar formulários dinâmicos
+            // ✅ Marcar atividades rurais
             if (data["atividade_props"]) {
               const atividades = Array.isArray(data["atividade_props"])
                 ? data["atividade_props"]
@@ -168,42 +181,46 @@ document.addEventListener("DOMContentLoaded", function () {
               });
 
               updateSelections();
-              setTimeout(() => {
-                // Espera o DOM renderizar os formulários dinâmicos da atividade
-                const form = document.getElementById("upgradeForm");
-                if (form) {
-                  FormStateManager.restoreFormData(form, data);
-                }
-              }, 200); // 200ms para garantir que os campos dinâmicos estejam no DOM
-              if (data.selectedAnnualCultures) {
-                selectedAnnualCultures = data.selectedAnnualCultures;
-                FormStateManager.saveFormData(
-                  "selectedAnnualCultures",
-                  selectedAnnualCultures
-                );
-                restoreCultureState();
-              }
-
-              if (data.selectedPerennialCultures) {
-                selectedPerennialCultures = data.selectedPerennialCultures;
-                FormStateManager.saveFormData(
-                  "selectedPerennialCultures",
-                  selectedPerennialCultures
-                );
-                restorePerennialState();
-              } // Renderiza os formulários dinâmicos
             }
 
-            // ✅ Restaurar culturas (anuais e perenes)
-            if (data.selectedAnnualCultures) {
-              selectedAnnualCultures = data.selectedAnnualCultures;
+            // ✅ Aguardar DOM e montar formulários
+            setTimeout(() => {
+              FormStateManager.restoreFormData(form, data);
+
+              // Detecta culturas
+              if (data.selectedAnnualCultures) {
+                selectedAnnualCultures = data.selectedAnnualCultures;
+              } else {
+                selectedAnnualCultures =
+                  detectarCulturasAnuaisDoFirestore(data);
+              }
+
+              // ✅ Popular FormStateManager com os dados salvos no Firestore
+              FormStateManager.culturasData = {};
+              Object.keys(data).forEach((key) => {
+                const culturaMatch = key.match(
+                  /^([A-Za-zÀ-ÿ\s]+)_(cultura_anual|hist_\d+ano(s?)?)_/
+                );
+                if (culturaMatch) {
+                  const cultura = culturaMatch[1].trim();
+                  const formId = `cultura-${cultura}`;
+
+                  if (!FormStateManager.culturasData[formId]) {
+                    FormStateManager.culturasData[formId] = {};
+                  }
+
+                  FormStateManager.culturasData[formId][key] = data[key];
+                }
+              });
+
               FormStateManager.saveFormData(
                 "selectedAnnualCultures",
                 selectedAnnualCultures
               );
-              restoreCultureState();
-            }
+              restoreCultureState(); // ✅ agora os formulários aparecem preenchidos
+            }, 200);
 
+            // ✅ Perenes (se existir)
             if (data.selectedPerennialCultures) {
               selectedPerennialCultures = data.selectedPerennialCultures;
               FormStateManager.saveFormData(
@@ -909,15 +926,24 @@ function toggleCultureSelection(culture) {
 }
 
 function restoreCultureState() {
-  const savedCultures = FormStateManager.getFormData("selectedAnnualCultures");
-  if (Array.isArray(savedCultures)) {
-    selectedAnnualCultures = savedCultures;
-    selectedAnnualCultures.forEach((culture) =>
-      addCultureForm(culture, "anual")
-    );
-    updateSelectedCulturesList("anual");
-    updateCultureButtons("anual");
-  }
+  const list = document.getElementById("selectedCulturesList");
+  const container = document.getElementById("culturasFormsContainer");
+
+  if (!list || !container || !Array.isArray(selectedAnnualCultures)) return;
+
+  list.innerHTML = "";
+  container.innerHTML = "";
+
+  selectedAnnualCultures.forEach((cultura) => {
+    // Chama a função que já cuida de tudo
+    if (!document.getElementById(`form-${cultura}`)) {
+      addCultureForm(cultura, "anual");
+    }
+  });
+
+  // Atualiza visual da lista e botões
+  updateSelectedCulturesList("anual");
+  updateCultureButtons("anual");
 }
 
 // -------- CULTURA PERENE --------
