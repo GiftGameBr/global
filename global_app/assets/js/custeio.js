@@ -931,6 +931,9 @@ function restoreCultureState() {
 
   if (!list || !container || !Array.isArray(selectedAnnualCultures)) return;
 
+  // 🔧 Remove duplicatas do array
+  selectedAnnualCultures = [...new Set(selectedAnnualCultures)];
+
   list.innerHTML = "";
   container.innerHTML = "";
 
@@ -944,6 +947,12 @@ function restoreCultureState() {
   // Atualiza visual da lista e botões
   updateSelectedCulturesList("anual");
   updateCultureButtons("anual");
+
+  // Salva a versão limpa (opcional, mas recomendado)
+  FormStateManager.saveFormData(
+    "selectedAnnualCultures",
+    selectedAnnualCultures
+  );
 }
 
 // -------- CULTURA PERENE --------
@@ -981,6 +990,7 @@ function restorePerennialState() {
 
 function addCultureForm(culture, tipo) {
   let container, prefix, keyArr, formHtml;
+
   if (tipo === "anual") {
     container = document.getElementById("culturasFormsContainer");
     prefix = "cultura-";
@@ -992,10 +1002,16 @@ function addCultureForm(culture, tipo) {
     keyArr = selectedPerennialCultures;
     formHtml = getPerennialFormHtml(culture);
   }
+
   if (!container) return;
+
+  // Evita duplicar formulário
   if (document.getElementById(`form-${culture}`)) return;
 
-  keyArr.push(culture);
+  // ✅ Evita duplicar no array
+  if (!keyArr.includes(culture)) {
+    keyArr.push(culture);
+  }
 
   const formDiv = document.createElement("div");
   formDiv.className = "form-cultura";
@@ -1007,7 +1023,16 @@ function addCultureForm(culture, tipo) {
   if (Object.keys(savedData).length > 0) {
     FormStateManager.restoreFormData(formDiv, savedData);
   }
+
   addAutoSaveListeners(formDiv, `${prefix}${culture}`);
+
+  // Salva array atualizado e limpo
+  FormStateManager.saveFormData(
+    prefix === "cultura-"
+      ? "selectedAnnualCultures"
+      : "selectedPerennialCultures",
+    [...new Set(keyArr)]
+  );
 }
 
 function removeCultureForm(culture, tipo) {
