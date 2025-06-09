@@ -107,95 +107,169 @@ const FormStateManager = {
 // ===================================================================
 
 document.addEventListener("DOMContentLoaded", function () {
-  // RESET DAS LISTAS DE CULTURAS AO ABRIR UMA NOVA SOLICITAÇÃO
-  selectedAnnualCultures = [];
-  selectedPerennialCultures = [];
+  const params = new URLSearchParams(window.location.search);
+  const idSolicitacao = params.get("idSolicitacao");
 
-  // Limpa os containers e listas visuais
-  if (document.getElementById("culturasFormsContainer")) {
-    document.getElementById("culturasFormsContainer").innerHTML = "";
-  }
-  if (document.getElementById("selectedCulturesList")) {
-    document.getElementById("selectedCulturesList").innerHTML = "";
-  }
-  if (document.getElementById("perennialFormsContainer")) {
-    document.getElementById("perennialFormsContainer").innerHTML = "";
-  }
-  if (document.getElementById("selectedPerennialList")) {
-    document.getElementById("selectedPerennialList").innerHTML = "";
+  if (!idSolicitacao) {
+    // RESET DAS LISTAS DE CULTURAS AO ABRIR UMA NOVA SOLICITAÇÃO
+    selectedAnnualCultures = [];
+    selectedPerennialCultures = [];
+
+    const containers = [
+      "culturasFormsContainer",
+      "selectedCulturesList",
+      "perennialFormsContainer",
+      "selectedPerennialList",
+    ];
+
+    containers.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = "";
+    });
+
+    FormStateManager.saveFormData("selectedAnnualCultures", []);
+    FormStateManager.saveFormData("selectedPerennialCultures", []);
+  } else {
+    // 🔥 BUSCA DO FIREBASE FIRESTORE
+    firebase.auth().onAuthStateChanged(async function (user) {
+      if (user) {
+        const db = firebase.firestore();
+        const docRef = db.collection("custeio").doc(idSolicitacao);
+
+        const docSnap = await docRef.get();
+
+        if (docSnap.exists) {
+          const data = docSnap.data();
+          const form = document.getElementById("upgradeForm");
+
+          if (form) {
+            Object.keys(data).forEach((field) => {
+              const input = form.querySelector(`[name="${field}"]`);
+              if (input) {
+                if (input.type === "checkbox" || input.type === "radio") {
+                  input.checked = !!data[field];
+                } else {
+                  input.value = data[field];
+                }
+              }
+            });
+
+            // ✅ Marcar atividades rurais e atualizar formulários dinâmicos
+            if (data["atividade_props"]) {
+              const atividades = Array.isArray(data["atividade_props"])
+                ? data["atividade_props"]
+                : [data["atividade_props"]];
+
+              atividades.forEach((atividade) => {
+                const checkbox = document.querySelector(
+                  `input[name="atividade_props"][value="${atividade}"]`
+                );
+                if (checkbox) checkbox.checked = true;
+              });
+
+              updateSelections();
+              setTimeout(() => {
+                // Espera o DOM renderizar os formulários dinâmicos da atividade
+                const form = document.getElementById("upgradeForm");
+                if (form) {
+                  FormStateManager.restoreFormData(form, data);
+                }
+              }, 200); // 200ms para garantir que os campos dinâmicos estejam no DOM
+              if (data.selectedAnnualCultures) {
+                selectedAnnualCultures = data.selectedAnnualCultures;
+                FormStateManager.saveFormData(
+                  "selectedAnnualCultures",
+                  selectedAnnualCultures
+                );
+                restoreCultureState();
+              }
+
+              if (data.selectedPerennialCultures) {
+                selectedPerennialCultures = data.selectedPerennialCultures;
+                FormStateManager.saveFormData(
+                  "selectedPerennialCultures",
+                  selectedPerennialCultures
+                );
+                restorePerennialState();
+              } // Renderiza os formulários dinâmicos
+            }
+
+            // ✅ Restaurar culturas (anuais e perenes)
+            if (data.selectedAnnualCultures) {
+              selectedAnnualCultures = data.selectedAnnualCultures;
+              FormStateManager.saveFormData(
+                "selectedAnnualCultures",
+                selectedAnnualCultures
+              );
+              restoreCultureState();
+            }
+
+            if (data.selectedPerennialCultures) {
+              selectedPerennialCultures = data.selectedPerennialCultures;
+              FormStateManager.saveFormData(
+                "selectedPerennialCultures",
+                selectedPerennialCultures
+              );
+              restorePerennialState();
+            }
+
+            console.log("Dados carregados com sucesso.");
+          }
+        } else {
+          alert("Solicitação não encontrada no banco de dados.");
+        }
+      } else {
+        alert("Usuário não autenticado. Faça login novamente.");
+      }
+    });
   }
 
-  // Limpa também o localStorage das seleções de culturas
-  FormStateManager.saveFormData("selectedAnnualCultures", []);
-  FormStateManager.saveFormData("selectedPerennialCultures", []);
-
-  // Carregar outros dados salvos se precisar
-  FormStateManager.loadFromLocalStorage();
-
+  // Continuação do restante da lógica (steps, botões, etc.) permanece igual abaixo...
   const steps = document.querySelectorAll(".step");
   const progressIndicator = document.getElementById("progress-indicator");
 
-  let currentStep = 0; // index de steps (0 => step-1, 1 => step-2, 2 => step-3, 3 => step-4)
+  let currentStep = 0;
 
-  // Função para exibir somente o step “index” e atualizar indicador
   function showStep(index) {
     steps.forEach((stepDiv, i) => {
-      if (i === index) {
-        stepDiv.classList.add("active");
-      } else {
-        stepDiv.classList.remove("active");
-      }
+      stepDiv.classList.toggle("active", i === index);
     });
     progressIndicator.textContent = `Etapa ${index + 1} de ${steps.length}`;
     currentStep = index;
   }
 
-  // Botão “Próximo” da Etapa 1
-  document.getElementById("next-1").addEventListener("click", () => {
-    showStep(1);
-  });
-
-  // Botão “Próximo” da Etapa 2
-  document.getElementById("next-2").addEventListener("click", () => {
-    showStep(2);
-  });
-
-  // Botão “Próximo” da Etapa 3
+  document
+    .getElementById("next-1")
+    .addEventListener("click", () => showStep(1));
+  document
+    .getElementById("next-2")
+    .addEventListener("click", () => showStep(2));
   document.getElementById("next-3").addEventListener("click", () => {
     const selecionadas = document.querySelectorAll(
-      'input[name="atividade_props[]"]:checked'
+      'input[name="atividade_props"]:checked'
     );
     if (selecionadas.length === 0) {
       alert("Por favor, selecione pelo menos uma atividade rural.");
       return;
     }
-    showStep(3); // Avançar para Etapa 4
+    showStep(3);
   });
 
-  // Botão “Anterior” da Etapa 2
-  document.getElementById("prev-2").addEventListener("click", () => {
-    showStep(0);
-  });
-
-  // Botão “Anterior” da Etapa 3
-  document.getElementById("prev-3").addEventListener("click", () => {
-    showStep(1);
-  });
-
-  // Botão “Anterior” da Etapa 4
-  document.getElementById("prev-4").addEventListener("click", () => {
-    showStep(2);
-  });
-
-  // Botão “Próximo” da Etapa 4
-  document.getElementById("next-4").addEventListener("click", () => {
-    showStep(4); // Avançar para a Etapa 5
-  });
-
-  // Botão “Anterior” da Etapa 5
-  document.getElementById("prev-5").addEventListener("click", () => {
-    showStep(3); // Voltar para a Etapa 4
-  });
+  document
+    .getElementById("prev-2")
+    .addEventListener("click", () => showStep(0));
+  document
+    .getElementById("prev-3")
+    .addEventListener("click", () => showStep(1));
+  document
+    .getElementById("prev-4")
+    .addEventListener("click", () => showStep(2));
+  document
+    .getElementById("next-4")
+    .addEventListener("click", () => showStep(4));
+  document
+    .getElementById("prev-5")
+    .addEventListener("click", () => showStep(3));
 
   document.getElementById("next-5").addEventListener("click", () => {
     const quantidade = parseInt(
@@ -206,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     if (quantidade === 0) {
-      showStep(5); // Avança direto se não tiver propriedades secundárias
+      showStep(5);
       return;
     }
     let valid = true;
@@ -224,15 +298,14 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       return;
     }
-    showStep(5); // Avançar para Etapa 6
+    showStep(5);
   });
 
   document
     .getElementById("prev-6")
     .addEventListener("click", () => showStep(4));
-  // Botão “Finalizar” da Etapa 4
   document.getElementById("finish").addEventListener("click", () => {
-    window.location.href = "paymentMethod.html"; // Redireciona para outra página (se necessário)
+    window.location.href = "paymentMethod.html";
   });
 });
 
@@ -242,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function updateSelections() {
   const checkboxes = document.querySelectorAll(
-    'input[name="atividade_props[]"]:checked'
+    'input[name="atividade_props"]:checked'
   );
   const selecaoAtividades = document.getElementById("selecaoAtividades");
   const formulariosAtividadesContainer = document.getElementById(
@@ -1286,6 +1359,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("upgradeForm");
     const btnEnviar = document.getElementById("enviarFormulario");
 
+    // Obter o idSolicitacao da URL (se estiver editando uma solicitação)
+    const params = new URLSearchParams(window.location.search);
+    const idSolicitacao = params.get("idSolicitacao");
+
     btnEnviar.addEventListener("click", async function (e) {
       e.preventDefault();
 
@@ -1318,19 +1395,41 @@ document.addEventListener("DOMContentLoaded", function () {
       dados.addedBy = user.email;
 
       try {
-        await firebase.firestore().collection("custeio").add(dados);
+        if (idSolicitacao) {
+          // Atualiza a solicitação existente
+          await firebase
+            .firestore()
+            .collection("custeio")
+            .doc(idSolicitacao)
+            .update(dados);
 
-        // Pop-up bonito
-        Swal.fire({
-          icon: "success",
-          title: "Solicitação enviada com sucesso!",
-          html: `Agora é hora de <strong>concluir sua solicitação</strong> com os documentos e informações necessárias.<br><br>
+          // Pop-up bonito de sucesso
+          Swal.fire({
+            icon: "success",
+            title: "Solicitação atualizada com sucesso!",
+            html: `Agora é hora de <strong>concluir sua solicitação</strong> com os documentos e informações necessárias.<br><br>
+              Nossa equipe irá acompanhar tudo de perto para garantir a aprovação do seu crédito junto aos nossos bancos parceiros.`,
+            confirmButtonText: "Entendi!",
+            confirmButtonColor: "#198754",
+          }).then(() => {
+            window.location.href = "solicitacoes.html";
+          });
+        } else {
+          // Cria uma nova solicitação
+          await firebase.firestore().collection("custeio").add(dados);
+
+          // Pop-up bonito de sucesso
+          Swal.fire({
+            icon: "success",
+            title: "Solicitação enviada com sucesso!",
+            html: `Agora é hora de <strong>concluir sua solicitação</strong> com os documentos e informações necessárias.<br><br>
              Nossa equipe irá acompanhar tudo de perto para garantir a aprovação do seu crédito junto aos nossos bancos parceiros.`,
-          confirmButtonText: "Entendi!",
-          confirmButtonColor: "#198754",
-        }).then(() => {
-          window.location.href = "solicitacoes.html";
-        });
+            confirmButtonText: "Entendi!",
+            confirmButtonColor: "#198754",
+          }).then(() => {
+            window.location.href = "solicitacoes.html";
+          });
+        }
       } catch (err) {
         console.error("Erro ao gravar no Firestore:", err);
         alert("Erro ao enviar. Tente novamente.");
