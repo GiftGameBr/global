@@ -102,8 +102,34 @@ const FormStateManager = {
 // 2. CONTROLE DE NAVEGAÇÃO ENTRE STEPS (MANTIDO ORIGINAL)
 // ===================================================================
 
+// ===================================================================
+// 2. CONTROLE DE NAVEGAÇÃO ENTRE STEPS + RESET DAS CULTURAS
+// ===================================================================
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Carregar dados salvos
+  // RESET DAS LISTAS DE CULTURAS AO ABRIR UMA NOVA SOLICITAÇÃO
+  selectedAnnualCultures = [];
+  selectedPerennialCultures = [];
+
+  // Limpa os containers e listas visuais
+  if (document.getElementById("culturasFormsContainer")) {
+    document.getElementById("culturasFormsContainer").innerHTML = "";
+  }
+  if (document.getElementById("selectedCulturesList")) {
+    document.getElementById("selectedCulturesList").innerHTML = "";
+  }
+  if (document.getElementById("perennialFormsContainer")) {
+    document.getElementById("perennialFormsContainer").innerHTML = "";
+  }
+  if (document.getElementById("selectedPerennialList")) {
+    document.getElementById("selectedPerennialList").innerHTML = "";
+  }
+
+  // Limpa também o localStorage das seleções de culturas
+  FormStateManager.saveFormData("selectedAnnualCultures", []);
+  FormStateManager.saveFormData("selectedPerennialCultures", []);
+
+  // Carregar outros dados salvos se precisar
   FormStateManager.loadFromLocalStorage();
 
   const steps = document.querySelectorAll(".step");
@@ -126,13 +152,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Botão “Próximo” da Etapa 1
   document.getElementById("next-1").addEventListener("click", () => {
-    // Aqui você pode validar campos de step 1 antes de avançar, se desejar
     showStep(1);
   });
 
   // Botão “Próximo” da Etapa 2
   document.getElementById("next-2").addEventListener("click", () => {
-    // Aqui você pode validar campos de step 2 antes de avançar, se desejar
     showStep(2);
   });
 
@@ -162,29 +186,29 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("prev-4").addEventListener("click", () => {
     showStep(2);
   });
+
   // Botão “Próximo” da Etapa 4
   document.getElementById("next-4").addEventListener("click", () => {
     showStep(4); // Avançar para a Etapa 5
   });
+
   // Botão “Anterior” da Etapa 5
   document.getElementById("prev-5").addEventListener("click", () => {
     showStep(3); // Voltar para a Etapa 4
   });
+
   document.getElementById("next-5").addEventListener("click", () => {
     const quantidade = parseInt(
       document.getElementById("num_secundarias").value
     );
-
     if (isNaN(quantidade)) {
       alert("Por favor, selecione a quantidade de propriedades secundárias.");
       return;
     }
-
     if (quantidade === 0) {
       showStep(5); // Avança direto se não tiver propriedades secundárias
       return;
     }
-
     let valid = true;
     for (let i = 1; i <= quantidade; i++) {
       const select = document.querySelector(
@@ -194,14 +218,12 @@ document.addEventListener("DOMContentLoaded", function () {
         valid = false;
       }
     }
-
     if (!valid) {
       alert(
         'Preencha o campo "Você é o proprietário?" para todas as propriedades secundárias.'
       );
       return;
     }
-
     showStep(5); // Avançar para Etapa 6
   });
 
@@ -210,11 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", () => showStep(4));
   // Botão “Finalizar” da Etapa 4
   document.getElementById("finish").addEventListener("click", () => {
-    // Se quiser submeter o formulário, use:
-    // document.getElementById("upgradeForm").submit();
-    //
-    // No exemplo anterior, havia um link “Continue” para paymentMethod.html.
-    // Caso queira apenas redirecionar para a próxima página, use:
     window.location.href = "paymentMethod.html"; // Redireciona para outra página (se necessário)
   });
 });
