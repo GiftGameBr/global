@@ -468,32 +468,340 @@ function getFormHtml(atividade) {
       break;
     case "Agricultura Geral":
       formHtml = `
-            <h6>Agricultura Geral</h6>
-            <input type="text" class="form-control mb-2" name="agricultura_geral_descricao" placeholder="Descrição da produção agrícola" />
-            <input type="number" class="form-control" name="agricultura_geral_producao" placeholder="Produção estimada (ton)" />
-          `;
+    <h6 class="text-center">Agricultura Geral</h6>
+    <div class="mb-3 text-center">
+      <label class="fw-bold mb-2">O produtor desenvolve mais de uma cultura como agricultura geral?</label>
+      <div>
+        <span>Quantas?</span>
+        <div class="btn-group mt-2" role="group" id="agriculturaGeralQtdBtns">
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(1)">1</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(2)">2</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(3)">3</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(4)">4</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(5)">5</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(6)">6</button>
+        </div>
+      </div>
+    </div>
+    <div id="agriculturaGeralFormsContainer" class="mt-4"></div>
+  `;
       break;
+
     case "Bovino de Corte":
       formHtml = `
-            <h6>Bovino de Corte</h6>
-            <input type="number" class="form-control mb-2" name="bovino_corte_cabecas" placeholder="Quantidade de cabeças" />
-            <input type="text" class="form-control" name="bovino_corte_sistema" placeholder="Sistema de criação" />
-          `;
+    <h6 class="text-center">Bovino de Corte</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Município</label>
+        <input type="text" class="form-control" name="bovino_corte_municipio" required />
+      </div>
+      <div class="col">
+        <label>Matrícula</label>
+        <input type="text" class="form-control" name="bovino_corte_matricula" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Produção</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Ciclo de produção</label>
+        <input type="text" class="form-control" name="bovino_corte_ciclo_producao" required />
+      </div>
+      <div class="col">
+        <label>Sistema de produção</label>
+        <input type="text" class="form-control" name="bovino_corte_sistema_producao" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Levantamento do rebanho - em cabeças</h6>
+    <p class="mb-2"><small>Relacione todos os animais do rebanho, independente se serão ou não comercializados na safra anual prevista</small></p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade (cab)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros machos até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_bezerros_machos" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bezerras fêmeas até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_bezerras_femeas" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Garrotes machos de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_garrotes_machos" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_novilhas_femeas_12_24" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhos machos de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_novilhos_machos_24_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_novilhas_femeas_24_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bois acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_bois_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_vacas_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Touros reprodutores</td>
+            <td><input type="number" class="form-control" name="bovino_corte_touros" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 class="mt-3">Pastagem</h6>
+    <div class="mb-3">
+      <label>Área da pastagem perene (ha)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_corte_pastagem_perene" min="0" />
+    </div>
+    <h6 class="mt-3">Despesas - custo anual</h6>
+    <div class="mb-3">
+      <label>Custo anual de manutenção/produção previsto para todo o rebanho (R$/ano)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_corte_custo_anual" min="0" />
+    </div>
+    <h6 class="mt-3">Receita estimada - venda de animais na safra anual prevista</h6>
+    <p class="mb-2"><small>Relacione em cada faixa a quantidade e o respectivo valor a receber por cabeça apenas dos animais que serão comercializados na safra anual prevista.</small></p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade (cab)</th>
+            <th>Valor a receber (R$/cab)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros machos até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bezerros_machos_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bezerros_machos_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bezerras fêmeas até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bezerras_femeas_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bezerras_femeas_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Garrotes machos de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_garrotes_machos_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_garrotes_machos_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_novilhas_femeas_12_24_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_novilhas_femeas_12_24_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhos machos de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_novilhos_machos_24_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_novilhos_machos_24_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_novilhas_femeas_24_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_novilhas_femeas_24_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bois magros acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bois_magros_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bois_magros_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas magras acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_vacas_magras_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_vacas_magras_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bois gordos</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bois_gordos_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bois_gordos_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas gordas</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_vacas_gordas_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_vacas_gordas_valor" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
       break;
+
     case "Bovino de Leite":
       formHtml = `
-            <h6>Bovino de Leite</h6>
-            <input type="number" class="form-control mb-2" name="bovino_leite_vacas" placeholder="Quantidade de vacas leiteiras" />
-            <input type="number" class="form-control" name="bovino_leite_producao" placeholder="Produção diária (litros)" />
-          `;
+    <h6 class="text-center">Bovino de Leite</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Município</label>
+        <input type="text" class="form-control" name="bovino_leite_municipio" required />
+      </div>
+      <div class="col">
+        <label>Matrícula</label>
+        <input type="text" class="form-control" name="bovino_leite_matricula" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Dados Gerais</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Sistema de ordenha</label>
+        <input type="text" class="form-control" name="bovino_leite_sistema_ordenha" required />
+      </div>
+      <div class="col">
+        <label>Produtividade média por vaca em lactação (litros/dia)</label>
+        <input type="number" step="0.01" class="form-control" name="bovino_leite_produtividade_media" min="0" required />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Predomínio de raças especializadas?</label>
+        <input type="text" class="form-control" name="bovino_leite_raca_predominio" required />
+      </div>
+      <div class="col">
+        <label>Área da pastagem perene (ha)</label>
+        <input type="number" step="0.01" class="form-control" name="bovino_leite_pastagem_perene" min="0" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Levantamento do rebanho - em cabeças</h6>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade em cabeças</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros(as) até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_leite_bezerros_12m" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhos</td>
+            <td><input type="number" class="form-control" name="bovino_leite_novilhos" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas</td>
+            <td><input type="number" class="form-control" name="bovino_leite_novilhas" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas leiteiras</td>
+            <td><input type="number" class="form-control" name="bovino_leite_vacas" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Touros reprodutores</td>
+            <td><input type="number" class="form-control" name="bovino_leite_touros" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 class="mt-3">Dados financeiros</h6>
+    <div class="mb-3">
+      <label>Custo anual para manutenção/produção (R$/ano)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_leite_custo_anual" min="0" />
+    </div>
+    <h6 class="mt-3">Receita Anual</h6>
+    <div class="mb-3">
+      <label>Quantidade total de litros de leite vendidos por ano (litros/ano)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_leite_litros_ano" min="0" />
+    </div>
+    <div class="mb-3">
+      <label>Valor recebido por litro de leite (R$/litro)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_leite_valor_litro" min="0" />
+    </div>
+    <h6 class="mt-3">Previsão venda de animais</h6>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade (cab)</th>
+            <th>Receita por animal (R$/cab)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros(as) recém nascidos</td>
+            <td><input type="number" class="form-control" name="bovino_leite_venda_bezerros_recem_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_leite_venda_bezerros_recem_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bezerros(as) desmamados</td>
+            <td><input type="number" class="form-control" name="bovino_leite_venda_bezerros_desmamados_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_leite_venda_bezerros_desmamados_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas descarte</td>
+            <td><input type="number" class="form-control" name="bovino_leite_venda_vacas_descarte_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_leite_venda_vacas_descarte_valor" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
       break;
+
     case "Pecuária Geral":
       formHtml = `
-            <h6>Pecuária Geral</h6>
-            <input type="text" class="form-control mb-2" name="pecuaria_geral_tipo" placeholder="Tipo de pecuária" />
-            <input type="number" class="form-control" name="pecuaria_geral_animais" placeholder="Quantidade total de animais" />
-          `;
+    <h6 class="text-center">Pecuária Geral</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Município</label>
+        <input type="text" class="form-control" name="pecuaria_geral_municipio" required />
+      </div>
+      <div class="col">
+        <label>Matrícula</label>
+        <input type="text" class="form-control" name="pecuaria_geral_matricula" required />
+      </div>
+    </div>
+    <div class="mb-3">
+      <label>Qual atividade pecuária?</label>
+      <input type="text" class="form-control" name="pecuaria_geral_atividade" required />
+    </div>
+    <h6 class="mt-3">Dados da atividade pecuária</h6>
+    <div class="mb-3">
+      <label>Sistema de Criação/Produção</label>
+      <input type="text" class="form-control" name="pecuaria_geral_sistema_criacao" required />
+    </div>
+    <div class="mb-3">
+      <label>Área total utilizada nesta atividade (ha)</label>
+      <input type="number" step="0.01" class="form-control" name="pecuaria_geral_area_total" min="0" required />
+    </div>
+    <div class="mb-3">
+      <label>Produção estimada para os próximos 12 meses (kg, L, un, dz)</label>
+      <input type="text" class="form-control" name="pecuaria_geral_producao_estimativa" required />
+    </div>
+    <div class="mb-3">
+      <label>Contrato de pré-venda para mais de 50% da produção?</label>
+      <input type="text" class="form-control" name="pecuaria_geral_pre_venda" required />
+    </div>
+    <div class="mb-3">
+      <label>Nível tecnológico adotado para esta atividade</label>
+      <input type="text" class="form-control" name="pecuaria_geral_nivel_tecnologico" required />
+    </div>
+    <h6 class="mt-3">Dados Financeiros</h6>
+    <div class="mb-3">
+      <label>Custo unitário de produção (R$/kg, R$/L, R$/un ou R$/dz)</label>
+      <input type="number" step="0.01" class="form-control" name="pecuaria_geral_custo_unitario" min="0" required />
+    </div>
+    <div class="mb-3">
+      <label>Preço unitário de venda (R$/kg, R$/L, R$/un ou R$/dz)</label>
+      <input type="number" step="0.01" class="form-control" name="pecuaria_geral_preco_unitario" min="0" required />
+    </div>
+  `;
       break;
+
     default:
       formHtml = `<p>Formulário não disponível para a atividade selecionada.</p>`;
   }
@@ -1037,3 +1345,96 @@ document.addEventListener("DOMContentLoaded", function () {
   const avisoModal = new bootstrap.Modal(document.getElementById("avisoModal"));
   avisoModal.show();
 });
+// Variável global para rastrear a seleção de quantidade
+let selectedAgriculturaGeralQtd = 0;
+
+function selectAgriculturaGeralQtd(qtd) {
+  selectedAgriculturaGeralQtd = qtd;
+  // Atualiza visual dos botões
+  document
+    .querySelectorAll("#agriculturaGeralQtdBtns button")
+    .forEach((btn, i) => {
+      btn.classList.toggle("btn-success", i === qtd - 1);
+      btn.classList.toggle("btn-info", i !== qtd - 1);
+    });
+  renderAgriculturaGeralForms(qtd);
+}
+
+// Função para renderizar os formulários de culturas gerais dinamicamente
+function renderAgriculturaGeralForms(qtd) {
+  const container = document.getElementById("agriculturaGeralFormsContainer");
+  container.innerHTML = ""; // Limpa antes
+
+  for (let i = 1; i <= qtd; i++) {
+    container.innerHTML += `
+      <div class="border p-3 mb-4">
+        <h6 class="fw-bold mb-3">Cultura ${i} - Agricultura Geral</h6>
+        
+        <div class="mb-3">
+          <label>Qual cultura?</label>
+          <input type="text" class="form-control" name="agricultura_geral_cultura_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Ano predominante de colheita</label>
+          <input type="number" class="form-control" name="agricultura_geral_ano_colheita_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Forma de cultivo</label>
+          <input type="text" class="form-control" name="agricultura_geral_forma_cultivo_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Identificação da safra</label>
+          <input type="text" class="form-control" name="agricultura_geral_id_safra_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Município</label>
+          <input type="text" class="form-control" name="agricultura_geral_municipio_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Matrícula</label>
+          <input type="text" class="form-control" name="agricultura_geral_matricula_${i}" required />
+        </div>
+        <h6 class="mt-3">Dados da safra prevista</h6>
+        <div class="mb-3">
+          <label>Área de plantio da cultura (ha)</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_area_plantio_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Produtividade estimada para a safra (Kg/ha ou un/ha)</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_produtividade_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Contrato de pré-venda para mais de 50% da produção</label>
+          <input type="text" class="form-control" name="agricultura_geral_pre_venda_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Nível tecnológico adotado para esta cultura</label>
+          <input type="text" class="form-control" name="agricultura_geral_nivel_tecnologico_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Safra prevista</label>
+          <input type="text" class="form-control" name="agricultura_geral_safra_prevista_${i}" required />
+        </div>
+        <h6 class="mt-3">Dados financeiros da safra prevista</h6>
+        <div class="mb-3">
+          <label>Preço estimado de venda</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_preco_venda_${i}" required />
+          <small class="text-muted">R$/kg ou R$/un</small>
+        </div>
+        <div class="mb-3">
+          <label>Ano-safra</label>
+          <div class="d-flex gap-2">
+            <input type="number" class="form-control" name="agricultura_geral_ano_safra_inicio_${i}" placeholder="Ano início" min="1900" />
+            <span class="align-self-center">/</span>
+            <input type="number" class="form-control" name="agricultura_geral_ano_safra_fim_${i}" placeholder="Ano fim" min="1900" />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label>Custo unitário de produção</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_custo_unitario_${i}" required />
+          <small class="text-muted">R$/kg ou R$/un</small>
+        </div>
+      </div>
+    `;
+  }
+}
