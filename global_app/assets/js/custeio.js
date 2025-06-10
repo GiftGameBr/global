@@ -179,6 +179,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             // ✅ Marcar atividades rurais
+            // ✅ Marcar atividades rurais
+            // Primeiro, desmarcar todas as atividades rurais para garantir um estado limpo
+            document
+              .querySelectorAll('input[name="atividade_props"]')
+              .forEach((cb) => (cb.checked = false));
+
             if (data["atividade_props"]) {
               const atividades = Array.isArray(data["atividade_props"])
                 ? data["atividade_props"]
