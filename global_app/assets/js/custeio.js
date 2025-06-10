@@ -177,7 +177,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
               }
             });
-
+            // COLOQUE ESTE BLOCO AQUI 👇
+            if (data.valor_credito) {
+              const slider = document.getElementById("valor_credito");
+              slider.value = data.valor_credito;
+              atualizarValorCredito(slider.value);
+            }
             // ✅ Marcar atividades rurais
             // ✅ Marcar atividades rurais
             // Primeiro, desmarcar todas as atividades rurais para garantir um estado limpo
