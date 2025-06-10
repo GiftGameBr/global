@@ -22,35 +22,53 @@ function detectarQtdPropriedadesSecundarias(data) {
 }
 function restoreSecundariasState(data) {
   const qtd = detectarQtdPropriedadesSecundarias(data);
-  if (qtd > 0) {
-    document.getElementById("num_secundarias").value = qtd;
-    renderSecundarias(qtd);
-    for (let i = 1; i <= qtd; i++) {
-      const prefix = `secundaria_`;
-      const suffixes = [
-        "nome",
-        "municipio",
-        "matricula",
-        "area",
-        "proprietario",
-        "nome_proprietario",
-        "cpf_cnpj",
-        "percentual",
-      ];
 
-      suffixes.forEach((campo) => {
-        const name = `${prefix}${campo}_${i}`;
-        const input = document.querySelector(`[name="${name}"]`);
-        if (input && data[name] !== undefined) {
-          input.value = data[name];
-          if (input.tagName === "SELECT" && campo === "proprietario") {
-            toggleProprietarioExtras(input, i); // mostrar/esconder extras
-          }
+  document.getElementById("num_secundarias").value = qtd;
+
+  // Se não houver propriedades, limpar o container e os dados
+  if (qtd === 0) {
+    const container = document.getElementById("secundariasContainer");
+    if (container) container.innerHTML = "";
+
+    // Também remove os dados relacionados de forma segura
+    Object.keys(data).forEach((key) => {
+      if (key.startsWith("secundaria_")) {
+        delete FormStateManager.atividadesData[key];
+      }
+    });
+
+    FormStateManager.saveToLocalStorage();
+    return;
+  }
+
+  // Caso contrário, renderiza normalmente
+  renderSecundarias(qtd);
+  for (let i = 1; i <= qtd; i++) {
+    const prefix = `secundaria_`;
+    const suffixes = [
+      "nome",
+      "municipio",
+      "matricula",
+      "area",
+      "proprietario",
+      "nome_proprietario",
+      "cpf_cnpj",
+      "percentual",
+    ];
+
+    suffixes.forEach((campo) => {
+      const name = `${prefix}${campo}_${i}`;
+      const input = document.querySelector(`[name="${name}"]`);
+      if (input && data[name] !== undefined) {
+        input.value = data[name];
+        if (input.tagName === "SELECT" && campo === "proprietario") {
+          toggleProprietarioExtras(input, i); // mostrar/esconder extras
         }
-      });
-    }
+      }
+    });
   }
 }
+
 function saveAllSecundariasData() {
   const inputs = document.querySelectorAll("[name^='secundaria_']");
   const tempData = {};
