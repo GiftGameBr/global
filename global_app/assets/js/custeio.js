@@ -421,6 +421,12 @@ function restoreAgriculturaGeralState(data) {
         });
       }
     }
+    document
+      .querySelectorAll("#agriculturaGeralQtdBtns button")
+      .forEach((btn, i) => {
+        btn.classList.toggle("btn-success", i === qtd - 1);
+        btn.classList.toggle("btn-info", i !== qtd - 1);
+      });
   }
 }
 
