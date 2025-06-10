@@ -9,6 +9,48 @@ function detectarCulturasAnuaisDoFirestore(data) {
   });
   return Array.from(culturasEncontradas);
 }
+function detectarQtdPropriedadesSecundarias(data) {
+  let maxIndex = 0;
+  Object.keys(data).forEach((chave) => {
+    const match = chave.match(/^secundaria_nome_(\d+)/);
+    if (match) {
+      const idx = parseInt(match[1], 10);
+      if (idx > maxIndex) maxIndex = idx;
+    }
+  });
+  return maxIndex;
+}
+function restoreSecundariasState(data) {
+  const qtd = detectarQtdPropriedadesSecundarias(data);
+  if (qtd > 0) {
+    document.getElementById("num_secundarias").value = qtd;
+    renderSecundarias(qtd);
+    for (let i = 1; i <= qtd; i++) {
+      const prefix = `secundaria_`;
+      const suffixes = [
+        "nome",
+        "municipio",
+        "matricula",
+        "area",
+        "proprietario",
+        "nome_proprietario",
+        "cpf_cnpj",
+        "percentual",
+      ];
+
+      suffixes.forEach((campo) => {
+        const name = `${prefix}${campo}_${i}`;
+        const input = document.querySelector(`[name="${name}"]`);
+        if (input && data[name] !== undefined) {
+          input.value = data[name];
+          if (input.tagName === "SELECT" && campo === "proprietario") {
+            toggleProprietarioExtras(input, i); // mostrar/esconder extras
+          }
+        }
+      });
+    }
+  }
+}
 
 function detectarCulturasPerenesDoFirestore(data) {
   const culturasEncontradas = new Set();
@@ -277,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               // ===== RESTAURAÇÃO AGRICULTURA GERAL =====
               restoreAgriculturaGeralState(data);
+              restoreSecundariasState(data);
             }, 200);
 
             // ✅ Perenes (se existir)
