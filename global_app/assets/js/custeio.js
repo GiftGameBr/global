@@ -268,7 +268,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 "🔁 selectedPerennialCultures",
                 selectedPerennialCultures
               );
-              restorePerennialState(); // ✅ agora os formulários perenes aparecem preenchidos!
+              restorePerennialState();
+
+              // ===== RESTAURAÇÃO AGRICULTURA GERAL =====
+              restoreAgriculturaGeralState(data);
             }, 200);
 
             // ✅ Perenes (se existir)
@@ -380,6 +383,46 @@ document.addEventListener("DOMContentLoaded", function () {
 // ===================================================================
 // 3. FUNÇÃO updateSelections() CORRIGIDA
 // ===================================================================
+function detectarQtdAgriculturaGeralDoFirestore(data) {
+  let maxIndex = 0;
+  Object.keys(data).forEach((chave) => {
+    const match = chave.match(/^agricultura_geral_cultura_(\d+)/);
+    if (match) {
+      const idx = parseInt(match[1], 10);
+      if (idx > maxIndex) maxIndex = idx;
+    }
+  });
+  return maxIndex;
+}
+function restoreAgriculturaGeralState(data) {
+  const qtd = detectarQtdAgriculturaGeralDoFirestore(data);
+  if (qtd > 0) {
+    selectedAgriculturaGeralQtd = qtd;
+    renderAgriculturaGeralForms(qtd);
+    for (let i = 1; i <= qtd; i++) {
+      const formDiv = document.querySelector(
+        `#agriculturaGeralFormsContainer > div:nth-child(${i})`
+      );
+      if (formDiv) {
+        // Liste aqui todos os campos do seu formulário!
+        const fields = [
+          "cultura",
+          "ano_colheita",
+          "forma_cultivo",
+          // adicione todos os campos existentes no seu formulário
+        ];
+        fields.forEach((field) => {
+          const input = formDiv.querySelector(
+            `[name="agricultura_geral_${field}_${i}"]`
+          );
+          if (input && data[`agricultura_geral_${field}_${i}`] !== undefined) {
+            input.value = data[`agricultura_geral_${field}_${i}`];
+          }
+        });
+      }
+    }
+  }
+}
 
 function updateSelections() {
   const checkboxes = document.querySelectorAll(
