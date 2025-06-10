@@ -51,6 +51,20 @@ function restoreSecundariasState(data) {
     }
   }
 }
+function saveAllSecundariasData() {
+  const inputs = document.querySelectorAll("[name^='secundaria_']");
+  const tempData = {};
+
+  inputs.forEach((input) => {
+    if (input.type === "checkbox" || input.type === "radio") {
+      tempData[input.name] = input.checked;
+    } else {
+      tempData[input.name] = input.value;
+    }
+  });
+
+  return tempData;
+}
 
 function detectarCulturasPerenesDoFirestore(data) {
   const culturasEncontradas = new Set();
@@ -1482,53 +1496,77 @@ function getCultureFormHtml(culture) {
 }
 
 function renderSecundarias(qtd) {
+  // Salva os dados atuais antes de apagar
+  const previousData = {};
+  const inputs = document.querySelectorAll("[name^='secundaria_']");
+  inputs.forEach((input) => {
+    previousData[input.name] = input.value;
+  });
+
   const container = document.getElementById("secundariasContainer");
   container.innerHTML = "";
+
   for (let i = 1; i <= qtd; i++) {
     container.innerHTML += `
-        <div class="border p-3 mb-4">
-          <h6 class="fw-bold mb-3">Propriedade Secundária ${i}</h6>
+      <div class="border p-3 mb-4">
+        <h6 class="fw-bold mb-3">Propriedade Secundária ${i}</h6>
+        <div class="mb-3">
+          <label class="form-label">Nome da Propriedade</label>
+          <input type="text" class="form-control" name="secundaria_nome_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Município / UF</label>
+          <input type="text" class="form-control" name="secundaria_municipio_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Número de matrícula</label>
+          <input type="text" class="form-control" name="secundaria_matricula_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Área utilizada (ha)</label>
+          <input type="number" step="0.01" class="form-control" name="secundaria_area_${i}" required />
+        </div>
+        <div class="mb-3 obrigatorio-label">
+          <label class="form-label">Você é o proprietário?</label>
+          <select class="form-select" name="secundaria_proprietario_${i}" onchange="toggleProprietarioExtras(this, ${i})" required>
+            <option value="">Selecione...</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+        </div>
+        <div id="extras_${i}" style="display:none;">
           <div class="mb-3">
-            <label class="form-label">Nome da Propriedade</label>
-            <input type="text" class="form-control" name="secundaria_nome_${i}" required />
+            <label class="form-label">Nome ou Razão Social do Proprietário</label>
+            <input type="text" class="form-control" name="secundaria_nome_proprietario_${i}" />
           </div>
           <div class="mb-3">
-            <label class="form-label">Município / UF</label>
-            <input type="text" class="form-control" name="secundaria_municipio_${i}" required />
+            <label class="form-label">CPF/CNPJ</label>
+            <input type="text" class="form-control" name="secundaria_cpf_cnpj_${i}" />
           </div>
           <div class="mb-3">
-            <label class="form-label">Número de matrícula</label>
-            <input type="text" class="form-control" name="secundaria_matricula_${i}" required />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Área utilizada (ha)</label>
-            <input type="number" step="0.01" class="form-control" name="secundaria_area_${i}" required />
-          </div>
-          <div class="mb-3 obrigatorio-label">
-            <label class="form-label">Você é o proprietário?</label>
-            <select class="form-select" name="secundaria_proprietario_${i}" onchange="toggleProprietarioExtras(this, ${i})" required>
-              <option value="">Selecione...</option>
-              <option value="Sim">Sim</option>
-              <option value="Não">Não</option>
-            </select>
-          </div>
-          <div id="extras_${i}" style="display:none;">
-            <div class="mb-3">
-              <label class="form-label">Nome ou Razão Social do Proprietário</label>
-              <input type="text" class="form-control" name="secundaria_nome_proprietario_${i}" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">CPF/CNPJ</label>
-              <input type="text" class="form-control" name="secundaria_cpf_cnpj_${i}" />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Percentual de Propriedade (%)</label>
-              <input type="number" class="form-control" name="secundaria_percentual_${i}" />
-            </div>
+            <label class="form-label">Percentual de Propriedade (%)</label>
+            <input type="number" class="form-control" name="secundaria_percentual_${i}" />
           </div>
         </div>
-      `;
+      </div>
+    `;
   }
+
+  // Restaura os dados salvos nos campos recriados
+  Object.keys(previousData).forEach((key) => {
+    const input = document.querySelector(`[name="${key}"]`);
+    if (input) {
+      input.value = previousData[key];
+
+      // Se for um campo "proprietario", reexibe os extras se necessário
+      if (key.includes("proprietario") && input.tagName === "SELECT") {
+        const index = key.match(/_(\d+)$/)?.[1];
+        if (input.value === "Não" && index) {
+          toggleProprietarioExtras(input, index);
+        }
+      }
+    }
+  });
 }
 
 function toggleProprietarioExtras(select, index) {
