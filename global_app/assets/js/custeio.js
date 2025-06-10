@@ -1618,9 +1618,37 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 // Variável global para rastrear a seleção de quantidade
 let selectedAgriculturaGeralQtd = 0;
+function saveAllAgriculturaGeralForms() {
+  for (let i = 1; i <= selectedAgriculturaGeralQtd; i++) {
+    const formDiv = document.querySelector(
+      `#agriculturaGeralFormsContainer > div:nth-child(${i})`
+    );
+    if (formDiv) {
+      const data = FormStateManager.collectFormData(formDiv);
+      // Salva direto na estrutura de atividadesData com uma chave única
+      FormStateManager.saveFormData(`agricultura_geral_form_${i}`, data);
+    }
+  }
+}
+function restoreAllAgriculturaGeralForms(qtd) {
+  for (let i = 1; i <= qtd; i++) {
+    const formDiv = document.querySelector(
+      `#agriculturaGeralFormsContainer > div:nth-child(${i})`
+    );
+    if (formDiv) {
+      const data =
+        FormStateManager.getFormData(`agricultura_geral_form_${i}`) || {};
+      FormStateManager.restoreFormData(formDiv, data);
+    }
+  }
+}
 
 function selectAgriculturaGeralQtd(qtd) {
+  // Salva os dados dos formulários atuais antes de mudar
+  saveAllAgriculturaGeralForms();
+
   selectedAgriculturaGeralQtd = qtd;
+
   // Atualiza visual dos botões
   document
     .querySelectorAll("#agriculturaGeralQtdBtns button")
@@ -1628,7 +1656,12 @@ function selectAgriculturaGeralQtd(qtd) {
       btn.classList.toggle("btn-success", i === qtd - 1);
       btn.classList.toggle("btn-info", i !== qtd - 1);
     });
+
+  // Renderiza novamente os formulários
   renderAgriculturaGeralForms(qtd);
+
+  // Restaura os dados salvos de cada formulário
+  restoreAllAgriculturaGeralForms(qtd);
 }
 
 // Função para renderizar os formulários de culturas gerais dinamicamente
