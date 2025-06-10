@@ -486,9 +486,21 @@ function restoreAgriculturaGeralState(data) {
       if (formDiv) {
         // Liste aqui todos os campos do seu formulário!
         const fields = [
-          "cultura",
-          "ano_colheita",
-          "forma_cultivo",
+          "cultura", // Qual cultura?
+          "ano_colheita", // Ano predominante de colheita
+          "forma_cultivo", // Forma de cultivo
+          "id_safra", // Identificação da safra
+          "municipio", // Município
+          "matricula", // Matrícula
+          "area_plantio", // Área de plantio da cultura (ha)
+          "produtividade", // Produtividade estimada para a safra (Kg/ha ou un/ha)
+          "pre_venda", // Contrato de pré-venda para mais de 50% da produção
+          "nivel_tecnologico", // Nível tecnológico adotado para esta cultura
+          "safra_prevista", // Safra prevista
+          "preco_venda", // Preço estimado de venda
+          "ano_safra_inicio", // Ano-safra início
+          "ano_safra_fim", // Ano-safra fim
+          "custo_unitario", // Custo unitário de produção
           // adicione todos os campos existentes no seu formulário
         ];
         fields.forEach((field) => {
@@ -525,7 +537,7 @@ function updateSelections() {
   // Obter atividades atualmente selecionadas
   const atividadesSelecionadas = Array.from(checkboxes).map((cb) => cb.value);
   // Verifica se 'Cultura Anual' está selecionada junto com outras atividades
-  if (
+  /* if (
     atividadesSelecionadas.includes("Cultura Anual") &&
     atividadesSelecionadas.length > 1
   ) {
@@ -542,7 +554,7 @@ function updateSelections() {
       atividadesSelecionadas.splice(indexCulturaAnual, 1);
     }
   }
-
+ */
   // Obter atividades já renderizadas
   const atividadesRenderizadas = Array.from(
     formulariosAtividadesContainer.querySelectorAll(".form-atividade")
