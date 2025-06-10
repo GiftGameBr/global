@@ -395,6 +395,24 @@ function updateSelections() {
 
   // Obter atividades atualmente selecionadas
   const atividadesSelecionadas = Array.from(checkboxes).map((cb) => cb.value);
+  // Verifica se 'Cultura Anual' está selecionada junto com outras atividades
+  if (
+    atividadesSelecionadas.includes("Cultura Anual") &&
+    atividadesSelecionadas.length > 1
+  ) {
+    // Se 'Cultura Anual' está selecionada, mas não é a única, desmarca seu checkbox
+    const culturaAnualCheckbox = document.querySelector(
+      'input[name="atividade_props"][value="Cultura Anual"]'
+    );
+    if (culturaAnualCheckbox) {
+      culturaAnualCheckbox.checked = false;
+    }
+    // Remove 'Cultura Anual' da lista de atividades selecionadas para processamento posterior
+    const indexCulturaAnual = atividadesSelecionadas.indexOf("Cultura Anual");
+    if (indexCulturaAnual > -1) {
+      atividadesSelecionadas.splice(indexCulturaAnual, 1);
+    }
+  }
 
   // Obter atividades já renderizadas
   const atividadesRenderizadas = Array.from(
