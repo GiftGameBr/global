@@ -808,12 +808,25 @@
                           <div class="card-columns" style="margin-top: 16px;">
                             <div class="card-column">
                               <h4>Cadastro Aprovado</h4>
-                              <button style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">Ver Cadastro</button>
+                                <button
+    onclick="window.location.href='solicitar-custeio.html?idSolicitacao=${
+      data.id
+    }&idCliente=${data.cliente_id}&readonly=1'"
+    style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">
+    Ver Cadastro
+  </button>
                             </div>
-                            <div class="card-column">
-                              <h4>Documentos Aprovados</h4>
-                              <button style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">Ver Documentos</button>
-                            </div>
+  <div class="card-column">
+    <h4>Documentos Aprovados</h4>
+    <button
+      style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;"
+      onclick="window.location.href='upload-documentos.html?idSolicitacao=${
+        data.id
+      }&idCliente=${data.cliente_id}&aba=aprovados'">
+      Ver Documentos
+    </button>
+  </div>
+
                           </div>
 
                           <div style="background-color: ${statusColor}; color: white; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 13px; text-align: center; margin-top: 20px;">
@@ -906,22 +919,33 @@
                   <p style="margin: 0; font-size: 12px; color: #ccc;">Verificação: ${
                     data.status_documentacao || "pendente"
                   }</p>
-                  <button style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 4px 10px; font-size: 12px; cursor: ${
-                    data.status_documentacao === "verificado" ||
-                    data.status_documentacao === "processando"
-                      ? "not-allowed"
-                      : "pointer"
-                  }; opacity: ${
+                  <button
+  class="btn-upload-documento"
+  style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 4px 10px; font-size: 12px; cursor: ${
+    data.status_documentacao === "verificado" ||
+    data.status_documentacao === "processando"
+      ? "not-allowed"
+      : "pointer"
+  }; opacity: ${
                 data.status_documentacao === "verificado" ||
                 data.status_documentacao === "processando"
                   ? 0.5
                   : 1
-              };" ${
-                data.status_documentacao === "verificado" ||
-                data.status_documentacao === "processando"
-                  ? "disabled"
-                  : ""
-              }>Enviar Documentos</button>
+              };"
+  ${
+    data.status_documentacao === "verificado" ||
+    data.status_documentacao === "processando"
+      ? "disabled"
+      : ""
+  }
+  onclick="window.location.href='upload-documentos.html?idSolicitacao=${
+    data.id
+  }&idCliente=${data.cliente_id}'"
+>
+  Enviar Documentos
+</button>
+
+
                 </div>
               </div>
 

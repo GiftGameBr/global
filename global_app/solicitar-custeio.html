@@ -230,6 +230,13 @@
         background-color: #0056b3;
         border-color: #0056b3;
       }
+
+      input[readonly],
+      textarea[readonly] {
+        background: #f6f6f6;
+        color: #222;
+        opacity: 1;
+      }
     </style>
   </head>
   <body>
@@ -1096,5 +1103,27 @@
     <script src="assets/js/auth.js"></script>
 
     <script src="assets/js/custeio.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("readonly") === "1") {
+          // Oculta a mensagem do topo, se existir
+          var msg = document.getElementById("mensagemTopo");
+          if (msg) msg.style.display = "none";
+
+          // ... (resto do script de readonly aqui)
+          document
+            .querySelectorAll(
+              "#upgradeForm input, #upgradeForm select, #upgradeForm textarea"
+            )
+            .forEach(function (el) {
+              el.setAttribute("readonly", true);
+              el.setAttribute("disabled", true);
+            });
+          var btnEnviar = document.getElementById("enviarFormulario");
+          if (btnEnviar) btnEnviar.style.display = "none";
+        }
+      });
+    </script>
   </body>
 </html>
