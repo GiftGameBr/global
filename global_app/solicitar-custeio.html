@@ -1006,18 +1006,6 @@
                     vinculadas a tais dados.
                   </p>
                 </div>
-
-                <div class="form-check mt-4">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="aceite_final"
-                    required
-                  />
-                  <label class="form-check-label" for="aceite_final">
-                    Declaro que li e aceito os termos acima.
-                  </label>
-                </div>
               </div>
             </div>
 
@@ -1037,6 +1025,8 @@
         </form>
       </section>
     </div>
+
+    <!-- Modal de aviso -->
     <div
       class="modal fade"
       id="avisoModal"
@@ -1089,6 +1079,7 @@
         </div>
       </div>
     </div>
+
     <!-- ====================================== Scripts ===================================== -->
     <script src="assets/javascript/jquery.js"></script>
     <script src="assets/javascript/slick.min.js"></script>
@@ -1103,15 +1094,24 @@
     <script src="assets/js/auth.js"></script>
 
     <script src="assets/js/custeio.js"></script>
+    <!-- SCRIPTS FINAIS -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const params = new URLSearchParams(window.location.search);
+
+        // Mostra o aviso SOMENTE quando NÃO houver NEM idSolicitacao NEM readonly=1
+        if (!params.get("idSolicitacao") && params.get("readonly") !== "1") {
+          var avisoModal = new bootstrap.Modal(
+            document.getElementById("avisoModal")
+          );
+          avisoModal.show();
+        }
+
+        // Se for somente visualização (readonly)
         if (params.get("readonly") === "1") {
-          // Oculta a mensagem do topo, se existir
           var msg = document.getElementById("mensagemTopo");
           if (msg) msg.style.display = "none";
-
-          // ... (resto do script de readonly aqui)
           document
             .querySelectorAll(
               "#upgradeForm input, #upgradeForm select, #upgradeForm textarea"

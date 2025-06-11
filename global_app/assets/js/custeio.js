@@ -1734,10 +1734,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const avisoModal = new bootstrap.Modal(document.getElementById("avisoModal"));
-  avisoModal.show();
-});
 // Variável global para rastrear a seleção de quantidade
 let selectedAgriculturaGeralQtd = 0;
 function saveAllAgriculturaGeralForms() {
@@ -1864,3 +1860,52 @@ function renderAgriculturaGeralForms(qtd) {
     `;
   }
 }
+function travarCamposReadOnly() {
+  document
+    .querySelectorAll(
+      "#upgradeForm input, #upgradeForm select, #upgradeForm textarea"
+    )
+    .forEach(function (el) {
+      el.setAttribute("readonly", true);
+      el.setAttribute("disabled", true);
+    });
+  var btnEnviar = document.getElementById("enviarFormulario");
+  if (btnEnviar) btnEnviar.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("readonly") === "1") {
+    // Função para travar todos os campos atuais e futuros
+    function bloquearCamposSeReadonly() {
+      document
+        .querySelectorAll(
+          "#upgradeForm input, #upgradeForm select, #upgradeForm textarea"
+        )
+        .forEach(function (el) {
+          el.setAttribute("readonly", true);
+          el.setAttribute("disabled", true);
+        });
+      // Esconde botões de adicionar/remover
+      document
+        .querySelectorAll(".btn-adicionar, .btn-remover")
+        .forEach(function (btn) {
+          btn.style.display = "none";
+        });
+      // Esconde o botão de enviar (caso exista)
+      var btnEnviar = document.getElementById("enviarFormulario");
+      if (btnEnviar) btnEnviar.style.display = "none";
+    }
+    // 1. Travar campos ao carregar
+    bloquearCamposSeReadonly();
+
+    // 2. Travar sempre que algo mudar no formulário (campos dinâmicos, steps, etc)
+    const upgradeForm = document.getElementById("upgradeForm");
+    if (upgradeForm) {
+      const observer = new MutationObserver(function () {
+        bloquearCamposSeReadonly();
+      });
+      observer.observe(upgradeForm, { childList: true, subtree: true });
+    }
+  }
+});
