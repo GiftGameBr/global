@@ -791,18 +791,36 @@
                           </div>
 
                           <div class="card-columns" style="margin-top: 8px;">
-                            <div class="card-column">
-                              <h4>Contrato do Crédito:</h4>
-                              <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">${
-                                data.status_pagamento || "Ver Contrato"
-                              }</p>
-                            </div>
-                            <div class="card-column">
-                                   <h4>Boletos de Pagamento:</h4>
-                              <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">${
-                                data.tipo_fatura || "Ver Boletos"
-                              }</p>
-                            </div>
+                         <div class="card-column">
+  <h4>Status do Contrato:</h4>
+  <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">
+    ${data.status_pagamento || "Aguardando assinatura"}
+  </p>
+  <button
+    style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1; margin-top: 8px;"
+    onclick="window.location.href='contrato.html?idSolicitacao=${
+      data.id
+    }&idCliente=${data.cliente_id}'"
+  >
+    Ver Contrato
+  </button>
+</div>
+
+                       <div class="card-column">
+  <h4>Status do Boleto:</h4>
+  <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">
+    ${data.tipo_fatura || "Aguardando emissão"}
+  </p>
+  <button
+    style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1; margin-top: 8px;"
+    onclick="window.location.href='boletos.html?idSolicitacao=${
+      data.id
+    }&idCliente=${data.cliente_id}'"
+  >
+    Ver Boletos
+  </button>
+</div>
+
                           </div>
 
                           <div class="card-columns" style="margin-top: 16px;">
