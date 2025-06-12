@@ -2741,7 +2741,9 @@ label.custom-radio-sel-lang {
 .account-profile-main {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
+    justify-content: center;
+    /* centraliza o conteúdo */
     margin: 24px 0;
 }
 
@@ -2749,6 +2751,13 @@ label.custom-radio-sel-lang {
     display: flex;
     align-items: center;
     gap: 16px;
+
+
+    justify-content: center;
+    /* centraliza horizontalmente */
+    text-align: center;
+    /* centraliza o texto dentro do <div> interno */
+
 }
 
 .account-img {
@@ -3567,15 +3576,4 @@ label.custom-radio-sel-lang {
     line-height: 24px;
     padding: 10px 20px;
     border-radius: 12px;
-}
-
-.modal-content {
-    background-color: #fff;
-    box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
-    border-radius: 16px;
-}
-
-.modal-header .modal-title {
-    font-size: 1.25rem;
-    font-weight: bold;
 }

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>WEvoice</title>
+    <title>Global - Minha Conta</title>
     <link href="assets/images/svg/favicon.svg" rel="icon" />
     <link href="assets/css/swap.css" rel="stylesheet" />
     <link href="assets/css/slick.css" rel="stylesheet" />
@@ -12,34 +12,141 @@
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/media_query.css" rel="stylesheet" />
     <link href="assets/css/custom-popup.css" rel="stylesheet" />
+    <style>
+      .contact-info {
+        display: flex;
+        gap: 32px;
+        background-color: #ffffff; /* verde base */
+        padding: 20px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .contact-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .icon-box {
+        background-color: #fff;
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 2px 2px 0 #0f2b45;
+      }
+
+      .icon-box img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .text-box p {
+        margin: 0;
+        color: #000000;
+        font-size: 14px;
+      }
+
+      .text-box strong {
+        color: #000000;
+        font-size: 16px;
+      }
+      .nav .material-icons {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .nav svg {
+        width: 35px;
+        height: 35px;
+      }
+      .setting-icons-main img {
+        max-width: 50px;
+        max-height: 50px;
+        width: auto;
+        height: auto;
+      }
+      .modal-content {
+        background-color: #fff;
+        box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+      }
+
+      .modal-header .modal-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        /* Aumentado para ficar acima do menu */
+      }
+
+      .modal-content {
+        background: white;
+        padding: 20px 30px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 300px;
+      }
+
+      .modal-btn {
+        margin: 10px 5px 0;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .modal-btn.cancel {
+        background-color: #ccc;
+      }
+
+      .modal-btn:not(.cancel) {
+        background-color: #e53935;
+        color: white;
+      }
+    </style>
   </head>
   <body>
     <div class="site_content">
       <!-- ====================================== Preloader ===================================== -->
       <div class="page-loader" id="page-loader">
         <img alt="logo" src="assets/images/svg/logo.svg" />
-        <p class="loade-text" data-text="WEvoice">WEvoice</p>
+        <p class="loade-text" data-text="Minha Conta">Minha Conta</p>
       </div>
       <!-- ====================================== Header ===================================== -->
-      <header class="site_lr-spacer homeHeader-main" id="top-navbar">
-        <div class="back-with-text border-bottom-0">
-          <a href="javascript:history.go(-1)">
+      <header
+        class="site_lr-spacer homeHeader-main d-flex justify-content-between align-items-center"
+        id="top-navbar"
+      >
+        <div class="d-flex align-items-center">
+          <a href="homeScreen.html">
             <img
-              alt="back-btn-top"
-              class="nav-header back-btn"
-              src="assets/images/svg/back-btn-top.svg"
+              alt="homeLogo"
+              class="nav-header"
+              src="assets/images/svg/homeLogo.png"
+              style="height: 40px"
             />
           </a>
-          <div class="header-title">
-            <h1>Account</h1>
-          </div>
         </div>
-        <div class="homeHeader">
-          <a href="notification.html"
-            ><img
+
+        <div class="homeHeader d-flex align-items-center gap-2">
+          <a href="notification.html">
+            <img
               alt="buttonNotification"
               src="assets/images/svg/buttonNotification.svg"
-          /></a>
+            />
+          </a>
           <a
             aria-controls="offcanvasExample"
             data-bs-toggle="offcanvas"
@@ -57,77 +164,106 @@
         <a href="profile.html">
           <div class="account-profile-main">
             <div class="account-profile-main-sub">
-              <img
+              <!--     <img
                 alt="account-img"
                 class="account-img"
                 src="assets/images/account-profile/account-img.jpg"
-              />
-              <div>
-                <h2 class="Jessica">Jordan Smith</h2>
-                <p class="Jessica-number">jordansmith@mail.com</p>
+              /> -->
+              <div id="user-info">
+                <p id="user-name">Carregando nome...</p>
+                <p id="user-email">Carregando e-mail...</p>
               </div>
             </div>
-            <div class="edit-icon-svg">
-              <img
-                alt="right-half-arrow-black"
-                src="assets/images/svg/right-half-arrow-black.svg"
-              />
-            </div>
           </div>
         </a>
+        <a class="home-setting-icons-main" href="profile.html">
+          <div class="setting-opestion-main">
+            <div class="setting-icons-main">
+              <img alt="security" src="assets/images/svg/acc-edit.svg" />
+            </div>
+            <h2 class="new-notification">Editar Perfil</h2>
+          </div>
+          <img
+            alt="right-half-arrow-black"
+            class="setting-arrow"
+            src="assets/images/svg/right-half-arrow-black.svg"
+          />
+        </a>
+
+        <a
+          class="home-setting-icons-main"
+          href="https://agrocreditoglobal.com.br/"
+        >
+          <div class="setting-opestion-main">
+            <div class="setting-icons-main">
+              <img alt="security" src="assets/images/svg/web-link.svg" />
+            </div>
+            <h2 class="new-notification">Site Global</h2>
+          </div>
+          <img
+            alt="right-half-arrow-black"
+            class="setting-arrow"
+            src="assets/images/svg/right-half-arrow-black.svg"
+          />
+        </a>
+        <a
+          class="home-setting-icons-main"
+          href="https://www.instagram.com/agrocreditoglobal/"
+        >
+          <div class="setting-opestion-main">
+            <div class="setting-icons-main">
+              <img alt="payment-method" src="assets/images/svg/instagram.svg" />
+            </div>
+            <h2 class="new-notification">Instagram Global</h2>
+          </div>
+          <img
+            alt="right-half-arrow-black"
+            class="setting-arrow"
+            src="assets/images/svg/right-half-arrow-black.svg"
+          />
+        </a>
+
         <div class="upgradePro-main-pro">
           <div class="upgradePro-main">
-            <div class="crown-main">
-              <img alt="crown" src="assets/images/home-screen/crown.png" />
-            </div>
-            <p class="toPro">Upgrade to Pro!</p>
-            <p class="njoy">Enjoy all benefits without any restrictions.</p>
+            <p class="toPro">Precisa de ajuda?</p>
+            <p class="njoy">
+              Fale com nosso suporte da Global, tire todas as suas dúvidas sobre
+              planos, recursos ou qualquer outro assunto.
+            </p>
           </div>
           <div class="heek">
-            <a class="upgradeNowButton" href="upgradePlan.html">Upgrade Now</a>
+            <a class="upgradeNowButton" href="https://wa.me/5599982527225"
+              >Via WhatsApp</a
+            >
           </div>
         </div>
-        <a class="home-setting-icons-main" href="billingSubscriptions.html">
-          <div class="setting-opestion-main">
-            <div class="setting-icons-main">
-              <img alt="security" src="assets/images/svg/security.svg" />
+        <div class="contact-info">
+          <div class="contact-box">
+            <div class="text-box">
+              <p>Ligue para nós:</p>
+              <strong>+55 99 98252-7225</strong>
             </div>
-            <h2 class="new-notification">Billing &amp; Subscriptions</h2>
+          </div>
+
+          <div class="contact-box">
+            <div class="text-box">
+              <p>Envie um e-mail para:</p>
+              <strong>contato@agrocreditoglobal.com.br</strong>
+            </div>
+          </div>
+        </div>
+        <a
+          href="javascript:void(0);"
+          class="logout-button home-setting-icons-main mb-0"
+        >
+          <div class="setting-opestion-main">
+            <div class="setting-icons-main setting-icons-main2">
+              <img alt="logout-icon" src="assets/images/svg/logout.svg" />
+            </div>
+            <h2 class="new-notification">Sair da Conta</h2>
           </div>
           <img
-            alt="right-half-arrow-black"
-            class="setting-arrow"
-            src="assets/images/svg/right-half-arrow-black.svg"
-          />
-        </a>
-        <a class="home-setting-icons-main" href="addNewCard.html">
-          <div class="setting-opestion-main">
-            <div class="setting-icons-main">
-              <img
-                alt="payment-method"
-                src="assets/images/svg/payment-method.svg"
-              />
-            </div>
-            <h2 class="new-notification">Payment Methods</h2>
-          </div>
-          <img
-            alt="right-half-arrow-black"
-            class="setting-arrow"
-            src="assets/images/svg/right-half-arrow-black.svg"
-          />
-        </a>
-        <a class="home-setting-icons-main" href="changeWevoicePin.html">
-          <div class="setting-opestion-main">
-            <div class="setting-icons-main">
-              <img
-                alt="dataPrivacy-icon"
-                src="assets/images/svg/dataPrivacy-icon.svg"
-              />
-            </div>
-            <h2 class="new-notification">Change WEvoice PIN</h2>
-          </div>
-          <img
-            alt="right-half-arrow-black"
+            alt="seta"
             class="setting-arrow"
             src="assets/images/svg/right-half-arrow-black.svg"
           />
@@ -142,7 +278,9 @@
           tabindex="-1"
         >
           <div class="offcanvas-header">
-            <h2 class="offcanvas-title" id="offcanvasExampleLabel">Settings</h2>
+            <h2 class="offcanvas-title" id="offcanvasExampleLabel">
+              Menu Global
+            </h2>
             <button
               aria-label="Close"
               class="btn-close"
@@ -154,9 +292,9 @@
             <a class="home-setting-icons-main" href="security.html">
               <div class="setting-opestion-main">
                 <div class="setting-icons-main">
-                  <img alt="security" src="assets/images/svg/security.svg" />
+                  <img alt="security" src="assets/images/svg/refer.svg" />
                 </div>
-                <h2 class="new-notification">Security</h2>
+                <h2 class="new-notification">Indicar para um amigo</h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -164,15 +302,15 @@
                 src="assets/images/svg/right-half-arrow-black.svg"
               />
             </a>
-            <a class="home-setting-icons-main" href="marketingPreferences.html">
+            <a class="home-setting-icons-main" href="solicitar-custeio.html">
               <div class="setting-opestion-main">
                 <div class="setting-icons-main">
                   <img
                     alt="marketing-icon"
-                    src="assets/images/svg/marketing-icon.svg"
+                    src="assets/images/svg/credito-icon.svg"
                   />
                 </div>
-                <h2 class="new-notification">Marketing Preferences</h2>
+                <h2 class="new-notification">Add Crédito de Custeio</h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -185,10 +323,10 @@
                 <div class="setting-icons-main">
                   <img
                     alt="notificationOption"
-                    src="assets/images/svg/notificationOption.svg"
+                    src="assets/images/svg/credito-icon.svg"
                   />
                 </div>
-                <h2 class="new-notification">Notification Settings</h2>
+                <h2 class="new-notification">Add Crédito de Investimento</h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -201,12 +339,12 @@
                 <div class="setting-icons-main">
                   <img
                     alt="language-icon"
-                    src="assets/images/svg/language-icon.svg"
+                    src="assets/images/svg/credito-icon.svg"
                   />
                 </div>
-                <h2 class="new-notification">Language</h2>
+                <h2 class="new-notification">Add Crédito de Comercialização</h2>
               </div>
-              <p class="version">English (US)</p>
+
               <img
                 alt="right-half-arrow-black"
                 class="setting-arrow"
@@ -216,9 +354,9 @@
             <a class="home-setting-icons-main" href="faq.html">
               <div class="setting-opestion-main">
                 <div class="setting-icons-main">
-                  <img alt="faqs-icon" src="assets/images/svg/faqs-icon.svg" />
+                  <img alt="faqs-icon" src="assets/images/svg/soil.svg" />
                 </div>
-                <h2 class="new-notification">FAQs</h2>
+                <h2 class="new-notification">Solicitar Avaliação de Imóveis</h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -231,10 +369,12 @@
                 <div class="setting-icons-main">
                   <img
                     alt="dataPrivacy-icon"
-                    src="assets/images/svg/dataPrivacy-icon.svg"
+                    src="assets/images/svg/growth.svg"
                   />
                 </div>
-                <h2 class="new-notification">Data &amp; Privacy Policy</h2>
+                <h2 class="new-notification">
+                  Solicitar Licenciamento Ambiental
+                </h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -242,32 +382,35 @@
                 src="assets/images/svg/right-half-arrow-black.svg"
               />
             </a>
-            <a class="home-setting-icons-main" href="about.html">
+            <a
+              class="home-setting-icons-main"
+              href="https://wa.me/5599982527225"
+            >
               <div class="setting-opestion-main">
                 <div class="setting-icons-main">
-                  <img
-                    alt="aboutVoice"
-                    src="assets/images/svg/aboutVoice.svg"
-                  />
+                  <img alt="aboutVoice" src="assets/images/svg/social.svg" />
                 </div>
-                <h2 class="new-notification">About WEvoice</h2>
+                <h2 class="new-notification">Contato via WhatsApp</h2>
               </div>
-              <p class="version">v1.0.1</p>
+
               <img
                 alt="right-half-arrow-black"
                 class="setting-arrow"
                 src="assets/images/svg/right-half-arrow-black.svg"
               />
             </a>
-            <a class="home-setting-icons-main" href="feedback.html">
+            <a
+              class="home-setting-icons-main"
+              href="https://agrocreditoglobal.com.br/"
+            >
               <div class="setting-opestion-main">
                 <div class="setting-icons-main">
                   <img
                     alt="feedback-icon"
-                    src="assets/images/svg/feedback-icon.svg"
+                    src="assets/images/svg/web-link.svg"
                   />
                 </div>
-                <h2 class="new-notification">Send Feedback</h2>
+                <h2 class="new-notification">Acessar nosso site</h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -275,15 +418,18 @@
                 src="assets/images/svg/right-half-arrow-black.svg"
               />
             </a>
-            <a class="home-setting-icons-main" href="contactUs.html">
+            <a
+              class="home-setting-icons-main"
+              href="https://www.instagram.com/agrocreditoglobal/"
+            >
               <div class="setting-opestion-main">
                 <div class="setting-icons-main">
                   <img
                     alt="contactUs-icon"
-                    src="assets/images/svg/contactUs-icon.svg"
+                    src="assets/images/svg/instagram.svg"
                   />
                 </div>
-                <h2 class="new-notification">Contact Us</h2>
+                <h2 class="new-notification">Visitar nosso Instagram</h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -291,15 +437,15 @@
                 src="assets/images/svg/right-half-arrow-black.svg"
               />
             </a>
-            <a class="home-setting-icons-main" href="inviteFriends.html">
+            <a class="home-setting-icons-main" href="profile.html">
               <div class="setting-opestion-main">
                 <div class="setting-icons-main">
                   <img
                     alt="inviteFriend-icon"
-                    src="assets/images/svg/inviteFriend-icon.svg"
+                    src="assets/images/svg/acc-edit.svg"
                   />
                 </div>
-                <h2 class="new-notification">Invite Friends</h2>
+                <h2 class="new-notification">Minha Conta</h2>
               </div>
               <img
                 alt="right-half-arrow-black"
@@ -307,34 +453,19 @@
                 src="assets/images/svg/right-half-arrow-black.svg"
               />
             </a>
-            <a class="home-setting-icons-main" href="deleteDeactivate.html">
+
+            <a
+              href="javascript:void(0);"
+              class="logout-button home-setting-icons-main mb-0"
+            >
               <div class="setting-opestion-main">
                 <div class="setting-icons-main setting-icons-main2">
-                  <img
-                    alt="close-setting-icon"
-                    src="assets/images/svg/close-setting-icon.svg"
-                  />
+                  <img alt="logout-icon" src="assets/images/svg/logout.svg" />
                 </div>
-                <h2 class="new-notification">Delete or Deactivate Account</h2>
+                <h2 class="new-notification">Deslogar</h2>
               </div>
               <img
-                alt="right-half-arrow-black"
-                class="setting-arrow"
-                src="assets/images/svg/right-half-arrow-black.svg"
-              />
-            </a>
-            <a class="home-setting-icons-main mb-0" href="logout.html">
-              <div class="setting-opestion-main">
-                <div class="setting-icons-main setting-icons-main2">
-                  <img
-                    alt="logOut-icon"
-                    src="assets/images/svg/logOut-icon.svg"
-                  />
-                </div>
-                <h2 class="new-notification">Logout</h2>
-              </div>
-              <img
-                alt="right-half-arrow-black"
+                alt="seta"
                 class="setting-arrow"
                 src="assets/images/svg/right-half-arrow-black.svg"
               />
@@ -343,147 +474,517 @@
         </div>
       </section>
       <!-- ====================================== Footer ===================================== -->
+
       <div class="nav">
+        <!-- Home -->
         <a class="nav-item" href="homeScreen.html">
           <svg
-            class="material-icons"
-            fill="none"
-            height="24"
-            viewbox="0 0 24 24"
-            width="24"
+            id="Layer_1"
+            enable-background="new 0 0 512 512"
+            height="512"
+            viewBox="0 0 512 512"
+            width="512"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M9.02 2.84001L3.63 7.04001C2.73 7.74001 2 9.23001 2 10.36V17.77C2 20.09 3.89 21.99 6.21 21.99H17.79C20.11 21.99 22 20.09 22 17.78V10.5C22 9.29001 21.19 7.74001 20.2 7.05001L14.02 2.72001C12.62 1.74001 10.37 1.79001 9.02 2.84001Z"
-              stroke="#0F0F0F"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            ></path>
-            <path
-              d="M12 17.99V14.99"
-              opacity="0.34"
-              stroke="#0F0F0F"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            ></path>
+            <g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m419.689 405.089 42.405 22.45 42.405-22.45v-99.411-99.383-99.411l-87.277-12.302-93.938 12.302v47.225c118.855 112.025 48.841 156.727 96.405 250.98z"
+                  fill="#f9f6f6"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m323.285 106.883h181.215v-8.787c0-49.833-40.761-90.596-90.593-90.596s-90.621 40.762-90.621 90.596v8.787z"
+                  fill="#ff8086"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m397.155 9.059c41.895 7.909 73.841 44.929 73.841 89.037v8.787h33.504v-8.787c0-49.833-40.761-90.596-90.593-90.596-5.726 0-11.338.539-16.752 1.559z"
+                  fill="#e5646e"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m470.995 106.883v99.411 99.383 99.412h33.505v-99.412-99.383-99.411z"
+                  fill="#dddaec"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m414.616 504.5h84.385c3.033 0 5.499-2.466 5.499-5.499v-93.912h-43.624-41.186v63.865 30.473c-.001 2.777-2.268 5.073-5.074 5.073z"
+                  fill="#ff8086"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m470.995 405.089v93.912c0 3.033-2.466 5.499-5.499 5.499h33.505c3.033 0 5.499-2.466 5.499-5.499v-93.912z"
+                  fill="#e5646e"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m419.689 468.953v-63.865-116.504l-49.095-77.811c-6.86-10.828-5.868-10.517-17.716-16.781l-29.593-15.619-83.393-44.022c-6.888-3.628-5.187-3.628-12.075 0l-112.986 59.641c-11.849 6.265-10.856 5.953-17.716 16.781l-49.095 77.811v180.369l185.834 35.547z"
+                  fill="#ff8086"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m233.854 281.781c24.264 0 43.908-19.673 43.908-43.909s-19.644-43.909-43.908-43.909c-24.236 0-43.879 19.673-43.879 43.909s19.644 43.909 43.879 43.909z"
+                  fill="#365e7d"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m147.967 349.614h171.804 3.515 16.611c3.487 0 6.378-2.863 6.378-6.378v-21.43c0-3.515-2.891-6.378-6.378-6.378h-16.611-195.445c-3.515 0-6.378 2.863-6.378 6.378v21.43c0 3.515 2.863 6.378 6.378 6.378z"
+                  fill="#f9f6f6"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m53.093 504.5h144.875v-35.547h-149.948v30.473c0 2.778 2.267 5.074 5.073 5.074z"
+                  fill="#f9f6f6"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m253.3 504.5h161.316c2.806 0 5.074-2.296 5.074-5.074v-30.473h-169.905v35.547z"
+                  fill="#f9f6f6"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m233.854 281.781c24.264 0 43.908-19.673 43.908-43.909s-19.644-43.909-43.908-43.909c-6.406 0-12.5 1.389-18 3.855 15.278 6.86 25.908 22.224 25.908 40.054s-10.63 33.194-25.908 40.054c5.5 2.466 11.594 3.855 18 3.855z"
+                  fill="#2b4d66"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m311.834 349.614h7.937 3.515 16.611c3.487 0 6.378-2.863 6.378-6.378v-21.43c0-3.515-2.891-6.378-6.378-6.378h-16.611-11.452c3.515 0 6.378 2.863 6.378 6.378v21.43c0 3.515-2.863 6.378-6.378 6.378z"
+                  fill="#dddaec"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m134.247 225.4 93.569-52.044c6.888-3.628 5.187-3.628 12.075 0l99.579 49.521c11.849 6.265 11.678 9.411 18.652 20.183l32.059 49.295c6.803 11.509 4.96 23.726 4.96 37.134v36.709 102.756h24.547v-63.865-62.873-43.654l-49.095-77.783c-6.86-10.828-5.868-10.517-17.716-16.781l-29.593-15.619-83.393-44.022c-6.888-3.657-5.187-3.657-12.075 0l-112.986 59.641c-11.849 6.265-10.856 5.953-17.716 16.781l-49.094 77.783v42.775l65.592-95.244c7.285-10.573 8.787-14.457 20.635-20.693z"
+                  fill="#e5646e"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m233.854 427.057 85.917-77.443h-171.804z"
+                  fill="#d09080"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m187.396 468.953 46.458-41.896-85.887-77.443v119.339 35.547z"
+                  fill="#d09080"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m147.967 504.5h171.804l-39.429-35.547-46.488-41.896-46.458 41.896z"
+                  fill="#d09080"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m280.342 468.953 39.429 35.547v-35.547-119.339l-85.917 77.443z"
+                  fill="#d09080"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m147.967 387.174h41.64l-41.64-37.56z"
+                  fill="#ce775f"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m189.607 387.174h88.524l41.64-37.56h-171.804z"
+                  fill="#ce775f"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m278.131 387.174h41.64v-37.56z"
+                  fill="#ce775f"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m114.831 203.998 112.986-59.641c6.888-3.657 5.187-3.657 12.075 0l83.393 44.022 29.593 15.619c11.849 6.265 10.856 5.953 17.716 16.781l49.095 77.783 10.318 16.356c4.479 7.058 14.173 9.609 21.911 5.528 5.783-3.061 8.872-8.986 8.192-14.769-.227-1.928-.879-3.827-1.984-5.613l-62.843-99.525c-7.228-11.452-5.414-11.282-17.915-17.858l-54.084-28.573-77.639-40.989c-13.804-7.285-9.779-7.285-23.584 0l-131.721 69.563c-12.5 6.576-10.686 6.406-17.915 17.858l-62.814 99.525c-1.361 2.154-2.041 4.507-2.098 6.86v.68c.113 5.102 3.146 10.12 8.305 12.841 7.71 4.082 17.433 1.531 21.883-5.528l10.318-16.356 49.095-77.783c6.86-10.828 5.868-10.516 17.717-16.781z"
+                  fill="#ffe07d"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  clip-rule="evenodd"
+                  d="m390.068 504.5h24.547c2.806 0 5.074-2.296 5.074-5.074v-30.473h-24.547v30.473c0 2.778-2.268 5.074-5.074 5.074z"
+                  fill="#dddaec"
+                  fill-rule="evenodd"
+                />
+              </g>
+              <g>
+                <path
+                  d="m413.907 0c-54.104 0-98.122 44.005-98.122 98.096v43.582l-66.639-35.192c-1.742-.919-3.192-1.72-4.427-2.401-9.544-5.266-12.185-5.267-21.731 0-1.234.681-2.685 1.481-4.429 2.402l-131.711 69.557c-11.437 6.017-13.045 7.745-17.878 15.783-.788 1.311-65.698 104.23-65.698 104.23-3.175 5.023-4.077 10.962-2.539 16.722 1.617 6.056 5.84 11.269 11.577 14.295 3.646 1.93 7.582 2.85 11.465 2.85 6.202 0 12.255-2.358 16.745-6.688v65.044c0 4.142 3.358 7.5 7.5 7.5s7.5-3.358 7.5-7.5v-87.541s49.134-77.855 49.652-78.682c2.334-3.729 3.328-5.283 4.496-6.318 1.333-1.181 3.665-2.464 8.665-5.107l113.002-59.649c.801-.425 1.49-.803 2.093-1.133.141-.077.285-.156.428-.234.143.078.287.157.428.234.603.331 1.292.708 2.109 1.142 0 0 118.193 62.413 119.642 63.31.869.538 1.509.995 2.009 1.438 1.167 1.035 2.162 2.589 4.496 6.318.518.827 49.651 78.681 49.651 78.681v160.716h-84.921v-104.341h12.625c7.652 0 13.878-6.226 13.878-13.878v-21.43c0-7.652-6.226-13.878-13.878-13.878h-85.122c-4.142 0-7.5 3.358-7.5 7.5s3.358 7.5 7.5 7.5h84v19.186h-209.81v-19.186h91.2c4.142 0 7.5-3.358 7.5-7.5s-3.358-7.5-7.5-7.5h-92.322c-7.652 0-13.878 6.226-13.878 13.878v21.43c0 7.652 6.226 13.878 13.878 13.878h12.625v104.339h-84.947v-38.563c0-4.142-3.358-7.5-7.5-7.5s-7.5 3.358-7.5 7.5v76.536c0 6.934 5.641 12.574 12.574 12.574h94.873 171.804 3.515 91.33 84.385c7.167 0 12.999-5.832 12.999-12.999v-400.905c.001-54.091-44.004-98.096-98.092-98.096zm-273.44 497h-84.948v-20.546h84.947v20.546zm159.783-139.886-66.382 59.845-66.382-59.845zm-144.783 9.359 67.201 60.584-67.201 60.584zm12.02 130.527 66.382-59.845 66.381 59.845zm144.783-9.359-67.201-60.584 67.201-60.584zm99.919 9.359h-84.919v-20.546h84.919zm53.445-198.823c-.347-.72-.733-1.427-1.166-2.117l-51.945-82.266h84.477v84.383zm-134.848-200.081c0-45.819 37.288-83.096 83.122-83.096 45.816 0 83.092 37.276 83.092 83.096v1.287h-166.214zm0 16.287h166.214v84.412h-93.949s-3.523-5.656-4.312-6.966c-4.831-8.036-6.44-9.766-17.868-15.778l-50.086-26.45v-35.218zm95.246 180.177s-50.275-79.656-50.78-80.463c-4.799-7.665-6.514-9.825-13.281-13.692-.521-.297-118.562-62.672-118.562-62.672-.734-.39-1.367-.736-1.92-1.039-5.101-2.795-7.847-3.32-12.067-1.572-.037.015-.076.034-.113.05-.616.259-1.261.563-1.953.918-.366.188-.745.39-1.137.605-.553.303-1.185.649-1.904 1.031l-112.991 59.644c-11.727 6.2-12.961 7.295-18.868 16.729-.505.807-50.78 80.463-50.78 80.463-.01.016-.016.033-.026.049l-10.294 16.31c-2.375 3.767-7.885 5.096-12.039 2.894-2.06-1.086-3.552-2.873-4.093-4.901-.316-1.184-.446-2.984.729-4.843 0 0 65.037-103.124 65.872-104.512 3.448-5.734 3.448-5.734 12.017-10.243l131.721-69.562c1.838-.97 3.369-1.814 4.672-2.533 1.381-.762 2.8-1.545 3.619-1.918.82.374 2.238 1.156 3.62 1.918 1.303.718 2.833 1.563 4.67 2.532l131.723 69.563c.003.002.007.004.011.006 8.559 4.502 8.559 4.502 12.007 10.238.834 1.388 1.816 3.02 3.058 4.987l62.833 99.509c1.168 1.86 1.034 3.669.716 4.859-.544 2.032-2.032 3.82-4.072 4.899-4.226 2.231-9.645.924-12.069-2.896l-10.292-16.307c-.011-.018-.017-.036-.027-.051zm70.968 202.44h-69.811v-84.411h69.811zm-69.811-99.411v-74.389c7.313 7.042 18.763 8.874 28.238 3.875 5.6-2.965 9.746-8.016 11.438-13.897h30.135v84.412h-69.811z"
+                />
+                <path
+                  d="m285.262 237.873c0-28.347-23.062-51.409-51.408-51.409-28.331 0-51.379 23.062-51.379 51.409s23.049 51.409 51.379 51.409c28.347-.001 51.408-23.063 51.408-51.409zm-87.787 0c0-20.076 16.32-36.409 36.379-36.409 20.075 0 36.408 16.333 36.408 36.409s-16.333 36.409-36.408 36.409c-20.059-.001-36.379-16.334-36.379-36.409z"
+                />
+              </g>
+            </g>
           </svg>
           <span class="nav-text">Home</span>
         </a>
+
+        <!-- Crédito -->
         <a class="nav-item" href="solicitacoes.html">
           <svg
-            class="material-icons"
-            fill="none"
-            height="24"
-            viewbox="0 0 24 24"
-            width="24"
+            id="Layer_1"
+            enable-background="new 0 0 512 512"
+            height="512"
+            viewBox="0 0 512 512"
+            width="512"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M6.28016 21.9998C8.00328 21.9998 9.40016 20.6029 9.40016 18.8798C9.40016 17.1566 8.00328 15.7598 6.28016 15.7598C4.55703 15.7598 3.16016 17.1566 3.16016 18.8798C3.16016 20.6029 4.55703 21.9998 6.28016 21.9998Z"
-              stroke="#0F0F0F"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            ></path>
-            <path
-              d="M17.7196 19.9197C19.4427 19.9197 20.8396 18.5228 20.8396 16.7997C20.8396 15.0766 19.4427 13.6797 17.7196 13.6797C15.9965 13.6797 14.5996 15.0766 14.5996 16.7997C14.5996 18.5228 15.9965 19.9197 17.7196 19.9197Z"
-              stroke="#0F0F0F"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            ></path>
-            <g opacity="0.4">
+            <g>
+              <g clip-rule="evenodd" fill-rule="evenodd">
+                <path d="m213.3 52.3h247v285.9h-247z" fill="#e6e6e6" />
+                <path
+                  d="m460.3 107.6v230.6h-247v-61.4c93-31.6 175.4-88 247-169.2z"
+                  fill="#d0d0cf"
+                />
+                <path
+                  d="m225.9 414c17.2-1.5 30.6-3.6 34.9-6.2l79.8-49.7c28.6-17.8 59.9-.9 34.3 21.1-17.5 14.9-52.2 46.2-85 73.6l-58.5 7z"
+                  fill="#fad1a2"
+                />
+                <path
+                  d="m246.3 458c16.5-12.3 36.2-28.7 55.3-45.1.6-.5 1.1-.9 1.6-1.4 20.7-17.8 99.1-55.3 71.7-32.3-17.6 14.7-52.5 46.2-85.2 73.6z"
+                  fill="#e2bb92"
+                />
+                <path
+                  d="m468.4 5 34.1 18.8c-37.8 68.4-58.4 121.4-92.9 183.9-2.2-1.2-4.5-2.4-6.7-3.7-5 9-40.7 41.1-43.4 39.6-2.8-1.6 4.3-49.3 9.3-58.4-2.2-1.2-4.4-2.5-6.7-3.7 34.6-62.5 68.5-108.1 106.3-176.5z"
+                  fill="#ed2024"
+                />
+                <path
+                  d="m115.8 208.8c17.4-19.4 36.8-38.4 54.9-61.9l-50-63.8c-14.7-23.5 34.5-34.9 82.1-34.3 47.6-.6 96.8 10.8 82.1 34.3l-50.1 63.8c18.1 23.5 37.4 42.5 54.9 61.9 252.8 282.1-426.7 282.1-173.9 0z"
+                  fill="#208380"
+                />
+                <path
+                  d="m188.7 139.9-24.1-78.3c-12.6-32.4 81.9-32.4 69.3 0l-22.9 78.3z"
+                  fill="#208380"
+                />
+                <path
+                  d="m165 126.3c33.2 8.4 49.9 7.4 75.5 0 25.3-7.3 25.6 39 0 33.1-25.1-5.8-48.7-6.2-75.5 0-25.6 5.9-25.5-39.5 0-33.1z"
+                  fill="#e8dab2"
+                />
+                <path
+                  d="m202.8 362.7c-44.1 0-79.8-35.7-79.8-79.8s35.7-79.8 79.8-79.8 79.8 35.7 79.8 79.8-35.7 79.8-79.8 79.8z"
+                  fill="#fdb614"
+                />
+                <path
+                  d="m202.8 223.8c32.7 0 59.2 26.5 59.2 59.1 0 32.7-26.5 59.2-59.2 59.2s-59.1-26.5-59.1-59.2c-.1-32.7 26.4-59.1 59.1-59.1z"
+                  fill="#e6a624"
+                />
+                <path
+                  d="m173.7 240.3c1.9-1.3 3.9-2.5 5.9-3.6 8.2-4.4 17.7-6.8 27.6-6.8 5.7 0 11.3.8 16.5 2.3 4.9 1.4 9.5 3.5 13.8 6 1.9 1.2 3.8 2.4 5.5 3.7 3.4 2.6 6.6 5.6 9.4 8.9 0 0 0 0 .1.1 0 0 0 0-.1-.1-2.7-4.2-5.9-8.1-9.6-11.4-1-.9-2-1.7-3-2.6-4.8-3.9-10.1-7-15.9-9.2-6.6-2.6-13.7-3.9-21.2-3.9s-14.6 1.4-21.2 3.9c-5.8 2.2-11.2 5.3-16 9.2-1 .8-2 1.7-2.9 2.6-3.7 3.4-6.9 7.2-9.6 11.4-6 9.2-9.4 20.2-9.4 32.1 0 14.5 5.2 27.8 13.9 38.1-6-9.2-9.4-20.2-9.4-32 .1-20.2 10.2-38 25.6-48.7z"
+                  fill="#b9872c"
+                />
+                <path
+                  d="m69.9 391.6c5.8-4.9 11.5-9.9 16.7-14.7 17.2-15.8 29.3-24 42.2-27.9 15.5-4.6 28.8-19.8 50.9-30.3 55.2-26.4 71.9 25.5 29.5 44.7-30.9 16.3-56.4 31.2-56.4 36.4.1 4 135.2 18.2 151.6 10.5l85.2-39.8c30.6-14.3 59.6 6.3 31.5 25-35.1 23.3-134.5 94.6-165.2 103-43.5 4.1-148.8-3-188.1 1.5.2-.8.4-1.6.4-2.4z"
+                  fill="#fad1a2"
+                />
+                <path
+                  d="m69.4 424c24.7 35 143.8 45.9 185.5 42 17.1-4.7 52.5-21 89.4-45.7.6-.4 1.2-.8 1.8-1.2 22.7-15.2 105-43.1 75-23.6-35.3 23-134.5 94.6-165.2 103-43.5 4.1-148.8-3-188.1 1.5.2-.8.4-1.6.4-2.4z"
+                  fill="#ccaa84"
+                />
+                <path
+                  d="m19.3 370.8 41.3.3c5.4.1 9.7 4.8 9.6 10.2l-2 116.3c-.1 5.4-4.6 9.4-9.9 9.3l-41.3-.2c-5.4 0-9.7-4.8-9.6-10.2l2-116.3c.1-5.4 4.5-9.4 9.9-9.4z"
+                  fill="#808080"
+                />
+                <path
+                  d="m69.4 424c-7.8 31.7-24.4 46.2-61.7 55.1l.1 18.6c0 .9.1 1.7.3 2.4 1.2 4.1 5 6.9 9.6 6.9l41.3-.3c4.4 0 8.1-3.3 9.2-7.4.3-25.1 1.2-50.3 1.2-75.3z"
+                  fill="#5e5f5f"
+                />
+              </g>
               <path
-                d="M20.8404 16.8003V4.60034C20.8404 2.00034 19.2104 1.64034 17.5604 2.09034L11.3204 3.79034C10.1804 4.10034 9.40039 5.00034 9.40039 6.30034V8.47034V9.93034V18.8703"
-                stroke="#0F0F0F"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              ></path>
-              <path
-                d="M9.40039 9.52039L20.8404 6.40039"
-                stroke="#0F0F0F"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              ></path>
+                d="m403.2 275.6v-18.6c-5.4.8-12.9 4.1-12.9 9.5 0 5.9 6 7.8 12.9 9.1zm8.1 9.4v18.5c5.4-.8 12.9-4.1 12.9-9.5 0-5.7-6-7.7-12.9-9zm-8.1-41.4c0-5.3 8-5.3 8 0v5.4c10 1.1 20.9 7.3 20.9 17.5 0 5.3-8 5.3-8 0 0-5.4-7.5-8.7-12.9-9.5v19.8c10.9 1.8 20.9 4.6 20.9 17.2 0 10.3-10.9 16.4-20.9 17.6v5.4c0 5.3-8 5.3-8 0v-5.4c-10-1.2-20.9-7.3-20.9-17.6 0-5.3 8-5.3 8 0 0 5.4 7.5 8.7 12.9 9.5v-19.8c-10.9-1.8-20.9-4.6-20.9-17.2 0-10.2 10.9-16.4 20.9-17.5zm93.8-218.2-27-14.9c-8.7 15.6-17.1 30-25.5 43.7-.1.2-.2.3-.3.5-8.5 13.9-16.8 27.2-25.1 40.3l-2.9 4.5c-5.7 9.1-11.4 18.1-17 27.2-.1.2-.2.4-.3.5-6.3 10.1-12.6 20.5-18.9 31.2-.1.1-.2.3-.3.5-4.1 6.9-8.1 13.9-12.2 21.2 2.6 1.4 5.2 2.3 5.2 5.2 0 1.6-.9 2.3-1.4 3.9-.1.3-.2.6-.3.9-2 5.9-4.3 17.1-6 27.8l-3.7 22.3c.3.1 7.5-7.4 16.2-15.3 6.1-5.6 19-17.8 21.7-22.7 1.1-1.9 3.5-2.6 5.4-1.6l3.2 1.8c15.1-27.7 29-56.4 42.3-84.1 15.2-31.5 28.4-59.1 46.9-92.9zm4 23.5c2.6-4.6 9.6-.8 7 3.9l-29.8 54.1c-2.6 4.6-9.6.7-7-3.9zm-295.4 87.4c-11.9.1-24.7-1.8-41.6-6-13.9-3.5-17.1 13.3-11.7 21.3 2.2 3.3 6.1 5.2 11.8 3.9 26.7-6.2 51.1-6.1 77.3 0 14.3 3.4 17.1-14.7 11.4-22.3-2.2-2.9-5.9-4.5-11.2-2.9-9.7 2.8-18.2 4.7-26.8 5.6-1.8.5-.8.3-2.5.2-2.1.1-4.4.1-6.7.2zm13.3-9.1c6.5-1 13.1-2.6 20.5-4.7 3.7-1.1 7-1.2 9.9-.6l32.3-41.1c2.2-3.1 2.6-6.9.6-10.1-1.2-1.8-3.2-3.6-5.8-5.2-9.2-5.8-24.5-9-37.2-10.7.1 2.5-.3 5.3-1.5 8.2zm-30-.1c7.5 1 14.4 1.4 21.3 1l19.8-67.3c.1-.2.1-.4.2-.6 2.8-7.2-2-12.3-9.9-15.4-12-4.6-30.2-4.6-42.2 0-7.8 3.1-12.6 8.1-9.8 15.3 0 .1.1.2.1.3zm-22.9-4.6c5.1 1.3 9.7 2.3 14.1 3.2l-19.3-62.7c-1-2.6-1.4-5-1.5-7.2-10.8 1.8-38.9 8.1-37.2 20.2.2 1.4.8 3 1.8 4.7l32.4 41.3c2.9-.5 6.1-.4 9.7.5zm141.4 38.1c3.7 3.7-1.9 9.4-5.6 5.7-11.2-11-24.1-17.7-39.2-16.6-1.5 5.3-4.8 10.1-9.9 12.6 13.4 15.4 26.5 28.7 40 43.8 32.1 35.9 53.2 71.5 57.6 104.8h18.1c5.3 0 5.3 8 0 8h-17.4c.3 5.3.1 10.4-.5 15.3h105.9v-210.1c-9.6 20-19.1 39.8-29.7 60.2h1.6c5.3 0 5.3 8 0 8h-5.8c-3 5.8-6.2 11.5-9.4 17.4-1 2-3.5 2.7-5.4 1.6l-3.5-1.9c-1.5 1.9-3.5 4.2-5.8 6.6h30c5.3 0 5.3 8.1 0 8.1h-38c-2.4 2.3-4.8 4.5-7.2 6.7-11 9.9-22.5 18-25.5 16.4-2.5-1.4-2.6-11.4-1.3-23.2h-21.9c-5.3 0-5.3-8.1 0-8.1h23c1.3-8.4 3-17.1 4.8-23.7h-27.8c-5.3 0-5.3-8 0-8h24.8c-1.1-1.2-1.4-3.1-.5-4.6 3.6-6.5 7.2-12.9 10.8-19.1h-35.1c-5.3 0-5.3-8 0-8h39.8c4.8-8.1 9.5-16 14.3-23.7h-54.1c-5.3 0-5.3-8.1 0-8.1h59.1c4.9-7.9 9.9-15.8 14.9-23.7h-73.9c-5.3 0-5.3-8 0-8h79c6.7-10.7 13.5-21.5 20.4-32.7h-157.6c12.2 6 20 15.9 11.9 28.8l-31.6 40.4c2.3 2 4 4.6 5.1 7.5 13.5.1 23-7.4 26.2-20.7 1.2-5.2 9-3.3 7.8 1.8-3.8 16.3-15.8 26.4-32.2 26.9v.7c16.8-.8 31.4 6.7 43.8 18.9zm-8.6 122.3c0-5.3 8-5.3 8 0 0 47-31.4 87.8-76 100.3-5.1 1.4-7.3-6.3-2.2-7.7 41.3-11.6 70.2-49.2 70.2-92.6zm-100-4.7v-21.8c-6.5.8-15.3 4.7-15.3 11.1-.1 7 7 9.2 15.3 10.7zm-117.7 109c-2.5 2.2-4.9 4.3-7.2 6.2l-1.7 102.2c21-1.8 55.6-1.1 90.3-.5 35.6.7 71.5 1.4 92.6-.6 24.2-6.9 92.6-53.8 136.6-84 10.8-7.4 20.2-13.8 27.1-18.4 10.6-7 13.5-15.3 2.9-20.1-7.3-3.3-18.7-3.5-30.6 2.1l-85.1 39.9c-3.6 1.7-11.4 2.5-21.6 2.6-24.2.3-58-2.5-81.4-4.9-22-2.3-41.2-5.2-49.5-7.9-1.8.4-3.6-.5-4.4-2.2-2.4-5 6.8-12.2 18.1-19.3l9.7-5.8c8.8-5.1 19.2-10.8 30.2-16.6.1-.1.2-.1.3-.2 13.6-6.2 20.5-15.9 21.4-24.7.7-6.6-2-12.6-7.7-16.2-2-1.3-4.4-2.2-7.2-2.8-.9.1-1.8 0-2.6-.4-2.4-.3-4.9-.3-7.7-.1-2 .3-4.6.5-6.9 1.2-.3.1-.6.2-.9.2-4.4 1.1-9.3 2.9-14.5 5.4-10.1 4.8-18.4 10.7-26 16.1-8.8 6.3-16.7 11.8-25.5 14.5-14.6 4.4-27.8 15.1-40.6 27zm205.2 21.3c8.2-.2 14-.7 16.4-1.8l73.4-34.3c3.3-3.8 4.6-7 4.3-9.6-.5-4-4.7-6.3-8.6-7.3-7.6-2-18.4-.6-29 6l-1.2.7c-4.8 9-11.4 17-19.2 24-10.2 9.1-22.5 16.5-36.1 22.3zm-79.5-101.2c2.3 0 4.5.1 6.5.4 2.6-1 4.8-2.5 6.4-4.1 1.5-1.6 2.4-3.4 2.4-5.3 0-7-7.1-9.2-15.3-10.7zm-59.7 27.1c11.2-7.9 22.3-16.2 36.8-22-9.6-6.5-11-18.1-4.5-18.1 2.2 0 4 1.8 4 4s1.1 4.3 3.1 6c2.2 2 5.2 3.5 8.9 4.5 1.1-.3 2.2-.5 3.3-.7v-21.8c-12.2-2-23.4-4.9-23.4-18.8 0-11.3 12.2-18.1 23.4-19.2v-6.4c0-5.3 8-5.3 8 0v6.4c11.1 1.1 23.3 7.9 23.3 19.2 0 5.3-8 5.3-8 0 0-6.4-8.8-10.3-15.3-11.1v23.1c12.2 2 23.3 4.9 23.3 18.8 0 5-2.6 9.4-6.5 12.7 16.4 8.5 17.4 28.8 4.9 43.3 29.7-10.7 50.1-38.9 50.1-71.3 0-41.8-33.9-75.8-75.8-75.8-41.8 0-75.8 33.9-75.8 75.8.1 19.3 7.3 37.5 20.2 51.4zm-64.1 40.4c14.2-13.1 28.1-24.7 44.7-29.7 4.3-1.3 8.5-3.5 12.8-6.2-29.7-33.1-28.5-83.7 3.1-115.3 32.7-32.7 85.8-32.7 118.5 0 31.5 31.5 32.9 82 3.2 115.1-13.2 14.8-31.7 24.9-52.5 27.4l-22.5 12 12.6.8c5.3 0 5.3 8.1 0 8.1-4.3 0-8.4-.3-12.6-.8-3.7-.5-7.3-1.1-10.8-1.9-2.8 1.6-5.5 3.2-7.9 4.7-6.8 4.3-11.7 7.6-13.7 9.4 5 .8 23.7 2.9 46.2 5.2 19.3 2 41 3.7 59.4 4.5 20.9-6 39.6-15.3 53.6-27.8 10.9-9.8 19-21.6 23.1-35.5 13.4-45.4-20.4-96.5-53.4-133.3-14.2-15.8-28.7-30.4-43.2-47.5-1.2-.1-2.6-.3-3.9-.6-25.2-5.9-48.1-6-73.7 0-1.4.3-2.7.5-3.9.6-14.5 17.1-29 31.7-43.2 47.5-32.7 36.5-49.5 68-54.6 94.6-5.6 28.4 2.4 51.4 18.7 68.7zm-22.5.3-41.2-.3c-3.1 0-5.8 2.2-5.9 5.4l-2 116.4c0 3.1 2.5 6 5.6 6.1l41.3.3c3.3 0 5.9-2.3 5.9-5.4l2-116.4c-.1-3-2.5-6-5.7-6.1zm12.4.3c1.2 2.7 1.3 4.5 1.2 7.3l2.9-2.6c-1.4-1.5-2.8-3.1-4.1-4.7zm-53.6-8.6c13.8.1 27.6.1 41.4.3 3.1.1 6 1.2 8.3 3.1-12.4-17.7-17.7-39.6-12.7-65.7 5.4-28 22.8-60.8 56.6-98.5 13.5-15.1 26.6-28.3 40-43.8-13-6.2-14.6-27.4-3.9-36.6l-31.8-40.6c-6.5-10.8-2.6-20 7.7-26.4 8.4-5.3 21.6-9 36.8-11.3 2.7-4.3 7.5-7.6 13.5-10 13.7-5.4 34.4-5.4 48 0 5.6 2.2 10.1 5.2 12.9 9 4.7.5 9.3 1.2 13.6 2h189c8.6-14.1 17.3-29.1 26.2-45.2 1-1.9 3.5-2.6 5.4-1.6l34 18.8c1.9 1 2.6 3.5 1.6 5.4-16.3 29.5-29.3 56-41.6 81.6v230.9c0 2.2-1.8 4-4 4h-111.3l-2.4 8.2c12.2-5 28-5.7 36.7 2.2 4.1 3.7 5.8 8.8 4.6 14.1 14.1-6.5 28-6.2 37.1-2.1 6.7 3.1 11.9 8.7 11.3 16.2-.4 5.8-4.4 12.1-13.2 17.9-6.8 4.5-16.2 11-27 18.4-44.6 30.6-114.1 78.2-139.4 85.2-.2.1-.5.1-.7.1-42.8 3.9-144.7-2.7-185.6 1.3-2.4 4.5-7.1 7.2-12.4 7.1-13.8-.1-27.6-.1-41.4-.3-7.6-.1-13.5-6.8-13.4-14.1.7-38.8 1.3-77.6 2-116.4.3-7.5 6.5-13.2 14.1-13.2z"
+              />
             </g>
           </svg>
-          <span class="nav-text">Solicitações</span>
+          <span class="nav-text">Crédito</span>
         </a>
-        <a class="nav-item" href="myWork.html">
+
+        <!-- Serviços -->
+        <a class="nav-item" href="service.html">
           <svg
-            class="material-icons"
-            fill="none"
-            height="24"
-            viewbox="0 0 24 24"
-            width="24"
+            id="Layer_1"
+            enable-background="new 0 0 512 512"
+            viewBox="0 0 512 512"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <g clip-rule="evenodd" fill-rule="evenodd">
+              <path
+                d="m243.31 77.16h27.38c7.99 0 14.54 6.52 14.54 14.54v10.63c0 6.69 4.34 12.33 10.77 14.06 12.84 3.43 25 8.5 36.26 15.02 5.75 3.34 12.81 2.41 17.55-2.32l7.54-7.51c5.64-5.67 14.88-5.67 20.55 0l19.36 19.36c5.67 5.64 5.67 14.88 0 20.55l-7.54 7.54c-4.71 4.71-5.64 11.76-2.3 17.55 6.49 11.25 11.59 23.41 15.02 36.25 1.73 6.43 7.37 10.77 14.03 10.77h10.66c7.99 0 14.54 6.52 14.54 14.54v27.38c0 7.99-6.55 14.54-14.54 14.54h-10.66c-6.66 0-12.3 4.34-14.03 10.77-3.43 12.84-8.53 25-15.02 36.26-3.34 5.75-2.41 12.81 2.3 17.55l7.54 7.54c5.67 5.64 5.67 14.88 0 20.55l-19.36 19.36c-5.67 5.67-14.91 5.67-20.55 0l-7.54-7.54c-4.73-4.71-11.76-5.64-17.55-2.3-11.25 6.49-23.41 11.59-36.26 15.02-6.43 1.73-10.77 7.37-10.77 14.03v10.66c0 7.99-6.55 14.54-14.54 14.54h-27.38c-8.02 0-14.54-6.55-14.54-14.54v-10.66c0-6.66-4.34-12.3-10.77-14.03-12.84-3.43-25-8.53-36.26-15.02-5.78-3.34-12.84-2.41-17.55 2.3l-7.54 7.54c-5.67 5.67-14.88 5.67-20.55 0l-19.36-19.36c-5.67-5.67-5.67-14.91 0-20.55l7.51-7.54c4.73-4.73 5.67-11.76 2.32-17.55-6.52-11.25-11.59-23.41-15.02-36.26-1.73-6.43-7.37-10.77-14.06-10.77h-10.63c-8.02 0-14.54-6.55-14.54-14.54v-27.38c0-8.02 6.52-14.54 14.54-14.54h10.63c6.69 0 12.33-4.34 14.06-10.77 3.43-12.84 8.5-25 15.02-36.25 3.34-5.78 2.41-12.84-2.32-17.55l-7.51-7.54c-5.67-5.67-5.67-14.91 0-20.55l19.36-19.36c5.64-5.67 14.88-5.67 20.55 0l7.54 7.51c4.71 4.73 11.76 5.67 17.55 2.32 11.25-6.52 23.41-11.59 36.26-15.02 6.43-1.73 10.77-7.37 10.77-14.06v-10.63c-.01-8.02 6.51-14.54 14.54-14.54z"
+                fill="#8c9eff"
+              />
+              <path
+                d="m257.25 156.58c57.88 0 104.8 46.91 104.8 104.8s-46.91 104.83-104.8 104.83c-57.91 0-104.83-46.94-104.83-104.83s46.92-104.8 104.83-104.8z"
+                fill="#80d8ff"
+              />
+              <path
+                d="m353.29 219.4c5.64 12.87 8.76 27.07 8.76 41.98 0 57.88-46.91 104.83-104.8 104.83-32.26 0-61.11-14.57-80.33-37.5-5.64-12.84-8.76-27.04-8.76-41.98 0-57.88 46.91-104.8 104.8-104.8 32.26 0 61.11 14.57 80.33 37.47z"
+                fill="#c9f0fe"
+              />
+              <path
+                d="m214.34 260.87c11.68 3.57 21.34 11.88 26.59 22.9-12.22 17.49-32.77 27.21-54.03 25.57-21.23-1.62-40.05-14.37-49.44-33.53 35.58 4.11 45.44-24.55 76.88-14.94z"
+                fill="#00d391"
+              />
+              <path
+                d="m238.15 287.46c-13.8 17.52-35.35 23.1-51.25 21.88-18.99-1.45-37.56-15.22-47.65-31.07 15.98 11.86 81.92-12.27 98.9 9.19z"
+                fill="#00f4a8"
+              />
+              <path
+                d="m317.91 251.74c-11.11 5.07-19.56 14.6-23.3 26.22 14.43 15.7 36.08 22.62 56.92 18.2 20.86-4.45 37.81-19.59 44.59-39.8-34.72 8.79-48.3-18.31-78.21-4.62z"
+                fill="#00d391"
+              />
+              <path
+                d="m298.36 281.71c13.75 10.23 36.08 18.08 53.18 14.46 17.15-3.66 31.78-20.55 40.17-35.52-19.23 7.25-80.43 1.24-93.35 21.06z"
+                fill="#00f4a8"
+              />
+              <path
+                d="m278.68 234.42c4.05 11.51 3.03 24.21-2.75 34.95-21.32.51-41.3-10.29-52.55-28.4-11.25-18.08-12.1-40.82-2.24-59.7 17.74 31.1 46.69 22.09 57.54 53.15z"
+                fill="#00d391"
+              />
+              <path
+                d="m273.92 269.4c-14.17-4.05-42.55-15.56-50.54-28.43-9.69-15.56-7.37-36.2-1.47-53.21 1.02 18.57 57.91 51.99 52.01 81.64z"
+                fill="#00f4a8"
+              />
+            </g>
             <path
-              d="M21.6698 14.3L21.2698 19.3C21.1198 20.83 20.9998 22 18.2898 22H5.70977C2.99977 22 2.87977 20.83 2.72977 19.3L2.32977 14.3C2.24977 13.47 2.50977 12.7 2.97977 12.11C2.98977 12.1 2.98977 12.1 2.99977 12.09C3.54977 11.42 4.37977 11 5.30977 11H18.6898C19.6198 11 20.4398 11.42 20.9798 12.07C20.9898 12.08 20.9998 12.09 20.9998 12.1C21.4898 12.69 21.7598 13.46 21.6698 14.3Z"
-              stroke="#0F0F0F"
-              stroke-miterlimit="10"
-              stroke-width="2"
-            ></path>
-            <path
-              d="M3.5 11.4303V6.28027C3.5 2.88027 4.35 2.03027 7.75 2.03027H9.02C10.29 2.03027 10.58 2.41027 11.06 3.05027L12.33 4.75027C12.65 5.17027 12.84 5.43027 13.69 5.43027H16.24C19.64 5.43027 20.49 6.28027 20.49 9.68027V11.4703"
-              opacity="0.4"
-              stroke="#0F0F0F"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-miterlimit="10"
-              stroke-width="2"
-            ></path>
-            <path
-              d="M9.42969 17H14.5697"
-              opacity="0.4"
-              stroke="#0F0F0F"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-miterlimit="10"
-              stroke-width="2"
-            ></path>
+              d="m472.15 226.49c-.62-3.8 1.96-7.4 5.78-7.99 3.8-.62 7.4 1.96 7.99 5.75 4.56 27.92 3.97 56.41-1.67 84.02-.77 3.77-4.48 6.21-8.25 5.44s-6.21-4.45-5.44-8.22c5.33-26.02 5.9-52.7 1.59-79zm-13.98 119.31c1.47-3.54 5.56-5.24 9.13-3.77s5.24 5.58 3.77 9.13c-32.88 79.09-107.43 133.91-192.64 141.68-3.83.37-7.23-2.47-7.57-6.29-.34-3.86 2.47-7.23 6.32-7.6 80.08-7.32 150.04-58.83 180.99-133.15zm-221.35 133.11c3.83.34 6.66 3.74 6.32 7.57s-3.74 6.66-7.57 6.32c-38.89-3.57-76.73-17.21-109.05-39.12l1.96 6.55c1.08 3.71-1.05 7.6-4.73 8.67-3.71 1.08-7.6-1.02-8.67-4.73l-9.5-32.12c-1.47-4.99 2.95-10.23 8.73-8.65l32.15 7.74c3.74.88 6.07 4.65 5.16 8.39-.88 3.74-4.65 6.07-8.39 5.16l-7.74-1.84c30.23 20.27 65.13 32.66 101.33 36.06zm148.7-415.47c-1.08-3.71 1.02-7.6 4.73-8.67 3.69-1.11 7.57 1.02 8.67 4.73l9.5 32.09c1.45 5.02-2.95 10.23-8.73 8.67l-32.15-7.74c-3.74-.91-6.07-4.65-5.19-8.39.91-3.74 4.65-6.07 8.42-5.19l7.74 1.87c-30.13-20.21-65.28-32.74-101.34-36.06-3.86-.34-6.66-3.74-6.32-7.57.34-3.85 3.74-6.69 7.57-6.32 38.86 3.57 76.71 17.18 109.02 39.12zm-343.67 233.71c.6 3.83-1.98 7.4-5.78 8.02s-7.4-1.96-8.02-5.75c-3.94-24.24-4-48.61-.34-72.74.57-3.83 4.14-6.46 7.97-5.9 3.83.6 6.43 4.14 5.87 7.97-3.5 22.97-3.47 45.47.3 68.4zm9.89-108.68c-1.3 3.63-5.3 5.53-8.96 4.22-3.63-1.3-5.53-5.3-4.22-8.93 18.37-51.5 54.28-94.98 102.44-122.79v-.03c29.14-16.81 61.46-27.1 94.56-30.13 3.83-.34 7.23 2.49 7.57 6.32s-2.49 7.23-6.32 7.57c-31.12 2.86-61.34 12.47-88.81 28.35v-.03c-45.52 26.56-78.83 66.56-96.26 115.45zm222.27 169.29c1.25-23.9-12.67-50.4-32.6-63.41-16.64 18.43-42.21 26.25-66.36 20.13 21.17 32.71 59.81 50.03 98.96 43.28zm-46.01-69.65c-8.82-2.49-17.92-2.01-26.76 2.24-3.49 1.67-7.65.2-9.3-3.29-1.67-3.46-.2-7.63 3.29-9.3 9.33-4.48 18.77-5.84 27.92-4.82-3.26-2.35-6.92-4.22-10.83-5.41-23.84-7.28-35.18 12.87-62.08 15.42 19.34 23.7 55.05 26.45 77.76 5.16zm19.59-6.35c7.68 4.73 14.49 11 20.21 18.11.88-7.63.85-15.79-.14-23.84-47.54-4.85-74.49-56.27-52.7-97.99 2.58-4.93 9.58-4.96 12.25-.23h.03c16.36 28.72 45.95 19.7 58.05 54.31 4.71 13.41 3.54 28.06-3.2 40.56-.17.34-.4.68-.62.99.26 1.96.45 3.91.6 5.9 1.08-1.19 2.24-2.32 3.4-3.43 1.13-1.05 2.27-2.04 3.49-3 2.18-5.7 5.36-10.89 9.35-15.36 4.59-5.22 10.29-9.44 16.72-12.39 15.68-7.2 27.1-4.88 38.55-1.11-8.14-46.32-48.5-80.7-96.32-80.7-55.98 0-100.57 46.8-97.68 103.07 4.88-1.64 9.27-3.86 13.55-6.01 12.59-6.35 24.26-12.25 43.26-6.46 13.55 4.17 24.77 13.8 30.84 26.62.16.31.27.62.36.96zm17.17-20.24c-2.75-9.58-7.03-18.14-12.93-24.18-2.69-2.75-2.64-7.17.14-9.86 2.75-2.69 7.17-2.64 9.86.14 4.99 5.13 9.07 11.51 12.22 18.62-.23-3.23-.88-6.43-1.96-9.52-8.28-23.67-30.81-20.32-49.12-40.9-7.73 29.85 11.46 60.03 41.79 65.7zm51.31-.85c8.28-1.42 16.87-.91 25.26 2.01 3.63 1.28 5.56 5.24 4.28 8.9-1.25 3.63-5.24 5.56-8.87 4.28-10.46-3.63-21.52-2.04-31.04 2.92 24.95 20.04 61.94 13.58 78.66-13.66-27.24 1.05-40.85-17.43-63.55-7.06-1.65.77-3.24 1.65-4.74 2.61zm-21.99 26.56c-4.9 4.82-8.73 10.63-10.94 16.92-2.32 6.66-2.81 13.89-.77 21.06 3.57 9.35 5.61 19.25 5.67 29.06 25-8.28 45.69-26.45 57.2-50.12-18.62 1.76-37.25-4.42-51.16-16.92zm74.29-38.09c7.51 2.04 15.82 3.03 26.05.45 5.27-1.33 10.06 3.74 8.31 8.99-6.52 19.47-21.57 34.84-40.71 41.81-16.16 43.4-57.74 72.82-104.77 72.82-23.13 0-44.62-7.03-62.45-19.08-17.75-11.96-31.86-28.89-40.39-48.81-.2-.14-.4-.26-.6-.4-9.52-6.46-17.38-15.36-22.62-26.05-2.44-4.96 1.64-10.6 7.06-9.98v-.03c2.64.31 5.1.4 7.46.34-4.39-65.03 46.89-119.62 111.54-119.62 57.18 0 104.97 43.23 111.12 99.56zm-125.06-178.98h27.38c11.88 0 21.54 9.67 21.54 21.54v10.63c0 3.54 2.15 6.38 5.58 7.31 13.29 3.54 26.02 8.84 37.93 15.7 3.06 1.79 6.6 1.3 9.1-1.19l7.54-7.54c8.39-8.39 22.05-8.39 30.47 0l19.36 19.36c8.39 8.39 8.39 22.05 0 30.47l-7.54 7.51c-2.52 2.52-2.98 6.07-1.22 9.13 6.89 11.88 12.19 24.6 15.73 37.93.91 3.4 3.77 5.58 7.29 5.58h10.66c11.88 0 21.54 9.67 21.54 21.54v27.38c0 11.88-9.67 21.54-21.54 21.54v-.03h-10.66v.03c-3.51 0-6.38 2.15-7.29 5.58-1.64 6.09-4.14 13.63-6.63 19.47h.03c-2.64 6.35-5.7 12.53-9.13 18.45-1.76 3.06-1.28 6.58 1.22 9.13v-.03l7.54 7.54c8.39 8.39 8.39 22.05 0 30.47l-19.36 19.36c-8.42 8.39-22.08 8.39-30.47 0l-7.54-7.54c-2.49-2.52-6.04-2.98-9.1-1.22-11.91 6.89-24.63 12.19-37.93 15.73-3.43.91-5.58 3.77-5.58 7.28v10.66c0 11.88-9.67 21.54-21.54 21.54h-27.38c-11.88 0-21.54-9.67-21.54-21.54v-10.66c0-3.51-2.18-6.38-5.58-7.28-13.29-3.54-26.05-8.84-37.93-15.73-3.06-1.76-6.6-1.3-9.13 1.22l-7.51 7.54c-4.2 4.2-9.72 6.29-15.25 6.29v-.03c-5.53 0-11.03-2.1-15.22-6.26l-19.36-19.36c-8.39-8.42-8.39-22.08 0-30.47l7.54-7.54c2.49-2.49 2.98-6.04 1.22-9.1-6.89-11.91-12.19-24.63-15.73-37.93-.94-3.43-3.77-5.58-7.31-5.58h-10.65c-11.88 0-21.54-9.67-21.54-21.54v-27.38c0-11.88 9.67-21.54 21.54-21.54h10.63c3.54 0 6.38-2.18 7.31-5.58 3.54-13.32 8.84-26.05 15.7-37.93 1.79-3.06 1.3-6.58-1.19-9.13l-7.54-7.51c-4.17-4.2-6.26-9.69-6.26-15.25h-.03c0-5.41 2.13-11.08 6.29-15.19v-.03l19.36-19.36c4.2-4.2 9.72-6.29 15.22-6.29v.03c5.53 0 11.06 2.1 15.25 6.26l7.51 7.54c2.52 2.49 6.07 2.98 9.13 1.19 11.85-6.86 24.69-12.16 37.93-15.7 3.4-.94 5.58-3.77 5.58-7.31h.03v-10.62h-.03c0-5.92 2.41-11.28 6.32-15.22 3.9-3.91 9.28-6.32 15.24-6.32zm27.38 14h-27.38c-2.07 0-3.97.85-5.33 2.21-1.39 1.39-2.21 3.2-2.21 5.33h-.03v10.63h.03c0 9.84-6.49 18.28-15.99 20.81-12.16 3.26-23.7 8.05-34.53 14.31-8.5 4.9-19.08 3.54-26.02-3.4l-7.54-7.54c-1.47-1.47-3.4-2.21-5.33-2.21v.03c-1.93 0-3.85.74-5.33 2.18l-19.36 19.36c-1.47 1.45-2.18 3.4-2.18 5.33h-.03c0 1.93.74 3.85 2.21 5.33l7.54 7.54-.03.03c6.94 6.94 8.33 17.46 3.43 25.99-6.24 10.77-11.06 22.39-14.32 34.53-2.52 9.5-10.97 15.99-20.81 15.99h-10.62c-4.14 0-7.54 3.4-7.54 7.54v27.38c0 4.14 3.4 7.54 7.54 7.54h10.63c9.84 0 18.28 6.49 20.81 15.99 3.26 12.13 8.08 23.73 14.32 34.53 4.9 8.5 3.54 19.08-3.4 26.02l-7.54 7.51c-2.92 2.95-2.92 7.74 0 10.66l19.36 19.36c1.5 1.5 3.43 2.24 5.33 2.24v-.03c1.96 0 3.88-.74 5.33-2.18l7.54-7.54c6.94-6.95 17.52-8.33 26.02-3.4 10.77 6.24 22.39 11.05 34.53 14.31 9.5 2.52 15.99 10.97 15.99 20.78v10.66c0 4.14 3.4 7.54 7.54 7.54h27.38c4.14 0 7.54-3.4 7.54-7.54v-10.66c0-9.81 6.49-18.26 15.99-20.78 12.13-3.26 23.73-8.08 34.53-14.31 8.5-4.93 19.08-3.54 26.02 3.4l7.51 7.51c2.95 2.95 7.74 2.95 10.66 0l19.36-19.36c2.95-2.92 2.95-7.71 0-10.66l-7.51-7.51v-.03c-6.94-6.94-8.33-17.49-3.4-25.99 3.09-5.36 5.87-10.97 8.28-16.81h.03c2.35-5.67 4.37-11.59 6.01-17.74 2.52-9.47 10.97-15.96 20.78-15.96v.03h10.66v-.03c4.14 0 7.54-3.4 7.54-7.54v-27.38c0-4.14-3.4-7.54-7.54-7.54h-10.66c-9.81 0-18.26-6.49-20.78-15.99-3.26-12.13-8.08-23.75-14.31-34.53-4.93-8.5-3.54-19.08 3.4-26.02l7.51-7.54c2.95-2.92 2.95-7.71 0-10.66l-19.36-19.36c-2.92-2.92-7.74-2.92-10.66 0l-7.51 7.54c-6.94 6.94-17.52 8.31-26.02 3.4-10.8-6.24-22.39-11.06-34.55-14.31-9.47-2.52-15.96-10.97-15.96-20.81v-10.64c-.03-4.14-3.43-7.54-7.57-7.54z"
+            />
           </svg>
-          <span class="nav-text">My Work</span>
+          <span class="nav-text">Serviços</span>
         </a>
+
+        <!-- Minha Conta -->
         <a class="nav-item active" href="account.html">
           <svg
-            class="material-icons person-icon"
-            fill="none"
-            height="24"
-            viewbox="0 0 24 24"
-            width="24"
+            id="Capa_1"
+            enable-background="new 0 0 512 512"
+            viewBox="0 0 512 512"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M18.1404 21.6198C17.2604 21.8798 16.2204 21.9998 15.0004 21.9998H9.00035C7.78035 21.9998 6.74035 21.8798 5.86035 21.6198C6.08035 19.0198 8.75035 16.9697 12.0004 16.9697C15.2504 16.9697 17.9204 19.0198 18.1404 21.6198Z"
-              opacity="0.4"
-              stroke="#6218FF"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            ></path>
-            <path
-              d="M22 9V15C22 18.78 20.86 20.85 18.14 21.62C17.26 21.88 16.22 22 15 22H9C7.78 22 6.74 21.88 5.86 21.62C3.14 20.85 2 18.78 2 15V9C2 4 4 2 9 2H15C20 2 22 4 22 9Z"
-              stroke="#6218FF"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            ></path>
-            <path
-              d="M15.5799 10.58C15.5799 12.56 13.9799 14.17 11.9999 14.17C10.0199 14.17 8.41992 12.56 8.41992 10.58C8.41992 8.60002 10.0199 7 11.9999 7C13.9799 7 15.5799 8.60002 15.5799 10.58Z"
-              opacity="0.4"
-              stroke="#6218FF"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-            ></path>
+            <g>
+              <g>
+                <path
+                  d="m17.319 74.967v401.213c0 19.782 16.037 35.819 35.82 35.819h347.267c19.783 0 35.82-16.037 35.82-35.819v-401.213l-214.604-8.968z"
+                  fill="#f7ebeb"
+                />
+              </g>
+              <g>
+                <path
+                  d="m405.319 65.999v379.276c0 19.782-16.037 35.819-35.82 35.819h-347.266c-1.563 0-3.099-.111-4.609-.305 2.263 17.604 17.294 31.211 35.514 31.211h347.267c19.783 0 35.82-16.037 35.82-35.819v-401.214z"
+                  fill="#f2e1e1"
+                />
+              </g>
+              <g>
+                <path
+                  d="m436.224 74.967v-39.148c0-19.782-16.037-35.819-35.819-35.819h-347.267c-19.783 0-35.82 16.037-35.82 35.819v39.148z"
+                  fill="#0094ff"
+                />
+              </g>
+              <g>
+                <path
+                  d="m400.405 0h-30.905c19.783 0 35.82 16.037 35.82 35.819v39.148h30.905v-39.148c-.001-19.782-16.038-35.819-35.82-35.819z"
+                  fill="#0083ff"
+                />
+              </g>
+              <g>
+                <g>
+                  <g>
+                    <path
+                      d="m250.764 203.371c0 28.62-12.648 54.287-32.659 71.714l-62.095 3.562-62.713-3.562c-20.011-17.428-32.659-43.094-32.659-71.715 0-52.502 42.561-95.063 95.063-95.063s95.063 42.562 95.063 95.064z"
+                      fill="#ffd250"
+                    />
+                  </g>
+                  <g>
+                    <path
+                      d="m160.845 108.448c39.797 11.352 68.935 47.985 68.935 91.426 0 23.054-8.208 44.189-21.859 60.648l3.33 11.538 6.85 3.021c20.012-17.427 32.663-43.089 32.663-71.709 0-50.777-39.81-92.252-89.919-94.924z"
+                      fill="#ffc433"
+                    />
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <path
+                      d="m157.555 296.442c23.882 0 54.26-20.567 54.26-20.567l-2.541-17.02c-12.131-16.399-31.608-27.033-53.573-27.033-28.564 0-52.92 17.984-62.387 43.243 10.37 9.032 22.729 15.86 36.314 19.737 0 .001 18.878 1.64 27.927 1.64z"
+                      fill="#00a8ff"
+                    />
+                  </g>
+                  <g>
+                    <path
+                      d="m129.612 294.799c8.289 2.365 17.04 3.635 26.089 3.635 23.882 0 45.689-8.826 62.387-23.369-2.187-5.836-5.178-11.276-8.823-16.204-17.412 21.976-44.332 36.075-74.548 36.075-1.713.001-3.415-.048-5.105-.137z"
+                      fill="#0094ff"
+                    />
+                  </g>
+                </g>
+                <g>
+                  <path
+                    d="m116.469 204.083v9.414c0 21.838 17.703 39.541 39.541 39.541 21.838 0 39.541-17.703 39.541-39.541v-9.414l-39.541-26.24z"
+                    fill="#ca6e59"
+                  />
+                </g>
+                <g>
+                  <path
+                    d="m156.01 151.602c-21.838 0-39.541 17.703-39.541 39.541v12.94l12.479-3.579c8.134-2.333 21.214-10.398 25.586-13.177.891-.567 2.041-.503 2.876.144 7.201 5.579 13.746 9.806 21.957 12.097l16.183 4.515v-12.94c.001-21.838-17.703-39.541-39.54-39.541z"
+                    fill="#518e9a"
+                  />
+                </g>
+              </g>
+              <g>
+                <circle cx="413.374" cy="388.075" fill="#00d8a2" r="81.308" />
+              </g>
+              <g>
+                <path
+                  d="m413.374 306.767c-5.286 0-10.448.522-15.453 1.485 37.512 7.22 65.855 40.204 65.855 79.823s-28.343 72.602-65.855 79.822c5.005.963 10.167 1.485 15.453 1.485 44.905 0 81.308-36.402 81.308-81.307s-36.403-81.308-81.308-81.308z"
+                  fill="#00c4a4"
+                />
+              </g>
+              <g>
+                <path
+                  d="m461.331 365.855-15.074-15.074c-3.182-3.182-8.34-3.182-11.522 0l-30.578 30.578c-1.553 1.553-4.071 1.553-5.625 0l-6.52-6.52c-3.182-3.182-8.34-3.182-11.522 0l-15.074 15.074c-3.182 3.182-3.182 8.34 0 11.522l18.191 18.923c4.542 4.725 10.814 7.396 17.368 7.396 6.389 0 12.517-2.538 17.035-7.056l43.321-43.321c3.182-3.182 3.182-8.34 0-11.522z"
+                  fill="#fff5f5"
+                />
+              </g>
+              <g>
+                <path
+                  d="m380.426 178.648h-97.558c-5.246 0-9.499-4.253-9.499-9.499v-21.181c0-5.246 4.253-9.499 9.499-9.499h97.558c5.246 0 9.499 4.253 9.499 9.499v21.181c0 5.246-4.253 9.499-9.499 9.499z"
+                  fill="#00d1fd"
+                />
+              </g>
+              <g>
+                <path
+                  d="m380.426 258.436h-97.558c-5.246 0-9.499-4.253-9.499-9.499v-21.181c0-5.246 4.253-9.499 9.499-9.499h97.558c5.246 0 9.499 4.253 9.499 9.499v21.181c0 5.247-4.253 9.499-9.499 9.499z"
+                  fill="#00d1fd"
+                />
+              </g>
+              <g>
+                <path
+                  d="m283.671 332.381h-218.815c-4.267 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h218.814c4.267 0 7.726 3.459 7.726 7.726s-3.458 7.726-7.725 7.726z"
+                  fill="#69a2b3"
+                />
+              </g>
+              <g>
+                <path
+                  d="m283.671 375.528h-218.815c-4.267 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h218.814c4.267 0 7.726 3.459 7.726 7.726s-3.458 7.726-7.725 7.726z"
+                  fill="#69a2b3"
+                />
+              </g>
+              <g>
+                <path
+                  d="m283.671 418.675h-218.815c-4.267 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h218.814c4.267 0 7.726 3.459 7.726 7.726s-3.458 7.726-7.725 7.726z"
+                  fill="#69a2b3"
+                />
+              </g>
+              <g>
+                <path
+                  d="m283.671 461.823h-218.815c-4.267 0-7.726-3.459-7.726-7.726s3.459-7.726 7.726-7.726h218.814c4.267 0 7.726 3.459 7.726 7.726s-3.458 7.726-7.725 7.726z"
+                  fill="#69a2b3"
+                />
+              </g>
+              <g>
+                <path
+                  d="m329.858 46.606c-11.022.042-9.295-17.495 1.505-15.299 8.948 1.549 7.573 15.52-1.505 15.299z"
+                  fill="#fff5f5"
+                />
+              </g>
+              <g>
+                <path
+                  d="m358.518 46.606c-11.007.013-9.304-17.464 1.515-15.299 8.948 1.553 7.561 15.529-1.515 15.299z"
+                  fill="#fff5f5"
+                />
+              </g>
+              <g>
+                <path
+                  d="m387.188 46.606c-11.022.039-9.293-17.492 1.505-15.299 8.949 1.551 7.575 15.52-1.505 15.299z"
+                  fill="#fff5f5"
+                />
+              </g>
+            </g>
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
+            <g />
           </svg>
-          <span class="nav-text">Account</span>
+          <span class="nav-text">Minha Conta</span>
         </a>
+      </div>
+    </div>
+    <div id="logout-modal" class="modal-overlay">
+      <div class="modal-content">
+        <p>Tem certeza que deseja sair da conta?</p>
+        <button id="confirm-logout" class="modal-btn">Sim, sair</button>
+        <button id="cancel-logout" class="modal-btn cancel">Cancelar</button>
       </div>
     </div>
     <script src="assets/javascript/jquery.js"></script>
@@ -491,5 +992,24 @@
     <script src="assets/javascript/bootstrap.min.js"></script>
     <script src="assets/javascript/script.js"></script>
     <script src="assets/javascript/custom-popup.js"></script>
+
+    <!-- Firebase App (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+
+    <!-- Firebase Auth (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <script src="assets/js/auth.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        checkAuthState((user) => {
+          const name = user.displayName || "Usuário";
+          const email = user.email || "E-mail não disponível";
+          document.getElementById("user-name").textContent = name;
+          document.getElementById("user-email").textContent = email;
+        });
+      });
+    </script>
   </body>
 </html>

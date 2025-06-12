@@ -303,3 +303,28 @@ function updateWelcomeMessage(user) {
 //     checkAuthState(updateWelcomeMessage); // Verifica login e atualiza saudação
 //   });
 // </script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutModal = document.getElementById("logout-modal");
+  const confirmLogout = document.getElementById("confirm-logout");
+  const cancelLogout = document.getElementById("cancel-logout");
+
+  // Abre modal ao clicar em qualquer botão de logout
+  document.querySelectorAll(".logout-button").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      logoutModal.style.display = "flex";
+    });
+  });
+
+  // Confirma logout
+  confirmLogout.addEventListener("click", () => {
+    logoutModal.style.display = "none";
+    logoutUser(); // sua função do auth.js
+  });
+
+  // Cancela logout
+  cancelLogout.addEventListener("click", () => {
+    logoutModal.style.display = "none";
+  });
+});
