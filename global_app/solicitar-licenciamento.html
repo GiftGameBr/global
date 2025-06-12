@@ -547,7 +547,7 @@
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           const addedByEmail = user.email;
-
+          const clienteID = user.uid;
           document
             .getElementById("lead-form")
             .addEventListener("submit", function (e) {
@@ -602,6 +602,7 @@
                   .value.trim(),
 
                 // Metadados
+                clienteID: clienteID,
                 addedBy: addedByEmail,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 status: "inactive",

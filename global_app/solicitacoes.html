@@ -34,27 +34,35 @@
 
       /* Card com fundo imagem e sombra */
       .custom-card {
-        background-image: url("assets/images/card.jpg");
         background-size: cover;
         background-position: center;
         border: none;
         border-radius: 20px;
         padding: 20px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
         color: #fff;
         font-family: "Segoe UI", sans-serif;
         position: relative;
         overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        transform-style: preserve-3d;
-        backdrop-filter: blur(5px);
+        transition: transform 0.3s ease;
         min-height: 180px;
         box-sizing: border-box;
       }
 
+      /* Fundos específicos para cada tipo de crédito */
+      .custom-card.custeio {
+        background-image: url("assets/images/card1.jpg");
+      }
+
+      .custom-card.investimento {
+        background-image: url("assets/images/card2.jpg");
+      }
+
+      .custom-card.comercializacao {
+        background-image: url("assets/images/card3.jpg");
+      }
+
       .custom-card:hover {
         transform: scale(1.03);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
       }
 
       /* Garante que nenhum conteúdo ultrapasse o card */
@@ -1172,11 +1180,12 @@
               nomesUsuarios[data.responsavelSecundarioId] || "Não informado";
 
             const card = document.createElement("div");
-            card.className = "custom-card";
+            card.className = `custom-card ${data.tipo}`;
 
             if (isAprovadoOuConcluido) {
               card.innerHTML = `
-                      <div class="card-content" style="position: relative; background-image: url('assets/images/card.jpg'); background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
+                      <div class="card-content" style="position: relative; 
+                       background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
                         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); border-radius: 20px;"></div>
                         <div style="position: relative; z-index: 1;">
 
@@ -1296,7 +1305,7 @@
             } else {
               // layout antigo
               card.innerHTML = `
-          <div class="card-content" style="position: relative; background-image: url('assets/images/card.jpg'); background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
+          <div class="card-content" style="position: relative;  background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); border-radius: 20px;"></div>
             <div style="position: relative; z-index: 1;">
               <div class="card-header-top">
