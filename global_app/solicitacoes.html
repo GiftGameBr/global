@@ -1112,21 +1112,25 @@
           try {
             await carregarUsuarios();
 
-            const snapshot = await db
-              .collection("custeio")
-              .where("cliente_id", "==", user.uid)
-              .get();
+            const tipos = ["custeio", "investimento", "comercializacao"];
+            const promises = tipos.map((tipo) =>
+              db
+                .collection(tipo)
+                .where("cliente_id", "==", user.uid)
+                .get()
+                .then((snap) =>
+                  snap.docs.map((doc) => ({ ...doc.data(), id: doc.id, tipo }))
+                )
+            );
 
-            if (snapshot.empty) {
+            const resultados = await Promise.all(promises);
+            todasSolicitacoes = resultados.flat();
+
+            if (todasSolicitacoes.length === 0) {
               cardsContainer.innerHTML = `<div>Nenhuma solicitação encontrada</div>`;
               return;
             }
 
-            todasSolicitacoes = snapshot.docs.map((doc) => {
-              const data = doc.data();
-              data.id = doc.id; // agora cada 'data' tem o id do doc
-              return data;
-            });
             document.querySelector('[data-tab="one"]').click();
           } catch (e) {
             console.error("Erro ao carregar dados:", e);
@@ -1199,7 +1203,11 @@
                               </div>
                             </div>
                             <div class="card-title-valor" style="margin-left: auto; text-align: right;">
-                              <h4 style="color: #ccc; margin-bottom: 4px;">CRÉDITO DE CUSTEIO</h4>
+                           <h4 style="color: #ccc; margin-bottom: 4px;">
+  CRÉDITO DE ${data.tipo?.toUpperCase() || "CUSTEIO"}
+</h4>
+
+
                               <p style="background-color: #198754; padding: 4px 10px; border-radius: 5px; font-weight: bold;">
                                 R$ ${Number(
                                   data.valor_credito || 0
@@ -1257,13 +1265,14 @@
                           <div class="card-columns" style="margin-top: 16px;">
                             <div class="card-column">
                               <h4>Cadastro Aprovado</h4>
-                                <button
-    onclick="window.location.href='solicitar-custeio.html?idSolicitacao=${
-      data.id
-    }&idCliente=${data.cliente_id}&readonly=1'"
-    style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">
-    Ver Cadastro
-  </button>
+        <button
+  onclick="window.location.href='solicitar-${data.tipo}.html?idSolicitacao=${
+                data.id
+              }&idCliente=${data.cliente_id}&readonly=1'"
+  style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">
+  Ver Cadastro
+</button>
+
                             </div>
   <div class="card-column">
     <h4>Documentos Aprovados</h4>
@@ -1304,7 +1313,11 @@
                   }</p>
                 </div>
                 <div class="card-title-valor">
-                  <h4>CRÉDITO DE CUSTEIO</h4>
+                <h4 style="color: #ccc; margin-bottom: 4px;">
+  CRÉDITO DE ${data.tipo?.toUpperCase() || "CUSTEIO"}
+</h4>
+
+
                   <p>R$ ${Number(data.valor_credito || 0).toLocaleString(
                     "pt-BR",
                     {
@@ -1324,9 +1337,9 @@
                     data.status_documentacao || "pendente"
                   }</p>
                                     <button
-  onclick="window.location.href='solicitar-custeio.html?idSolicitacao=${
-    data.id
-  }'"
+  onclick="window.location.href='solicitar-${data.tipo}.html?idSolicitacao=${
+                data.id
+              }'"
   style="
     background-color: #928BFF;
     color: white;
@@ -1356,6 +1369,7 @@
 >
   Completar Cadastro
 </button>
+
 
 
                 </div>

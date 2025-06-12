@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
     firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
         const db = firebase.firestore();
-        const docRef = db.collection("custeio").doc(idSolicitacao);
+        const docRef = db.collection("comercializacao").doc(idSolicitacao);
 
         const docSnap = await docRef.get();
 
@@ -1699,7 +1699,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Atualiza a solicitação existente
           await firebase
             .firestore()
-            .collection("custeio")
+            .collection("comercializacao")
             .doc(idSolicitacao)
             .update(dados);
 
@@ -1716,7 +1716,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         } else {
           // Cria uma nova solicitação
-          await firebase.firestore().collection("custeio").add(dados);
+          await firebase.firestore().collection("comercializacao").add(dados);
 
           // Pop-up bonito de sucesso
           Swal.fire({
