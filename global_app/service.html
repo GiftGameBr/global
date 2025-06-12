@@ -34,27 +34,35 @@
 
       /* Card com fundo imagem e sombra */
       .custom-card {
-        background-image: url("assets/images/card.jpg");
         background-size: cover;
         background-position: center;
         border: none;
         border-radius: 20px;
         padding: 20px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
         color: #fff;
         font-family: "Segoe UI", sans-serif;
         position: relative;
         overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        transform-style: preserve-3d;
-        backdrop-filter: blur(5px);
+        transition: transform 0.3s ease;
         min-height: 180px;
         box-sizing: border-box;
       }
 
+      /* Fundos específicos para cada tipo de crédito */
+      .custom-card.custeio {
+        background-image: url("assets/images/card1.jpg");
+      }
+
+      .custom-card.investimento {
+        background-image: url("assets/images/card2.jpg");
+      }
+
+      .custom-card.comercializacao {
+        background-image: url("assets/images/card3.jpg");
+      }
+
       .custom-card:hover {
         transform: scale(1.03);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
       }
 
       /* Garante que nenhum conteúdo ultrapasse o card */
@@ -337,10 +345,10 @@
               class="ongoing tab-active"
               data-tab="one"
               href="javascript:void(0);"
-              >Solicitações de Crédito</a
+              >Solicitações de Serviço</a
             >
             <a class="ongoing" data-tab="two" href="javascript:void(0);"
-              >Crédito Aprovado</a
+              >Solicitações Concluidos</a
             >
             <div class="clear"></div>
           </div>
@@ -1081,343 +1089,90 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="assets/js/auth.js"></script>
     <!-- Script de autenticação -->
-
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", () => {
         const db = firebase.firestore();
         const auth = firebase.auth();
         const cardsContainer = document.getElementById("cardsContainer");
-        let todasSolicitacoes = [];
-        const nomesUsuarios = {};
+        let currentUser = null;
 
-        async function carregarUsuarios() {
-          const colecoes = ["gerentes", "agentes"];
-          for (const colecao of colecoes) {
-            const snap = await db.collection(colecao).get();
-            snap.forEach((doc) => {
-              nomesUsuarios[doc.id] =
-                doc.data().nome_completo || "Não informado";
-            });
-          }
+        function renderCard(item, tipo) {
+          return `
+            <div class="custom-card ${tipo}">
+              <div class="card-content">
+                <div class="card-header-top">
+                  <div class="card-logo">
+                    <img src="assets/images/svg/${
+                      tipo === "avaliacoes" ? "soil.svg" : "growth.svg"
+                    }" alt="${tipo}" />
+                  </div>
+                  <div class="card-title-valor">
+                    <h4>${
+                      tipo === "avaliacoes"
+                        ? "Avaliação de Imóvel"
+                        : "Licenciamento Ambiental"
+                    }</h4>
+                  </div>
+                  <div class="card-data">
+                    <p>${
+                      item.createdAt?.toDate?.().toLocaleDateString("pt-BR") ||
+                      "Data não informada"
+                    }</p>
+                  </div>
+                </div>
+                <div class="card-columns">
+                  <div class="card-column">
+                    <h4>Proponente</h4>
+                    <p>${item.proponente || "---"}</p>
+                  </div>
+                  <div class="card-column">
+                    <h4>Denominação</h4>
+                    <p>${item.denominacao || "---"}</p>
+                  </div>
+                  <div class="card-column">
+                    <h4>Status</h4>
+                    <p>${item.status || "---"}</p>
+                  </div>
+                  <div class="card-column">
+                    <h4>Área</h4>
+                    <p>${item.area || "---"} ha</p>
+                  </div>
+                </div>
+              </div>
+            </div>`;
         }
 
-        auth.onAuthStateChanged(async (user) => {
-          if (!user) {
-            cardsContainer.innerHTML = `<div>Você precisa estar logado para ver as solicitações.</div>`;
-            return;
-          }
-
-          document.getElementById("welcome-message").textContent =
-            user.displayName || "";
-
+        async function carregarAvaliacoesLicenciamento(clienteId) {
+          cardsContainer.innerHTML = "<p>Carregando solicitações...</p>";
           try {
-            await carregarUsuarios();
+            const [avaliacoesSnap, licenciamentoSnap] = await Promise.all([
+              db
+                .collection("avaliacoes")
+                .where("clienteID", "==", clienteId)
+                .get(),
+              db
+                .collection("licenciamento")
+                .where("clienteID", "==", clienteId)
+                .get(),
+            ]);
 
-            const snapshot = await db
-              .collection("custeio")
-              .where("cliente_id", "==", user.uid)
-              .get();
-
-            if (snapshot.empty) {
-              cardsContainer.innerHTML = `<div>Nenhuma solicitação encontrada</div>`;
-              return;
-            }
-
-            todasSolicitacoes = snapshot.docs.map((doc) => {
-              const data = doc.data();
-              data.id = doc.id; // agora cada 'data' tem o id do doc
-              return data;
+            let html = "";
+            avaliacoesSnap.forEach((doc) => {
+              html += renderCard(doc.data(), "avaliacoes");
             });
-            document.querySelector('[data-tab="one"]').click();
-          } catch (e) {
-            console.error("Erro ao carregar dados:", e);
-            cardsContainer.innerHTML = `<div>Erro ao carregar solicitações.</div>`;
+            licenciamentoSnap.forEach((doc) => {
+              html += renderCard(doc.data(), "licenciamento");
+            });
+
+            cardsContainer.innerHTML =
+              html || "<p>Nenhuma solicitação encontrada.</p>";
+          } catch (error) {
+            console.error("Erro ao carregar dados:", error);
+            cardsContainer.innerHTML = "<p>Erro ao carregar dados.</p>";
           }
-        });
-
-        function renderizarCards(lista) {
-          cardsContainer.innerHTML = "";
-
-          lista.forEach((data) => {
-            const status = (
-              data.status_solicitacao || "aguardando"
-            ).toLowerCase();
-            const isAprovadoOuConcluido =
-              status === "concluido" || status === "aprovado";
-
-            let statusColor = "#6c757d";
-            switch (status) {
-              case "processando":
-                statusColor = "#0d6efd";
-                break;
-              case "aprovado":
-                statusColor = "#198754";
-                break;
-              case "não aprovado":
-              case "nao aprovado":
-                statusColor = "#dc3545";
-                break;
-              case "concluído":
-              case "concluido":
-                statusColor = "#0dcaf0";
-                break;
-            }
-
-            const gerente =
-              nomesUsuarios[data.responsavelGerenteId] || "Não informado";
-            const agente =
-              nomesUsuarios[data.responsavelSecundarioId] || "Não informado";
-
-            const card = document.createElement("div");
-            card.className = "custom-card";
-
-            if (isAprovadoOuConcluido) {
-              card.innerHTML = `
-                      <div class="card-content" style="position: relative; background-image: url('assets/images/card.jpg'); background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
-                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); border-radius: 20px;"></div>
-                        <div style="position: relative; z-index: 1;">
-
-                          <div class="card-header-top" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
-                            <div class="card-logo" style="display: flex; flex-direction: column;">
-                              <img src="assets/images/svg/homeLogo.png" alt="Logo" style="max-height: 40px;" />
-                              <div style="display: flex; flex-direction: row; gap: 16px; margin-top: 8px;">
-                                <div style="font-size: 12px; color: #ccc;"><strong>Concluído:</strong><br />${
-                                  data.data_conclusao
-                                    ? new Date(
-                                        typeof data.data_conclusao === "string"
-                                          ? data.data_conclusao
-                                          : data.data_conclusao.seconds * 1000
-                                      ).toLocaleDateString("pt-BR")
-                                    : "-"
-                                }</div>
-                                <div style="font-size: 12px; color: #ccc;"><strong>Criado:</strong><br />${
-                                  data.createdAt
-                                    ? new Date(
-                                        data.createdAt.seconds * 1000
-                                      ).toLocaleDateString("pt-BR")
-                                    : "-"
-                                }</div>
-                              </div>
-                            </div>
-                            <div class="card-title-valor" style="margin-left: auto; text-align: right;">
-                              <h4 style="color: #ccc; margin-bottom: 4px;">CRÉDITO DE CUSTEIO</h4>
-                              <p style="background-color: #198754; padding: 4px 10px; border-radius: 5px; font-weight: bold;">
-                                R$ ${Number(
-                                  data.valor_credito || 0
-                                ).toLocaleString("pt-BR", {
-                                  minimumFractionDigits: 2,
-                                })}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div class="card-columns" style="margin: 16px 0 8px;">
-                            <div class="card-column">
-                              <h4 style="color: #ccc;">Gerente</h4>
-                              <p style="font-weight: bold;">${gerente}</p>
-                            </div>
-                            <div class="card-column">
-                              <h4 style="color: #ccc;">Agente</h4>
-                              <p style="font-weight: bold;">${agente}</p>
-                            </div>
-                          </div>
-
-                          <div class="card-columns" style="margin-top: 8px;">
-                         <div class="card-column">
-  <h4>Status do Contrato:</h4>
-  <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">
-    ${data.status_pagamento || "Aguardando assinatura"}
-  </p>
-  <button
-    style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1; margin-top: 8px;"
-    onclick="window.location.href='contrato.html?idSolicitacao=${
-      data.id
-    }&idCliente=${data.cliente_id}'"
-  >
-    Ver Contrato
-  </button>
-</div>
-
-                       <div class="card-column">
-  <h4>Status do Boleto:</h4>
-  <p style="background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px;">
-    ${data.tipo_fatura || "Aguardando emissão"}
-  </p>
-  <button
-    style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1; margin-top: 8px;"
-    onclick="window.location.href='boletos.html?idSolicitacao=${
-      data.id
-    }&idCliente=${data.cliente_id}'"
-  >
-    Ver Boletos
-  </button>
-</div>
-
-                          </div>
-
-                          <div class="card-columns" style="margin-top: 16px;">
-                            <div class="card-column">
-                              <h4>Cadastro Aprovado</h4>
-                                <button
-    onclick="window.location.href='solicitar-custeio.html?idSolicitacao=${
-      data.id
-    }&idCliente=${data.cliente_id}&readonly=1'"
-    style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;">
-    Ver Cadastro
-  </button>
-                            </div>
-  <div class="card-column">
-    <h4>Documentos Aprovados</h4>
-    <button
-      style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer; opacity: 1;"
-      onclick="window.location.href='upload-documentos.html?idSolicitacao=${
-        data.id
-      }&idCliente=${data.cliente_id}&aba=aprovados'">
-      Ver Documentos
-    </button>
-  </div>
-
-                          </div>
-
-                          <div style="background-color: ${statusColor}; color: white; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 13px; text-align: center; margin-top: 20px;">
-                            ${data.status_solicitacao || "Concluído"}
-                          </div>
-
-                        </div>
-                      </div>`;
-            } else {
-              // layout antigo
-              card.innerHTML = `
-          <div class="card-content" style="position: relative; background-image: url('assets/images/card.jpg'); background-size: cover; background-position: center; border-radius: 20px; padding: 24px;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); border-radius: 20px;"></div>
-            <div style="position: relative; z-index: 1;">
-              <div class="card-header-top">
-                <div class="card-logo">
-                  <img src="assets/images/svg/homeLogo.png" alt="Logo" />
-                </div>
-                <div class="card-data">
-                  <p>${
-                    data.createdAt
-                      ? new Date(
-                          data.createdAt.seconds * 1000
-                        ).toLocaleDateString("pt-BR")
-                      : ""
-                  }</p>
-                </div>
-                <div class="card-title-valor">
-                  <h4>CRÉDITO DE CUSTEIO</h4>
-                  <p>R$ ${Number(data.valor_credito || 0).toLocaleString(
-                    "pt-BR",
-                    {
-                      minimumFractionDigits: 2,
-                    }
-                  )}</p>
-                </div>
-              </div>
-
-              <div class="card-columns">
-                <div class="card-column">
-                  <h4>Completar Cadastro</h4>
-                  <div style="width: 100%; background-color: #3a3a3a; border-radius: 6px; overflow: hidden; height: 12px; margin-bottom: 6px;">
-                    <div style="width: 100%; background-color: #198754; height: 100%; transition: width 0.4s;"></div>
-                  </div>
-                  <p style="margin: 0; font-size: 12px; color: #ccc;">Verificação: ${
-                    data.status_documentacao || "pendente"
-                  }</p>
-                                    <button
-  onclick="window.location.href='solicitar-custeio.html?idSolicitacao=${
-    data.id
-  }'"
-  style="
-    background-color: #928BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 4px 10px;
-    font-size: 12px;
-    cursor: ${
-      data.status_documentacao === "verificado" ||
-      data.status_documentacao === "processando"
-        ? "not-allowed"
-        : "pointer"
-    };
-    opacity: ${
-      data.status_documentacao === "verificado" ||
-      data.status_documentacao === "processando"
-        ? 0.5
-        : 1
-    };
-  "
-  ${
-    data.status_documentacao === "verificado" ||
-    data.status_documentacao === "processando"
-      ? "disabled"
-      : ""
-  }
->
-  Completar Cadastro
-</button>
-
-
-                </div>
-
-                <div class="card-column">
-                  <h4>Enviar Documentos</h4>
-                  <div style="width: 100%; background-color: #3a3a3a; border-radius: 6px; overflow: hidden; height: 12px; margin-bottom: 6px;">
-                    <div style="width: 100%; background-color: #198754; height: 100%; transition: width 0.4s;"></div>
-                  </div>
-                  <p style="margin: 0; font-size: 12px; color: #ccc;">Verificação: ${
-                    data.status_documentacao || "pendente"
-                  }</p>
-                  <button
-  class="btn-upload-documento"
-  style="background-color: #928BFF; color: white; border: none; border-radius: 5px; padding: 4px 10px; font-size: 12px; cursor: ${
-    data.status_documentacao === "verificado" ||
-    data.status_documentacao === "processando"
-      ? "not-allowed"
-      : "pointer"
-  }; opacity: ${
-                data.status_documentacao === "verificado" ||
-                data.status_documentacao === "processando"
-                  ? 0.5
-                  : 1
-              };"
-  ${
-    data.status_documentacao === "verificado" ||
-    data.status_documentacao === "processando"
-      ? "disabled"
-      : ""
-  }
-  onclick="window.location.href='upload-documentos.html?idSolicitacao=${
-    data.id
-  }&idCliente=${data.cliente_id}'"
->
-  Enviar Documentos
-</button>
-
-
-                </div>
-              </div>
-
-              <div style="background-color: ${statusColor}; color: white; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 13px; text-align: center; margin-top: 16px;">
-                ${data.status_solicitacao || "Aguardando Documentação"}
-              </div>
-            </div>
-          </div>`;
-            }
-
-            cardsContainer.appendChild(card);
-          });
         }
 
-        function ordenarPorDataDesc(lista) {
-          return lista.sort((a, b) => {
-            const dataA = a.data_solicitacao?.toDate?.() || new Date(0);
-            const dataB = b.data_solicitacao?.toDate?.() || new Date(0);
-            return dataB - dataA;
-          });
-        }
-
+        // Aba de "Avaliação & Licenciamento"
         document
           .querySelector('[data-tab="one"]')
           .addEventListener("click", () => {
@@ -1427,34 +1182,20 @@
             document
               .querySelector('[data-tab="one"]')
               .classList.add("tab-active");
-
-            const filtradas = todasSolicitacoes.filter((s) => {
-              const status = (s.status_solicitacao || "").toLowerCase();
-              return status !== "concluido" && status !== "aprovado";
-            });
-
-            renderizarCards(ordenarPorDataDesc(filtradas));
+            if (currentUser) carregarAvaliacoesLicenciamento(currentUser.uid);
           });
 
-        document
-          .querySelector('[data-tab="two"]')
-          .addEventListener("click", () => {
-            document
-              .querySelectorAll(".ongoing")
-              .forEach((btn) => btn.classList.remove("tab-active"));
-            document
-              .querySelector('[data-tab="two"]')
-              .classList.add("tab-active");
-
-            const filtradas = todasSolicitacoes.filter((s) => {
-              const status = (s.status_solicitacao || "").toLowerCase();
-              return status === "concluido" || status === "aprovado";
-            });
-
-            renderizarCards(ordenarPorDataDesc(filtradas));
-          });
-
-        document.querySelector('[data-tab="one"]').click();
+        // Verifica se usuário está logado
+        auth.onAuthStateChanged((user) => {
+          if (!user) {
+            cardsContainer.innerHTML = `<div>Você precisa estar logado para ver as solicitações.</div>`;
+            return;
+          }
+          currentUser = user;
+          document.getElementById("welcome-message").textContent =
+            user.displayName || "Usuário";
+          document.querySelector('[data-tab="one"]').click();
+        });
       });
     </script>
   </body>
