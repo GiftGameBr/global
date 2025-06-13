@@ -1245,20 +1245,34 @@ async function carregarAvaliacoesLicenciamento(clienteId) {
         .get(),
     ]);
 
+    let allRequests = [];
+
+    avaliacoesSnap.forEach((doc) => {
+      let data = doc.data();
+      data.id = doc.id;
+      data.tipo = "avaliacoes"; // Adiciona o tipo para facilitar a renderização
+      allRequests.push(data);
+    });
+
+    licenciamentoSnap.forEach((doc) => {
+      let data = doc.data();
+      data.id = doc.id;
+      data.tipo = "licenciamento"; // Adiciona o tipo para facilitar a renderização
+      allRequests.push(data);
+    });
+
+    // Ordena as solicitações pelas mais novas primeiro
+    allRequests.sort((a, b) => {
+      const dateA = a.createdAt?.toDate?.() || new Date(0);
+      const dateB = b.createdAt?.toDate?.() || new Date(0);
+      return dateB - dateA; // Mais novas primeiro
+    });
+
     let html = "";
     let index = 0;
-
-avaliacoesSnap.forEach((doc) => {
-  let data = doc.data();
-  data.id = doc.id; // adiciona o ID ao objeto
-  html += renderCard(data, "avaliacoes", index++);
-});
-
-licenciamentoSnap.forEach((doc) => {
-  let data = doc.data();
-  data.id = doc.id; // adiciona o ID ao objeto
-  html += renderCard(data, "licenciamento", index++);
-});
+    allRequests.forEach((item) => {
+      html += renderCard(item, item.tipo, index++);
+    });
 
     cardsContainer.innerHTML = html || "<p>Nenhuma solicitação encontrada.</p>";
   } catch (error) {
@@ -1283,19 +1297,33 @@ async function carregarConcluidos(clienteId) {
         .get(),
     ]);
 
-    let html = "";
-    let index = 0;
+    let allRequests = [];
 
     avaliacoesSnap.forEach((doc) => {
       let data = doc.data();
-      data.id = doc.id; // ✅ Adiciona o ID do documento ao objeto
-      html += renderCard(data, "avaliacoes", index++);
+      data.id = doc.id;
+      data.tipo = "avaliacoes";
+      allRequests.push(data);
     });
 
     licenciamentoSnap.forEach((doc) => {
       let data = doc.data();
-      data.id = doc.id; // ✅ Adiciona o ID do documento ao objeto
-      html += renderCard(data, "licenciamento", index++);
+      data.id = doc.id;
+      data.tipo = "licenciamento";
+      allRequests.push(data);
+    });
+
+    // Ordena as solicitações pelas mais novas primeiro
+    allRequests.sort((a, b) => {
+      const dateA = a.createdAt?.toDate?.() || new Date(0);
+      const dateB = b.createdAt?.toDate?.() || new Date(0);
+      return dateB - dateA; // Mais novas primeiro
+    });
+
+    let html = "";
+    let index = 0;
+    allRequests.forEach((item) => {
+      html += renderCard(item, item.tipo, index++);
     });
 
     cardsContainer.innerHTML = html || "<p>Nenhuma solicitação concluída encontrada.</p>";
@@ -1375,6 +1403,7 @@ function deletarSolicitacao(docId, tipo) {
   }
 
 </script>
+
 
   </body>
 </html>
