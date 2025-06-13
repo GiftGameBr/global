@@ -1686,13 +1686,16 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
-      // Adiciona os campos fixos
-      dados.status = "inactive";
-      dados.status_documentacao = "pendente";
-      dados.status_solicitacao = "aguardando";
-      dados.createdAt = firebase.firestore.Timestamp.now();
-      dados.cliente_id = user.uid;
-      dados.addedBy = user.email;
+      // **Lógica de adição apenas para nova solicitação (não para edição)**
+      if (!idSolicitacao) {
+        // Adiciona os campos fixos **somente ao criar**
+        dados.status = "inactive";
+        dados.status_documentacao = "pendente";
+        dados.status_solicitacao = "aguardando";
+        dados.createdAt = firebase.firestore.Timestamp.now();
+        dados.cliente_id = user.uid;
+        dados.addedBy = user.email;
+      }
 
       try {
         if (idSolicitacao) {
