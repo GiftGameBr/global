@@ -12,7 +12,7 @@
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/media_query.css" rel="stylesheet" />
     <link href="assets/css/custom-popup.css" rel="stylesheet" />
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
       /* Espaçamento principal da área */
       .wrapper {
@@ -1424,6 +1424,14 @@
               <div style="background-color: ${statusColor}; color: white; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 13px; text-align: center; margin-top: 16px;">
                 ${data.status_solicitacao || "Aguardando Documentação"}
               </div>
+              <div style="margin-top: 16px;">
+<button
+  class="w-100 text-center"
+  onclick="deletarSolicitacao('${data.id}', '${data.tipo}')"
+  style="background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 6px 12px; font-size: 13px; cursor: pointer;">
+  Deletar Solicitação
+</button>
+</div>
             </div>
           </div>`;
             }
@@ -1478,6 +1486,44 @@
 
         document.querySelector('[data-tab="one"]').click();
       });
+
+      function deletarSolicitacao(docId, tipo) {
+        Swal.fire({
+          title: "Tem certeza?",
+          text: "Essa ação é irreversível.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sim, excluir",
+          cancelButtonText: "Cancelar",
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            firebase
+              .firestore()
+              .collection(tipo) // usa o tipo correto da coleção
+              .doc(docId)
+              .delete()
+              .then(() => {
+                Swal.fire(
+                  "Excluído!",
+                  "Solicitação removida com sucesso.",
+                  "success"
+                ).then(() => {
+                  location.reload();
+                });
+              })
+              .catch((error) => {
+                console.error("Erro ao excluir:", error);
+                Swal.fire(
+                  "Erro",
+                  "Não foi possível excluir o documento.",
+                  "error"
+                );
+              });
+          }
+        });
+      }
     </script>
   </body>
 </html>
