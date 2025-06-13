@@ -491,8 +491,12 @@
             </div>
 
             <div class="text-center mt-4">
-              <button type="submit" class="btn main-bg-color-btn w-100">
-                Solicitar Avaliação de Imóveis
+              <button
+                type="submit"
+                class="btn main-bg-color-btn w-100"
+                id="lead-form-submit"
+              >
+                Solicitar Licenciamento Ambiental
               </button>
             </div>
           </form>
@@ -520,7 +524,10 @@
 
     <script>
       const db = firebase.firestore();
+      const urlParams = new URLSearchParams(window.location.search);
+      const idEdicao = urlParams.get("id"); // se houver ?id=xxxx
 
+      // Função para capturar coordenadas GPS
       function capturarGPS(index) {
         if (!navigator.geolocation) {
           alert("Geolocalização não é suportada por este navegador.");
@@ -545,72 +552,176 @@
       }
 
       firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          const addedByEmail = user.email;
-          const clienteID = user.uid;
+        if (!user) {
+          Swal.fire({
+            icon: "warning",
+            title: "Você precisa estar logado para acessar esta página",
+          }).then(() => {
+            window.location.href = "login.html";
+          });
+          return;
+        }
 
-          document
-            .getElementById("lead-form")
-            .addEventListener("submit", function (e) {
-              e.preventDefault();
+        const addedByEmail = user.email;
+        const clienteID = user.uid;
 
-              const avaliacao = {
-                // 1. Identificação do Cliente
-                proponente: document.getElementById("proponente").value.trim(),
-                pessoa: document.getElementById("pessoa").value.trim(),
-                cpf_cnpj: document.getElementById("cpf_cnpj").value.trim(),
+        // Verifique se estamos em modo de visualização
+        const isViewMode =
+          idEdicao && window.location.search.includes("view=true");
 
-                // 2. Identificação da Propriedade
-                denominacao: document
-                  .getElementById("denominacao")
-                  .value.trim(),
-                uf_imovel: document.getElementById("uf_imovel").value.trim(),
-                municipio_imovel: document
-                  .getElementById("municipio_imovel")
-                  .value.trim(),
-                comarca: document.getElementById("comarca").value.trim(),
-                livro: document.getElementById("livro").value.trim(),
-                folha: document.getElementById("folha").value.trim(),
-                matricula: document.getElementById("matricula").value.trim(),
-                ccir: document.getElementById("ccir").value.trim(),
-                car: document.getElementById("car").value.trim(),
-                area: document.getElementById("area").value.trim(),
-                atividade_explorada: document
-                  .getElementById("atividade_explorada")
-                  .value.trim(),
+        // Se for edição, carregar dados
+        if (idEdicao) {
+          db.collection("avaliacoes")
+            .doc(idEdicao)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                const dados = doc.data();
+                document.getElementById("proponente").value =
+                  dados.proponente || "";
+                document.getElementById("pessoa").value = dados.pessoa || "";
+                document.getElementById("cpf_cnpj").value =
+                  dados.cpf_cnpj || "";
+                document.getElementById("denominacao").value =
+                  dados.denominacao || "";
+                document.getElementById("uf_imovel").value =
+                  dados.uf_imovel || "";
+                document.getElementById("municipio_imovel").value =
+                  dados.municipio_imovel || "";
+                document.getElementById("comarca").value = dados.comarca || "";
+                document.getElementById("livro").value = dados.livro || "";
+                document.getElementById("folha").value = dados.folha || "";
+                document.getElementById("matricula").value =
+                  dados.matricula || "";
+                document.getElementById("ccir").value = dados.ccir || "";
+                document.getElementById("car").value = dados.car || "";
+                document.getElementById("area").value = dados.area || "";
+                document.getElementById("atividade_explorada").value =
+                  dados.atividade_explorada || "";
+                document.getElementById("roteiro_acesso").value =
+                  dados.roteiro_acesso || "";
 
-                // 3. Coordenadas e roteiro
-                coordenadas: [
-                  {
-                    latitude: document.getElementById("lat1").value.trim(),
-                    longitude: document.getElementById("lng1").value.trim(),
-                  },
-                  {
-                    latitude: document.getElementById("lat2").value.trim(),
-                    longitude: document.getElementById("lng2").value.trim(),
-                  },
-                  {
-                    latitude: document.getElementById("lat3").value.trim(),
-                    longitude: document.getElementById("lng3").value.trim(),
-                  },
-                  {
-                    latitude: document.getElementById("lat4").value.trim(),
-                    longitude: document.getElementById("lng4").value.trim(),
-                  },
-                ],
-                roteiro_acesso: document
-                  .getElementById("roteiro_acesso")
-                  .value.trim(),
+                (dados.coordenadas || []).forEach((coord, i) => {
+                  document.getElementById(`lat${i + 1}`).value =
+                    coord.latitude || "";
+                  document.getElementById(`lng${i + 1}`).value =
+                    coord.longitude || "";
+                });
 
-                // Metadados
-                clienteID: clienteID,
-                addedBy: addedByEmail,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                status: "inactive",
-              };
+                if (typeof atualizarMapa === "function") {
+                  atualizarMapa();
+                }
 
+                // Verifica se status é concluido ou se está no modo de visualização
+                if (dados.status === "concluido" || isViewMode) {
+                  const inputs = document.querySelectorAll("input");
+                  inputs.forEach((input) => {
+                    input.disabled = true;
+                  });
+
+                  const textareas = document.querySelectorAll("textarea");
+                  textareas.forEach((textarea) => {
+                    textarea.disabled = true;
+                  });
+
+                  const submitButton =
+                    document.getElementById("lead-form-submit");
+                  if (submitButton) {
+                    submitButton.style.display = "none"; // Esconde o botão de enviar
+                  }
+
+                  document.getElementById("lead-form").style.pointerEvents =
+                    "none";
+                }
+              } else {
+                Swal.fire(
+                  "Erro",
+                  "Avaliação não encontrada para edição.",
+                  "error"
+                );
+              }
+            })
+            .catch((error) => {
+              console.error("Erro ao buscar dados:", error);
+              Swal.fire("Erro", "Erro ao carregar dados.", "error");
+            });
+        }
+
+        // Evento de envio do formulário
+        document
+          .getElementById("lead-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const avaliacao = {
+              proponente: document.getElementById("proponente").value.trim(),
+              pessoa: document.getElementById("pessoa").value.trim(),
+              cpf_cnpj: document.getElementById("cpf_cnpj").value.trim(),
+              denominacao: document.getElementById("denominacao").value.trim(),
+              uf_imovel: document.getElementById("uf_imovel").value.trim(),
+              municipio_imovel: document
+                .getElementById("municipio_imovel")
+                .value.trim(),
+              comarca: document.getElementById("comarca").value.trim(),
+              livro: document.getElementById("livro").value.trim(),
+              folha: document.getElementById("folha").value.trim(),
+              matricula: document.getElementById("matricula").value.trim(),
+              ccir: document.getElementById("ccir").value.trim(),
+              car: document.getElementById("car").value.trim(),
+              area: document.getElementById("area").value.trim(),
+              atividade_explorada: document
+                .getElementById("atividade_explorada")
+                .value.trim(),
+              roteiro_acesso: document
+                .getElementById("roteiro_acesso")
+                .value.trim(),
+              coordenadas: [
+                {
+                  latitude: document.getElementById("lat1").value.trim(),
+                  longitude: document.getElementById("lng1").value.trim(),
+                },
+                {
+                  latitude: document.getElementById("lat2").value.trim(),
+                  longitude: document.getElementById("lng2").value.trim(),
+                },
+                {
+                  latitude: document.getElementById("lat3").value.trim(),
+                  longitude: document.getElementById("lng3").value.trim(),
+                },
+                {
+                  latitude: document.getElementById("lat4").value.trim(),
+                  longitude: document.getElementById("lng4").value.trim(),
+                },
+              ],
+            };
+
+            if (idEdicao) {
               db.collection("avaliacoes")
-                .add(avaliacao)
+                .doc(idEdicao)
+                .update(avaliacao)
+                .then(() => {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Avaliação atualizada com sucesso!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  }).then(() => {
+                    window.location.href = "homeScreen.html";
+                  });
+                })
+                .catch((error) => {
+                  console.error("Erro ao atualizar:", error);
+                  Swal.fire("Erro", "Erro ao atualizar avaliação.", "error");
+                });
+            } else {
+              db.collection("avaliacoes")
+                .add({
+                  ...avaliacao,
+                  clienteID: clienteID,
+                  addedBy: addedByEmail,
+                  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                  status: "aguardando",
+                })
                 .then(() => {
                   Swal.fire({
                     icon: "success",
@@ -629,15 +740,11 @@
                     text: "Tente novamente mais tarde.",
                   });
                 });
-            });
-        } else {
-          Swal.fire({
-            icon: "warning",
-            title: "Você precisa estar logado para enviar a avaliação",
+            }
           });
-        }
       });
     </script>
+
     <script>
       let mapa = L.map("map").setView([-14.235, -51.9253], 4); // Centro do Brasil
 
