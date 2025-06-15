@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Documentos</title>
+    <link href="assets/images/svg/favicon.svg" rel="icon" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <style>
+      body {
+        background: #f7f9fa;
+      }
+      .tab-btn-main {
+        display: flex;
+        justify-content: center;
+        background: #f9f9f9;
+        border-radius: 12px 12px 0 0;
+        padding: 0;
+        margin-bottom: 0;
+        gap: 4px;
+        border-bottom: 1.5px solid #ececec;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .tab-btn-main .ongoing {
+        padding: 8px 20px;
+        font-weight: 600;
+        color: #551fff;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: -1px;
+        text-decoration: none;
+        transition: 0.18s;
+        font-size: 16px;
+        border-bottom: 3px solid transparent;
+      }
+      .tab-btn-main .ongoing.tab-active {
+        background: #fff;
+        color: #2d166d;
+        border-bottom: 3px solid #6218ff;
+      }
+      .tab-custom-content {
+        background: #fff;
+        border-radius: 0 0 12px 12px;
+        padding: 0;
+        min-height: 80px;
+        box-sizing: border-box;
+        max-width: 700px;
+        margin: 0 auto 18px auto;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      }
+      .tab-pane {
+        display: none;
+        padding: 28px 18px 18px 18px;
+      }
+
+      .tab-pane.active {
+        display: block;
+      }
+      .button-main.Verify-btn {
+        display: flex;
+        justify-content: center;
+        max-width: 700px;
+        margin: 32px auto 16px auto;
+      }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+  </head>
+  <body>
+    <div class="site_content">
+      <!-- Header -->
+      <header class="site_lr-spacer back-with-text" id="top-navbar">
+        <a href="javascript:history.go(-1)">
+          <img
+            alt="back-btn-top"
+            class="nav-header back-btn"
+            src="assets/images/svg/back-btn-top.svg"
+          />
+        </a>
+        <div class="header-title">
+          <h1>Upload de Documentos</h1>
+        </div>
+      </header>
+
+      <!-- Botão sempre por cima -->
+      <!-- <div class="button-main Verify-btn">
+        <a class="main-bg-color-btn btn btn-primary" href="#"
+          >Salvar Documentos</a
+        >
+      </div>
+ -->
+      <!-- Abas customizadas no topo -->
+      <div class="tab-btn-main" id="myTabs">
+        <a
+          class="ongoing tab-active"
+          data-tab="pendentes"
+          href="javascript:void(0);"
+          >Pendentes</a
+        >
+        <a class="ongoing" data-tab="enviados" href="javascript:void(0);"
+          >Enviados</a
+        >
+        <a class="ongoing" data-tab="aprovados" href="javascript:void(0);"
+          >Aprovados</a
+        >
+        <div class="clear"></div>
+      </div>
+
+      <!-- Conteúdo das abas -->
+      <div class="tab-custom-content">
+        <div
+          class="tab-content"
+          id="tabDocumentosContent"
+          style="min-height: 230px"
+        >
+          <!-- ABA PENDENTES -->
+          <div
+            class="tab-pane active"
+            id="pendentes"
+            role="tabpanel"
+            aria-labelledby="pendentes-tab"
+          >
+            <ul id="listaPendentes" class="list-group mb-3"></ul>
+            <!-- Formulário de Upload -->
+            <form id="form-upload-documento" class="mb-0">
+              <label for="inputFotoDocumento" class="form-label"
+                >Selecione a foto ou documento:</label
+              >
+              <div class="d-flex align-items-center gap-2">
+                <input
+                  class="form-control"
+                  type="file"
+                  id="inputFotoDocumento"
+                  accept="image/*"
+                  required
+                />
+              </div>
+              <div
+                id="previewFotoDocumento"
+                class="text-center mt-3 mb-3"
+              ></div>
+              <div
+                class="progress mb-3"
+                style="height: 24px; display: none"
+                id="uploadProgressBarContainer"
+              >
+                <div
+                  class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                  id="uploadProgressBar"
+                  role="progressbar"
+                  style="width: 0%"
+                  aria-valuenow="0"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  0%
+                </div>
+              </div>
+              <div class="text-center mt-4">
+                <button
+                  type="submit"
+                  id="btnEnviarDocumento"
+                  class="btn btn-success btn-lg px-5"
+                  disabled
+                >
+                  <i class="bi bi-cloud-arrow-up me-2"></i> Enviar Documento
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- ABA ENVIADOS -->
+          <div
+            class="tab-pane"
+            id="enviados"
+            role="tabpanel"
+            aria-labelledby="enviados-tab"
+          >
+            <ul id="listaEnviados" class="list-group"></ul>
+          </div>
+
+          <!-- ABA APROVADOS -->
+          <div
+            class="tab-pane"
+            id="aprovados"
+            role="tabpanel"
+            aria-labelledby="aprovados-tab"
+          >
+            <ul id="listaAprovados" class="list-group"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/slick.min.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/docs.js"></script>
+    <!-- Scripts -->
+
+    <!-- Abas customizadas JS -->
+    <script>
+      // Controle das abas customizadas
+      document
+        .querySelectorAll(".tab-btn-main .ongoing")
+        .forEach(function (tabBtn) {
+          tabBtn.addEventListener("click", function () {
+            document
+              .querySelectorAll(".tab-btn-main .ongoing")
+              .forEach((btn) => btn.classList.remove("tab-active"));
+            tabBtn.classList.add("tab-active");
+            document
+              .querySelectorAll(".tab-pane")
+              .forEach((div) => div.classList.remove("active"));
+            document.getElementById(tabBtn.dataset.tab).classList.add("active");
+          });
+        });
+
+      // NOVO: Ativar aba pela query string
+      document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const aba = params.get("aba");
+        if (aba && ["pendentes", "enviados", "aprovados"].includes(aba)) {
+          // Remove ativo de todos
+          document
+            .querySelectorAll(".tab-btn-main .ongoing")
+            .forEach((btn) => btn.classList.remove("tab-active"));
+          // Ativa só a aba desejada
+          document
+            .querySelector('.tab-btn-main .ongoing[data-tab="' + aba + '"]')
+            .classList.add("tab-active");
+          // Esconde todos conteúdos
+          document
+            .querySelectorAll(".tab-pane")
+            .forEach((div) => div.classList.remove("active"));
+          // Mostra o conteúdo correto
+          document.getElementById(aba).classList.add("active");
+        }
+      });
+      // Impede clicar nas abas Pendentes/Enviados se vier da aba aprovados
+      document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const aba = params.get("aba");
+        if (aba === "aprovados") {
+          // Seleciona os botões de abas pendentes e enviados
+          const tabPendentes = document.querySelector(
+            '.tab-btn-main .ongoing[data-tab="pendentes"]'
+          );
+          const tabEnviados = document.querySelector(
+            '.tab-btn-main .ongoing[data-tab="enviados"]'
+          );
+          // Desativa visualmente e funcionalmente
+          [tabPendentes, tabEnviados].forEach(function (tab) {
+            if (tab) {
+              tab.style.pointerEvents = "none";
+              tab.style.opacity = "0.4";
+              tab.style.cursor = "not-allowed";
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

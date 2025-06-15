@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Add Lead</title>
+    <!-- Favicon e CSS originais -->
+    <link href="assets/images/svg/favicon.svg" rel="icon" />
+    <link href="assets/css/swap.css" rel="stylesheet" />
+    <link href="assets/css/slick.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/media_query.css" rel="stylesheet" />
+    <link href="assets/css/custom-popup.css" rel="stylesheet" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      /* =========================
+         Regras para exibir/ocultar steps
+         ========================= */
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+
+      /* Formatação do indicador de progresso */
+      .progress-indicator {
+        text-align: center;
+        margin: 1.5rem 0;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      /* Espaçamento entre botões de navegação */
+      .nav-buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .obrigatorio-label::after {
+        content: " (Obrigatório)";
+        color: red;
+        font-weight: normal;
+        font-size: 0.85em;
+      }
+      /* =============================
+     1) Caixa “Atividades Selecionadas”
+     ============================= */
+      .selecao-container {
+        border: 1px solid #adb5bd; /* borda discreta */
+        border-radius: 0.25rem; /* cantos levemente arredondados */
+        background-color: #e9ecef; /* fundo cinza-claro */
+        padding: 1rem; /* espaçamento interno */
+        margin-bottom: 1.5rem; /* separação embaixo */
+      }
+
+      .selecao-container h6 {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      /* Remover bullet-points padrão do <ul> */
+      .selecao-container ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+
+      #selecaoAtividades .list-group-item {
+        background: transparent;
+        border: none;
+        padding: 0.25rem 0;
+      }
+
+      #selecaoAtividades .list-group-item::before {
+        content: "• ";
+        color: #495057;
+        font-weight: bold;
+      }
+
+      /* =============================
+     2) Box de cada formulário dinâmico (com fundo suave para identificação)
+     ============================= */
+      .form-atividade {
+        border: 1px solid #adb5bd; /* borda cinza */
+        border-radius: 0.25rem; /* cantos arredondados */
+        padding: 1rem 1.25rem; /* espaçamento interno */
+        margin-bottom: 1.5rem; /* separação entre formulários */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff; /* fundo branco */
+      }
+
+      /* Centralizando o título do formulário e destacando com uma borda inferior */
+      .form-atividade h6 {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-bottom: 2px solid #adb5bd;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        color: #343a40;
+      }
+
+      /* Cores suaves para o fundo de cada formulário, baseado na atividade */
+      .form-atividade[data-atividade="Cultura Anual"] {
+        background-color: #e3f2fd; /* Azul claro */
+      }
+
+      .form-atividade[data-atividade="Cultura Perene"] {
+        background-color: #c8e6c9; /* Verde claro */
+      }
+
+      .form-atividade[data-atividade="Agricultura Geral"] {
+        background-color: #ffccbc; /* Vermelho suave */
+      }
+
+      .form-atividade[data-atividade="Bovino de Corte"] {
+        background-color: #fff9c4; /* Amarelo suave */
+      }
+
+      .form-atividade[data-atividade="Bovino de Leite"] {
+        background-color: #b3e5fc; /* Azul claro */
+      }
+
+      .form-atividade[data-atividade="Pecuária Geral"] {
+        background-color: #cfd8dc; /* Cinza suave */
+      }
+
+      /* Estilo básico para os botões */
+      .btn-group button {
+        margin-right: 5px;
+        margin-top: 10px;
+      }
+
+      /* Caixa para exibir as culturas selecionadas */
+      #selectedCulturesList {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      /* Estilo para os formulários */
+      .form-cultura {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+      }
+      .form-atividade h6 {
+        text-align: center; /* Centraliza o título */
+        font-size: 1.3rem; /* Aumenta o tamanho da fonte */
+        font-weight: bold; /* Deixa a fonte em negrito */
+        border-bottom: 3px solid #007bff; /* Borda inferior para destacar */
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+        color: #007bff; /* Cor do título */
+        background-color: #f0f8ff; /* Fundo suave */
+        padding-top: 10px;
+        border-radius: 5px;
+      }
+
+      .form-atividade {
+        border: 1px solid #adb5bd;
+        border-radius: 0.25rem;
+        padding: 1.25rem;
+        margin-bottom: 30px; /* Aumenta o espaçamento entre os formulários */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+      }
+
+      /* Estilo para o formulário da cultura */
+      .form-cultura {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f7f9fc;
+        border-left: 5px solid #007bff;
+      }
+
+      /* Estilo dos títulos do formulário */
+      .form-cultura h6 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #0056b3;
+        margin-bottom: 1rem;
+      }
+
+      /* Cada formulário de cultura com fundo e bordas coloridas diferentes */
+      #form-Arroz {
+        background-color: #e3f7fc; /* Azul claro */
+        border-left: 5px solid #007bff;
+      }
+
+      #form-Milho {
+        background-color: #f0f8e4; /* Verde claro */
+        border-left: 5px solid #28a745;
+      }
+
+      #form-Soja {
+        background-color: #fff7e6; /* Amarelo claro */
+        border-left: 5px solid #ffc107;
+      }
+
+      #form-Sorgo {
+        background-color: #fce4e1; /* Vermelho claro */
+        border-left: 5px solid #dc3545;
+      }
+
+      #form-Trigo {
+        background-color: #f8f9d7; /* Amarelo esverdeado */
+        border-left: 5px solid #ffc107;
+      }
+
+      /* Estilo para os botões */
+      .form-cultura .btn {
+        margin-top: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease;
+      }
+
+      .form-cultura .btn:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+      input[readonly],
+      textarea[readonly] {
+        background: #f6f6f6;
+        color: #222;
+        opacity: 1;
+      }
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .lead-form-wrapper {
+        max-width: 700px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .form-label span {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site_content">
+      <!-- ====================================== Preloader ===================================== -->
+      <div class="page-loader" id="page-loader">
+        <img alt="logo" src="assets/images/svg/logo.svg" />
+        <p class="loade-text" data-text="Leads">Leads</p>
+      </div>
+      <!-- ====================================== Header ===================================== -->
+      <header class="site_lr-spacer back-with-text" id="top-navbar">
+        <a href="javascript:history.go(-1)">
+          <img
+            alt="back-btn-top"
+            class="nav-header back-btn"
+            src="assets/images/svg/back-btn-top.svg"
+          />
+        </a>
+        <div class="header-title">
+          <h1>Leads</h1>
+        </div>
+      </header>
+      <!-- ====================================== Wizard “Coleta de Dados” ===================================== -->
+      <div class="container">
+        <div class="lead-form-wrapper">
+          <h2>
+            <iconify-icon
+              icon="solar:user-plus-linear"
+              class="me-2 text-primary"
+            ></iconify-icon>
+            Adicionar Lead
+          </h2>
+          <form id="lead-form">
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome <span>*</span></label>
+              <input type="text" class="form-control" id="nome" required />
+            </div>
+            <div class="mb-3">
+              <label for="sobrenome" class="form-label"
+                >Sobrenome <span>*</span></label
+              >
+              <input type="text" class="form-control" id="sobrenome" required />
+            </div>
+            <div class="mb-3">
+              <label for="telefone" class="form-label"
+                >Telefone <span>*</span></label
+              >
+              <input type="text" class="form-control" id="telefone" required />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label"
+                >E-mail <span>*</span></label
+              >
+              <input type="email" class="form-control" id="email" required />
+            </div>
+            <div class="mb-3">
+              <label for="emprego" class="form-label">Emprego</label>
+              <input type="text" class="form-control" id="emprego" />
+            </div>
+            <div class="mb-3">
+              <label for="tipo_servico" class="form-label"
+                >Serviço Solicitado <span>*</span></label
+              >
+              <select class="form-select" id="tipo_servico" required>
+                <option value="">Selecione...</option>
+                <option value="Crédito de Custeios">Crédito de Custeios</option>
+                <option value="Crédito Rural de Investimento">
+                  Crédito Rural de Investimento
+                </option>
+                <option value="Crédito de Comercialização">
+                  Crédito de Comercialização
+                </option>
+                <option value="Avaliação de imóveis rurais">
+                  Avaliação de imóveis rurais
+                </option>
+                <option value="Licenciamento Ambiental">
+                  Licenciamento Ambiental
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="cep" class="form-label">CEP</label>
+              <input type="text" class="form-control" id="cep" />
+            </div>
+            <div class="mb-3">
+              <label for="estado" class="form-label">Estado</label>
+              <input type="text" class="form-control" id="estado" />
+            </div>
+            <div class="mb-3">
+              <label for="cidade" class="form-label">Cidade</label>
+              <input type="text" class="form-control" id="cidade" />
+            </div>
+            <div class="text-center mt-4">
+              <button type="submit" class="btn main-bg-color-btn w-100">
+                Salvar Lead
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de aviso -->
+
+    <!-- ====================================== Scripts ===================================== -->
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/slick.min.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+    <script src="assets/javascript/custom-popup.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Script de autenticação -->
+    <script src="assets/js/auth.js"></script>
+
+    <!-- SCRIPTS FINAIS -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Firebase config e inicialização
+      const db = firebase.firestore();
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          // Usuário está logado
+          document
+            .getElementById("lead-form")
+            .addEventListener("submit", function (e) {
+              e.preventDefault();
+
+              const addedByEmail = user.email;
+
+              const lead = {
+                nome: document.getElementById("nome").value.trim(),
+                sobrenome: document.getElementById("sobrenome").value.trim(),
+                telefone: document.getElementById("telefone").value.trim(),
+                email: document.getElementById("email").value.trim(),
+                emprego: document.getElementById("emprego").value.trim(),
+                tipo_servico: document.getElementById("tipo_servico").value,
+                cep: document.getElementById("cep").value.trim(),
+                estado: document.getElementById("estado").value.trim(),
+                cidade: document.getElementById("cidade").value.trim(),
+                addedBy: addedByEmail,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(), // ✅ timestamp real
+                status: "inactive",
+              };
+
+              db.collection("leads")
+                .add(lead)
+                .then(() => {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Lead salvo com sucesso!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  }).then(() => {
+                    window.location.href = "homeScreen.html";
+                  });
+                })
+                .catch((error) => {
+                  console.error("Erro ao salvar lead:", error);
+                  Swal.fire({
+                    icon: "error",
+                    title: "Erro ao salvar",
+                    text: "Tente novamente mais tarde.",
+                  });
+                });
+            });
+        } else {
+          // Usuário não está autenticado
+          Swal.fire({
+            icon: "warning",
+            title: "Você precisa estar logado para adicionar leads",
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

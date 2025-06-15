@@ -1,0 +1,18 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Button - Notification">
+<circle id="Ellipse 13" cx="18" cy="18" r="17.5" stroke="#F5F5F5"/>
+<g id="Icon">
+<mask id="mask0_125_8430" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="6" width="24" height="24">
+<rect id="Bounding box" x="6" y="6" width="24" height="24" fill="white"/>
+</mask>
+<g mask="url(#mask0_125_8430)">
+<g id="Icon_2">
+<path id="Vector" opacity="0.4" d="M18 12.4404V15.7704" stroke="#0F0F0F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
+<path id="Vector_2" d="M18.0199 8C14.3399 8 11.3599 10.98 11.3599 14.66V16.76C11.3599 17.44 11.0799 18.46 10.7299 19.04L9.4599 21.16C8.6799 22.47 9.2199 23.93 10.6599 24.41C15.4399 26 20.6099 26 25.3899 24.41C26.7399 23.96 27.3199 22.38 26.5899 21.16L25.3199 19.04C24.9699 18.46 24.6899 17.43 24.6899 16.76V14.66C24.6799 11 21.6799 8 18.0199 8Z" stroke="#0F0F0F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
+<path id="Vector_3" opacity="0.4" d="M21.3299 24.8203C21.3299 26.6503 19.8299 28.1503 17.9999 28.1503C17.0899 28.1503 16.2499 27.7703 15.6499 27.1703C15.0499 26.5703 14.6699 25.7303 14.6699 24.8203" stroke="#0F0F0F" stroke-width="2" stroke-miterlimit="10"/>
+</g>
+</g>
+</g>
+<circle id="Ellipse 14" cx="26" cy="10" r="4" fill="#FC342F"/>
+</g>
+</svg>
