@@ -1640,7 +1640,7 @@ document.addEventListener("DOMContentLoaded", function () {
   firebase.auth().onAuthStateChanged(function (user) {
     if (!user) {
       alert("Você precisa estar logado para enviar a solicitação.");
-      window.location.href = "sign-in.html";
+      window.location.href = "let-you-screen.html";
       return;
     }
 

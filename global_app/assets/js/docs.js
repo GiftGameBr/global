@@ -1,3 +1,4 @@
+const storage = firebase.storage();
 // Lista fixa de documentos
 const listaDocumentosFixos = [
   "CND - Certidão Negativa de Débitos(Tributos Federais e Dívida Ativa da União)",
@@ -21,7 +22,6 @@ const listaDocumentosFixos = [
   "KML da Área Total do Imóvel",
   "KML da Área Beneficiada no Custeio",
 ];
-const storage = firebase.storage();
 
 // Elementos do DOM
 const listaPendentes = document.getElementById("listaPendentes");
