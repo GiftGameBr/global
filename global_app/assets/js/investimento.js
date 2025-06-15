@@ -663,7 +663,23 @@ function addAutoSaveListeners(formElement, formId) {
 // ===================================================================
 // 6. FUNÇÃO getFormHtml() MANTIDA ORIGINAL
 // ===================================================================
+const style = document.createElement("style");
+style.innerHTML = `
+  .btn-group-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 10px;
+  }
 
+  .btn-group-wrap .btn {
+    flex: 1 1 100px;
+    min-width: 90px;
+    white-space: nowrap;
+  }
+`;
+document.head.appendChild(style);
 function getFormHtml(atividade) {
   let formHtml = "";
 
@@ -674,55 +690,17 @@ function getFormHtml(atividade) {
     <h6 class="text-center">Cultura Anual</h6>
 
     <!-- Selecione as culturas anuais diretamente -->
-    <div class="mt-3 text-center">
-      <h6 class="text-center">Selecione uma ou mais cultura anual:</h6>
-      <div class="d-flex justify-content-center">
-        <div class="btn-group" role="group">
-          <button
-            type="button"
-            class="btn btn-info"
-            onclick="toggleCultureSelection(\'Algodão\')"
-          >
-            Algodão
-          </button>
-          <button
-            type="button"
-            class="btn btn-info"
-            onclick="toggleCultureSelection(\'Arroz\')"
-          >
-            Arroz
-          </button>
-          <button
-            type="button"
-            class="btn btn-info"
-            onclick="toggleCultureSelection(\'Milho\')"
-          >
-            Milho
-          </button>
-          <button
-            type="button"
-            class="btn btn-info"
-            onclick="toggleCultureSelection(\'Soja\')"
-          >
-            Soja
-          </button>
-          <button
-            type="button"
-            class="btn btn-info"
-            onclick="toggleCultureSelection(\'Sorgo\')"
-          >
-            Sorgo
-          </button>
-          <button
-            type="button"
-            class="btn btn-info"
-            onclick="toggleCultureSelection(\'Trigo\')"
-          >
-            Trigo
-          </button>
-        </div>
-      </div>
-    </div>
+<div class="mt-3 text-center">
+  <h6 class="text-center">Selecione uma ou mais cultura anual:</h6>
+  <div class="btn-group-wrap" role="group">
+    <button type="button" class="btn btn-info" onclick="toggleCultureSelection('Algodão')">Algodão</button>
+    <button type="button" class="btn btn-info" onclick="toggleCultureSelection('Arroz')">Arroz</button>
+    <button type="button" class="btn btn-info" onclick="toggleCultureSelection('Milho')">Milho</button>
+    <button type="button" class="btn btn-info" onclick="toggleCultureSelection('Soja')">Soja</button>
+    <button type="button" class="btn btn-info" onclick="toggleCultureSelection('Sorgo')">Sorgo</button>
+    <button type="button" class="btn btn-info" onclick="toggleCultureSelection('Trigo')">Trigo</button>
+  </div>
+</div>
 
     <!-- Caixa para exibir as culturas selecionadas -->
     <div class="mt-3 text-center">
@@ -743,18 +721,69 @@ function getFormHtml(atividade) {
     case "Cultura Perene":
       formHtml = `
         <h6 class="text-center">Cultura Perene</h6>
-        <div class="mt-3 text-center">
-          <h6>O produtor desenvolve mais de uma cultura perene?</h6>
-          <div class="d-flex justify-content-center">
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-info" onclick="togglePerennialSelection('Cana-de-açúcar')">Cana-de-açúcar</button>
-              <button type="button" class="btn btn-info" onclick="togglePerennialSelection('Café Arábica')">Café Arábica</button>
-              <button type="button" class="btn btn-info" onclick="togglePerennialSelection('Café')">Café</button>
-              <button type="button" class="btn btn-info" onclick="togglePerennialSelection('Laranja para')">Laranja para</button>
-              <button type="button" class="btn btn-info" onclick="togglePerennialSelection('Laranja de mesa')">Laranja de mesa</button>
-            </div>
-          </div>
-        </div>
+  <div class="mt-3 text-center">
+  <h6>O produtor desenvolve mais de uma cultura perene?</h6>
+  <div style="display: flex; justify-content: center;">
+    <div
+      role="group"
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 10px;
+      "
+    >
+<button
+  type="button"
+  class="btn btn-info"
+  style="
+    flex: 1 1 100px;
+    min-width: 90px;
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+  "
+  onclick="togglePerennialSelection('Cana-de-açúcar')"
+>
+  Cana-de-açúcar
+</button>
+      <button
+        type="button"
+        class="btn btn-info"
+        style="flex: 1 1 100px; min-width: 90px; white-space: nowrap;"
+        onclick="togglePerennialSelection('Café Arábica')"
+      >
+        Café Arábica
+      </button>
+      <button
+        type="button"
+        class="btn btn-info"
+        style="flex: 1 1 100px; min-width: 90px; white-space: nowrap;"
+        onclick="togglePerennialSelection('Café')"
+      >
+        Café
+      </button>
+      <button
+        type="button"
+        class="btn btn-info"
+        style="flex: 1 1 100px; min-width: 90px; white-space: nowrap;"
+        onclick="togglePerennialSelection('Laranja para')"
+      >
+        Laranja para
+      </button>
+      <button
+        type="button"
+        class="btn btn-info"
+        style="flex: 1 1 100px; min-width: 90px; white-space: nowrap;"
+        onclick="togglePerennialSelection('Laranja de mesa')"
+      >
+        Laranja de mesa
+      </button>
+    </div>
+  </div>
+</div>
+
         <div class="mt-3 text-center">
           <h6>Culturas Perenes Selecionadas:</h6>
           <ul class="list-group d-inline-block text-start" id="selectedPerennialList" style="min-width:200px;"></ul>
@@ -1639,8 +1668,17 @@ console.log("Sistema de preservação de estado carregado com sucesso!");
 document.addEventListener("DOMContentLoaded", function () {
   firebase.auth().onAuthStateChanged(function (user) {
     if (!user) {
-      alert("Você precisa estar logado para enviar a solicitação.");
-      window.location.href = "let-you-screen.html";
+      if (navigator.onLine) {
+        // Só redireciona se estiver online
+        window.location.href = "let-you-screen.html";
+      } else {
+        console.warn(
+          "Usuário não autenticado, mas está offline. Redirecionamento bloqueado."
+        );
+        // Aqui você pode opcionalmente mostrar um aviso na interface
+        // ex: mostrar uma div com uma mensagem "Você está offline"
+      }
+
       return;
     }
 

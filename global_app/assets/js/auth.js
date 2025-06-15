@@ -255,9 +255,15 @@ function checkAuthState(callback) {
       if (callback) callback(user); // Executa callback passando o usuário
     } else {
       // Usuário não está logado
-      console.log("Nenhum usuário logado. Redirecionando para login...");
-      // Redireciona para a tela de login (ajuste o nome se necessário)
-      window.location.href = "let-you-screen.html";
+      console.log("Nenhum usuário logado.");
+
+      // Verifica se está online antes de redirecionar
+      if (navigator.onLine) {
+        console.log("Online: redirecionando para a tela de login...");
+        window.location.href = "let-you-screen.html";
+      } else {
+        console.log("Offline: não redirecionando.");
+      }
     }
   });
 }

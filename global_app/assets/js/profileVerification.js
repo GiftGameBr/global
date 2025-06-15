@@ -120,13 +120,19 @@ document.addEventListener("DOMContentLoaded", function () {
         // Usuário está autenticado, verifica se o cadastro está completo
         verificarCadastroCompleto(user);
       } else {
-        // Usuário não está autenticado, redireciona para a página de login
+        // Usuário não está autenticado
         if (
+          navigator.onLine && // Verifica se está online antes de redirecionar
           !window.location.href.includes("let-you-screen.html") &&
           !window.location.href.includes("sign-in.html") &&
           !window.location.href.includes("sign-up.html")
         ) {
+          console.log("Usuário não autenticado e online. Redirecionando...");
           window.location.href = "let-you-screen.html";
+        } else {
+          console.log(
+            "Usuário não autenticado, mas está offline. Não redirecionando."
+          );
         }
       }
     });

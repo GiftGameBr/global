@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -12,7 +12,53 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/media_query.css" rel="stylesheet" />
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Cor da Barra Superior -->
+    <meta name="theme-color" content="#ffffff" />
+
     <style>
+      body:not(.loaded) .site_content > *:not(#page-loader) {
+        display: none !important;
+      }
+      body:not(.loaded) #page-loader {
+        display: flex !important;
+      }
+      body.loaded #page-loader {
+        display: none !important;
+      }
+      #page-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #fff;
+        z-index: 9999;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      #page-loader img {
+        width: 45vw;
+        max-width: 420px;
+        min-width: 180px;
+        margin-bottom: 32px;
+        transition: width 0.3s;
+        display: block;
+      }
+
+      .loade-text {
+        font-size: 3.5rem;
+        color: #2461b1;
+        font-weight: 700;
+        letter-spacing: 2px;
+      }
+
       /* Style for the welcome message */
       #welcome-message {
         font-size: 1rem; /* Adjust as needed */
@@ -95,8 +141,9 @@
       <!-- Preloader -->
       <div class="page-loader" id="page-loader">
         <img alt="logo" src="assets/images/svg/logo.svg" />
-        <p class="loade-text" data-text="Home">Home</p>
+        <p class="loade-text" data-text="Bem Vindo!">Bem Vindo!</p>
       </div>
+
       <!-- Header -->
       <header
         class="site_lr-spacer homeHeader-main d-flex justify-content-between align-items-center"
@@ -183,8 +230,8 @@
           <div class="trasnsBox speech-trans">
             <h2 class="speechAi">Avaliação Imóveis</h2>
             <p class="stunni">
-              Valorize seu patrimônio com precisão. Faça sua Avaliação de
-              Imóveis com quem entende do mercado.
+              Valorize seu imóvel com precisão e segurança. Conte com nossa
+              equipe especializada para um serviço técnico altamente confiável
             </p>
             <div class="button-main start-btn">
               <a class="main-bg-color-btn" href="solicitar-avaliacao.html"
@@ -195,8 +242,8 @@
           <div class="trasnsBox voice-trans">
             <h2 class="speechAi">Licenciamento Ambiental</h2>
             <p class="stunni">
-              Regularize seu empreendimento com segurança e agilidade. Conte com
-              nossa equipe para o Licenciamento Ambiental.
+              Regularize sua empresa com segurança e agilidade. Conte com nossa
+              equipe para um serviço completo.
             </p>
             <div class="button-main start-btn">
               <a class="main-bg-color-btn" href="solicitar-licenciamento.html"
@@ -212,22 +259,34 @@
         <div class="AISlider">
           <div class="ai-voice-car-main">
             <div style="text-align: center" class="PerAI-img-main">
-              <img src="assets/images/home-screen/logobb.png" />
+              <img
+                src="assets/images/home-screen/logobb.png"
+                style="width: 100px"
+              />
             </div>
           </div>
           <div class="ai-voice-car-main">
             <div style="text-align: center" class="PerAI-img-main">
-              <img src="assets/images/home-screen/logost.png" />
+              <img
+                src="assets/images/home-screen/logost.png"
+                style="width: 100px"
+              />
             </div>
           </div>
           <div class="ai-voice-car-main">
             <div style="text-align: center" class="PerAI-img-main">
-              <img src="assets/images/home-screen/logobn.png" />
+              <img
+                src="assets/images/home-screen/logobn.png"
+                style="width: 100px"
+              />
             </div>
           </div>
           <div class="ai-voice-car-main">
             <div style="text-align: center" class="PerAI-img-main">
-              <img src="assets/images/home-screen/logobd.png" />
+              <img
+                src="assets/images/home-screen/logobd.png"
+                style="width: 100px"
+              />
             </div>
           </div>
         </div>
@@ -1077,6 +1136,89 @@
       document.addEventListener("DOMContentLoaded", () => {
         // Verifica login e depois verifica se o cadastro está completo
         checkAuthState(verificarCadastroCompleto);
+      });
+    </script>
+    <script>
+      // Verifica se o navegador suporta Service Worker e Background Sync
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          // Registra o Service Worker
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registrado com sucesso:",
+                registration
+              );
+
+              // Verifica se Background Sync é suportado e registra a sincronização
+              if ("sync" in registration) {
+                registration.sync
+                  .register("sync-requests")
+                  .then(() => {
+                    console.log("Background Sync registrado com sucesso!");
+                  })
+                  .catch((err) => {
+                    console.error("Falha ao registrar Background Sync:", err);
+                  });
+              } else {
+                console.log("Background Sync não suportado neste navegador.");
+              }
+            })
+            .catch((err) => {
+              console.error("Falha ao registrar Service Worker:", err);
+            });
+        });
+      } else {
+        console.log("Service Worker não suportado neste navegador.");
+      }
+    </script>
+    <script>
+      async function waitForStaticCache() {
+        if (
+          "serviceWorker" in navigator &&
+          window.location.protocol.startsWith("http")
+        ) {
+          try {
+            await navigator.serviceWorker.ready;
+            const cacheNames = await caches.keys();
+            const mainCache = cacheNames.find((name) =>
+              name.startsWith("app-static-cache")
+            );
+            if (mainCache) {
+              const cache = await caches.open(mainCache);
+              // Ajuste aqui: tente garantir que o arquivo realmente existe
+              const urlToCheck =
+                location.pathname.replace(/^\//, "") || "homeScreen.html";
+              const res = await cache.match(urlToCheck);
+              if (res) return true;
+            }
+          } catch (e) {
+            // Se der erro, considera não carregado ainda
+          }
+        }
+        return false;
+      }
+
+      window.addEventListener("DOMContentLoaded", async () => {
+        // Sempre inicia sem .loaded
+        document.body.classList.remove("loaded");
+        let loaded = false;
+        let tentativas = 0;
+        // Fallback: após 6 segundos, libera o conteúdo mesmo que o cache falhe
+        const fallback = setTimeout(() => {
+          loaded = true;
+        }, 6000);
+        // Tenta aguardar o cache
+        while (!loaded && tentativas < 12) {
+          loaded = await waitForStaticCache();
+          if (loaded) break;
+          await new Promise((r) => setTimeout(r, 500));
+          tentativas++;
+        }
+        clearTimeout(fallback);
+        // Libera o site!
+        document.body.classList.add("loaded");
       });
     </script>
   </body>

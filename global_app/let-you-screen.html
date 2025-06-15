@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="pt-br">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -15,6 +15,18 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css" /> -->
     <!-- Estilo para os campos OTP no modal -->
     <style>
+      .lets-screen-Logomain {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      .lets-screen-Logomain img {
+        width: 70%;
+        max-width: 500px;
+        height: auto;
+      }
       .otp-field-modal {
         display: flex;
         justify-content: center;
@@ -29,7 +41,6 @@
         border: 1px solid #ced4da;
         border-radius: 0.25rem;
         /* Remove setas de número */
-        -moz-appearance: textfield;
       }
       .otp-field-modal input::-webkit-outer-spin-button,
       .otp-field-modal input::-webkit-inner-spin-button {
@@ -45,8 +56,8 @@
         <img alt="logo" src="assets/images/svg/logo.svg" />
       </div>
       <section class="section-main lets-sec">
-        <div class="lets-screen-Logomain" style="margin-top: -150px">
-          <img alt="logo" src="assets/images/svg/logo2.svg" />
+        <div class="lets-screen-Logomain">
+          <img alt="logo" src="assets/images/logo10.png" />
         </div>
         <h1 class="lets-text">Vamos começar?</h1>
         <p class="into">
@@ -348,5 +359,15 @@
       }
     </script>
     <script src="assets/javascript/custom-popup.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("../service-worker.js")
+          .then(() => console.log("Service Worker registrado com sucesso!"))
+          .catch((error) =>
+            console.error("Erro ao registrar o Service Worker:", error)
+          );
+      }
+    </script>
   </body>
 </html>
