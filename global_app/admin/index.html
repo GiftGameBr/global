@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global - Painel Admin</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/images/favicon.png"
+      sizes="16x16"
+    />
+    <!-- Firebase App (Core SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.41.0"></script>
+
+    <!-- remix icon font css  -->
+    <link rel="stylesheet" href="assets/css/remixicon.css" />
+    <!-- BootStrap css -->
+    <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css" />
+    <!-- Apex Chart css -->
+    <link rel="stylesheet" href="assets/css/lib/apexcharts.css" />
+    <!-- Data Table css -->
+    <link rel="stylesheet" href="assets/css/lib/dataTables.min.css" />
+    <!-- Text Editor css -->
+    <link rel="stylesheet" href="assets/css/lib/editor-katex.min.css" />
+    <link rel="stylesheet" href="assets/css/lib/editor.atom-one-dark.min.css" />
+    <link rel="stylesheet" href="assets/css/lib/editor.quill.snow.css" />
+    <!-- Date picker css -->
+    <link rel="stylesheet" href="assets/css/lib/flatpickr.min.css" />
+    <!-- Calendar css -->
+    <link rel="stylesheet" href="assets/css/lib/full-calendar.css" />
+    <!-- Vector Map css -->
+    <link rel="stylesheet" href="assets/css/lib/jquery-jvectormap-2.0.5.css" />
+    <!-- Popup css -->
+    <link rel="stylesheet" href="assets/css/lib/magnific-popup.css" />
+    <!-- Slick Slider css -->
+    <link rel="stylesheet" href="assets/css/lib/slick.css" />
+    <!-- prism css -->
+    <link rel="stylesheet" href="assets/css/lib/prism.css" />
+    <!-- file upload css -->
+    <link rel="stylesheet" href="assets/css/lib/file-upload.css" />
+    <link rel="stylesheet" href="assets/css/lib/audioplayer.css" />
+    <!-- main css -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+      </button>
+      <div>
+        <a href="index.html" class="sidebar-logo">
+          <img
+            src="assets/images/logo.png"
+            alt="site logo"
+            class="light-logo"
+          />
+          <img
+            src="assets/images/logo-light.png"
+            alt="site logo"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/logo-icon.png"
+            alt="site logo"
+            class="logo-icon"
+          />
+        </a>
+      </div>
+      <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="solar:home-smile-angle-outline"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Dashboard</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="index.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="relatorio-mes.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Mensal</a
+                >
+              </li>
+              <li>
+                <a href="relatorio-ano.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Anual</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-menu-group-title">Clientes</li>
+          <li>
+            <a href="lead-list.html">
+              <iconify-icon
+                icon="ri:user-add-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Leads</span>
+            </a>
+          </li>
+          <li>
+            <a href="client-list.html">
+              <iconify-icon
+                icon="ri:group-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Funcionarios</li>
+          <li>
+            <a href="gerente-list.html">
+              <iconify-icon
+                icon="ri:user-star-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Gerentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-list.html">
+              <iconify-icon
+                icon="ri:user-settings-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Admins</span>
+            </a>
+          </li>
+          <li>
+            <a href="agente-list.html">
+              <iconify-icon
+                icon="ri:user-search-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Agentes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Solicitações</li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bank-card-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Custeios</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bar-chart-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Investimento</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:exchange-dollar-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Comercialização</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:home-gear-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Avaliação Imóveis</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:leaf-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Licenciamento Ambiental</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Ajustes</li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <i class="ri-user-settings-line text-xl me-14 d-flex w-auto"></i>
+              <span>Regras</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="role-access.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Role & Access</a
+                >
+              </li>
+              <li>
+                <a href="assign-role.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Assign Role</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="icon-park-outline:setting-two"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Configurações</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="company.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="notification.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Notification</a
+                >
+              </li>
+              <li>
+                <a href="notification-alert.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-info-main w-auto"
+                  ></i
+                  >Notification Alert</a
+                >
+              </li>
+              <li>
+                <a href="theme.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Theme</a
+                >
+              </li>
+              <li>
+                <a href="currencies.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Currencies</a
+                >
+              </li>
+              <li>
+                <a href="language.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Languages</a
+                >
+              </li>
+              <li>
+                <a href="payment-gateway.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Payment Gateway</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+              <button type="button" class="sidebar-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon text-2xl non-active"
+                ></iconify-icon>
+                <iconify-icon
+                  icon="iconoir:arrow-right"
+                  class="icon text-2xl active"
+                ></iconify-icon>
+              </button>
+              <button type="button" class="sidebar-mobile-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <p class="mb-0 me-2 text-sm text-white" id="welcome-message">
+                Bem-vindo, <strong id="user-profile-name">...</strong>
+              </p>
+              <div class="dropdown">
+                <button
+                  class="d-flex justify-content-center align-items-center rounded-circle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="assets/images/user.png"
+                    alt="image"
+                    class="w-40-px h-40-px object-fit-cover rounded-circle"
+                  />
+                </button>
+                <div
+                  class="dropdown-menu to-top dropdown-menu-sm"
+                  style="min-width: 150px; max-width: 220px; width: 180px"
+                >
+                  <ul class="to-top-list">
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                        href="javascript:void(0)"
+                        id="logout-btn"
+                      >
+                        <iconify-icon
+                          icon="lucide:power"
+                          class="icon text-xl"
+                        ></iconify-icon>
+                        Log Out
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-main-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
+        >
+          <h6 class="fw-semibold mb-0">Solicitações Concluídas</h6>
+          <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+              <a
+                href="index.html"
+                class="d-flex align-items-center gap-1 hover-text-primary"
+              >
+                <iconify-icon
+                  icon="solar:home-smile-angle-outline"
+                  class="icon text-lg"
+                ></iconify-icon>
+                Home
+              </a>
+            </li>
+            <li>-</li>
+            <li class="fw-medium">Dashboard</li>
+          </ul>
+        </div>
+
+        <div
+          class="row row-cols-xxxl-5 row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-4"
+        >
+          <div class="col">
+            <div class="card shadow-none border bg-gradient-start-2 h-100">
+              <div class="card-body p-20">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Créditos Custeio
+                    </p>
+                    <h6 class="mb-0 dashboard-concluidas-total">0</h6>
+                  </div>
+                  <div
+                    class="w-50-px h-50-px bg-purple rounded-circle d-flex justify-content-center align-items-center"
+                  >
+                    <iconify-icon
+                      icon="ri:seedling-line"
+                      class="text-white text-2xl mb-0"
+                    ></iconify-icon>
+                  </div>
+                </div>
+                <p
+                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
+                >
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-success-main"
+                  >
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                    <span class="dashboard-concluidas-30d">+0</span>
+                  </span>
+                  Últimos 30 dias
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-none border bg-gradient-start-1 h-100">
+              <div class="card-body p-20">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Crédito Investimento
+                    </p>
+                    <h6 class="mb-0 dashboard-total-users">...</h6>
+                  </div>
+                  <div
+                    class="w-50-px h-50-px bg-cyan rounded-circle d-flex justify-content-center align-items-center"
+                  >
+                    <iconify-icon
+                      icon="fa-solid:tractor"
+                      class="text-white text-2xl mb-0"
+                    ></iconify-icon>
+                  </div>
+                </div>
+                <p
+                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
+                >
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-success-main"
+                  >
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                    <span class="dashboard-users-30d">+0</span>
+                  </span>
+                  Últimos 30 dias
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-none border bg-gradient-start-3 h-100">
+              <div class="card-body p-20">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Comercialização
+                    </p>
+                    <h6 class="mb-0 dashboard-leads-total">0</h6>
+                  </div>
+                  <div
+                    class="w-50-px h-50-px bg-info rounded-circle d-flex justify-content-center align-items-center"
+                  >
+                    <iconify-icon
+                      icon="ri:truck-line"
+                      class="text-white text-2xl mb-0"
+                    ></iconify-icon>
+                  </div>
+                </div>
+                <p
+                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
+                >
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-success-main"
+                  >
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                    <span class="dashboard-leads-30d">+0</span>
+                  </span>
+                  Últimos 30 dias
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-none border bg-gradient-start-4 h-100">
+              <div class="card-body p-20">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Avaliação Imóveis
+                    </p>
+                    <h6 class="mb-0">4</h6>
+                  </div>
+                  <div
+                    class="w-50-px h-50-px bg-success-main rounded-circle d-flex justify-content-center align-items-center"
+                  >
+                    <iconify-icon
+                      icon="ri:home-gear-line"
+                      class="text-white text-2xl mb-0"
+                    ></iconify-icon>
+                  </div>
+                </div>
+                <p
+                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
+                >
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-success-main"
+                  >
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                    +4
+                  </span>
+                  Últimos 30 dias
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow-none border bg-gradient-start-5 h-100">
+              <div class="card-body p-20">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+                >
+                  <div>
+                    <p class="fw-medium text-primary-light mb-1">
+                      Licenciamento
+                    </p>
+                    <h6 class="mb-0">5</h6>
+                  </div>
+                  <div
+                    class="w-50-px h-50-px bg-red rounded-circle d-flex justify-content-center align-items-center"
+                  >
+                    <iconify-icon
+                      icon="ri:leaf-line"
+                      class="text-white text-2xl mb-0"
+                    ></iconify-icon>
+                  </div>
+                </div>
+                <p
+                  class="fw-medium text-sm text-primary-light mt-12 mb-0 d-flex align-items-center gap-2"
+                >
+                  <span
+                    class="d-inline-flex align-items-center gap-1 text-success-main"
+                  >
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                    +5
+                  </span>
+                  Últimos 30 dias
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gy-4 mt-1">
+          <div class="col-xxl-6 col-xl-12">
+            <div class="card h-100">
+              <div class="card-body">
+                <div
+                  class="d-flex flex-wrap align-items-center justify-content-between"
+                >
+                  <h6 class="text-lg mb-0">Total Crédito Aprovado</h6>
+                </div>
+                <div class="d-flex flex-wrap align-items-center gap-2 mt-8">
+                  <h6 class="mb-0 approved-total">R$ 0,00</h6>
+                  <span
+                    class="growth-percent text-sm fw-semibold rounded-pill bg-success-focus text-success-main border br-success px-8 py-4 line-height-1 d-flex align-items-center gap-1"
+                  >
+                    10%
+                    <iconify-icon
+                      icon="bxs:up-arrow"
+                      class="text-xs"
+                    ></iconify-icon>
+                  </span>
+                  <span class="text-xs fw-medium approved-per-day"
+                    >+ R$ 0,00 por dia</span
+                  >
+                </div>
+                <div id="chart" class="pt-28 apexcharts-tooltip-style-1"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Exemplo de estrutura HTML para o gráfico -->
+          <!-- Exemplo de exibição do Total e da Variação Percentual -->
+          <div class="col-xxl-3 col-xl-6">
+            <div class="card h-100">
+              <div class="card-body p-24">
+                <h6 class="fw-semibold mb-0">Solicitações Concluídas</h6>
+                <div class="d-flex align-items-center gap-2 mb-20">
+                  <h8 class="fw-semibold mb-0">Total:</h8>
+                  <h6 class="fw-semibold mb-0 dashboard-total-concluidas">0</h6>
+                </div>
+
+                <!-- Chart Container -->
+                <div id="barChart" class="barChart"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xxl-3 col-xl-6">
+            <div class="card h-100 radius-8 border-0 overflow-hidden">
+              <div class="card-body p-24">
+                <div
+                  class="d-flex align-items-center flex-wrap gap-2 justify-content-between"
+                >
+                  <h6 class="mb-2 fw-bold text-lg">Tipos de Créditos</h6>
+                  <div class="">
+                    <select
+                      class="form-select form-select-sm w-auto bg-base border text-secondary-light radius-8"
+                    >
+                      <option>Today</option>
+                      <option>Weekly</option>
+                      <option>Monthly</option>
+                      <option>Yearly</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div
+                  id="userOverviewDonutChart"
+                  class="apexcharts-tooltip-z-none"
+                ></div>
+
+                <ul
+                  class="d-flex flex-wrap align-items-center justify-content-between mt-3 gap-3"
+                >
+                  <li class="d-flex align-items-center gap-2">
+                    <span
+                      class="w-12-px h-12-px radius-2 bg-primary-600"
+                    ></span>
+                    <span class="text-secondary-light text-sm fw-normal"
+                      >New:
+                      <span class="text-primary-light fw-semibold">500</span>
+                    </span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2">
+                    <span class="w-12-px h-12-px radius-2 bg-yellow"></span>
+                    <span class="text-secondary-light text-sm fw-normal"
+                      >Subscribed:
+                      <span class="text-primary-light fw-semibold">300</span>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-9 col-xl-12">
+            <div class="card h-100">
+              <div class="card-body p-24">
+                <div
+                  class="d-flex flex-wrap align-items-center gap-1 justify-content-between mb-16"
+                >
+                  <ul
+                    class="nav border-gradient-tab nav-pills mb-0"
+                    id="pills-tab"
+                    role="tablist"
+                  >
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link active"
+                        id="tab1"
+                        data-bs-toggle="pill"
+                        data-bs-target="#content1"
+                        type="button"
+                        role="tab"
+                      >
+                        Sem Responsáveis
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="tab2"
+                        data-bs-toggle="pill"
+                        data-bs-target="#content2"
+                        type="button"
+                        role="tab"
+                      >
+                        Aguardando Documentação
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="tab3"
+                        data-bs-toggle="pill"
+                        data-bs-target="#content3"
+                        type="button"
+                        role="tab"
+                      >
+                        Aguardando Aprovação
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button
+                        class="nav-link"
+                        id="tab4"
+                        data-bs-toggle="pill"
+                        data-bs-target="#content4"
+                        type="button"
+                        role="tab"
+                      >
+                        Aguardando Conclusão
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="tab-content" id="pills-tabContent">
+                  <!-- Aba 1: Sem Responsáveis -->
+                  <div
+                    class="tab-pane fade show active"
+                    id="content1"
+                    role="tabpanel"
+                  >
+                    <div class="table-responsive scroll-sm">
+                      <table class="table bordered-table sm-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Solicitação</th>
+                            <th>Data Solicitação</th>
+                          </tr>
+                        </thead>
+                        <tbody id="solicitacoes-sem-responsaveis"></tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Aba 2: Aguardando Documentação -->
+                  <div class="tab-pane fade" id="content2" role="tabpanel">
+                    <div class="table-responsive scroll-sm">
+                      <table class="table bordered-table sm-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Documentação</th>
+                            <th>Data Solicitação</th>
+                          </tr>
+                        </thead>
+                        <tbody id="solicitacoes-aguardando-docs"></tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Aba 3: Aguardando Aprovação -->
+                  <div class="tab-pane fade" id="content3" role="tabpanel">
+                    <div class="table-responsive scroll-sm">
+                      <table class="table bordered-table sm-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Solicitação</th>
+                            <th>Data Solicitação</th>
+                          </tr>
+                        </thead>
+                        <tbody id="solicitacoes-aguardando-aprovacao"></tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Aba 4: Aguardando Conclusão -->
+                  <div class="tab-pane fade" id="content4" role="tabpanel">
+                    <div class="table-responsive scroll-sm">
+                      <table class="table bordered-table sm-table mb-0">
+                        <thead>
+                          <tr>
+                            <th>Cliente</th>
+                            <th>Valor Crédito</th>
+                            <th>Status Solicitação</th>
+                            <th>Data Solicitação</th>
+                          </tr>
+                        </thead>
+                        <tbody id="solicitacoes-aguardando-conclusao"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xxl-3 col-xl-12">
+            <div class="card h-100">
+              <div class="card-body">
+                <div
+                  class="d-flex align-items-center flex-wrap gap-2 justify-content-between"
+                >
+                  <h6 class="mb-2 fw-bold text-lg mb-0">Melhor Desempenho</h6>
+                </div>
+
+                <!-- Aqui será preenchido via JS -->
+                <div class="mt-32" id="top-performers-list">
+                  <p class="text-sm text-muted">Carregando...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xxl-6 col-xl-12">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="col-12">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <div class="row gy-4">
+                        <!-- Últimos Clientes -->
+                        <div class="col-12 col-md-6">
+                          <h6 class="text-lg fw-bold text-center mb-16">
+                            Novos Clientes
+                          </h6>
+                          <div class="border p-16 radius-8">
+                            <div
+                              class="max-h-266-px overflow-y-auto scroll-sm pe-16"
+                              id="lista-clientes"
+                            ></div>
+                          </div>
+                        </div>
+
+                        <!-- Últimos Leads -->
+                        <div class="col-12 col-md-6">
+                          <h6 class="text-lg fw-bold text-center mb-16">
+                            Novos Leads
+                          </h6>
+                          <div class="border p-16 radius-8">
+                            <div
+                              class="max-h-266-px overflow-y-auto scroll-sm pe-16"
+                              id="lista-leads"
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xxl-6">
+            <div class="card h-100">
+              <div class="card-body">
+                <div
+                  class="d-flex align-items-center flex-wrap gap-2 justify-content-between"
+                >
+                  <h6 class="mb-2 fw-bold text-lg mb-0">
+                    Clientes x Leads por Mês
+                  </h6>
+                </div>
+
+                <ul class="d-flex flex-wrap align-items-center mt-3 gap-3">
+                  <li class="d-flex align-items-center gap-2">
+                    <span
+                      class="w-12-px h-12-px rounded-circle bg-primary-600"
+                    ></span>
+                    <span class="text-secondary-light text-sm fw-semibold">
+                      Clientes
+                    </span>
+                  </li>
+                  <li class="d-flex align-items-center gap-2">
+                    <span
+                      class="w-12-px h-12-px rounded-circle bg-yellow"
+                    ></span>
+                    <span class="text-secondary-light text-sm fw-semibold">
+                      Leads
+                    </span>
+                  </li>
+                </ul>
+
+                <div class="mt-40">
+                  <div id="clientesLeadsChart" class="margin-16-minus"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0">
+              Made by <span class="text-primary-600">ComosTech</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Bibliotecas JS agrupadas e otimizadas -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/lib/apexcharts.min.js"></script>
+    <script src="assets/js/lib/dataTables.min.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script src="assets/js/lib/jquery-ui.min.js"></script>
+    <script src="assets/js/lib/jquery-jvectormap-2.0.5.min.js"></script>
+    <script src="assets/js/lib/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="assets/js/lib/magnifc-popup.min.js"></script>
+    <script src="assets/js/lib/slick.min.js"></script>
+    <script src="assets/js/lib/prism.js"></script>
+    <script src="assets/js/lib/file-upload.js"></script>
+    <script src="assets/js/lib/audioplayer.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/homeOneChart.js"></script>
+
+    <!-- Firebase v8 (compatível com firebase.firestore()) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.41.0"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+
+      // Inicializa o Firebase (apenas se não estiver inicializado)
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+
+      // Proteção de rota
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          window.location.href = "sign-in.html";
+        } else {
+          const elName = document.getElementById("user-profile-name");
+          if (elName) {
+            elName.textContent =
+              user.displayName || user.phoneNumber || user.email || "Usuário";
+          }
+        }
+      });
+
+      // Logout
+      document
+        .getElementById("logout-btn")
+        ?.addEventListener("click", function () {
+          firebase
+            .auth()
+            .signOut()
+            .then(function () {
+              window.location.href = "sign-in.html";
+            });
+        });
+    </script>
+    <script>
+      const db = firebase.firestore();
+      let chartInstance = null; // controla gráfico atual
+      async function carregarResumoDashboard() {
+        try {
+          // ==== CLIENTES ====
+          const clientesSnap = await db.collection("clientes").get();
+          const totalUsers = clientesSnap.size;
+          const totalFreeUsers = clientesSnap.size;
+
+          const hoje = new Date();
+          const trintaDiasAtras = new Date();
+          trintaDiasAtras.setDate(hoje.getDate() - 30);
+
+          let clientesUltimos30Dias = 0;
+          clientesSnap.forEach((doc) => {
+            const data = doc.data().data_inclusao;
+            const dataCadastro = data?.toDate?.() || new Date(data);
+            if (dataCadastro >= trintaDiasAtras) {
+              clientesUltimos30Dias++;
+            }
+          });
+
+          const elUsers = document.querySelector(".dashboard-total-users");
+          if (elUsers) elUsers.textContent = totalUsers.toLocaleString();
+
+          const elFree = document.querySelector(".dashboard-total-free");
+          if (elFree) elFree.textContent = totalFreeUsers.toLocaleString();
+
+          const el30d = document.querySelector(".dashboard-users-30d");
+          if (el30d) el30d.textContent = `+${clientesUltimos30Dias}`;
+
+          // ==== SUBSCRIÇÕES ====
+          const subscriptionSnap = await db.collection("subscricoes").get();
+          const subscriptionCount = subscriptionSnap.size;
+
+          const elSub = document.querySelector(".dashboard-total-subscription");
+          if (elSub) elSub.textContent = subscriptionCount.toLocaleString();
+
+          // ==== INCOME & EXPENSE ====
+          const custeiosSnap = await db
+            .collection("custeio")
+            .where("status_solicitacao", "==", "concluido")
+            .get();
+
+          let totalIncome = 0;
+          let totalExpense = 0;
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const valorCredito = parseFloat(data.valor_credito || 0);
+            const valorEmpresa = valorCredito * 0.015;
+
+            if (dataConclusao >= trintaDiasAtras) {
+              totalIncome += valorEmpresa;
+              totalExpense += valorCredito;
+            }
+          });
+          // ==== CONCLUÍDAS ====
+          let totalConcluidas = 0;
+          let concluidas30Dias = 0;
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+
+            totalConcluidas++;
+
+            if (dataConclusao >= trintaDiasAtras) {
+              concluidas30Dias++;
+            }
+          });
+
+          const elConcluidas = document.querySelector(
+            ".dashboard-concluidas-total"
+          );
+          if (elConcluidas)
+            elConcluidas.textContent = totalConcluidas.toLocaleString();
+
+          const elConcluidas30d = document.querySelector(
+            ".dashboard-concluidas-30d"
+          );
+          if (elConcluidas30d)
+            elConcluidas30d.textContent = `+${concluidas30Dias}`;
+
+          const elIncome = document.querySelector(".dashboard-income");
+          if (elIncome) elIncome.textContent = formatarBR(totalIncome);
+
+          const elExpense = document.querySelector(".dashboard-expense");
+          if (elExpense) elExpense.textContent = formatarBR(totalExpense);
+          // ==== LEADS ====
+          // ==== LEADS ====
+          // ==== LEADS ====
+          const leadsSnap = await db.collection("leads").get();
+          let totalLeads = leadsSnap.size;
+          let leads30Dias = 0;
+
+          leadsSnap.forEach((doc) => {
+            const data = doc.data().createdAt;
+
+            if (!data) {
+              console.warn("Lead sem data_inclusao:", doc.id);
+              return;
+            }
+
+            const dataCadastro = data?.toDate?.() || new Date(data);
+            if (dataCadastro >= trintaDiasAtras) {
+              leads30Dias++;
+            }
+          });
+
+          const elLeadsTotal = document.querySelector(".dashboard-leads-total");
+          if (elLeadsTotal)
+            elLeadsTotal.textContent = totalLeads.toLocaleString();
+
+          const elLeads30d = document.querySelector(".dashboard-leads-30d");
+          if (elLeads30d) elLeads30d.textContent = `+${leads30Dias}`;
+
+          // ==== SALES STATISTIC (solicitações aprovadas) ====
+          const custeiosAprovadosSnap = await db
+            .collection("custeio")
+            .where("status_solicitacao", "==", "concluido")
+            .get();
+
+          let totalAprovado = 0;
+          let valoresPorMes = {};
+
+          custeiosAprovadosSnap.forEach((doc) => {
+            const data = doc.data();
+            const valor = parseFloat(data.valor_credito || 0);
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const mes = dataConclusao
+              .toLocaleDateString("pt-BR", { month: "short" })
+              .toLowerCase()
+              .replace(".", ""); // remove o ponto final
+            // ✅ Adicione este log para verificar os dados reais
+            console.log(
+              "Data:",
+              dataConclusao.toLocaleDateString("pt-BR"),
+              "Mês:",
+              mes,
+              "Valor:",
+              valor
+            );
+
+            totalAprovado += valor;
+            if (!valoresPorMes[mes]) valoresPorMes[mes] = 0;
+            valoresPorMes[mes] += valor;
+          });
+
+          // ✅ Log após o loop para ver resultado final
+          console.log("Totais por mês:", valoresPorMes);
+
+          const mesesOrdenados = [
+            "jan",
+            "fev",
+            "mar",
+            "abr",
+            "mai",
+            "jun",
+            "jul",
+            "ago",
+            "set",
+            "out",
+            "nov",
+            "dez",
+          ];
+          const labelsMeses = mesesOrdenados.map(
+            (m) => m.charAt(0).toUpperCase() + m.slice(1)
+          );
+          const seriesValores = mesesOrdenados.map(
+            (m) => valoresPorMes[m] || 0
+          );
+
+          document.querySelector(".approved-total").textContent =
+            formatarBR(totalAprovado);
+
+          const mediaPorDia = totalAprovado / 30;
+          document.querySelector(
+            ".approved-per-day"
+          ).textContent = `+ ${formatarBR(mediaPorDia)} por dia`;
+
+          // ==== CRESCIMENTO PERCENTUAL (últimos 30 dias vs 30 anteriores) ====
+          const sessentaDiasAtras = new Date();
+          sessentaDiasAtras.setDate(trintaDiasAtras.getDate() - 30);
+
+          let totalAnterior = 0;
+          let totalAtual = 0;
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const valor = parseFloat(data.valor_credito || 0);
+
+            if (dataConclusao >= trintaDiasAtras) {
+              totalAtual += valor;
+            } else if (
+              dataConclusao >= sessentaDiasAtras &&
+              dataConclusao < trintaDiasAtras
+            ) {
+              totalAnterior += valor;
+            }
+          });
+          let crescimento = 0;
+          if (totalAnterior > 0) {
+            crescimento = ((totalAtual - totalAnterior) / totalAnterior) * 100;
+          } else if (totalAtual > 0) {
+            crescimento = 100;
+          }
+
+          const elCrescimento = document.querySelector(".growth-percent");
+          if (elCrescimento) {
+            const percentual = `${
+              crescimento >= 0 ? "+" : ""
+            }${crescimento.toFixed(1)}%`;
+            const icon = crescimento >= 0 ? "bxs:up-arrow" : "bxs:down-arrow";
+
+            elCrescimento.innerHTML = `
+    ${percentual}
+    <iconify-icon icon="${icon}" class="text-xs"></iconify-icon>
+  `;
+
+            // Atualiza as classes de cor
+            elCrescimento.classList.remove(
+              "text-success-main",
+              "text-danger-main",
+              "bg-success-focus",
+              "bg-danger-focus"
+            );
+            elCrescimento.classList.add(
+              crescimento >= 0 ? "text-success-main" : "text-danger-main",
+              crescimento >= 0 ? "bg-success-focus" : "bg-danger-focus"
+            );
+          }
+
+          renderizarGraficoSolicitacoes(labelsMeses, seriesValores);
+        } catch (err) {
+          console.error("Erro ao carregar dashboard:", err);
+        }
+      }
+
+      function formatarBR(valor) {
+        return valor.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+      }
+      async function carregarUltimosRegistros() {
+        // Clientes
+        const clientesQuery = await db
+          .collection("clientes")
+          .orderBy("data_inclusao", "desc")
+          .limit(5)
+          .get();
+        const clientesTbody = document.getElementById("clientes-table-body");
+        clientesTbody.innerHTML = "";
+        clientesQuery.forEach((doc) => {
+          const c = doc.data();
+          const nome = c.nome_completo || "Sem nome";
+          const email = c.email || "-";
+          const data = c.data_inclusao?.toDate?.() || new Date(c.data_inclusao);
+          clientesTbody.innerHTML += `
+      <tr>
+        <td><strong>${nome}</strong><br><span class="text-sm text-secondary-light">${email}</span></td>
+        <td>${data.toLocaleDateString("pt-BR")}</td>
+        
+        <td class="text-center"><span class="badge bg-success">Ativo</span></td>
+      </tr>
+    `;
+        });
+
+        // Leads
+        const leadsQuery = await db
+          .collection("leads")
+          .orderBy("createdAt", "desc")
+          .limit(5)
+          .get();
+        const leadsTbody = document.getElementById("leads-table-body");
+        leadsTbody.innerHTML = "";
+        leadsQuery.forEach((doc) => {
+          const l = doc.data();
+          const nome = l.nome || "Sem nome";
+          const email = l.email || "-";
+          const data = l.createdAt?.toDate?.() || new Date(l.createdAt);
+          leadsTbody.innerHTML += `
+      <tr>
+        <td>${nome}</td>
+        <td>${data.toLocaleDateString("pt-BR")}</td>
+        <td>${email}</td>
+        <td class="text-center"><span class="badge bg-success">Novo</span></td>
+      </tr>
+    `;
+        });
+      }
+
+      function formatarNumero(valor) {
+        if (valor >= 1000000) {
+          return (valor / 1000000).toFixed(0) + "M"; // Exemplo: 10M para 10.000.000
+        } else if (valor >= 1000) {
+          return (valor / 1000).toFixed(0) + "K"; // Exemplo: 1K para 1.200
+        } else {
+          return valor.toLocaleString("pt-BR"); // Para valores abaixo de mil
+        }
+      }
+
+      function renderizarGraficoSolicitacoes(labels, valores) {
+        const chartEl = document.querySelector("#chart");
+        if (!chartEl) return;
+
+        // 🧹 Limpa DOM completamente antes de desenhar
+        chartEl.innerHTML = "";
+
+        // 🔄 Destroi instância anterior, se existir
+        if (chartInstance) {
+          chartInstance.destroy();
+          chartInstance = null;
+        }
+
+        // Define os meses para o eixo X
+        const meses = [
+          "Jan",
+          "Fev",
+          "Mar",
+          "Abr",
+          "Mai",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Set",
+          "Out",
+          "Nov",
+          "Dez",
+        ];
+
+        const options = {
+          chart: {
+            type: "area",
+            height: 300,
+            toolbar: { show: false },
+          },
+          series: [
+            {
+              name: "Solicitações Aprovadas",
+              data: valores,
+            },
+          ],
+          xaxis: {
+            categories: meses, // Substitui os números por meses
+          },
+          yaxis: {
+            labels: {
+              formatter: function (value) {
+                return formatarNumero(value); // Aplica a formatação de milhões (M) no eixo Y
+              },
+            },
+          },
+          colors: ["#00c292"],
+          stroke: {
+            curve: "smooth",
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return formatarNumero(val); // Aplica a formatação de milhões (M) nas etiquetas de dados
+            },
+          },
+          tooltip: {
+            y: {
+              formatter: formatarNumero, // Aplica a formatação no tooltip
+            },
+          },
+        };
+
+        chartInstance = new ApexCharts(chartEl, options);
+        chartInstance.render();
+
+        // 🛠 Força o resize após o primeiro frame
+      }
+
+      async function atualizarContadoresTabs() {
+        try {
+          // Clientes
+          const clientesSnap = await db.collection("clientes").get();
+          const clientesCount = clientesSnap.size;
+
+          const spanClientes = document.querySelector(
+            ".notification-count-clientes"
+          );
+          if (spanClientes) {
+            spanClientes.textContent = clientesCount.toLocaleString("pt-BR");
+          }
+
+          // Leads (separado)
+          const leadsSnap = await db.collection("leads").get();
+          const leadsCount = leadsSnap.size;
+
+          const spanLeads = document.querySelector(".notification-count-leads");
+          if (spanLeads) {
+            spanLeads.textContent = leadsCount.toLocaleString("pt-BR");
+          }
+        } catch (err) {
+          console.error("Erro ao buscar contadores:", err);
+        }
+      }
+
+      async function carregarTopPerformers() {
+        const container = document.getElementById("top-performers-list");
+        container.innerHTML = "";
+
+        try {
+          const [agentesSnap, gerentesSnap, custeiosSnap] = await Promise.all([
+            db.collection("agentes").get(),
+            db.collection("gerentes").get(),
+            db
+              .collection("custeio")
+              .where("status_solicitacao", "==", "concluido")
+              .get(),
+          ]);
+
+          const usuarios = {};
+
+          agentesSnap.forEach((doc) => {
+            const data = doc.data();
+            usuarios[doc.id] = {
+              nome: data.nome_completo || "Sem nome",
+              email: data.email || "Sem email",
+              total: 0,
+            };
+          });
+
+          gerentesSnap.forEach((doc) => {
+            const data = doc.data();
+            usuarios[doc.id] = {
+              nome: data.nome_completo || "Sem nome",
+              email: data.email || "Sem email",
+              total: 0,
+            };
+          });
+
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const valorCredito = parseFloat(data.valor_credito || 0);
+            const comissao = valorCredito * 0.01;
+            const bonus = valorCredito * 0.005;
+            const total = comissao + bonus;
+
+            const gerenteId = data.responsavelGerenteId;
+            const agenteId = data.responsavelSecundarioId;
+
+            if (usuarios[gerenteId]) usuarios[gerenteId].total += total;
+            if (usuarios[agenteId]) usuarios[agenteId].total += total;
+          });
+
+          const topUsuarios = Object.values(usuarios)
+            .sort((a, b) => b.total - a.total)
+            .slice(0, 5);
+
+          topUsuarios.forEach((u) => {
+            container.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between gap-3 mb-24">
+          <div class="flex-grow-1">
+            <h6 class="text-md mb-0 fw-medium">${u.nome}</h6>
+            <span class="text-sm text-secondary-light fw-medium">${
+              u.email
+            }</span>
+          </div>
+          <span class="text-primary-light text-md fw-medium">${formatarBR(
+            u.total
+          )}</span>
+        </div>
+      `;
+          });
+        } catch (err) {
+          console.error("Erro ao carregar top performers:", err);
+          container.innerHTML = `<p class="text-danger">Erro ao carregar dados.</p>`;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", atualizarContadoresTabs);
+      document.addEventListener("DOMContentLoaded", carregarUltimosRegistros);
+      document.addEventListener("DOMContentLoaded", carregarResumoDashboard);
+      document.addEventListener("DOMContentLoaded", carregarTopPerformers);
+    </script>
+    <script>
+      document.documentElement.setAttribute("data-theme", "dark");
+    </script>
+    <script>
+      async function carregarSolicitacoesPorFiltro() {
+        try {
+          const snapshot = await db.collection("custeio").get();
+          const data = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+          // Aba 1: Sem Responsáveis
+          const semResponsaveis = data.filter(
+            (item) =>
+              (!item.responsavelGerenteId ||
+                item.responsavelGerenteId === "") &&
+              (!item.responsavelSecundarioId ||
+                item.responsavelSecundarioId === "")
+          );
+          preencherTabela("solicitacoes-sem-responsaveis", semResponsaveis, [
+            "cliente_nome",
+            "valor_credito",
+            "status_solicitacao",
+            "data_solicitacao",
+          ]);
+
+          // Aba 2: Aguardando Documentação
+          const aguardandoDocs = data.filter(
+            (item) => item.status_documentacao !== "Verificado"
+          );
+          preencherTabela("solicitacoes-aguardando-docs", aguardandoDocs, [
+            "cliente_nome",
+            "valor_credito",
+            "status_documentacao",
+            "data_solicitacao",
+          ]);
+
+          // Aba 3: Aguardando Aprovação
+          const aguardandoAprovacao = data.filter(
+            (item) => item.status_solicitacao !== "Aprovado"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-aprovacao",
+            aguardandoAprovacao,
+            [
+              "cliente_nome",
+              "valor_credito",
+              "status_solicitacao",
+              "data_solicitacao",
+            ]
+          );
+
+          // Aba 4: Aguardando Conclusão
+          const aguardandoConclusao = data.filter(
+            (item) => item.status_solicitacao !== "Concluído"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-conclusao",
+            aguardandoConclusao,
+            [
+              "cliente_nome",
+              "valor_credito",
+              "status_solicitacao",
+              "data_solicitacao",
+            ]
+          );
+        } catch (error) {
+          console.error("Erro ao carregar solicitações:", error);
+        }
+      }
+
+      function preencherTabela(tbodyId, lista, campos) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+
+        tbody.innerHTML = "";
+
+        lista.forEach((item) => {
+          const tr = document.createElement("tr");
+
+          campos.forEach((campo) => {
+            const td = document.createElement("td");
+
+            if (campo.includes("data")) {
+              const data = item[campo]?.toDate?.() || new Date(item[campo]);
+              td.textContent = data.toLocaleDateString("pt-BR");
+            } else {
+              td.textContent = item[campo] ?? "-";
+            }
+
+            tr.appendChild(td);
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarSolicitacoesPorFiltro
+      );
+    </script>
+
+    <script>
+      async function carregarSolicitacoesPorFiltro() {
+        try {
+          // Busca todas as solicitações e todos os clientes
+          const [custeioSnap, clientesSnap] = await Promise.all([
+            db.collection("custeio").get(),
+            db.collection("clientes").get(),
+          ]);
+
+          // Cria um mapa de ID -> Nome do Cliente
+          const clientesMap = {};
+          clientesSnap.forEach((doc) => {
+            clientesMap[doc.id] = doc.data().nome_completo || "Sem nome";
+          });
+
+          // Junta os dados das solicitações com o nome do cliente
+          const data = custeioSnap.docs.map((doc) => {
+            const item = doc.data();
+            return {
+              id: doc.id,
+              ...item,
+              cliente_nome: clientesMap[item.cliente_id] || "Desconhecido",
+            };
+          });
+
+          // 🟢 Ordenar do mais novo para o mais velho por createdAt (ou data_solicitacao se for o caso)
+          data.sort((a, b) => {
+            const aData = a.createdAt?.toDate?.() || new Date(a.createdAt);
+            const bData = b.createdAt?.toDate?.() || new Date(b.createdAt);
+            return bData - aData; // mais novo primeiro
+          });
+
+          // Aba 1: Sem Responsáveis
+          const semResponsaveis = data.filter(
+            (item) =>
+              (!item.responsavelGerenteId ||
+                item.responsavelGerenteId === "") &&
+              (!item.responsavelSecundarioId ||
+                item.responsavelSecundarioId === "")
+          );
+          preencherTabela("solicitacoes-sem-responsaveis", semResponsaveis, [
+            "cliente_nome",
+            "valor_credito",
+            "status_solicitacao",
+            "createdAt",
+          ]);
+
+          // Aba 2: Aguardando Documentação
+          // Aba 2: Aguardando Documentação (somente status_documentacao === "verificado")
+          const aguardandoDocs = data.filter(
+            (item) => item.status_documentacao?.toLowerCase?.() === "pendente"
+          );
+          preencherTabela("solicitacoes-aguardando-docs", aguardandoDocs, [
+            "cliente_nome",
+            "valor_credito",
+            "status_documentacao",
+            "createdAt",
+          ]);
+
+          // Aba 3: Aguardando Aprovação
+          // Aba 3: Aguardando Aprovação (somente status = "processando")
+          const aguardandoAprovacao = data.filter(
+            (item) => item.status_solicitacao?.toLowerCase?.() === "processando"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-aprovacao",
+            aguardandoAprovacao,
+            ["cliente_nome", "valor_credito", "status_solicitacao", "createdAt"]
+          );
+
+          // Aba 4: Aguardando Conclusão (somente status = "aprovado")
+          const aguardandoConclusao = data.filter(
+            (item) => item.status_solicitacao?.toLowerCase?.() === "aprovado"
+          );
+          preencherTabela(
+            "solicitacoes-aguardando-conclusao",
+            aguardandoConclusao,
+            ["cliente_nome", "valor_credito", "status_solicitacao", "createdAt"]
+          );
+        } catch (error) {
+          console.error("Erro ao carregar solicitações:", error);
+        }
+      }
+
+      function preencherTabela(tbodyId, lista, campos) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+
+        tbody.innerHTML = "";
+
+        lista.forEach((item) => {
+          const tr = document.createElement("tr");
+
+          campos.forEach((campo) => {
+            const td = document.createElement("td");
+            const valor = item[campo];
+
+            if (
+              campo.toLowerCase().includes("data") ||
+              campo.toLowerCase().includes("createdat")
+            ) {
+              if (valor && typeof valor.toDate === "function") {
+                const dataObj = valor.toDate();
+                td.textContent = dataObj.toLocaleDateString("pt-BR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "2-digit",
+                });
+              } else {
+                td.textContent = "-";
+              }
+            } else if (campo === "valor_credito") {
+              const numero = parseFloat(valor);
+              td.textContent = isNaN(numero)
+                ? "-"
+                : numero.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  });
+            } else {
+              td.textContent = valor ?? "-";
+            }
+
+            tr.appendChild(td);
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarSolicitacoesPorFiltro
+      );
+    </script>
+    <script>
+      async function renderizarGraficoClientesLeads() {
+        const chartEl = document.querySelector("#clientesLeadsChart");
+
+        if (!chartEl) return;
+
+        const meses = [
+          "jan",
+          "fev",
+          "mar",
+          "abr",
+          "mai",
+          "jun",
+          "jul",
+          "ago",
+          "set",
+          "out",
+          "nov",
+          "dez",
+        ];
+
+        const clientesPorMes = {};
+        const leadsPorMes = {};
+
+        meses.forEach((m) => {
+          clientesPorMes[m] = 0;
+          leadsPorMes[m] = 0;
+        });
+
+        const [clientesSnap, leadsSnap] = await Promise.all([
+          db.collection("clientes").get(),
+          db.collection("leads").get(),
+        ]);
+
+        clientesSnap.forEach((doc) => {
+          const data = doc.data().data_inclusao;
+          const dataInclusao = data?.toDate?.() || new Date(data);
+          const mes = dataInclusao
+            .toLocaleDateString("pt-BR", { month: "short" })
+            .toLowerCase()
+            .replace(".", "");
+          if (clientesPorMes[mes] !== undefined) clientesPorMes[mes]++;
+        });
+
+        leadsSnap.forEach((doc) => {
+          const data = doc.data().createdAt;
+          const dataCriacao = data?.toDate?.() || new Date(data);
+          const mes = dataCriacao
+            .toLocaleDateString("pt-BR", { month: "short" })
+            .toLowerCase()
+            .replace(".", "");
+          if (leadsPorMes[mes] !== undefined) leadsPorMes[mes]++;
+        });
+
+        const labels = meses.map((m) => m.charAt(0).toUpperCase() + m.slice(1));
+        const clientesSeries = meses.map((m) => clientesPorMes[m]);
+        const leadsSeries = meses.map((m) => leadsPorMes[m]);
+
+        const options = {
+          chart: {
+            type: "bar",
+            height: 350,
+            stacked: false,
+            toolbar: { show: false },
+          },
+          series: [
+            { name: "Clientes", data: clientesSeries },
+            { name: "Leads", data: leadsSeries },
+          ],
+          xaxis: { categories: labels },
+          colors: ["#008FFB", "#FEB019"],
+          plotOptions: {
+            bar: { columnWidth: "45%", borderRadius: 4 },
+          },
+          dataLabels: { enabled: false },
+          legend: { position: "top" },
+        };
+
+        const chart = new ApexCharts(chartEl, options);
+        chart.render();
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        renderizarGraficoClientesLeads
+      );
+    </script>
+
+    <script>
+      async function carregarUltimosRegistrosEstilizados() {
+        const clientesSnap = await db
+          .collection("clientes")
+          .orderBy("data_inclusao", "desc")
+          .limit(5)
+          .get();
+
+        const leadsSnap = await db
+          .collection("leads")
+          .orderBy("createdAt", "desc")
+          .limit(5)
+          .get();
+
+        const listaClientes = document.getElementById("lista-clientes");
+        const listaLeads = document.getElementById("lista-leads");
+
+        listaClientes.innerHTML = "";
+        listaLeads.innerHTML = "";
+
+        clientesSnap.forEach((doc) => {
+          const c = doc.data();
+          const nome = c.nome_completo || "Sem nome";
+          const email = c.email || "-";
+          const data = c.data_inclusao?.toDate?.() || new Date(c.data_inclusao);
+
+          listaClientes.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+          <div class="flex-grow-1">
+            <h6 class="text-sm mb-0 text-white">${nome}</h6>
+            <span class="text-xs text-secondary-light fw-medium">${email}</span>
+          </div>
+          <span class="text-xs text-secondary-light fw-semibold">${data.toLocaleDateString(
+            "pt-BR"
+          )}</span>
+        </div>`;
+        });
+
+        leadsSnap.forEach((doc) => {
+          const l = doc.data();
+          const nome = l.nome || "Sem nome";
+          const email = l.email || "-";
+          const data = l.createdAt?.toDate?.() || new Date(l.createdAt);
+
+          listaLeads.innerHTML += `
+        <div class="d-flex align-items-center justify-content-between gap-3 mb-12 pb-2">
+          <div class="flex-grow-1">
+            <h6 class="text-sm mb-0 text-white">${nome}</h6>
+            <span class="text-xs text-secondary-light fw-medium">${email}</span>
+          </div>
+          <span class="text-xs text-secondary-light fw-semibold">${data.toLocaleDateString(
+            "pt-BR"
+          )}</span>
+        </div>`;
+        });
+      }
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        carregarUltimosRegistrosEstilizados
+      );
+    </script>
+
+    <script>
+      // Função para buscar as solicitações concluídas e renderizar o gráfico
+      async function carregarSolicitacoesConcluidas() {
+        try {
+          // Limpar o gráfico anterior
+          const chartEl = document.querySelector("#barChart");
+          if (chartEl) chartEl.innerHTML = ""; // Limpa a área do gráfico
+
+          // ==== SOLICITAÇÕES CONCLUÍDAS ====
+          const custeiosSnap = await db
+            .collection("custeio")
+            .where("status_solicitacao", "==", "concluido")
+            .get();
+
+          let solicitacoesConcluidasPorMes = {};
+          let totalConcluidas = 0;
+          let totalUltimos30Dias = 0;
+          let totalUltimos30DiasAnteriores = 0;
+
+          // Contabiliza as solicitações concluídas por mês e total
+          custeiosSnap.forEach((doc) => {
+            const data = doc.data();
+            const dataConclusao =
+              data.data_conclusao?.toDate?.() || new Date(data.data_conclusao);
+            const mes = dataConclusao
+              .toLocaleDateString("pt-BR", { month: "short" })
+              .toLowerCase()
+              .replace(".", ""); // Remove o ponto final da string mês
+
+            // Conta as solicitações concluídas por mês
+            if (!solicitacoesConcluidasPorMes[mes]) {
+              solicitacoesConcluidasPorMes[mes] = 0;
+            }
+            solicitacoesConcluidasPorMes[mes]++;
+
+            totalConcluidas++;
+
+            // Contabiliza os últimos 30 dias
+            const hoje = new Date();
+            const trintaDiasAtras = new Date();
+            trintaDiasAtras.setDate(hoje.getDate() - 30);
+            if (dataConclusao >= trintaDiasAtras) {
+              totalUltimos30Dias++;
+            } else if (dataConclusao < trintaDiasAtras) {
+              totalUltimos30DiasAnteriores++;
+            }
+          });
+
+          // Organize the data for the chart
+          const mesesOrdenados = [
+            "jan",
+            "fev",
+            "mar",
+            "abr",
+            "mai",
+            "jun",
+            "jul",
+            "ago",
+            "set",
+            "out",
+            "nov",
+            "dez",
+          ];
+
+          const labelsMeses = mesesOrdenados.map(
+            (m) => m.charAt(0).toUpperCase() + m.slice(1)
+          );
+          const seriesSolicitacoesConcluidas = mesesOrdenados.map(
+            (m) => solicitacoesConcluidasPorMes[m] || 0
+          );
+
+          // Renderize o gráfico de barras com as solicitações concluídas
+          renderizarGraficoSolicitacoesConcluidas(
+            labelsMeses,
+            seriesSolicitacoesConcluidas
+          );
+
+          // Exibe o total de solicitações concluídas
+          const elTotalConcluidas = document.querySelector(
+            ".dashboard-total-concluidas"
+          );
+          if (elTotalConcluidas)
+            elTotalConcluidas.textContent = totalConcluidas.toLocaleString();
+
+          // Calcula a variação percentual diária (para o campo de variação)
+          const variacaoPercentual =
+            totalUltimos30DiasAnteriores > 0
+              ? ((totalUltimos30Dias - totalUltimos30DiasAnteriores) /
+                  totalUltimos30DiasAnteriores) *
+                100
+              : 0;
+
+          const elVariação = document.querySelector(".dashboard-variacao-perc");
+          if (elVariação) {
+            const percentual = `${variacaoPercentual.toFixed(1)}%`;
+            const icon =
+              variacaoPercentual >= 0 ? "bxs:up-arrow" : "bxs:down-arrow";
+            elVariação.innerHTML = `
+        ${percentual}
+        <iconify-icon icon="${icon}" class="text-xs"></iconify-icon>
+      `;
+            elVariação.classList.remove(
+              "text-success-main",
+              "text-danger-main",
+              "bg-success-focus",
+              "bg-danger-focus"
+            );
+            elVariação.classList.add(
+              variacaoPercentual >= 0
+                ? "text-success-main"
+                : "text-danger-main",
+              variacaoPercentual >= 0 ? "bg-success-focus" : "bg-danger-focus"
+            );
+          }
+        } catch (err) {
+          console.error("Erro ao carregar solicitações concluídas:", err);
+        }
+      }
+
+      // Função para renderizar gráfico de solicitações concluídas
+      function renderizarGraficoSolicitacoesConcluidas(labels, valores) {
+        const chartEl = document.querySelector("#barChart");
+        if (!chartEl) return;
+
+        // Configuração do gráfico
+        const options = {
+          chart: {
+            type: "bar",
+            height: 300,
+            toolbar: { show: false },
+          },
+          series: [
+            {
+              name: "Solicitações Concluídas",
+              data: valores,
+            },
+          ],
+          xaxis: {
+            categories: labels,
+          },
+          colors: ["#00c292"], // Cor para o gráfico
+          dataLabels: {
+            enabled: false,
+          },
+          legend: {
+            position: "top",
+          },
+          tooltip: {
+            y: {
+              formatter: function (value) {
+                return value; // Exibe o valor das solicitações concluídas
+              },
+            },
+          },
+        };
+
+        // Cria o gráfico
+        const chart = new ApexCharts(chartEl, options);
+        chart.render();
+      }
+
+      // Chama a função para carregar o gráfico quando o DOM estiver pronto
+      document.addEventListener("DOMContentLoaded", () => {
+        carregarSolicitacoesConcluidas(); // Atualiza o gráfico de solicitações concluídas
+      });
+    </script>
+  </body>
+</html>
