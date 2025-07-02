@@ -48,7 +48,7 @@ const STATIC_ASSETS = [
   "/assets/js/profileVerification.js",
   "/auth/callback.html",
   // Liste aqui todos os arquivos locais estáticos importantes
-
+  /* 
   "/assets/images/card1.jpg",
   "/assets/images/card10.jpg",
   "/assets/images/card11.jpg",
@@ -240,7 +240,7 @@ const STATIC_ASSETS = [
 
   "/assets/images/home-screen/upgardeNow-img.jpg",
   "/assets/images/home-screen/upgardeNow-img2.jpg",
-  "/assets/images/home-screen/upgardeNow-img3.jpg",
+  "/assets/images/home-screen/upgardeNow-img3.jpg", */
 ];
 
 // Domínios externos para cache dinâmico (runtime caching)

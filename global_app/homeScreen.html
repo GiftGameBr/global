@@ -18,47 +18,6 @@
     <meta name="theme-color" content="#ffffff" />
 
     <style>
-      body:not(.loaded) .site_content > *:not(#page-loader) {
-        display: none !important;
-      }
-      body:not(.loaded) #page-loader {
-        display: flex !important;
-      }
-      body.loaded #page-loader {
-        display: none !important;
-      }
-      #page-loader {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background: #fff;
-        z-index: 9999;
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        flex-direction: column;
-        gap: 32px;
-      }
-
-      #page-loader img {
-        width: 45vw;
-        max-width: 420px;
-        min-width: 180px;
-        margin-bottom: 32px;
-        transition: width 0.3s;
-        display: block;
-      }
-
-      .loade-text {
-        font-size: 3.5rem;
-        color: #2461b1;
-        font-weight: 700;
-        letter-spacing: 2px;
-      }
-
       /* Style for the welcome message */
       #welcome-message {
         font-size: 1rem; /* Adjust as needed */
@@ -1172,54 +1131,6 @@
       } else {
         console.log("Service Worker não suportado neste navegador.");
       }
-    </script>
-    <script>
-      async function waitForStaticCache() {
-        if (
-          "serviceWorker" in navigator &&
-          window.location.protocol.startsWith("http")
-        ) {
-          try {
-            await navigator.serviceWorker.ready;
-            const cacheNames = await caches.keys();
-            const mainCache = cacheNames.find((name) =>
-              name.startsWith("app-static-cache")
-            );
-            if (mainCache) {
-              const cache = await caches.open(mainCache);
-              // Ajuste aqui: tente garantir que o arquivo realmente existe
-              const urlToCheck =
-                location.pathname.replace(/^\//, "") || "homeScreen.html";
-              const res = await cache.match(urlToCheck);
-              if (res) return true;
-            }
-          } catch (e) {
-            // Se der erro, considera não carregado ainda
-          }
-        }
-        return false;
-      }
-
-      window.addEventListener("DOMContentLoaded", async () => {
-        // Sempre inicia sem .loaded
-        document.body.classList.remove("loaded");
-        let loaded = false;
-        let tentativas = 0;
-        // Fallback: após 6 segundos, libera o conteúdo mesmo que o cache falhe
-        const fallback = setTimeout(() => {
-          loaded = true;
-        }, 6000);
-        // Tenta aguardar o cache
-        while (!loaded && tentativas < 12) {
-          loaded = await waitForStaticCache();
-          if (loaded) break;
-          await new Promise((r) => setTimeout(r, 500));
-          tentativas++;
-        }
-        clearTimeout(fallback);
-        // Libera o site!
-        document.body.classList.add("loaded");
-      });
     </script>
   </body>
 </html>
