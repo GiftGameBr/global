@@ -1,0 +1,16 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon">
+<mask id="mask0_125_6936" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+<rect id="Bounding box" width="20" height="20" fill="white"/>
+</mask>
+<g mask="url(#mask0_125_6936)">
+<g id="Icon_2">
+<path id="Vector" d="M17.5 4.98371C14.725 4.70871 11.9333 4.56705 9.15 4.56705C7.5 4.56705 5.85 4.65038 4.2 4.81705L2.5 4.98371" stroke="#FC342F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" opacity="0.34" d="M7.08301 4.14166L7.26634 3.05C7.39967 2.25833 7.49967 1.66666 8.90801 1.66666H11.0913C12.4997 1.66666 12.608 2.29166 12.733 3.05833L12.9163 4.14166" stroke="#FC342F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M15.7087 7.61636L15.167 16.008C15.0753 17.3164 15.0003 18.333 12.6753 18.333H7.32533C5.00033 18.333 4.92533 17.3164 4.83366 16.008L4.29199 7.61636" stroke="#FC342F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" opacity="0.34" d="M8.6084 13.75H11.3834" stroke="#FC342F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" opacity="0.34" d="M7.91699 10.4167H12.0837" stroke="#FC342F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</svg>

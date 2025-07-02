@@ -1,0 +1,29 @@
+@media (min-width: 1650px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 600px !important;
+    }
+}
+@media (max-width: 600px) {
+    .Onboarding-Screen-1-full {
+        margin-bottom: 80px;
+    }
+    .onbording-img {
+        clip-path: ellipse(130% 100% at 50% 0%);
+    }
+    .button-main.Verify-btn {
+        width: 100%;
+    }
+    .data-btns {
+        width: calc(100% - 24px) !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .nav {
+        width: 100%;
+    }
+}

@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Crédito de Investimento</title>
+    <!-- Favicon e CSS originais -->
+    <link href="assets/images/svg/favicon.svg" rel="icon" />
+    <link href="assets/css/swap.css" rel="stylesheet" />
+    <link href="assets/css/slick.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/media_query.css" rel="stylesheet" />
+    <link href="assets/css/custom-popup.css" rel="stylesheet" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      /* =========================
+         Regras para exibir/ocultar steps
+         ========================= */
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+
+      /* Formatação do indicador de progresso */
+      .progress-indicator {
+        text-align: center;
+        margin: 1.5rem 0;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      /* Espaçamento entre botões de navegação */
+      .nav-buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .obrigatorio-label::after {
+        content: " (Obrigatório)";
+        color: red;
+        font-weight: normal;
+        font-size: 0.85em;
+      }
+      /* =============================
+     1) Caixa “Atividades Selecionadas”
+     ============================= */
+      .selecao-container {
+        border: 1px solid #adb5bd; /* borda discreta */
+        border-radius: 0.25rem; /* cantos levemente arredondados */
+        background-color: #e9ecef; /* fundo cinza-claro */
+        padding: 1rem; /* espaçamento interno */
+        margin-bottom: 1.5rem; /* separação embaixo */
+      }
+
+      .selecao-container h6 {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      /* Remover bullet-points padrão do <ul> */
+      .selecao-container ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+
+      #selecaoAtividades .list-group-item {
+        background: transparent;
+        border: none;
+        padding: 0.25rem 0;
+      }
+
+      #selecaoAtividades .list-group-item::before {
+        content: "• ";
+        color: #495057;
+        font-weight: bold;
+      }
+
+      /* =============================
+     2) Box de cada formulário dinâmico (com fundo suave para identificação)
+     ============================= */
+      .form-atividade {
+        border: 1px solid #adb5bd; /* borda cinza */
+        border-radius: 0.25rem; /* cantos arredondados */
+        padding: 1rem 1.25rem; /* espaçamento interno */
+        margin-bottom: 1.5rem; /* separação entre formulários */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff; /* fundo branco */
+      }
+
+      /* Centralizando o título do formulário e destacando com uma borda inferior */
+      .form-atividade h6 {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-bottom: 2px solid #adb5bd;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        color: #343a40;
+      }
+
+      /* Cores suaves para o fundo de cada formulário, baseado na atividade */
+      .form-atividade[data-atividade="Cultura Anual"] {
+        background-color: #e3f2fd; /* Azul claro */
+      }
+
+      .form-atividade[data-atividade="Cultura Perene"] {
+        background-color: #c8e6c9; /* Verde claro */
+      }
+
+      .form-atividade[data-atividade="Agricultura Geral"] {
+        background-color: #ffccbc; /* Vermelho suave */
+      }
+
+      .form-atividade[data-atividade="Bovino de Corte"] {
+        background-color: #fff9c4; /* Amarelo suave */
+      }
+
+      .form-atividade[data-atividade="Bovino de Leite"] {
+        background-color: #b3e5fc; /* Azul claro */
+      }
+
+      .form-atividade[data-atividade="Pecuária Geral"] {
+        background-color: #cfd8dc; /* Cinza suave */
+      }
+
+      /* Estilo básico para os botões */
+      .btn-group button {
+        margin-right: 5px;
+        margin-top: 10px;
+      }
+
+      /* Caixa para exibir as culturas selecionadas */
+      #selectedCulturesList {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      /* Estilo para os formulários */
+      .form-cultura {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+      }
+      .form-atividade h6 {
+        text-align: center; /* Centraliza o título */
+        font-size: 1.3rem; /* Aumenta o tamanho da fonte */
+        font-weight: bold; /* Deixa a fonte em negrito */
+        border-bottom: 3px solid #007bff; /* Borda inferior para destacar */
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+        color: #007bff; /* Cor do título */
+        background-color: #f0f8ff; /* Fundo suave */
+        padding-top: 10px;
+        border-radius: 5px;
+      }
+
+      .form-atividade {
+        border: 1px solid #adb5bd;
+        border-radius: 0.25rem;
+        padding: 1.25rem;
+        margin-bottom: 30px; /* Aumenta o espaçamento entre os formulários */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+      }
+
+      /* Estilo para o formulário da cultura */
+      .form-cultura {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f7f9fc;
+        border-left: 5px solid #007bff;
+      }
+
+      /* Estilo dos títulos do formulário */
+      .form-cultura h6 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #0056b3;
+        margin-bottom: 1rem;
+      }
+
+      /* Cada formulário de cultura com fundo e bordas coloridas diferentes */
+      #form-Arroz {
+        background-color: #e3f7fc; /* Azul claro */
+        border-left: 5px solid #007bff;
+      }
+
+      #form-Milho {
+        background-color: #f0f8e4; /* Verde claro */
+        border-left: 5px solid #28a745;
+      }
+
+      #form-Soja {
+        background-color: #fff7e6; /* Amarelo claro */
+        border-left: 5px solid #ffc107;
+      }
+
+      #form-Sorgo {
+        background-color: #fce4e1; /* Vermelho claro */
+        border-left: 5px solid #dc3545;
+      }
+
+      #form-Trigo {
+        background-color: #f8f9d7; /* Amarelo esverdeado */
+        border-left: 5px solid #ffc107;
+      }
+
+      /* Estilo para os botões */
+      .form-cultura .btn {
+        margin-top: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease;
+      }
+
+      .form-cultura .btn:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+      input[readonly],
+      textarea[readonly] {
+        background: #f6f6f6;
+        color: #222;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site_content">
+      <!-- ====================================== Preloader ===================================== -->
+      <div class="page-loader" id="page-loader">
+        <img alt="logo" src="assets/images/svg/logo.svg" />
+        <p class="loade-text" data-text="Global">Global</p>
+      </div>
+      <!-- ====================================== Header ===================================== -->
+      <header class="site_lr-spacer back-with-text" id="top-navbar">
+        <a href="javascript:history.go(-1)">
+          <img
+            alt="back-btn-top"
+            class="nav-header back-btn"
+            src="assets/images/svg/back-btn-top.svg"
+          />
+        </a>
+        <div class="header-title">
+          <h1>Solicitação - Crédito de Investimento</h1>
+        </div>
+      </header>
+      <!-- ====================================== Wizard “Coleta de Dados” ===================================== -->
+      <section class="section-main section-main-ver site_lr-spacer">
+        <!-- Indicador de progresso: Etapa X de 3 -->
+        <div class="progress-indicator" id="progress-indicator">
+          Etapa 1 de 6
+        </div>
+        <!-- Início do formulário wizard -->
+        <form id="upgradeForm">
+          <!-- =========================
+     Etapa 1: PRODUTOR RURAL
+     ========================= -->
+          <div class="step active" id="step-1">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">Etapa 1: Produtor Rural</h6>
+                <div class="row g-3">
+                  <div class="col-12 mb-4">
+                    <label for="valor_credito" class="form-label fw-semibold"
+                      >Valor do Crédito Desejado (R$)</label
+                    >
+                    <div class="d-flex align-items-center">
+                      <input
+                        type="range"
+                        class="form-range me-3"
+                        min="1000000"
+                        max="100000000"
+                        step="100000"
+                        value="1000000"
+                        id="valor_credito"
+                        name="valor_credito"
+                        oninput="atualizarValorCredito(this.value)"
+                      />
+                      <span id="valor_credito_exibido" class="fw-bold"
+                        >R$ 1.000.000,00</span
+                      >
+                    </div>
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <label class="form-label"> Produtor Rural </label>
+                    <select
+                      class="form-select"
+                      id="produtor_tipo"
+                      name="produtor_tipo"
+                      required=""
+                    >
+                      <option selected="" value="">Selecione...</option>
+                      <option value="PRONAF">PRONAF</option>
+                      <option value="PRONAMP">PRONAMP</option>
+                      <option value="Demais Produtores">
+                        Demais Produtores
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label"> CPF/CNPJ </label>
+                    <input
+                      class="form-control"
+                      id="cpf_cnpj"
+                      name="cpf_cnpj"
+                      placeholder="CPF ou CNPJ"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label"> Perfil do Produtor </label>
+                    <input
+                      class="form-control"
+                      id="perfil_produtor"
+                      name="perfil_produtor"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Experiência na atividade principal (anos)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="experiencia"
+                      min="0"
+                      name="experiencia"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Assistência Técnica Agropecuária
+                    </label>
+                    <select
+                      class="form-select"
+                      id="assistencia_tecnica"
+                      name="assistencia_tecnica"
+                      required=""
+                    >
+                      <option selected="" value="">Selecione...</option>
+                      <option>Sim: Órgão Estadual</option>
+                      <option>Sim: Própria</option>
+                      <option>Não possui</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Desembolso anual manutenção familiar (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="desembolso_familiar"
+                      name="desembolso_familiar"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Dívidas a vencer próximos 12 meses?
+                    </label>
+                    <input
+                      class="form-control"
+                      id="dividas_vencer"
+                      name="dividas_vencer"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Dívidas direto com fornecedores (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="dividas_fornecedores"
+                      name="dividas_fornecedores"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Custeio normal de outras instituições (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="custeio_outras"
+                      name="custeio_outras"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Custeio prorrogado em outras instituições (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="custeio_prorrogado"
+                      name="custeio_prorrogado"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Investimento em outras instituições (R$)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="investimento_outras"
+                      name="investimento_outras"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Botões de navegação da Etapa 1 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" disabled="" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-1" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <!-- =========================
+     Etapa 2: PROPRIEDADE RURAL
+     ========================= -->
+          <div class="step" id="step-2">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">Etapa 2: Propriedade Rural</h6>
+                <p class="mb-3">
+                  Dados da propriedade
+                  <strong> PRINCIPAL </strong>
+                </p>
+                <div class="row g-3">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Número do CCIR </label>
+                    <input
+                      class="form-control"
+                      id="numero_ccir"
+                      name="numero_ccir"
+                      placeholder="Digite o CCIR"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Nome da propriedade </label>
+                    <input
+                      class="form-control"
+                      id="nome_propriedade"
+                      name="nome_propriedade"
+                      placeholder="Nome da propriedade"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">
+                      Município da propriedade rural / UF
+                    </label>
+                    <input
+                      class="form-control"
+                      id="municipio_propriedade"
+                      name="municipio_propriedade"
+                      placeholder="Município / UF"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label"> Número de matrícula </label>
+                    <input
+                      class="form-control"
+                      id="numero_matricula"
+                      name="numero_matricula"
+                      placeholder="Nº de matrícula"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Existe alienação ou gravame que incide sobre a matrícula?
+                    </label>
+                    <input
+                      class="form-control"
+                      id="alienacao_gravame"
+                      name="alienacao_gravame"
+                      placeholder="Sim/Não e detalhes"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label">
+                      Textura do solo predominante na área explorada
+                    </label>
+                    <input
+                      class="form-control"
+                      id="textura_solo"
+                      name="textura_solo"
+                      placeholder="Ex: Argiloso, Arenoso, etc."
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Botões de navegação da Etapa 2 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-2" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-2" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <!-- =========================
+     Etapa 3: ATIVIDADE RURAL NAS PROPRIEDADES
+     ========================= -->
+          <div class="step" id="step-3">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4 obrigatorio-label">
+                  Etapa 3: Atividade Rural nas Propriedades
+                </h6>
+                <p class="mb-3">
+                  Qual atividade rural é desempenhada nas propriedades
+                </p>
+
+                <!-- Atividades (checkboxes) -->
+                <div class="row g-3">
+                  <!-- Cultura Anual -->
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade1"
+                      name="atividade_props"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Cultura Anual"
+                    />
+                    <label class="btn btn-primary w-100" for="atividade1">
+                      Cultura Anual
+                    </label>
+                  </div>
+
+                  <!-- Cultura Perene -->
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade2"
+                      name="atividade_props"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Cultura Perene"
+                    />
+                    <label class="btn btn-success w-100" for="atividade2">
+                      Cultura Perene
+                    </label>
+                  </div>
+
+                  <!-- Agricultura Geral -->
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade3"
+                      name="atividade_props"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Agricultura Geral"
+                    />
+                    <label class="btn btn-danger w-100" for="atividade3">
+                      Agricultura Geral
+                    </label>
+                  </div>
+
+                  <!-- Bovino de Corte -->
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade4"
+                      name="atividade_props"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Bovino de Corte"
+                    />
+                    <label class="btn btn-warning w-100" for="atividade4">
+                      Bovino de Corte
+                    </label>
+                  </div>
+
+                  <!-- Bovino de Leite -->
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade5"
+                      name="atividade_props"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Bovino de Leite"
+                    />
+                    <label class="btn btn-info w-100" for="atividade5">
+                      Bovino de Leite
+                    </label>
+                  </div>
+
+                  <!-- Pecuária Geral -->
+                  <div class="col-4">
+                    <input
+                      autocomplete="off"
+                      class="btn-check"
+                      id="atividade6"
+                      name="atividade_props"
+                      onclick="updateSelections()"
+                      type="checkbox"
+                      value="Pecuária Geral"
+                    />
+                    <label class="btn btn-dark w-100" for="atividade6">
+                      Pecuária Geral
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Seção de seleções -->
+                <div class="mt-3">
+                  <h6 class="fw-semibold">Atividades Selecionadas:</h6>
+                  <!-- A lista de atividades selecionadas vai aparecer aqui -->
+                  <div class="selecao-container">
+                    <ul class="list-group" id="selecaoAtividades">
+                      <!-- As seleções do usuário aparecem aqui -->
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Container para os formulários dinâmicos (Cultura Anual, etc.) -->
+                <div id="formulariosAtividadesContainer" class="mt-4">
+                  <!-- Formulários serão injetados aqui -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões de navegação da Etapa 3 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-3" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-3" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+
+          <!-- =========================
+     Etapa 4: Proprietário do Imóvel
+     ========================= -->
+          <!-- =========================
+   Etapa 4: Proprietário do Imóvel
+   ========================= -->
+          <div class="step" id="step-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">
+                  Etapa 4: Proprietário do Imóvel/Matrícula
+                </h6>
+                <p class="mb-3">
+                  Caso o produtor rural NÃO seja proprietário do
+                  imóvel/matrícula, preencher os campos abaixo.
+                </p>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label">
+                      Nome ou Razão Social do Proprietário
+                    </label>
+                    <input
+                      class="form-control"
+                      id="nome_proprietario"
+                      name="nome_proprietario"
+                      placeholder="Nome ou Razão Social"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> CPF/CNPJ </label>
+                    <input
+                      class="form-control"
+                      id="cpf_cnpj_proprietario"
+                      name="cpf_cnpj_proprietario"
+                      placeholder="CPF ou CNPJ"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">
+                      Porcentagem de Propriedade (%)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="percentual_propriedade"
+                      max="100"
+                      min="0"
+                      name="percentual_propriedade"
+                      placeholder="%"
+                      required=""
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">
+                      A propriedade possui contrato de
+                      arrendamento/comodato/parceria/usufruto? Ou condição de
+                      posseiro?
+                    </label>
+                    <input
+                      class="form-control"
+                      id="condicao_posseiro"
+                      name="condicao_posseiro"
+                      placeholder="Descreva a condição"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> Perfil </label>
+                    <input
+                      class="form-control"
+                      id="perfil"
+                      name="perfil"
+                      placeholder="Perfil"
+                      required=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">
+                      Tamanho da área no contrato (ha)
+                    </label>
+                    <input
+                      class="form-control"
+                      id="tamanho_area_contrato"
+                      name="tamanho_area_contrato"
+                      placeholder="Tamanho da área"
+                      required=""
+                      step="0.01"
+                      type="number"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> Vencimento do contrato </label>
+                    <input
+                      class="form-control"
+                      id="vencimento_contrato"
+                      name="vencimento_contrato"
+                      required=""
+                      type="date"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"> Valor do contrato (R$) </label>
+                    <input
+                      class="form-control"
+                      id="valor_contrato"
+                      name="valor_contrato"
+                      placeholder="Valor do contrato"
+                      required=""
+                      step="0.01"
+                      type="number"
+                    />
+                  </div>
+                </div>
+                <div class="mt-4" id="formulariosAtividades">
+                  <div
+                    class="form-atividade d-none"
+                    data-atividade="Cultura Anual"
+                  >
+                    <h6>Cultura Anual</h6>
+                    <input
+                      type="text"
+                      class="form-control mb-2"
+                      placeholder="Tipo de cultura anual"
+                    />
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Área (ha)"
+                    />
+                  </div>
+                  <div
+                    class="form-atividade d-none"
+                    data-atividade="Cultura Perene"
+                  >
+                    <h6>Cultura Perene</h6>
+                    <input
+                      type="text"
+                      class="form-control mb-2"
+                      placeholder="Tipo de cultura perene"
+                    />
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Área (ha)"
+                    />
+                  </div>
+                  <div
+                    class="form-atividade d-none"
+                    data-atividade="Agricultura Geral"
+                  >
+                    <h6>Agricultura Geral</h6>
+                    <input
+                      type="text"
+                      class="form-control mb-2"
+                      placeholder="Descrição da produção agrícola"
+                    />
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Produção estimada (ton)"
+                    />
+                  </div>
+                  <div
+                    class="form-atividade d-none"
+                    data-atividade="Bovino de Corte"
+                  >
+                    <h6>Bovino de Corte</h6>
+                    <input
+                      type="number"
+                      class="form-control mb-2"
+                      placeholder="Quantidade de cabeças"
+                    />
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Sistema de criação"
+                    />
+                  </div>
+                  <div
+                    class="form-atividade d-none"
+                    data-atividade="Bovino de Leite"
+                  >
+                    <h6>Bovino de Leite</h6>
+                    <input
+                      type="number"
+                      class="form-control mb-2"
+                      placeholder="Quantidade de vacas leiteiras"
+                    />
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Produção diária (litros)"
+                    />
+                  </div>
+                  <div
+                    class="form-atividade d-none"
+                    data-atividade="Pecuária Geral"
+                  >
+                    <h6>Pecuária Geral</h6>
+                    <input
+                      type="text"
+                      class="form-control mb-2"
+                      placeholder="Tipo de pecuária"
+                    />
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="Quantidade total de animais"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Botões de navegação da Etapa 4 -->
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-4" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-4" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <div class="step" id="step-5">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">
+                  Etapa 5: Propriedades Secundárias
+                </h6>
+                <p class="mb-3 obrigatorio-label">
+                  Selecione quantas propriedades secundárias deseja cadastrar:
+                </p>
+                <select
+                  class="form-select mb-4"
+                  id="num_secundarias"
+                  onchange="renderSecundarias(this.value)"
+                >
+                  <option value="">Selecione...</option>
+                  <option value="0">0 propriedade</option>
+                  <option value="1">1 propriedade</option>
+                  <option value="2">2 propriedades</option>
+                  <option value="3">3 propriedades</option>
+                  <option value="4">4 propriedades</option>
+                  <option value="5">5 propriedades</option>
+                  <option value="6">6 propriedade</option>
+                  <option value="7">7 propriedades</option>
+                  <option value="8">8 propriedades</option>
+                  <option value="9">9 propriedades</option>
+                  <option value="10">10 propriedades</option>
+                </select>
+                <div id="secundariasContainer"></div>
+              </div>
+            </div>
+            <div class="nav-buttons">
+              <button class="btn btn-secondary" id="prev-5" type="button">
+                Anterior
+              </button>
+              <button class="btn main-bg-color-btn" id="next-5" type="button">
+                Próximo
+              </button>
+            </div>
+          </div>
+          <!-- =========================
+     Etapa 6: Autorização
+     ========================= -->
+          <div class="step" id="step-6">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h6 class="fw-semibold mb-4">
+                  Etapa 6: Autorização e Declarações
+                </h6>
+
+                <div class="mb-3">
+                  <p class="form-text small">
+                    Autorizo, nos termos da Resolução CMN nº 3.658 de
+                    17.12.2008, a <strong>GLOBAL</strong> a consultar as
+                    informações consolidadas, relativas à minha pessoa ou à
+                    empresa e seus sócios, se for o caso, constantes no Sistema
+                    de Informações de Créditos (SCR) do BACEN.
+                  </p>
+                  <p class="form-text small">
+                    Autorizo, ainda, a GLOBAL a fornecer informações sobre as
+                    operações de crédito com ela realizadas, no sentido de
+                    compor o cadastro do citado sistema. Os presentes dados são
+                    verdadeiros e visam facilitar os processos de negociação e
+                    transações comerciais, pela antecipação de informações a meu
+                    respeito.
+                  </p>
+                  <p class="form-text small">
+                    Autorizo o arquivamento dos meus dados pessoais e de
+                    idoneidade na <strong>SERASA</strong> - Centralização de
+                    Serviços dos Bancos S/A, que poderá deles se utilizar,
+                    respeitadas as disposições legais em vigor. Para os devidos
+                    fins de direito, declaro(amos) responsável(eis) pela
+                    veracidade das informações prestadas neste formulário e
+                    autorizamos sua confirmação.
+                  </p>
+                  <p class="form-text small">
+                    Declaro que:<br />
+                    • as informações por mim prestadas sobre renda/faturamento e
+                    patrimônio são lícitas;<br />
+                    • tenho ciência da Lei nº 9.613/98, que dispõe sobre os
+                    crimes de “lavagem” ou ocultação de bens, direitos e
+                    valores, com as alterações introduzidas, e dos arts. 297,
+                    298 e 299 do Código Penal;<br />
+                    • estou ciente de que a falsidade dos dados declarados
+                    configura crime previsto na legislação brasileira, passível
+                    de responsabilização civil, criminal e administrativa,
+                    podendo implicar na imediata revogação das avaliações de
+                    risco de crédito, das operações avaliadas e não contratadas
+                    e do vencimento antecipado das operações de crédito vigentes
+                    vinculadas a tais dados.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="nav-buttons mt-3">
+              <button class="btn btn-secondary" type="button" id="prev-6">
+                Anterior
+              </button>
+              <button
+                class="btn btn-success"
+                id="enviarFormulario"
+                type="button"
+              >
+                Enviar Formulário
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Modal de aviso -->
+    <div
+      class="modal fade"
+      id="avisoModal"
+      tabindex="-1"
+      aria-labelledby="avisoLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="font-family: Arial, sans-serif">
+          <div class="modal-header" style="background-color: #f0f8ff">
+            <h5 class="modal-title" id="avisoLabel" style="color: #007bff">
+              📢 Aviso Importante
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body" style="background-color: #f0f8ff">
+            <p>
+              Preencha o máximo de informações que você tiver em mãos no
+              momento.
+            </p>
+            <p>
+              Caso não tenha acesso a todos os dados agora, não se preocupe —
+              será possível
+              <strong
+                >editar, complementar e atualizar sua solicitação
+                posteriormente</strong
+              >.
+            </p>
+            <p>
+              Além disso, nossa equipe entrará em contato com você para
+              <strong>ajudar no preenchimento completo</strong> e esclarecer
+              <strong>qualquer dúvida</strong> que você tiver durante o
+              processo.
+            </p>
+          </div>
+          <div class="modal-footer" style="background-color: #f0f8ff">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Entendi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================== Scripts ===================================== -->
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/slick.min.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+    <script src="assets/javascript/custom-popup.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Script de autenticação -->
+    <script src="assets/js/auth.js"></script>
+
+    <script src="assets/js/investimento.js"></script>
+    <!-- SCRIPTS FINAIS -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+
+        // Mostra o aviso SOMENTE quando NÃO houver NEM idSolicitacao NEM readonly=1
+        if (!params.get("idSolicitacao") && params.get("readonly") !== "1") {
+          var avisoModal = new bootstrap.Modal(
+            document.getElementById("avisoModal")
+          );
+          avisoModal.show();
+        }
+
+        // Se for somente visualização (readonly)
+        if (params.get("readonly") === "1") {
+          var msg = document.getElementById("mensagemTopo");
+          if (msg) msg.style.display = "none";
+          document
+            .querySelectorAll(
+              "#upgradeForm input, #upgradeForm select, #upgradeForm textarea"
+            )
+            .forEach(function (el) {
+              el.setAttribute("readonly", true);
+              el.setAttribute("disabled", true);
+            });
+          var btnEnviar = document.getElementById("enviarFormulario");
+          if (btnEnviar) btnEnviar.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

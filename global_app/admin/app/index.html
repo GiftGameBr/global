@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Global App</title>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="assets/js/auth.js"></script>
+
+    <!-- CSS -->
+    <link href="assets/css/custom-popup.css" rel="stylesheet" />
+
+    <!-- PWA: Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Cor da Barra Superior -->
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body>
+    <p style="text-align: center">Carregando...</p>
+
+    <script>
+      // Aguarda carregamento do auth.js
+      window.onload = () => {
+        const splashVisto = localStorage.getItem("splashVisto");
+
+        if (!splashVisto) {
+          localStorage.setItem("splashVisto", "true");
+          window.location.href = "splash.html";
+          return;
+        }
+
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            window.location.href = "homeScreen.html";
+          } else {
+            window.location.href = "let-you-screen.html";
+          }
+        });
+      };
+    </script>
+
+    <!-- Script para interações -->
+    <script src="assets/javascript/custom-popup.js"></script>
+
+    <!-- Registro do Service Worker para PWA -->
+    <script>
+      // Verifica se o navegador suporta Service Worker e Background Sync
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          // Registra o Service Worker
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log(
+                "Service Worker registrado com sucesso:",
+                registration
+              );
+
+              // Verifica se Background Sync é suportado e registra a sincronização
+              if ("sync" in registration) {
+                registration.sync
+                  .register("sync-requests")
+                  .then(() => {
+                    console.log("Background Sync registrado com sucesso!");
+                  })
+                  .catch((err) => {
+                    console.error("Falha ao registrar Background Sync:", err);
+                  });
+              } else {
+                console.log("Background Sync não suportado neste navegador.");
+              }
+            })
+            .catch((err) => {
+              console.error("Falha ao registrar Service Worker:", err);
+            });
+        });
+      } else {
+        console.log("Service Worker não suportado neste navegador.");
+      }
+    </script>
+  </body>
+</html>
