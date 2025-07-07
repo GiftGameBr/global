@@ -392,32 +392,44 @@
           <div
             class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
           >
-           <div class="d-flex align-items-center flex-wrap gap-3 w-100">
-  <span class="text-md fw-medium text-secondary-light mb-0">Show</span>
-  <select id="items-per-page" class="form-select form-select-sm w-auto">
-    <option value="1">1</option>
-    <option value="5">5</option>
-    <option value="10" selected>10</option>
-    <option value="20">20</option>
-  </select>
-  <div class="input-group w-auto">
-    <span class="input-group-text bg-transparent border-end-0">
-      <iconify-icon icon="ion:search-outline"></iconify-icon>
-    </span>
-    <input
-      type="text"
-      id="search-input"
-      class="form-control border-start-0"
-      placeholder="Pesquisar por cliente..."
-    />
+           <div class="d-flex flex-column flex-md-row gap-2 gap-md-3 w-100">
+  <!-- Show + select -->
+  <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 w-100">
+  <div class="d-flex flex-row align-items-center gap-2">
+    <span class="fw-medium text-secondary-light">Show</span>
+    <select id="items-per-page" class="form-select form-select-sm w-auto">
+      <option value="1">1</option>
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+    </select>
   </div>
-  <select id="filter-status-docs" class="form-select w-auto">
+
+<div class="input-group flex-grow-1">
+  <span class="input-group-text bg-transparent border-end-0">
+    <iconify-icon icon="ion:search-outline"></iconify-icon>
+  </span>
+  <input
+    type="text"
+    id="search-input"
+    class="form-control border-start-0"
+    placeholder="Cliente"
+  />
+</div>
+
+</div>
+
+
+  <!-- Status documentação -->
+  <select id="filter-status-docs" class="form-select w-100 w-md-auto">
     <option value="">Status Documentação</option>
     <option value="pendente">Pendente</option>
     <option value="processando">Processando</option>
     <option value="verificado">Verificado</option>
   </select>
-  <select id="filter-status-solic" class="form-select w-auto">
+
+  <!-- Status solicitação -->
+  <select id="filter-status-solic" class="form-select w-100 w-md-auto">
     <option value="">Status Solicitação</option>
     <option value="aguardando">Aguardando documentação</option>
     <option value="processando">Processando</option>
@@ -425,21 +437,26 @@
     <option value="nao_aprovado">Não aprovado</option>
     <option value="concluido">Concluído</option>
   </select>
-  <select id="order-by" class="form-select w-auto">
+
+  <!-- Ordenação -->
+  <select id="order-by" class="form-select w-100 w-md-auto">
     <option value="createdAt_desc">Data Criação (mais novo)</option>
     <option value="createdAt_asc">Data Criação (mais antigo)</option>
     <option value="valor_desc">Valor Crédito (maior)</option>
     <option value="valor_asc">Valor Crédito (menor)</option>
   </select>
-  <button
-    class="btn btn-success ms-auto"
-    data-bs-target="#addCusteioModal"
-    data-bs-toggle="modal"
-    style="min-width: 180px"
-  >
-    + Nova Solicitação
-  </button>
+
+  <!-- Botão -->
+<button
+  class="btn btn-success ms-auto w-100 w-md-auto"
+  onclick="window.location.href='solicitar-custeio.html'"
+  style="min-width: 140px"
+>
+  + Nova Solicitação
+</button>
+
 </div>
+
 
           </div>
           <div class="card-body p-24">
@@ -4054,7 +4071,14 @@ function renderTable() {
 ${c.status_solicitacao === 'concluido' ? `
   <button class="btn btn-sm btn-secondary me-1" disabled title="Edição bloqueada - solicitação concluída">Editar</button>
 ` : `
-  <button class="btn btn-sm btn-warning me-1" onclick="openEditCusteio('${c.id}')">Editar</button>
+  <button
+  class="btn btn-sm btn-warning me-1"
+ onclick="window.location.href='solicitar-custeio.html?idSolicitacao=${c.id}'"
+
+>
+  Editar
+</button>
+
 `}
 <button class="btn btn-sm btn-danger" onclick="deleteCusteio('${c.id}')">Deletar</button>
 
@@ -4170,334 +4194,7 @@ $("#filter-status-docs, #filter-status-solic, #order-by, #items-per-page").on("c
       );
 
       // Wizard edit: navegação por etapas
-      function showEditStepWizard(n) {
-        $(".edit-custeio-step").addClass("d-none");
-        $("#edit-step-" + n).removeClass("d-none");
-        $("#wizard-edit-steps .nav-link").removeClass("active");
-        $("#edit-nav-step-" + n).addClass("active");
-      }
-      $(document).on("click", "#wizard-edit-steps .nav-link", function () {
-        let n = $(this).data("step");
-        showEditStepWizard(n);
-      });
-      $("#editCusteioModal").on("shown.bs.modal", function () {
-        showEditStepWizard(1);
-      });
-
-      // Abre modal de edição preenchido
-      window.openEditCusteio = async function (id) {
-        const custeio = allCusteios.find((c) => c.id === id);
-        if (!custeio) return;
-
-        // Carrega os responsáveis e só então seta os valores dos selects
-       await preencherResponsaveisCusteio(custeio.responsavelGerenteId || "", custeio.responsavelSecundarioId || "");
-
-
-        $("#edit_id").val(custeio.id);
-        $("#edit-responsavel-gerente").val(custeio.responsavelGerenteId || "");
-        $("#edit-responsavel-secundario").val(
-          custeio.responsavelSecundarioId || ""
-        );
-
-        // Valor do crédito
-          let valorCredito = custeio.valor_credito || 1000000;
-  $("#valor_credito_edit").val(valorCredito).trigger("input");
-$("#valorCreditoRangeLabelEdit").text(
-  'R$ ' + parseFloat(valorCredito).toLocaleString("pt-BR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
-);
-$("#valor_credito_edit").on("input", function () {
-  $("#valorCreditoRangeLabelEdit").text(
-    'R$ ' + parseFloat(this.value).toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-  );
-});
-
-        // Etapa 1 - Produtor Rural
-        $("#edit_produtor_tipo").val(custeio.produtor_tipo || "");
-        $("#edit_cpf_cnpj").val(custeio.cpf_cnpj || "");
-        $("#edit_perfil_produtor").val(custeio.perfil_produtor || "");
-        $("#edit_experiencia").val(custeio.experiencia || "");
-        $("#edit_assistencia_tecnica").val(custeio.assistencia_tecnica || "");
-        $("#edit_desembolso_familiar").val(custeio.desembolso_familiar || "");
-        $("#edit_dividas_vencer").val(custeio.dividas_vencer || "");
-        $("#edit_dividas_fornecedores").val(custeio.dividas_fornecedores || "");
-        $("#edit_custeio_outras").val(custeio.custeio_outras || "");
-        $("#edit_custeio_prorrogado").val(custeio.custeio_prorrogado || "");
-        $("#edit_investimento_outras").val(custeio.investimento_outras || "");
-        $("#edit_atividade_rural").val(custeio.atividade_rural || "");
-
-        // Etapa 2 - Cultura Anual
-        $("#edit_cultura_anual").val(custeio.cultura_anual || "");
-        $("#edit_safra_prevista").val(custeio.safra_prevista || "");
-        $("#edit_ano_colheita").val(custeio.ano_colheita || "");
-        $("#edit_anterior_3").val(custeio.anterior_3 || "");
-        $("#edit_anterior_2").val(custeio.anterior_2 || "");
-        $("#edit_anterior_1").val(custeio.anterior_1 || "");
-        $("#edit_municipio_anual").val(custeio.municipio_anual || "");
-        $("#edit_matricula_anual").val(custeio.matricula_anual || "");
-        $("#edit_area_plantio_anual").val(custeio.area_plantio_anual || "");
-        $("#edit_pct_irrigacao_anual").val(custeio.pct_irrigacao_anual || "");
-        $("#edit_pct_mecanizacao_anual").val(
-          custeio.pct_mecanizacao_anual || ""
-        );
-        $("#edit_pct_consumo_anual").val(custeio.pct_consumo_anual || "");
-        $("#edit_pct_armazenamento_anual").val(
-          custeio.pct_armazenamento_anual || ""
-        );
-        $("#edit_produtividade_media_anual").val(
-          custeio.produtividade_media_anual || ""
-        );
-        $("#edit_nivel_tecnologico_anual").val(
-          custeio.nivel_tecnologico_anual || ""
-        );
-        $("#edit_receita_estim_anual").val(custeio.receita_estim_anual || "");
-        $("#edit_despesa_estim_anual").val(custeio.despesa_estim_anual || "");
-        $("#edit_ano_safra_anual").val(custeio.ano_safra_anual || "");
-
-        // Etapa 3 - Cultura Perene
-        $("#edit_cultura_perene").val(custeio.cultura_perene || "");
-        $("#edit_ano_colheita_perene").val(custeio.ano_colheita_perene || "");
-        $("#edit_area_plantada_3_perene").val(
-          custeio.area_plantada_3_perene || ""
-        );
-        $("#edit_area_plantada_2_perene").val(
-          custeio.area_plantada_2_perene || ""
-        );
-        $("#edit_area_plantada_1_perene").val(
-          custeio.area_plantada_1_perene || ""
-        );
-        $("#edit_area_renovada_3_perene").val(
-          custeio.area_renovada_3_perene || ""
-        );
-        $("#edit_area_renovada_2_perene").val(
-          custeio.area_renovada_2_perene || ""
-        );
-        $("#edit_area_renovada_1_perene").val(
-          custeio.area_renovada_1_perene || ""
-        );
-        $("#edit_municipio_perene").val(custeio.municipio_perene || "");
-        $("#edit_matricula_perene").val(custeio.matricula_perene || "");
-        $("#edit_safra_prevista_perene").val(
-          custeio.safra_prevista_perene || ""
-        );
-        $("#edit_area_plantio_atual_perene").val(
-          custeio.area_plantio_atual_perene || ""
-        );
-        $("#edit_area_renovada_safra_perene").val(
-          custeio.area_renovada_safra_perene || ""
-        );
-        $("#edit_pct_irrigacao_perene").val(custeio.pct_irrigacao_perene || "");
-        $("#edit_pct_mecanizacao_perene").val(
-          custeio.pct_mecanizacao_perene || ""
-        );
-        $("#edit_pct_consumo_perene").val(custeio.pct_consumo_perene || "");
-        $("#edit_pct_armazenamento_perene").val(
-          custeio.pct_armazenamento_perene || ""
-        );
-        $("#edit_produtividade_perene").val(custeio.produtividade_perene || "");
-        $("#edit_nivel_tecnologico_perene").val(
-          custeio.nivel_tecnologico_perene || ""
-        );
-        $("#edit_ano_safra_perene").val(custeio.ano_safra_perene || "");
-        $("#edit_preco_venda_perene").val(custeio.preco_venda_perene || "");
-        $("#edit_custo_producao_perene").val(
-          custeio.custo_producao_perene || ""
-        );
-        $("#edit_custo_renovacao_perene").val(
-          custeio.custo_renovacao_perene || ""
-        );
-
-        // Etapa 4 - Agricultura Geral
-        $("#edit_cultura_geral").val(custeio.cultura_geral || "");
-        $("#edit_ano_colheita_geral").val(custeio.ano_colheita_geral || "");
-        $("#edit_forma_cultivo_geral").val(custeio.forma_cultivo_geral || "");
-        $("#edit_ident_safra_geral").val(custeio.ident_safra_geral || "");
-        $("#edit_municipio_geral").val(custeio.municipio_geral || "");
-        $("#edit_matricula_geral").val(custeio.matricula_geral || "");
-        $("#edit_safra_prevista_geral").val(custeio.safra_prevista_geral || "");
-        $("#edit_area_plantio_geral").val(custeio.area_plantio_geral || "");
-        $("#edit_produtividade_geral").val(custeio.produtividade_geral || "");
-        $("#edit_contrato_pre_venda_geral").val(
-          custeio.contrato_pre_venda_geral || ""
-        );
-        $("#edit_nivel_tecnologico_geral").val(
-          custeio.nivel_tecnologico_geral || ""
-        );
-        $("#edit_ano_safra_geral").val(custeio.ano_safra_geral || "");
-        $("#edit_preco_venda_geral").val(custeio.preco_venda_geral || "");
-        $("#edit_custo_unitario_geral").val(custeio.custo_unitario_geral || "");
-
-        // Etapa 5 - Bovino de Corte (incluindo vendas)
-        $("#edit_municipio_corte").val(custeio.municipio_corte || "");
-        $("#edit_matricula_corte").val(custeio.matricula_corte || "");
-        $("#edit_ciclo_producao_corte").val(custeio.ciclo_producao_corte || "");
-        $("#edit_sistema_producao_corte").val(
-          custeio.sistema_producao_corte || ""
-        );
-        $("#edit_bezerros_machos_ate12_corte").val(
-          custeio.bezerros_machos_ate12_corte || ""
-        );
-        $("#edit_bezerras_femeas_ate12_corte").val(
-          custeio.bezerras_femeas_ate12_corte || ""
-        );
-        $("#edit_garrotes_machos_12a24_corte").val(
-          custeio.garrotes_machos_12a24_corte || ""
-        );
-        $("#edit_novilhotas_femeas_12a24_corte").val(
-          custeio.novilhotas_femeas_12a24_corte || ""
-        );
-        $("#edit_novilhos_machos_24a36_corte").val(
-          custeio.novilhos_machos_24a36_corte || ""
-        );
-        $("#edit_novilhas_femeas_24a36_corte").val(
-          custeio.novilhas_femeas_24a36_corte || ""
-        );
-        $("#edit_bois_acima36_corte").val(custeio.bois_acima36_corte || "");
-        $("#edit_vacas_acima36_corte").val(custeio.vacas_acima36_corte || "");
-        $("#edit_touros_reprodutores_corte").val(
-          custeio.touros_reprodutores_corte || ""
-        );
-        $("#edit_area_pastagem_corte").val(custeio.area_pastagem_corte || "");
-        $("#edit_custo_anual_corte").val(custeio.custo_anual_corte || "");
-        // Vendas - bovino de corte
-        $("#edit_bezerros_machos_venda_cab_corte").val(
-          custeio.bezerros_machos_venda_cab_corte || ""
-        );
-        $("#edit_bezerros_machos_venda_valor_corte").val(
-          custeio.bezerros_machos_venda_valor_corte || ""
-        );
-        $("#edit_bezerras_femeas_venda_cab_corte").val(
-          custeio.bezerras_femeas_venda_cab_corte || ""
-        );
-        $("#edit_bezerras_femeas_venda_valor_corte").val(
-          custeio.bezerras_femeas_venda_valor_corte || ""
-        );
-        $("#edit_garrotes_machos_venda_cab_corte").val(
-          custeio.garrotes_machos_venda_cab_corte || ""
-        );
-        $("#edit_garrotes_machos_venda_valor_corte").val(
-          custeio.garrotes_machos_venda_valor_corte || ""
-        );
-        $("#edit_novilhotas_femeas_venda_cab_corte").val(
-          custeio.novilhotas_femeas_venda_cab_corte || ""
-        );
-        $("#edit_novilhotas_femeas_venda_valor_corte").val(
-          custeio.novilhotas_femeas_venda_valor_corte || ""
-        );
-        $("#edit_novilhos_machos_venda_cab_corte").val(
-          custeio.novilhos_machos_venda_cab_corte || ""
-        );
-        $("#edit_novilhos_machos_venda_valor_corte").val(
-          custeio.novilhos_machos_venda_valor_corte || ""
-        );
-        $("#edit_novilhas_femeas_venda_cab_corte").val(
-          custeio.novilhas_femeas_venda_cab_corte || ""
-        );
-        $("#edit_novilhas_femeas_venda_valor_corte").val(
-          custeio.novilhas_femeas_venda_valor_corte || ""
-        );
-        $("#edit_bois_magros_venda_cab_corte").val(
-          custeio.bois_magros_venda_cab_corte || ""
-        );
-        $("#edit_bois_magros_venda_valor_corte").val(
-          custeio.bois_magros_venda_valor_corte || ""
-        );
-        $("#edit_vacas_magras_venda_cab_corte").val(
-          custeio.vacas_magras_venda_cab_corte || ""
-        );
-        $("#edit_vacas_magras_venda_valor_corte").val(
-          custeio.vacas_magras_venda_valor_corte || ""
-        );
-        $("#edit_bois_gordos_venda_cab_corte").val(
-          custeio.bois_gordos_venda_cab_corte || ""
-        );
-        $("#edit_bois_gordos_venda_valor_corte").val(
-          custeio.bois_gordos_venda_valor_corte || ""
-        );
-        $("#edit_vacas_gordas_venda_cab_corte").val(
-          custeio.vacas_gordas_venda_cab_corte || ""
-        );
-        $("#edit_vacas_gordas_venda_valor_corte").val(
-          custeio.vacas_gordas_venda_valor_corte || ""
-        );
-
-        // Etapa 6 - Bovino de Leite (incluindo vendas)
-        $("#edit_municipio_leite").val(custeio.municipio_leite || "");
-        $("#edit_matricula_leite").val(custeio.matricula_leite || "");
-        $("#edit_sistema_ordenha_leite").val(
-          custeio.sistema_ordenha_leite || ""
-        );
-        $("#edit_produtividade_media_leite").val(
-          custeio.produtividade_media_leite || ""
-        );
-        $("#edit_raca_predominante_leite").val(
-          custeio.raca_predominante_leite || ""
-        );
-        $("#edit_area_pastagem_leite").val(custeio.area_pastagem_leite || "");
-        $("#edit_bezerros_ate12_leite").val(custeio.bezerros_ate12_leite || "");
-        $("#edit_novilhos_leite").val(custeio.novilhos_leite || "");
-        $("#edit_novilhas_leite").val(custeio.novilhas_leite || "");
-        $("#edit_vacas_leiteiras_leite").val(
-          custeio.vacas_leiteiras_leite || ""
-        );
-        $("#edit_touros_reprodutores_leite").val(
-          custeio.touros_reprodutores_leite || ""
-        );
-        $("#edit_custo_anual_leite").val(custeio.custo_anual_leite || "");
-        $("#edit_qtd_leite_vendido_leite").val(
-          custeio.qtd_leite_vendido_leite || ""
-        );
-        $("#edit_valor_litro_leite").val(custeio.valor_litro_leite || "");
-        $("#edit_bezerros_nascidos_leite").val(
-          custeio.bezerros_nascidos_leite || ""
-        );
-        $("#edit_bezerros_nascidos_valor_leite").val(
-          custeio.bezerros_nascidos_valor_leite || ""
-        );
-        $("#edit_bezerros_desmamados_leite").val(
-          custeio.bezerros_desmamados_leite || ""
-        );
-        $("#edit_bezerros_desmamados_valor_leite").val(
-          custeio.bezerros_desmamados_valor_leite || ""
-        );
-        $("#edit_vacas_descarte_leite").val(custeio.vacas_descarte_leite || "");
-        $("#edit_vacas_descarte_valor_leite").val(
-          custeio.vacas_descarte_valor_leite || ""
-        );
-        $("#edit-responsavel-gerente").val(custeio.responsavelGerenteId || "");
-        $("#edit-responsavel-secundario").val(
-          custeio.responsavelSecundarioId || ""
-        );
-
-        $("#editCusteioModal").modal("show");
-      };
-
-      // Salva alterações
-      $("#edit-custeio-form").submit(async function (e) {
-        e.preventDefault();
-        const id = $("#edit_id").val();
-        const data = {};
-        $(this)
-          .find("input, select, textarea")
-          .each(function () {
-            if (this.id !== "edit_id" && this.name)
-              data[this.name] = $(this).val();
-          });
-        try {
-          await db.collection("custeio").doc(id).update(data);
-          alert("Solicitação atualizada com sucesso!");
-          $("#editCusteioModal").modal("hide");
-          loadCusteios();
-        } catch (err) {
-          alert("Erro ao atualizar: " + err.message);
-        }
-      });
-      // Deletar registro
+// Deletar registro
       window.deleteCusteio = async function (id) {
         if (!confirm("Tem certeza que deseja deletar esta solicitação?"))
           return;
