@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Crédito de Comercialização</title>
+    <link
+      href="assets/images/favicon.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/remixicon.css" rel="stylesheet" />
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/dataTables.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+      </button>
+      <div>
+        <a href="index.html" class="sidebar-logo">
+          <img
+            src="assets/images/logo.png"
+            alt="site logo"
+            class="light-logo"
+          />
+          <img
+            src="assets/images/logo-light.png"
+            alt="site logo"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/logo-icon.png"
+            alt="site logo"
+            class="logo-icon"
+          />
+        </a>
+      </div>
+      <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="solar:home-smile-angle-outline"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Dashboard</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="index.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="relatorio-mes.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Mensal</a
+                >
+              </li>
+              <li>
+                <a href="relatorio-ano.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Anual</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-menu-group-title">Clientes</li>
+          <li>
+            <a href="lead-list.html">
+              <iconify-icon
+                icon="ri:user-add-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Leads</span>
+            </a>
+          </li>
+          <li>
+            <a href="client-list.html">
+              <iconify-icon
+                icon="ri:group-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Funcionarios</li>
+          <li>
+            <a href="gerente-list.html">
+              <iconify-icon
+                icon="ri:user-star-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Gerentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-list.html">
+              <iconify-icon
+                icon="ri:user-settings-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Admins</span>
+            </a>
+          </li>
+          <li>
+            <a href="agente-list.html">
+              <iconify-icon
+                icon="ri:user-search-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Agentes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Solicitações</li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bank-card-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Custeios</span>
+            </a>
+          </li>
+          <li>
+            <a href="investimento-list.html">
+              <iconify-icon
+                icon="ri:bar-chart-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Investimento</span>
+            </a>
+          </li>
+          <li>
+            <a href="comercializacao-list.html">
+              <iconify-icon
+                icon="ri:exchange-dollar-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Comercialização</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:home-gear-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Avaliação Imóveis</span>
+            </a>
+          </li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:leaf-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Licenciamento Ambiental</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Ajustes</li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <i class="ri-user-settings-line text-xl me-14 d-flex w-auto"></i>
+              <span>Regras</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="role-access.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Role & Access</a
+                >
+              </li>
+              <li>
+                <a href="assign-role.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Assign Role</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="icon-park-outline:setting-two"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Configurações</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="company.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="notification.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Notification</a
+                >
+              </li>
+              <li>
+                <a href="notification-alert.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-info-main w-auto"
+                  ></i
+                  >Notification Alert</a
+                >
+              </li>
+              <li>
+                <a href="theme.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Theme</a
+                >
+              </li>
+              <li>
+                <a href="currencies.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Currencies</a
+                >
+              </li>
+              <li>
+                <a href="language.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Languages</a
+                >
+              </li>
+              <li>
+                <a href="payment-gateway.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Payment Gateway</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+              <button type="button" class="sidebar-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon text-2xl non-active"
+                ></iconify-icon>
+                <iconify-icon
+                  icon="iconoir:arrow-right"
+                  class="icon text-2xl active"
+                ></iconify-icon>
+              </button>
+              <button type="button" class="sidebar-mobile-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <p class="mb-0 me-2 text-sm text-white" id="welcome-message">
+                Bem-vindo, <strong id="user-profile-name">...</strong>
+              </p>
+              <div class="dropdown">
+                <button
+                  class="d-flex justify-content-center align-items-center rounded-circle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="assets/images/user.png"
+                    alt="image"
+                    class="w-40-px h-40-px object-fit-cover rounded-circle"
+                  />
+                </button>
+                <div
+                  class="dropdown-menu to-top dropdown-menu-sm"
+                  style="min-width: 150px; max-width: 220px; width: 180px"
+                >
+                  <ul class="to-top-list">
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="view-profile.html"
+                        ><iconify-icon
+                          icon="solar:user-linear"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >My Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="email.html"
+                        ><iconify-icon
+                          icon="tabler:message-check"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Inbox</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="company.html"
+                        ><iconify-icon
+                          icon="icon-park-outline:setting-two"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Setting</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                        href="javascript:void(0)"
+                        id="logout-btn"
+                        ><iconify-icon
+                          icon="lucide:power"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Log Out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-main-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
+        >
+          <h6 class="fw-semibold mb-0">
+            Solicitações de Crédito de Comercialização
+          </h6>
+          <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+              <a
+                class="d-flex align-items-center gap-1 hover-text-primary"
+                href="index.html"
+              >
+                <iconify-icon
+                  class="icon text-lg"
+                  icon="solar:home-smile-angle-outline"
+                ></iconify-icon>
+                Dashboard
+              </a>
+            </li>
+            <li>-</li>
+            <li class="fw-medium">Crédito de Comercialização</li>
+          </ul>
+        </div>
+        <div class="card h-100 p-0 radius-12">
+          <div
+            class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
+          >
+            <div class="d-flex flex-column flex-md-row gap-2 gap-md-3 w-100">
+              <!-- Show + select -->
+              <div
+                class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 w-100"
+              >
+                <div class="d-flex flex-row align-items-center gap-2">
+                  <span class="fw-medium text-secondary-light">Show</span>
+                  <select
+                    id="items-per-page"
+                    class="form-select form-select-sm w-auto"
+                  >
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
+
+                <div class="input-group flex-grow-1">
+                  <span class="input-group-text bg-transparent border-end-0">
+                    <iconify-icon icon="ion:search-outline"></iconify-icon>
+                  </span>
+                  <input
+                    type="text"
+                    id="search-input"
+                    class="form-control border-start-0"
+                    placeholder="Cliente"
+                  />
+                </div>
+              </div>
+
+              <!-- Status documentação -->
+              <select
+                id="filter-status-docs"
+                class="form-select w-100 w-md-auto"
+              >
+                <option value="">Status Documentação</option>
+                <option value="pendente">Pendente</option>
+                <option value="processando">Processando</option>
+                <option value="verificado">Verificado</option>
+              </select>
+
+              <!-- Status solicitação -->
+              <select
+                id="filter-status-solic"
+                class="form-select w-100 w-md-auto"
+              >
+                <option value="">Status Solicitação</option>
+                <option value="aguardando">Aguardando documentação</option>
+                <option value="processando">Processando</option>
+                <option value="aprovado">Aprovado</option>
+                <option value="nao_aprovado">Não aprovado</option>
+                <option value="concluido">Concluído</option>
+              </select>
+
+              <!-- Ordenação -->
+              <select id="order-by" class="form-select w-100 w-md-auto">
+                <option value="createdAt_desc">Data Criação (mais novo)</option>
+                <option value="createdAt_asc">
+                  Data Criação (mais antigo)
+                </option>
+                <option value="valor_desc">Valor Crédito (maior)</option>
+                <option value="valor_asc">Valor Crédito (menor)</option>
+              </select>
+
+              <!-- Botão -->
+              <button
+                class="btn btn-success ms-auto w-100 w-md-auto"
+                onclick="window.location.href='solicitar-comercializacao.html'"
+                style="min-width: 140px"
+              >
+                + Nova Solicitação
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-24">
+            <div class="table-responsive scroll-sm">
+              <table class="table bordered-table sm-table mb-0">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Valor Crédito</th>
+                    <th>Responsável 1</th>
+                    <th>Responsável 2</th>
+                    <th>Status Documentação</th>
+                    <th>Status Solicitação</th>
+                    <th>Ações</th>
+                    <th>Criado por</th>
+                    <th>Data Solicitação</th>
+                  </tr>
+                </thead>
+                <tbody id="custeio-tbody"></tbody>
+              </table>
+            </div>
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24"
+            >
+              <span id="pagination-info">Mostrando 1 a 10 de 0 registros</span>
+              <ul
+                class="pagination d-flex flex-wrap align-items-center gap-2 justify-content-center"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0">
+              Made by <span class="text-primary-600">ComosTech</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- MODAL: Nova Solicitação de Crédito de Custeio (2 etapas, navegação livre) -->
+
+    <div
+      class="modal fade"
+      id="uploadDocumentosModal"
+      tabindex="-1"
+      aria-labelledby="uploadDocumentosModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-white rounded-4 shadow">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">
+              <iconify-icon
+                icon="ri:file-upload-line"
+                class="me-2 text-info"
+              ></iconify-icon>
+              Upload de Documentos
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Form de upload: fica acima das abas -->
+            <form id="form-upload-documento" style="display: none" class="mb-4">
+              <label for="inputFotoDocumento" class="form-label"
+                >Selecione a foto ou documento:</label
+              >
+              <div class="d-flex align-items-center gap-2">
+                <input
+                  class="form-control"
+                  type="file"
+                  id="inputFotoDocumento"
+                  accept="image/*"
+                  required
+                />
+                <button
+                  type="submit"
+                  id="btnEnviarDocumento"
+                  class="btn btn-success"
+                  disabled
+                >
+                  Enviar
+                </button>
+              </div>
+
+              <div
+                id="previewFotoDocumento"
+                class="text-center mt-3 mb-3"
+              ></div>
+
+              <div
+                class="progress mb-3"
+                style="height: 24px; display: none"
+                id="uploadProgressBarContainer"
+              >
+                <div
+                  class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                  id="uploadProgressBar"
+                  role="progressbar"
+                  style="width: 0%"
+                  aria-valuenow="0"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  0%
+                </div>
+              </div>
+            </form>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs mb-3" id="tabDocumentos" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="pendentes-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#pendentes"
+                  type="button"
+                  role="tab"
+                  aria-controls="pendentes"
+                  aria-selected="true"
+                >
+                  Pendentes
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="enviados-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#enviados"
+                  type="button"
+                  role="tab"
+                  aria-controls="enviados"
+                  aria-selected="false"
+                >
+                  Enviados
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="aprovados-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#aprovados"
+                  type="button"
+                  role="tab"
+                  aria-controls="aprovados"
+                  aria-selected="false"
+                >
+                  Aprovados
+                </button>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div
+              class="tab-content"
+              id="tabDocumentosContent"
+              style="min-height: 300px"
+            >
+              <!-- Pendentes -->
+              <div
+                class="tab-pane fade show active"
+                id="pendentes"
+                role="tabpanel"
+                aria-labelledby="pendentes-tab"
+              >
+                <ul id="listaPendentes" class="list-group mb-3"></ul>
+              </div>
+
+              <!-- Enviados -->
+              <div
+                class="tab-pane fade"
+                id="enviados"
+                role="tabpanel"
+                aria-labelledby="enviados-tab"
+              >
+                <ul id="listaEnviados" class="list-group"></ul>
+              </div>
+
+              <!-- Aprovados -->
+              <div
+                class="tab-pane fade"
+                id="aprovados"
+                role="tabpanel"
+                aria-labelledby="aprovados-tab"
+              >
+                <ul id="listaAprovados" class="list-group"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Editar Solicitação de Crédito de Custeio -->
+
+    <!-- SCRIPTS DE BIBLIOTECA DEVEM VIR ANTES DO SEU SCRIPT CUSTOM -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-storage-compat.js"></script>
+
+    <script>
+      // Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.firestore();
+      const storage = firebase.storage();
+      // Protege a página: redireciona para login se não estiver autenticado e exibe nome
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+          window.location.href = "sign-in.html";
+        } else {
+          // Preenche o nome do usuário
+          const elName = document.getElementById("user-profile-name");
+          if (elName) {
+            elName.textContent =
+              user.displayName || user.email || user.phoneNumber || "Usuário";
+          }
+        }
+      });
+
+      // Botão logout
+      $(document).on("click", "#logout-btn", function () {
+        firebase
+          .auth()
+          .signOut()
+          .then(function () {
+            window.location.href = "sign-in.html";
+          });
+      });
+
+      // Navegação entre as duas etapas (livre por clique)
+      function showStepWizard(n) {
+        $(".custeio-step").addClass("d-none");
+        $("#step-" + n).removeClass("d-none");
+        $("#wizard-steps .nav-link").removeClass("active");
+        $("#nav-step-" + n).addClass("active");
+      }
+      $(document).on("click", "#wizard-steps .nav-link", function () {
+        const n = $(this).data("step");
+        showStepWizard(n);
+      });
+      $("#addCusteioModal").on("shown.bs.modal", function () {
+        showStepWizard(1);
+        $("#custeio-form")[0].reset();
+        loadClientes();
+
+        // Sempre zera o range do add
+        setTimeout(function () {
+          $("#valor_credito_add").val(1000000).trigger("input");
+          $("#valorCreditoRangeLabelAdd").text(
+            "R$ " +
+              parseFloat(1000000).toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+          );
+        }, 50);
+      });
+
+      $("#valor_credito_add").on("input", function () {
+        $("#valorCreditoRangeLabelAdd").text(
+          "R$ " +
+            parseFloat(this.value).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+        );
+      });
+      $("#valorCreditoRangeLabelAdd").text(
+        "R$ " +
+          parseFloat(1000000).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+      );
+
+      // Submissão do formulário (salva no Firestore)
+      $("#custeio-form").submit(async function (e) {
+        e.preventDefault();
+
+        // Desabilita o botão para evitar duplo clique
+        $("#save-custeio").prop("disabled", true).text("Salvando...");
+
+        if (!$("#cliente_id").val()) {
+          alert("Selecione o cliente para continuar!");
+          $("#cliente_id").select2("open");
+          $("#save-custeio").prop("disabled", false).text("Salvar Solicitação");
+          return;
+        }
+        const formData = {};
+        $(this)
+          .find("input, select, textarea")
+          .each(function () {
+            formData[this.name] = $(this).val();
+          });
+        formData.createdAt = new Date();
+        formData.status = "inactive";
+        formData.status_documentacao = "pendente";
+        formData.status_solicitacao = "aguardando";
+        const user = firebase.auth().currentUser;
+        formData.addedBy =
+          (user && (user.displayName || user.email || user.phoneNumber)) ||
+          "Usuário";
+        try {
+          await db.collection("comercializacao").add(formData);
+          alert("Solicitação salva!");
+          $("#addCusteioModal").modal("hide");
+          // Reabilita o botão após sucesso
+          $("#save-custeio").prop("disabled", false).text("Salvar Solicitação");
+        } catch (err) {
+          alert("Erro ao salvar: " + err.message);
+          // Reabilita o botão também se der erro!
+          $("#save-custeio").prop("disabled", false).text("Salvar Solicitação");
+        }
+      });
+
+      let allCusteios = [];
+      let currentPage = 1;
+      let clientesList = [];
+      window.gerentesList = [];
+      window.agentesList = [];
+      async function loadGerentes() {
+        const snap = await db.collection("gerentes").get();
+        window.gerentesList = snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+      }
+
+      // Função para carregar agentes
+      async function loadAgentes() {
+        const snap = await db.collection("agentes").get();
+        window.agentesList = snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+      }
+      // Função principal para buscar e renderizar
+      async function loadCusteios() {
+        let snapshot = await db
+          .collection("comercializacao")
+          .orderBy("createdAt", "desc")
+          .get();
+        allCusteios = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        renderTable();
+      }
+
+      // Função que monta e exibe a tabela
+      function renderTable() {
+        const searchTerm = $("#search-input").val().toLowerCase();
+        const filterStatusDocs = $("#filter-status-docs").val();
+        const filterStatusSolic = $("#filter-status-solic").val();
+        const orderBy = $("#order-by").val();
+        const itemsPerPage = parseInt($("#items-per-page").val() || 10, 10);
+
+        let filtered = allCusteios.filter((c) => {
+          // Busca pelo nome do cliente
+          let clienteNome = "";
+          if (
+            c.cliente_id &&
+            Array.isArray(clientesList) &&
+            clientesList.length
+          ) {
+            const cli = clientesList.find((cl) => cl.id === c.cliente_id);
+            clienteNome = cli ? cli.nome.toLowerCase() : "";
+          }
+          const matchesSearch = !searchTerm || clienteNome.includes(searchTerm);
+
+          // Filtros novos
+          const matchesStatusDocs =
+            !filterStatusDocs ||
+            (c.status_documentacao || "pendente") === filterStatusDocs;
+          const matchesStatusSolic =
+            !filterStatusSolic ||
+            (c.status_solicitacao || "aguardando") === filterStatusSolic;
+
+          return matchesSearch && matchesStatusDocs && matchesStatusSolic;
+        });
+
+        // Ordenação
+        if (orderBy === "createdAt_desc") {
+          filtered.sort(
+            (a, b) =>
+              (b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 0) -
+              (a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 0)
+          );
+        } else if (orderBy === "createdAt_asc") {
+          filtered.sort(
+            (a, b) =>
+              (a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 0) -
+              (b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 0)
+          );
+        } else if (orderBy === "valor_desc") {
+          filtered.sort(
+            (a, b) =>
+              Number(b.valor_credito || b.valorCredito || 0) -
+              Number(a.valor_credito || a.valorCredito || 0)
+          );
+        } else if (orderBy === "valor_asc") {
+          filtered.sort(
+            (a, b) =>
+              Number(a.valor_credito || a.valorCredito || 0) -
+              Number(b.valor_credito || b.valorCredito || 0)
+          );
+        }
+
+        // Paginação
+        const start = (currentPage - 1) * itemsPerPage;
+        const pageData = filtered.slice(start, start + itemsPerPage);
+
+        $("#custeio-tbody").html(
+          pageData
+            .map((c) => {
+              // -- MANTÉM SEU CÓDIGO DE RENDERIZAÇÃO DAS LINHAS AQUI --
+              let clienteNome = "";
+              if (
+                c.cliente_id &&
+                Array.isArray(clientesList) &&
+                clientesList.length
+              ) {
+                const cli = clientesList.find((cl) => cl.id === c.cliente_id);
+                clienteNome = cli ? cli.nome : "";
+              }
+
+              let valorCredito = c.valor_credito || c.valorCredito || "";
+
+              let gerenteNome = "";
+              if (c.responsavelGerenteId && window.gerentesList) {
+                const gerente = window.gerentesList.find(
+                  (g) => g.id === c.responsavelGerenteId
+                );
+                gerenteNome =
+                  gerente && (gerente.nome_completo || gerente.email)
+                    ? gerente.nome_completo || gerente.email
+                    : c.responsavelGerenteId || "";
+              } else {
+                gerenteNome = c.responsavelGerenteId || "";
+              }
+
+              let resp2Nome = "";
+              if (c.responsavelSecundarioId) {
+                let agente = window.agentesList
+                  ? window.agentesList.find(
+                      (a) => a.id === c.responsavelSecundarioId
+                    )
+                  : null;
+                if (agente) {
+                  resp2Nome =
+                    (agente.nome_completo || agente.email || "") + " (Agente)";
+                } else if (window.gerentesList) {
+                  let gerente2 = window.gerentesList.find(
+                    (g) => g.id === c.responsavelSecundarioId
+                  );
+                  resp2Nome =
+                    gerente2 && (gerente2.nome_completo || gerente2.email)
+                      ? gerente2.nome_completo || gerente2.email
+                      : c.responsavelSecundarioId;
+                } else {
+                  resp2Nome = c.responsavelSecundarioId;
+                }
+              }
+              let statusDocs = c.status_documentacao || "pendente";
+              let podeAlterarStatusSol = statusDocs === "verificado";
+              let statusDocsLabel = "";
+              let statusDocsClass = "";
+              switch (statusDocs) {
+                case "verificado":
+                  statusDocsLabel = "Verificado";
+                  statusDocsClass = "bg-success";
+                  break;
+                case "processando":
+                  statusDocsLabel = "Processando";
+                  statusDocsClass = "bg-primary";
+                  break;
+                default:
+                  statusDocsLabel = "Pendente";
+                  statusDocsClass = "bg-warning";
+              }
+
+              let statusSol = c.status_solicitacao || "aguardando";
+              let statusSolLabel = "";
+              let statusSolClass = "";
+              switch (statusSol) {
+                case "processando":
+                  statusSolLabel = "Processando";
+                  statusSolClass = "bg-primary";
+                  break;
+                case "aprovado":
+                  statusSolLabel = "Aprovado";
+                  statusSolClass = "bg-success";
+                  break;
+                case "nao_aprovado":
+                  statusSolLabel = "Não aprovado";
+                  statusSolClass = "bg-danger";
+                  break;
+                case "concluido":
+                  statusSolLabel = "Concluído";
+                  statusSolClass = "bg-info";
+                  break;
+                default:
+                  statusSolLabel = "Aguardando documentação";
+                  statusSolClass = "bg-secondary";
+              }
+
+              const btnDocs = `<button
+  class="btn btn-secondary btn-upload-documento"
+ data-cliente-id="${c.cliente_id}"
+  data-bs-toggle="modal"
+  data-bs-target="#uploadDocumentosModal">
+  Documentos
+</button>`;
+
+              return `
+<tr>
+  <td>${clienteNome || ""}</td>
+ <td>${
+   valorCredito
+     ? "R$ " +
+       Number(valorCredito).toLocaleString("pt-BR", {
+         minimumFractionDigits: 2,
+         maximumFractionDigits: 2,
+       })
+     : ""
+ }</td>
+  <td>${gerenteNome}</td>
+  <td>${resp2Nome}</td>
+  <td>
+    <div class="dropdown">
+      <button class="badge px-3 py-2 ${statusDocsClass} text-white dropdown-toggle" type="button"
+        data-bs-toggle="dropdown" aria-expanded="false" style="border:none;cursor:pointer;">
+        ${statusDocsLabel}
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item text-white bg-warning" href="#" onclick="updateStatusDocs('${
+            c.id
+          }', 'pendente')">Pendente</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusDocs('${
+            c.id
+          }', 'processando')">Processando</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusDocs('${
+            c.id
+          }', 'verificado')">Verificado</a>
+        </li>
+      </ul>
+    </div>
+  </td>
+  <td>
+    <div class="dropdown">
+      <button class="badge px-3 py-2 ${statusSolClass} text-white dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="border:none;cursor:pointer;"
+        ${
+          !podeAlterarStatusSol
+            ? "disabled title='Só pode alterar após documentação verificada'"
+            : ""
+        }
+      >
+        ${statusSolLabel}
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item text-dark bg-secondary" href="#" onclick="updateStatusSol('${
+            c.id
+          }', 'aguardando')" ${
+                !podeAlterarStatusSol
+                  ? "style='pointer-events:none;opacity:0.7;'"
+                  : ""
+              }>Aguardando documentação</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-primary" href="#" onclick="updateStatusSol('${
+            c.id
+          }', 'processando')" ${
+                !podeAlterarStatusSol
+                  ? "style='pointer-events:none;opacity:0.7;'"
+                  : ""
+              }>Processando</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-success" href="#" onclick="updateStatusSol('${
+            c.id
+          }', 'aprovado')" ${
+                !podeAlterarStatusSol
+                  ? "style='pointer-events:none;opacity:0.7;'"
+                  : ""
+              }>Aprovado</a>
+        </li>
+        <li>
+          <a class="dropdown-item text-white bg-danger" href="#" onclick="updateStatusSol('${
+            c.id
+          }', 'nao_aprovado')" ${
+                !podeAlterarStatusSol
+                  ? "style='pointer-events:none;opacity:0.7;'"
+                  : ""
+              }>Não aprovado</a>
+        </li>
+        <li>
+         <a class="dropdown-item text-white bg-info" href="#" onclick="confirmarConclusao('${
+           c.id
+         }')" ${
+                !podeAlterarStatusSol
+                  ? "style='pointer-events:none;opacity:0.7;'"
+                  : ""
+              }>Concluído</a>
+
+        </li>
+      </ul>
+    </div>
+  </td>
+  <td class="text-center">
+    ${
+      c.status_solicitacao === "concluido" ||
+      c.status_documentacao === "verificado"
+        ? `
+  <button class="btn btn-sm btn-secondary me-1" disabled title="Envio de documentos bloqueado">${
+    c.status_solicitacao === "concluido"
+      ? "Documentos (concluído)"
+      : "Documentos (verificado)"
+  }</button>
+`
+        : `
+  ${btnDocs}
+`
+    }
+${
+  c.status_solicitacao === "concluido"
+    ? `
+  <button class="btn btn-sm btn-secondary me-1" disabled title="Edição bloqueada - solicitação concluída">Editar</button>
+`
+    : `
+  <button
+  class="btn btn-sm btn-warning me-1"
+ onclick="window.location.href='solicitar-comercializacao.html?idSolicitacao=${c.id}'"
+
+>
+  Editar
+</button>
+
+`
+}
+<button class="btn btn-sm btn-danger" onclick="deleteCusteio('${
+                c.id
+              }')">Deletar</button>
+
+  </td>
+  <td>${c.addedBy || ""}</td>
+  <td>${
+    c.createdAt && c.createdAt.toDate
+      ? c.createdAt.toDate().toLocaleDateString()
+      : ""
+  }</td>
+</tr>
+        `;
+            })
+            .join("") ||
+            `<tr><td colspan='9' class='text-center'>Nenhum registro encontrado</td></tr>`
+        );
+
+        renderPagination(filtered.length, itemsPerPage);
+
+        $("#pagination-info").text(
+          `Mostrando ${filtered.length === 0 ? 0 : start + 1} a ${Math.min(
+            start + itemsPerPage,
+            filtered.length
+          )} de ${filtered.length} registros`
+        );
+      }
+
+      $("#search-input").on("input", function () {
+        currentPage = 1;
+        renderTable();
+      });
+      $(
+        "#filter-status-docs, #filter-status-solic, #order-by, #items-per-page"
+      ).on("change", function () {
+        currentPage = 1;
+        renderTable();
+      });
+      function renderPagination(total, itemsPerPage) {
+        const pages = Math.ceil(total / itemsPerPage);
+        const pagination = $(".pagination").first();
+        pagination.html("");
+        for (let i = 1; i <= pages; i++) {
+          const li = $(
+            `<li class="page-item"><a href="#" class="page-link ${
+              i === currentPage ? "active" : ""
+            }">${i}</a></li>`
+          );
+          li.on("click", function (e) {
+            e.preventDefault();
+            currentPage = i;
+            renderTable();
+          });
+          pagination.append(li);
+        }
+      }
+
+      // Busca clientes do banco
+      // Busca clientes do banco
+      async function loadClientes() {
+        let snap = await db.collection("clientes").get();
+        clientesList = snap.docs.map((doc) => ({
+          id: doc.id,
+          nome:
+            doc.data().nome ||
+            doc.data().email ||
+            doc.data().empresa ||
+            doc.data().contato ||
+            "Cliente",
+        }));
+        let options = `<option value="">Selecione o cliente...</option>`;
+        clientesList.forEach(
+          (c) => (options += `<option value="${c.id}">${c.nome}</option>`)
+        );
+        $("#cliente_id").html(options);
+
+        // Destroy anterior antes de criar novamente
+        if ($("#cliente_id").hasClass("select2-hidden-accessible")) {
+          $("#cliente_id").select2("destroy");
+        }
+
+        $("#cliente_id").select2({
+          dropdownParent: $("#addCusteioModal"),
+          width: "100%",
+          placeholder: "Selecione o cliente...",
+          allowClear: true,
+        });
+      }
+
+      // Busca/filtro/paginação/lista sempre carrega clientes antes de montar a tabela
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          Promise.all([loadClientes(), loadGerentes(), loadAgentes()]).then(
+            loadCusteios
+          );
+        }
+      });
+
+      // Após salvar um novo registro, recarrega tabela:
+      $("#custeio-form").on("submit", function () {
+        setTimeout(loadCusteios, 1000);
+      });
+
+      // Eventos para busca, filtros e itens por página
+      $("#search-input").on("input", function () {
+        currentPage = 1;
+        renderTable();
+      });
+      $("#filter-status, #filter-tipo-produtor, #items-per-page").on(
+        "change",
+        function () {
+          currentPage = 1;
+          renderTable();
+        }
+      );
+
+      // Wizard edit: navegação por etapas
+      // Deletar registro
+      window.deleteCusteio = async function (id) {
+        if (!confirm("Tem certeza que deseja deletar esta solicitação?"))
+          return;
+        try {
+          await db.collection("comercializacao").doc(id).delete();
+          loadCusteios();
+        } catch (err) {
+          alert("Erro ao deletar: " + err.message);
+        }
+      };
+      window.updateStatusDocs = async function (id, status) {
+        try {
+          await db.collection("comercializacao").doc(id).update({
+            status_documentacao: status,
+          });
+          loadCusteios();
+        } catch (err) {
+          alert("Erro ao atualizar status da documentação: " + err.message);
+        }
+      };
+
+      window.updateStatusSol = async function (
+        id,
+        status,
+        dataConclusao = null
+      ) {
+        try {
+          const atualizacoes = {
+            status_solicitacao: status,
+          };
+
+          if (status === "concluido" && dataConclusao) {
+            atualizacoes.data_conclusao = dataConclusao;
+          }
+
+          await db.collection("comercializacao").doc(id).update(atualizacoes);
+          loadCusteios();
+        } catch (err) {
+          alert("Erro ao atualizar status da solicitação: " + err.message);
+        }
+      };
+
+      function renderUploadedFiles(prefix = "") {
+        // Lista dos campos de documentos (use o mesmo nome dos inputs)
+        const docFields = [
+          "doc_cnd",
+          "doc_cnh_proponente",
+          "doc_cnh_conjuge",
+          "doc_certidao_nascimento",
+          "doc_irpf",
+          "doc_irpf_recibo",
+          "doc_cmn",
+          "doc_ccir_beneficiado",
+          "doc_itr_beneficiado",
+          "doc_inteiro_teor",
+          "doc_onus",
+          "doc_lo",
+          "doc_roteiro_acesso",
+          "doc_car_inscricao",
+          "doc_car_demonstrativo",
+          "doc_cessao",
+          "doc_asv",
+          "doc_outorga",
+          "doc_kml_total",
+          "doc_kml_beneficiada",
+          // adicione mais conforme necessário...
+        ];
+
+        docFields.forEach((field) => {
+          const previewDiv = document.getElementById(
+            `${prefix}${field}_preview`
+          );
+          if (!previewDiv) return;
+
+          // Recupera a url do arquivo enviada (deve estar salva no Firestore)
+          // Exemplo: { doc_cnd: 'https://.../arquivo.pdf', ... }
+          const currentData = window.currentCusteioData || {};
+          const fileUrl =
+            currentData[`${prefix}${field}`] || currentData[field];
+
+          if (fileUrl) {
+            // Decide o ícone pelo tipo do arquivo
+            let icon = "ri-file-pdf-line";
+            if (fileUrl.match(/\.(jpg|jpeg|png)$/i)) icon = "ri-image-line";
+            else if (fileUrl.match(/\.pdf$/i)) icon = "ri-file-pdf-line";
+
+            previewDiv.innerHTML = `
+        <a href="${fileUrl}" target="_blank" class="text-white me-2">
+          <i class="ri-2x ${icon}" style="vertical-align: middle;"></i>
+          <span class="ms-1">${field.replace(/_/g, " ").toUpperCase()}</span>
+        </a>
+      `;
+          } else {
+            previewDiv.innerHTML = "";
+          }
+        });
+      }
+      function confirmarConclusao(idSolicitacao) {
+        if (
+          confirm(
+            "⚠️ Após marcar como CONCLUÍDO, esta solicitação não poderá ser alterada e só poderá ser excluída por um administrador.\n\nDeseja realmente concluir esta solicitação?"
+          )
+        ) {
+          const dataConclusao = new Date().toISOString(); // grava no formato ISO
+          updateStatusSol(idSolicitacao, "concluido", dataConclusao);
+        }
+      }
+      // Exemplo de uso após carregar os dados para edição
+      // window.currentCusteioData = { ... }; // objeto do Firestore
+      renderUploadedFiles("edit_"); // Para modal de edição
+      renderUploadedFiles(""); // Para modal de criação (se necessário)
+    </script>
+
+    <script>
+      let gerentesAtivos = [];
+      let agentesAtivos = [];
+
+      async function preencherResponsaveisCusteio(
+        valorGerenteSalvo = "",
+        valorSecundarioSalvo = ""
+      ) {
+        const gerenteSelect = document.getElementById(
+          "edit-responsavel-gerente"
+        );
+        const secundarioSelect = document.getElementById(
+          "edit-responsavel-secundario"
+        );
+
+        gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
+        secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+        // 1. Carrega gerentes ativos
+        const gerentesSnap = await firebase
+          .firestore()
+          .collection("gerentes")
+          .where("status", "==", "active")
+          .get();
+
+        gerentesAtivos = gerentesSnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        gerentesAtivos.forEach((gerente) => {
+          const option = document.createElement("option");
+          option.value = gerente.id;
+          option.textContent =
+            gerente.nome_completo || gerente.email || "(sem nome)";
+          gerenteSelect.appendChild(option);
+        });
+
+        // Seleciona gerente salvo, se houver
+        if (valorGerenteSalvo) {
+          gerenteSelect.value = valorGerenteSalvo;
+        }
+
+        // 2. Carrega agentes ativos
+        const agentesSnap = await firebase
+          .firestore()
+          .collection("agentes")
+          .where("status", "==", "active")
+          .get();
+
+        agentesAtivos = agentesSnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        // 3. Atualiza os responsáveis secundários com base no gerente salvo
+        atualizarSecundario(valorGerenteSalvo, valorSecundarioSalvo);
+
+        // 4. Ao mudar o gerente, atualizar opções do secundário
+        gerenteSelect.addEventListener("change", () => {
+          atualizarSecundario(gerenteSelect.value);
+        });
+      }
+
+      function atualizarSecundario(
+        gerenteIdSelecionado,
+        valorSecundarioSalvo = ""
+      ) {
+        const secundarioSelect = document.getElementById(
+          "edit-responsavel-secundario"
+        );
+        secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+        const gerenteSelecionado = gerentesAtivos.find(
+          (g) => g.id === gerenteIdSelecionado
+        );
+        if (!gerenteSelecionado) return;
+
+        const nomeGerente = gerenteSelecionado.nome_completo;
+
+        // Adiciona o próprio gerente como opção
+        const optionGerente = document.createElement("option");
+        optionGerente.value = gerenteSelecionado.id;
+        optionGerente.textContent = nomeGerente + " (Gerente)";
+        secundarioSelect.appendChild(optionGerente);
+
+        // Adiciona agentes que têm esse gerente como responsável
+        agentesAtivos
+          .filter((ag) => ag.gerenteNome === nomeGerente)
+          .forEach((agente) => {
+            const option = document.createElement("option");
+            option.value = agente.id;
+            option.textContent =
+              (agente.nome_completo || agente.email || "(sem nome)") +
+              " (Agente)";
+            secundarioSelect.appendChild(option);
+          });
+
+        // Seleciona valor salvo no secundário, se houver
+        if (valorSecundarioSalvo) {
+          secundarioSelect.value = valorSecundarioSalvo;
+        }
+      }
+    </script>
+
+    <script>
+      document.documentElement.setAttribute("data-theme", "dark");
+    </script>
+    <script>
+      // Lista fixa de documentos
+      const listaDocumentosFixos = [
+        "CND - Certidão Negativa de Débitos(Tributos Federais e Dívida Ativa da União)",
+        "CNH - Proponente",
+        "CNH - Cônjuge",
+        "Certidão de Nascimento/Casamento",
+        "Declaração de IRPF",
+        "Recibo de IRPF",
+        "Declaração CMN - Declaração de Renegociações por Resoluções do CMN",
+        "Certificado de Cadastro do Imóvel Rural (CCIR) - Imóvel Beneficiado",
+        "Certidão Negativa de Débitos do Imóvel Rural ou Prova de Pagamento/Quitação do ITR",
+        "Certidão de Inteiro Teor do Objeto da Cessão (Validade de até 1 ano)",
+        "Certidão de Ônus do Imóvel Objeto da Cessão",
+        "Licença Ambiental de Operação (LO)",
+        "Roteiro de Acesso ao Imóvel",
+        "Cadastro Ambiental Rural (CAR) - Documento de Inscrição",
+        "Cadastro Ambiental Rural (CAR) - Demonstrativo de Situação",
+        "Documentos de Cessão (Contratos e/ou Anuência) - Crédito Rural",
+        "Autorização para Supressão de Vegetação (ASV)",
+        "Outorga d'Água",
+        "KML da Área Total do Imóvel",
+        "KML da Área Beneficiada no Custeio",
+      ];
+
+      // Elementos do DOM
+      const listaPendentes = document.getElementById("listaPendentes");
+      const listaEnviados = document.getElementById("listaEnviados");
+      const listaAprovados = document.getElementById("listaAprovados");
+
+      const formUpload = document.getElementById("form-upload-documento");
+      const fileInput = document.getElementById("inputFotoDocumento");
+      const btnEnviar = document.getElementById("btnEnviarDocumento");
+      const previewDiv = document.getElementById("previewFotoDocumento");
+      const progressContainer = document.getElementById(
+        "uploadProgressBarContainer"
+      );
+      const progressBar = document.getElementById("uploadProgressBar");
+
+      let clienteIdSelecionado = null;
+      let tipoDocumentoSelecionado = null;
+
+      // Ao clicar no botão Documentos, abrir modal e carregar listas
+      document.addEventListener("click", async (e) => {
+        if (e.target && e.target.classList.contains("btn-upload-documento")) {
+          clienteIdSelecionado = e.target.getAttribute("data-cliente-id");
+          tipoDocumentoSelecionado = null;
+
+          limparTudo();
+          await carregarDocumentosCliente(clienteIdSelecionado);
+
+          const modalEl = document.getElementById("uploadDocumentosModal");
+          const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+          modal.show();
+
+          // Força abrir aba Pendentes
+          const tabTrigger = new bootstrap.Tab(
+            document.querySelector("#pendentes-tab")
+          );
+          tabTrigger.show();
+        }
+      });
+
+      // Limpar interface antes de carregar
+      function limparTudo() {
+        listaPendentes.innerHTML = "";
+        listaEnviados.innerHTML = "";
+        listaAprovados.innerHTML = "";
+        previewDiv.innerHTML = "";
+        fileInput.value = "";
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviar";
+        progressContainer.style.display = "none";
+        progressBar.style.width = "0%";
+        progressBar.textContent = "0%";
+        formUpload.style.display = "none";
+      }
+
+      // Carrega documentos do cliente do Firestore e separa pendentes, enviados e aprovados
+      async function carregarDocumentosCliente(clienteId) {
+        if (!clienteId) return;
+
+        try {
+          const docSnap = await firebase
+            .firestore()
+            .collection("clientes")
+            .doc(clienteId)
+            .get();
+          const data = docSnap.exists ? docSnap.data() : {};
+          const documentos = data.documentos || {};
+
+          // Separar documentos
+          const enviados = [];
+          const aprovados = [];
+
+          for (const docName of Object.keys(documentos)) {
+            const doc = documentos[docName];
+            if (doc && doc.url) {
+              if (doc.status === "aprovado")
+                aprovados.push({ tipo: docName, url: doc.url });
+              else enviados.push({ tipo: docName, url: doc.url });
+            }
+          }
+
+          // Pendentes = lista fixa - docs enviados e aprovados
+          const docsPendentes = listaDocumentosFixos.filter(
+            (docName) =>
+              !enviados.some((e) => e.tipo === docName) &&
+              !aprovados.some((a) => a.tipo === docName)
+          );
+
+          mostrarPendentes(docsPendentes);
+          mostrarEnviados(enviados);
+          mostrarAprovados(aprovados);
+        } catch (error) {
+          alert("Erro ao carregar documentos: " + error.message);
+        }
+      }
+
+      // Mostrar pendentes, clicáveis para iniciar upload
+      function mostrarPendentes(pendentes) {
+        listaPendentes.innerHTML = "";
+        if (!pendentes.length) {
+          listaPendentes.innerHTML =
+            '<li class="list-group-item text-center">Nenhum documento pendente</li>';
+          formUpload.style.display = "none";
+          return;
+        }
+        pendentes.forEach((tipo) => {
+          const li = document.createElement("li");
+          li.className = "list-group-item list-group-item-action";
+          li.textContent = tipo;
+          li.style.cursor = "pointer";
+          li.onclick = () => {
+            tipoDocumentoSelecionado = tipo;
+            mostrarFormUpload(tipo);
+          };
+          listaPendentes.appendChild(li);
+        });
+      }
+
+      // Mostrar enviados com botões Aprovar e Desaprovar
+      function mostrarEnviados(enviados) {
+        listaEnviados.innerHTML = "";
+        if (!enviados.length) {
+          listaEnviados.innerHTML =
+            '<li class="list-group-item text-center">Nenhum documento enviado</li>';
+          return;
+        }
+        enviados.forEach(({ tipo, url }) => {
+          const li = document.createElement("li");
+          li.className =
+            "list-group-item d-flex justify-content-between align-items-center";
+          li.innerHTML = `
+      <span>${tipo}</span>
+      <div>
+        <a href="${url}" target="_blank" class="btn btn-outline-dark btn-sm me-2">Ver</a>
+        <button class="btn btn-success btn-sm btn-aprovar-doc" data-tipo="${tipo}">Aprovar</button>
+        <button class="btn btn-danger btn-sm btn-desaprovar-doc" data-tipo="${tipo}" data-url="${url}">Desaprovar</button>
+      </div>
+    `;
+          listaEnviados.appendChild(li);
+        });
+      }
+
+      // Mostrar aprovados com botão Excluir
+      function mostrarAprovados(aprovados) {
+        listaAprovados.innerHTML = "";
+        if (!aprovados.length) {
+          listaAprovados.innerHTML =
+            '<li class="list-group-item text-center">Nenhum documento aprovado</li>';
+          return;
+        }
+        aprovados.forEach(({ tipo, url }) => {
+          const li = document.createElement("li");
+          li.className =
+            "list-group-item d-flex justify-content-between align-items-center bg-success text-white";
+          li.innerHTML = `
+      <span>${tipo}</span>
+      <div>
+        <a href="${url}" target="_blank" class="btn btn-outline-light btn-sm me-2">Ver</a>
+        <button class="btn btn-danger btn-sm btn-excluir-doc" data-tipo="${tipo}" data-url="${url}">Excluir</button>
+      </div>
+    `;
+          listaAprovados.appendChild(li);
+        });
+      }
+
+      // Mostrar formulário upload na aba Pendentes após selecionar um documento
+      function mostrarFormUpload(tipo) {
+        formUpload.style.display = "block";
+        previewDiv.innerHTML = "";
+        btnEnviar.disabled = true;
+        fileInput.value = "";
+        previewDiv.innerHTML = `<p>Enviando documento: <strong>${tipo}</strong></p>`;
+      }
+
+      // Habilitar botão enviar só se tiver arquivo selecionado
+      fileInput.addEventListener("change", () => {
+        btnEnviar.disabled = !fileInput.files.length;
+      });
+
+      // Envio do documento para Storage e Firestore
+      formUpload.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!tipoDocumentoSelecionado)
+          return alert("Selecione um documento pendente para enviar.");
+        if (!fileInput.files.length)
+          return alert("Selecione um arquivo para enviar.");
+        if (!clienteIdSelecionado) return alert("Cliente não definido.");
+
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviando...";
+        progressContainer.style.display = "block";
+        progressBar.style.width = "0%";
+        progressBar.textContent = "0%";
+        fileInput.disabled = true;
+
+        try {
+          const file = fileInput.files[0];
+          const storageRef = storage.ref(
+            `documentos/${clienteIdSelecionado}/${Date.now()}-${file.name}`
+          );
+          const uploadTask = storageRef.put(file);
+
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              );
+              progressBar.style.width = progress + "%";
+              progressBar.textContent = progress + "%";
+            },
+            (error) => {
+              alert("Erro no upload: " + error.message);
+              progressContainer.style.display = "none";
+              btnEnviar.disabled = false;
+              btnEnviar.textContent = "Enviar";
+              fileInput.disabled = false;
+            },
+            async () => {
+              const downloadURL =
+                await uploadTask.snapshot.ref.getDownloadURL();
+
+              await firebase
+                .firestore()
+                .collection("clientes")
+                .doc(clienteIdSelecionado)
+                .set(
+                  {
+                    documentos: {
+                      [tipoDocumentoSelecionado]: {
+                        url: downloadURL,
+                        status: "enviado",
+                      },
+                    },
+                  },
+                  { merge: true }
+                );
+
+              alert("Documento enviado com sucesso!");
+              await carregarDocumentosCliente(clienteIdSelecionado);
+
+              // Limpa e esconde o formulário
+              fileInput.value = "";
+              btnEnviar.disabled = true;
+              btnEnviar.textContent = "Enviar";
+              formUpload.style.display = "none";
+              previewDiv.innerHTML = "";
+
+              progressContainer.style.display = "none";
+              fileInput.disabled = false;
+            }
+          );
+        } catch (error) {
+          alert("Erro ao enviar documento: " + error.message);
+          progressContainer.style.display = "none";
+          btnEnviar.disabled = false;
+          btnEnviar.textContent = "Enviar";
+          fileInput.disabled = false;
+        }
+      });
+
+      // Botões Aprovar e Desaprovar na aba enviados
+      listaEnviados.addEventListener("click", async (e) => {
+        if (e.target.classList.contains("btn-aprovar-doc")) {
+          const tipo = e.target.getAttribute("data-tipo");
+          await aprovarDocumento(tipo);
+        } else if (e.target.classList.contains("btn-desaprovar-doc")) {
+          const tipo = e.target.getAttribute("data-tipo");
+          const url = e.target.getAttribute("data-url");
+          await desaprovarDocumento(tipo, url);
+        }
+      });
+
+      // Botão excluir na aba aprovados
+      listaAprovados.addEventListener("click", async (e) => {
+        if (e.target.classList.contains("btn-excluir-doc")) {
+          const tipo = e.target.getAttribute("data-tipo");
+          const url = e.target.getAttribute("data-url");
+          if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`))
+            return;
+          try {
+            await firebase
+              .firestore()
+              .collection("clientes")
+              .doc(clienteIdSelecionado)
+              .update({
+                [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete(),
+              });
+
+            if (url) {
+              const storageRef = storage.refFromURL(url);
+              await storageRef.delete();
+            }
+
+            alert(`Documento "${tipo}" excluído com sucesso!`);
+            await carregarDocumentosCliente(clienteIdSelecionado);
+          } catch (error) {
+            alert("Erro ao excluir documento: " + error.message);
+          }
+        }
+      });
+
+      // Aprovar documento
+      async function aprovarDocumento(tipo) {
+        if (!clienteIdSelecionado) return alert("Cliente não definido.");
+        try {
+          await firebase
+            .firestore()
+            .collection("clientes")
+            .doc(clienteIdSelecionado)
+            .update({
+              [`documentos.${tipo}.status`]: "aprovado",
+            });
+          alert(`Documento "${tipo}" aprovado.`);
+          await carregarDocumentosCliente(clienteIdSelecionado);
+        } catch (error) {
+          alert("Erro ao aprovar documento: " + error.message);
+        }
+      }
+
+      // Desaprovar documento (exclui e volta para pendentes)
+      async function desaprovarDocumento(tipo, url) {
+        if (!clienteIdSelecionado) return alert("Cliente não definido.");
+        if (
+          !confirm(
+            `Tem certeza que deseja desaprovar e excluir o documento "${tipo}"?`
+          )
+        )
+          return;
+
+        try {
+          await firebase
+            .firestore()
+            .collection("clientes")
+            .doc(clienteIdSelecionado)
+            .update({
+              [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete(),
+            });
+
+          if (url) {
+            const storageRef = storage.refFromURL(url);
+            await storageRef.delete();
+          }
+
+          alert(`Documento "${tipo}" desaprovado e excluído.`);
+          await carregarDocumentosCliente(clienteIdSelecionado);
+        } catch (error) {
+          alert("Erro ao desaprovar documento: " + error.message);
+        }
+      }
+    </script>
+    <style>
+      /* Pendentes - amarelo */
+      #listaPendentes .list-group-item {
+        background-color: #fff8dc; /* Cornsilk: amarelo claro */
+        color: #856404; /* amarelo escuro para texto */
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #listaPendentes .list-group-item:hover {
+        background-color: #ffe8a1;
+        color: #5c3d00;
+      }
+
+      /* Enviados - azul */
+      #listaEnviados .list-group-item {
+        background-color: #cce5ff; /* azul claro */
+        color: #004085; /* azul escuro */
+        font-weight: 600;
+      }
+      #listaEnviados .list-group-item:hover {
+        background-color: #99ccff;
+        color: #002752;
+      }
+
+      /* Aprovados - verde */
+      #listaAprovados .list-group-item {
+        background-color: #d4edda; /* verde claro */
+        color: #155724; /* verde escuro */
+        font-weight: 600;
+      }
+      #listaAprovados .list-group-item:hover {
+        background-color: #a9d5b9;
+        color: #0b2e13;
+      }
+
+      /* Garante que o modal-content possa rolar se o conteúdo for maior que a tela */
+      .modal-xl .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      /* Garante que a área das etapas também role se ficar grande */
+      #addCusteioModal .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+
+      /* Opcional: Evita barra dupla de rolagem em etapas */
+      .custeio-step {
+        /* Por padrão, apenas o modal-body rola */
+        overflow: unset !important;
+      }
+      .dropdown-menu .dropdown-item {
+        margin: 4px 0;
+        border-radius: 8px !important;
+        text-align: center;
+        font-weight: 500;
+      }
+      .dropdown-menu .dropdown-item.bg-warning {
+        background-color: #ffc107 !important;
+        color: #212529 !important;
+      }
+      .dropdown-menu .dropdown-item.bg-primary {
+        background-color: #0d6efd !important;
+        color: #fff !important;
+      }
+      .dropdown-menu .dropdown-item.bg-success {
+        background-color: #198754 !important;
+        color: #fff !important;
+      }
+      .dropdown-menu .dropdown-item.bg-danger {
+        background-color: #dc3545 !important;
+        color: #fff !important;
+      }
+      .dropdown-menu .dropdown-item:hover,
+      .dropdown-menu .dropdown-item:focus {
+        opacity: 0.85;
+      }
+
+      /* Select2 single, fundo escuro e largura total */
+      .select2-container--default .select2-selection--single {
+        background-color: #22252a !important;
+        border: 1px solid #40444b !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        border-radius: 8px !important;
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        box-shadow: none !important;
+      }
+
+      /* Container principal do select2 */
+      .select2-container {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        display: block;
+      }
+
+      /* Texto do item selecionado: branco, negrito */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__rendered {
+        color: #fff !important;
+        font-weight: bold !important;
+        opacity: 1 !important;
+        line-height: 48px !important;
+        font-size: 1rem !important;
+        padding-left: 12px !important;
+      }
+
+      /* Placeholder: cinza suave */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__placeholder {
+        color: #b0b0b0 !important;
+        opacity: 1 !important;
+        font-weight: normal !important;
+      }
+
+      /* Dropdown arrow */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__arrow
+        b {
+        border-color: #fff transparent transparent transparent !important;
+      }
+
+      /* Dropdown menu */
+      .select2-container--default .select2-dropdown {
+        background-color: #23272f !important;
+        border: 1px solid #40444b !important;
+        color: #fff !important;
+      }
+
+      /* Opções no dropdown */
+      .select2-container--default .select2-results__option {
+        background-color: #23272f !important;
+        color: #fff !important;
+        border-radius: 0 !important;
+      }
+
+      /* Hover/selecionado */
+      .select2-container--default
+        .select2-results__option--highlighted[aria-selected] {
+        background-color: #1d2228 !important;
+        color: #fff !important;
+      }
+
+      /* Estado de foco/ativo */
+      .select2-container--default .select2-selection--single:focus,
+      .select2-container--default .select2-selection--single:active {
+        border-color: #3ecf8e !important; /* verde claro */
+        box-shadow: 0 0 0 1px #3ecf8e !important;
+      }
+
+      /* Botão "x" (limpar seleção) */
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__clear {
+        color: #fff !important;
+        font-size: 1.2em !important;
+        margin-right: 8px;
+        margin-left: 4px;
+        opacity: 1 !important;
+      }
+
+      /* Responsivo para telas menores */
+      @media (max-width: 600px) {
+        .select2-container--default .select2-selection--single {
+          min-height: 40px !important;
+          height: 40px !important;
+          font-size: 0.95rem !important;
+        }
+        .select2-container--default
+          .select2-selection--single
+          .select2-selection__rendered {
+          font-size: 0.95rem !important;
+          line-height: 40px !important;
+        }
+      }
+    </style>
+  </body>
+</html>

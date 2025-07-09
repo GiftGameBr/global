@@ -1,0 +1,2329 @@
+function detectarCulturasAnuaisDoFirestore(data) {
+  const culturasEncontradas = new Set();
+  Object.keys(data).forEach((chave) => {
+    const match = chave.match(/^([A-Za-zÀ-ÿ\s]+)_cultura_anual_/);
+    if (match) {
+      const cultura = match[1].trim();
+      culturasEncontradas.add(cultura);
+    }
+  });
+  return Array.from(culturasEncontradas);
+}
+function detectarQtdPropriedadesSecundarias(data) {
+  let maxIndex = 0;
+  Object.keys(data).forEach((chave) => {
+    const match = chave.match(/^secundaria_nome_(\d+)/);
+    if (match) {
+      const idx = parseInt(match[1], 10);
+      if (idx > maxIndex) maxIndex = idx;
+    }
+  });
+  return maxIndex;
+}
+function restoreSecundariasState(data) {
+  const qtd = detectarQtdPropriedadesSecundarias(data);
+
+  document.getElementById("num_secundarias").value = qtd;
+
+  // Se não houver propriedades, limpar o container e os dados
+  if (qtd === 0) {
+    const container = document.getElementById("secundariasContainer");
+    if (container) container.innerHTML = "";
+
+    // Também remove os dados relacionados de forma segura
+    Object.keys(data).forEach((key) => {
+      if (key.startsWith("secundaria_")) {
+        delete FormStateManager.atividadesData[key];
+      }
+    });
+
+    FormStateManager.saveToLocalStorage();
+    return;
+  }
+
+  // Caso contrário, renderiza normalmente
+  renderSecundarias(qtd);
+  for (let i = 1; i <= qtd; i++) {
+    const prefix = `secundaria_`;
+    const suffixes = [
+      "nome",
+      "municipio",
+      "matricula",
+      "area",
+      "proprietario",
+      "nome_proprietario",
+      "cpf_cnpj",
+      "percentual",
+    ];
+
+    suffixes.forEach((campo) => {
+      const name = `${prefix}${campo}_${i}`;
+      const input = document.querySelector(`[name="${name}"]`);
+      if (input && data[name] !== undefined) {
+        input.value = data[name];
+        if (input.tagName === "SELECT" && campo === "proprietario") {
+          toggleProprietarioExtras(input, i); // mostrar/esconder extras
+        }
+      }
+    });
+  }
+}
+
+function saveAllSecundariasData() {
+  const inputs = document.querySelectorAll("[name^='secundaria_']");
+  const tempData = {};
+
+  inputs.forEach((input) => {
+    if (input.type === "checkbox" || input.type === "radio") {
+      tempData[input.name] = input.checked;
+    } else {
+      tempData[input.name] = input.value;
+    }
+  });
+
+  return tempData;
+}
+
+function detectarCulturasPerenesDoFirestore(data) {
+  const culturasEncontradas = new Set();
+  Object.keys(data).forEach((chave) => {
+    const match = chave.match(/^([A-Za-zÀ-ÿ\s-]+)_ano_safra_inicio/);
+    if (match) {
+      culturasEncontradas.add(match[1].trim());
+    }
+  });
+  return Array.from(culturasEncontradas);
+}
+
+// ===================================================================
+// 1. SISTEMA DE GERENCIAMENTO DE ESTADO GLOBAL
+// ===================================================================
+
+const FormStateManager = {
+  // Armazena dados de todas as atividades
+  atividadesData: {},
+
+  // Armazena dados de todas as culturas (dentro de Cultura Anual)
+  culturasData: {},
+
+  // Salva dados de um formulário específico
+  saveFormData: function (formId, data) {
+    if (formId.startsWith("cultura-") || formId.startsWith("perene-")) {
+      this.culturasData[formId] = data;
+    } else {
+      this.atividadesData[formId] = data;
+    }
+    // Auto-save no localStorage
+    this.saveToLocalStorage();
+  },
+
+  // Recupera dados de um formulário específico
+  getFormData: function (formId) {
+    if (formId.startsWith("cultura-") || formId.startsWith("perene-")) {
+      return this.culturasData[formId] || {};
+    } else {
+      return this.atividadesData[formId] || {};
+    }
+  },
+
+  // Coleta dados de todos os campos de um formulário
+  collectFormData: function (formElement) {
+    const data = {};
+    const inputs = formElement.querySelectorAll("input, select, textarea");
+    inputs.forEach((input) => {
+      if (input.type === "checkbox" || input.type === "radio") {
+        data[input.name] = input.checked;
+      } else {
+        data[input.name] = input.value;
+      }
+    });
+    return data;
+  },
+
+  // Restaura dados em um formulário
+  restoreFormData: function (formElement, data) {
+    Object.keys(data).forEach((fieldName) => {
+      const field = formElement.querySelector(`[name="${fieldName}"]`);
+      if (field) {
+        if (field.type === "checkbox" || field.type === "radio") {
+          field.checked = data[fieldName];
+        } else {
+          field.value = data[fieldName];
+        }
+      }
+    });
+  },
+
+  // Persistência em LocalStorage
+  // Persistência em LocalStorage
+  saveToLocalStorage: function () {
+    try {
+      localStorage.setItem(
+        "formData_atividades",
+        JSON.stringify(this.atividadesData)
+      );
+      localStorage.setItem(
+        "formData_culturas",
+        JSON.stringify(this.culturasData)
+      );
+    } catch (e) {
+      console.warn("Erro ao salvar no localStorage:", e);
+    }
+  },
+
+  loadFromLocalStorage: function () {
+    try {
+      const atividadesData = localStorage.getItem("formData_atividades");
+      const culturasData = localStorage.getItem("formData_culturas");
+
+      if (atividadesData) {
+        this.atividadesData = JSON.parse(atividadesData);
+      }
+      if (culturasData) {
+        this.culturasData = JSON.parse(culturasData);
+      }
+    } catch (e) {
+      console.warn("Erro ao carregar do localStorage:", e);
+    }
+  },
+
+  clearLocalStorage: function () {
+    localStorage.removeItem("formData_atividades");
+    localStorage.removeItem("formData_culturas");
+    this.atividadesData = {};
+    this.culturasData = {};
+  },
+};
+
+// ===================================================================
+// 2. CONTROLE DE NAVEGAÇÃO ENTRE STEPS (MANTIDO ORIGINAL)
+// ===================================================================
+
+// ===================================================================
+// 2. CONTROLE DE NAVEGAÇÃO ENTRE STEPS + RESET DAS CULTURAS
+// ===================================================================
+
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  const idSolicitacao = params.get("idSolicitacao");
+
+  if (!idSolicitacao) {
+    // RESET DAS LISTAS DE CULTURAS AO ABRIR UMA NOVA SOLICITAÇÃO
+    selectedAnnualCultures = [];
+    selectedPerennialCultures = [];
+
+    const containers = [
+      "culturasFormsContainer",
+      "selectedCulturesList",
+      "perennialFormsContainer",
+      "selectedPerennialList",
+    ];
+
+    containers.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = "";
+    });
+
+    FormStateManager.saveFormData("selectedAnnualCultures", []);
+    FormStateManager.saveFormData("selectedPerennialCultures", []);
+  } else {
+    // 🔥 BUSCA DO FIREBASE FIRESTORE
+    firebase.auth().onAuthStateChanged(async function (user) {
+      if (user) {
+        const db = firebase.firestore();
+        const docRef = db.collection("comercializacao").doc(idSolicitacao);
+
+        const docSnap = await docRef.get();
+
+        if (docSnap.exists) {
+          const data = docSnap.data();
+          const form = document.getElementById("upgradeForm");
+
+          if (form) {
+            // Preenche campos simples
+            Object.keys(data).forEach((field) => {
+              const input = form.querySelector(`[name="${field}"]`);
+              if (input) {
+                if (input.type === "checkbox" || input.type === "radio") {
+                  input.checked = !!data[field];
+                } else {
+                  input.value = data[field];
+                }
+              }
+            });
+            // COLOQUE ESTE BLOCO AQUI 👇
+            if (data.valor_credito) {
+              const slider = document.getElementById("valor_credito");
+              slider.value = data.valor_credito;
+              atualizarValorCredito(slider.value);
+            }
+            // ✅ Marcar atividades rurais
+            // ✅ Marcar atividades rurais
+            // Primeiro, desmarcar todas as atividades rurais para garantir um estado limpo
+            // Desmarcar todas as atividades primeiro
+            document
+              .querySelectorAll('input[name="atividade_props"]')
+              .forEach((cb) => (cb.checked = false));
+
+            // Marcar as atividades salvas, se houver
+            if (data["atividade_props"]) {
+              const atividades = Array.isArray(data["atividade_props"])
+                ? data["atividade_props"]
+                : [data["atividade_props"]];
+
+              atividades.forEach((atividade) => {
+                const checkbox = document.querySelector(
+                  `input[name="atividade_props"][value="${atividade}"]`
+                );
+                if (checkbox) checkbox.checked = true;
+              });
+            }
+
+            // Atualizar os campos dependentes com base nas seleções atuais
+            if (typeof updateSelections === "function") {
+              updateSelections();
+            }
+
+            // ✅ Aguardar DOM e montar formulários
+            setTimeout(() => {
+              FormStateManager.restoreFormData(form, data);
+
+              FormStateManager.culturasData = {}; // ✅ limpa e reinicia o armazenamento
+              preencherResponsaveisCusteio(
+                data.responsavelGerenteId || data.responsavel_gerente,
+                data.responsavelSecundarioId || data.responsavel_secundario
+              );
+
+              // 🔄 CULTURAS ANUAIS
+              if (data.selectedAnnualCultures) {
+                selectedAnnualCultures = data.selectedAnnualCultures;
+              } else {
+                selectedAnnualCultures =
+                  detectarCulturasAnuaisDoFirestore(data);
+              }
+
+              Object.keys(data).forEach((key) => {
+                const match = key.match(
+                  /^([A-Za-zÀ-ÿ\s]+)_(cultura_anual|hist_\d+ano(s?)?)_/
+                );
+                if (match) {
+                  const cultura = match[1].trim();
+                  const formId = `cultura-${cultura}`;
+                  if (!FormStateManager.culturasData[formId]) {
+                    FormStateManager.culturasData[formId] = {};
+                  }
+                  FormStateManager.culturasData[formId][key] = data[key];
+                }
+              });
+
+              FormStateManager.saveFormData(
+                "selectedAnnualCultures",
+                selectedAnnualCultures
+              );
+              restoreCultureState();
+
+              // 🔄 CULTURAS PERENES
+              if (data.selectedPerennialCultures) {
+                selectedPerennialCultures = data.selectedPerennialCultures;
+              } else {
+                selectedPerennialCultures =
+                  detectarCulturasPerenesDoFirestore(data);
+                console.log(
+                  "🔥 Perenes detectadas:",
+                  selectedPerennialCultures
+                );
+              }
+
+              Object.keys(data).forEach((key) => {
+                const match = key.match(
+                  /^([A-Za-zÀ-ÿ\s-]+)_(ano_previsao|hist_\d+anos|renovada_\d+anos|area_plantio|area_renovar|pct_irrigacao|pct_mecanizacao|pct_consumo|pct_armazenamento|produtividade|nivel_tecnologico|preco_venda|custo_producao|custo_renovacao|ano_safra_inicio|ano_safra_fim|municipio|matricula|safra_prevista)$/
+                );
+                if (match) {
+                  const cultura = match[1].trim();
+                  const formId = `perene-${cultura}`;
+                  if (!FormStateManager.culturasData[formId]) {
+                    FormStateManager.culturasData[formId] = {};
+                  }
+                  FormStateManager.culturasData[formId][key] = data[key];
+                }
+              });
+
+              FormStateManager.saveFormData(
+                "selectedPerennialCultures",
+                selectedPerennialCultures
+              );
+              console.log(
+                "🔁 selectedPerennialCultures",
+                selectedPerennialCultures
+              );
+              restorePerennialState();
+
+              // ===== RESTAURAÇÃO AGRICULTURA GERAL =====
+              restoreAgriculturaGeralState(data);
+              restoreSecundariasState(data);
+            }, 200);
+
+            // ✅ Perenes (se existir)
+            if (data.selectedPerennialCultures) {
+              selectedPerennialCultures = data.selectedPerennialCultures;
+              FormStateManager.saveFormData(
+                "selectedPerennialCultures",
+                selectedPerennialCultures
+              );
+              restorePerennialState();
+            }
+
+            console.log("Dados carregados com sucesso.");
+          }
+        } else {
+          alert("Solicitação não encontrada no banco de dados.");
+        }
+      } else {
+        alert("Usuário não autenticado. Faça login novamente.");
+      }
+    });
+  }
+
+  // Continuação do restante da lógica (steps, botões, etc.) permanece igual abaixo...
+  const steps = document.querySelectorAll(".step");
+  const progressIndicator = document.getElementById("progress-indicator");
+
+  let currentStep = 0;
+
+  function showStep(index) {
+    steps.forEach((stepDiv, i) => {
+      stepDiv.classList.toggle("active", i === index);
+    });
+    progressIndicator.textContent = `Etapa ${index + 1} de ${steps.length}`;
+    currentStep = index;
+  }
+
+  document
+    .getElementById("next-1")
+    .addEventListener("click", () => showStep(1));
+  document
+    .getElementById("next-2")
+    .addEventListener("click", () => showStep(2));
+  document.getElementById("next-3").addEventListener("click", () => {
+    const selecionadas = document.querySelectorAll(
+      'input[name="atividade_props"]:checked'
+    );
+    if (selecionadas.length === 0) {
+      alert("Por favor, selecione pelo menos uma atividade rural.");
+      return;
+    }
+    showStep(3);
+  });
+
+  document
+    .getElementById("prev-2")
+    .addEventListener("click", () => showStep(0));
+  document
+    .getElementById("prev-3")
+    .addEventListener("click", () => showStep(1));
+  document
+    .getElementById("prev-4")
+    .addEventListener("click", () => showStep(2));
+  document
+    .getElementById("next-4")
+    .addEventListener("click", () => showStep(4));
+  document
+    .getElementById("prev-5")
+    .addEventListener("click", () => showStep(3));
+
+  document.getElementById("next-5").addEventListener("click", () => {
+    const quantidade = parseInt(
+      document.getElementById("num_secundarias").value
+    );
+    if (isNaN(quantidade)) {
+      alert("Por favor, selecione a quantidade de propriedades secundárias.");
+      return;
+    }
+    if (quantidade === 0) {
+      showStep(5);
+      return;
+    }
+    let valid = true;
+    for (let i = 1; i <= quantidade; i++) {
+      const select = document.querySelector(
+        `[name="secundaria_proprietario_${i}"]`
+      );
+      if (!select || select.value === "") {
+        valid = false;
+      }
+    }
+    if (!valid) {
+      alert(
+        'Preencha o campo "Você é o proprietário?" para todas as propriedades secundárias.'
+      );
+      return;
+    }
+    showStep(5);
+  });
+
+  document
+    .getElementById("prev-6")
+    .addEventListener("click", () => showStep(4));
+  document.getElementById("finish").addEventListener("click", () => {
+    window.location.href = "paymentMethod.html";
+  });
+});
+
+// ===================================================================
+// 3. FUNÇÃO updateSelections() CORRIGIDA
+// ===================================================================
+function detectarQtdAgriculturaGeralDoFirestore(data) {
+  let maxIndex = 0;
+  Object.keys(data).forEach((chave) => {
+    const match = chave.match(/^agricultura_geral_cultura_(\d+)/);
+    if (match) {
+      const idx = parseInt(match[1], 10);
+      if (idx > maxIndex) maxIndex = idx;
+    }
+  });
+  return maxIndex;
+}
+function restoreAgriculturaGeralState(data) {
+  const qtd = detectarQtdAgriculturaGeralDoFirestore(data);
+  if (qtd > 0) {
+    selectedAgriculturaGeralQtd = qtd;
+    renderAgriculturaGeralForms(qtd);
+    for (let i = 1; i <= qtd; i++) {
+      const formDiv = document.querySelector(
+        `#agriculturaGeralFormsContainer > div:nth-child(${i})`
+      );
+      if (formDiv) {
+        // Liste aqui todos os campos do seu formulário!
+        const fields = [
+          "cultura", // Qual cultura?
+          "ano_colheita", // Ano predominante de colheita
+          "forma_cultivo", // Forma de cultivo
+          "id_safra", // Identificação da safra
+          "municipio", // Município
+          "matricula", // Matrícula
+          "area_plantio", // Área de plantio da cultura (ha)
+          "produtividade", // Produtividade estimada para a safra (Kg/ha ou un/ha)
+          "pre_venda", // Contrato de pré-venda para mais de 50% da produção
+          "nivel_tecnologico", // Nível tecnológico adotado para esta cultura
+          "safra_prevista", // Safra prevista
+          "preco_venda", // Preço estimado de venda
+          "ano_safra_inicio", // Ano-safra início
+          "ano_safra_fim", // Ano-safra fim
+          "custo_unitario", // Custo unitário de produção
+          // adicione todos os campos existentes no seu formulário
+        ];
+        fields.forEach((field) => {
+          const input = formDiv.querySelector(
+            `[name="agricultura_geral_${field}_${i}"]`
+          );
+          if (input && data[`agricultura_geral_${field}_${i}`] !== undefined) {
+            input.value = data[`agricultura_geral_${field}_${i}`];
+          }
+        });
+      }
+    }
+    document
+      .querySelectorAll("#agriculturaGeralQtdBtns button")
+      .forEach((btn, i) => {
+        btn.classList.toggle("btn-success", i === qtd - 1);
+        btn.classList.toggle("btn-info", i !== qtd - 1);
+      });
+  }
+}
+
+function updateSelections() {
+  const checkboxes = document.querySelectorAll(
+    'input[name="atividade_props"]:checked'
+  );
+  const selecaoAtividades = document.getElementById("selecaoAtividades");
+  const formulariosAtividadesContainer = document.getElementById(
+    "formulariosAtividadesContainer"
+  );
+
+  // SOLUÇÃO: Salvar dados antes de qualquer modificação
+  saveAllFormsData();
+
+  // Obter atividades atualmente selecionadas
+  const atividadesSelecionadas = Array.from(checkboxes).map((cb) => cb.value);
+
+  // ✅ CORREÇÃO: se nenhuma atividade estiver marcada, limpa tudo e sai
+  if (atividadesSelecionadas.length === 0) {
+    formulariosAtividadesContainer.innerHTML = "";
+    updateAtividadesList([]);
+    return;
+  }
+
+  // Obter atividades já renderizadas
+  const atividadesRenderizadas = Array.from(
+    formulariosAtividadesContainer.querySelectorAll(".form-atividade")
+  ).map((form) => form.getAttribute("data-atividade"));
+
+  // Remover formulários de atividades desmarcadas
+  atividadesRenderizadas.forEach((atividade) => {
+    if (!atividadesSelecionadas.includes(atividade)) {
+      const formToRemove = formulariosAtividadesContainer.querySelector(
+        `[data-atividade="${atividade}"]`
+      );
+      if (formToRemove) {
+        formToRemove.remove();
+      }
+    }
+  });
+
+  // Adicionar formulários para novas atividades selecionadas
+  atividadesSelecionadas.forEach((atividade) => {
+    if (!atividadesRenderizadas.includes(atividade)) {
+      // Criar novo formulário
+      const form = document.createElement("div");
+      form.classList.add("form-atividade");
+      form.setAttribute("data-atividade", atividade);
+      form.innerHTML = getFormHtml(atividade);
+      formulariosAtividadesContainer.appendChild(form);
+
+      // Restaurar dados salvos
+      const savedData = FormStateManager.getFormData(atividade);
+      if (Object.keys(savedData).length > 0) {
+        FormStateManager.restoreFormData(form, savedData);
+      }
+
+      // Adicionar auto-save
+      addAutoSaveListeners(form, atividade);
+
+      // Restaurar estado de cultura, se aplicável
+      if (atividade === "Cultura Anual") {
+        restoreCultureState();
+      } else if (atividade === "Cultura Perene") {
+        restorePerennialState();
+      }
+    }
+  });
+
+  // Atualizar lista de atividades selecionadas
+  updateAtividadesList(atividadesSelecionadas);
+}
+
+// ===================================================================
+// 4. FUNÇÕES AUXILIARES PARA PRESERVAÇÃO DE ESTADO
+// ===================================================================
+
+function saveAllFormsData() {
+  // Salvar dados das atividades
+  const formsAtividades = document.querySelectorAll(".form-atividade");
+  formsAtividades.forEach((form) => {
+    const atividade = form.getAttribute("data-atividade");
+    const data = FormStateManager.collectFormData(form);
+    FormStateManager.saveFormData(atividade, data);
+  });
+
+  // Salvar dados das culturas
+  const formsCulturas = document.querySelectorAll(".form-cultura");
+  formsCulturas.forEach((form) => {
+    const culturaId = form.id.replace("form-", "cultura-");
+    const data = FormStateManager.collectFormData(form);
+    FormStateManager.saveFormData(culturaId, data);
+  });
+}
+
+function updateAtividadesList(atividades) {
+  const selecaoAtividades = document.getElementById("selecaoAtividades");
+  selecaoAtividades.innerHTML = "";
+
+  atividades.forEach((atividade) => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("list-group-item");
+    listItem.textContent = atividade;
+    selecaoAtividades.appendChild(listItem);
+  });
+}
+
+function addAutoSaveListeners(formElement, formId) {
+  const inputs = formElement.querySelectorAll("input, select, textarea");
+
+  inputs.forEach((input) => {
+    // Salvar dados a cada mudança
+    input.addEventListener("change", function () {
+      const data = FormStateManager.collectFormData(formElement);
+      FormStateManager.saveFormData(formId, data);
+    });
+
+    // Para inputs de texto, salvar também ao digitar (com debounce)
+    if (
+      input.type === "text" ||
+      input.type === "number" ||
+      input.tagName === "TEXTAREA"
+    ) {
+      let timeout;
+      input.addEventListener("input", function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          const data = FormStateManager.collectFormData(formElement);
+          FormStateManager.saveFormData(formId, data);
+        }, 500);
+      });
+    }
+  });
+}
+
+// ===================================================================
+// 6. FUNÇÃO getFormHtml() MANTIDA ORIGINAL
+// ===================================================================
+
+function getFormHtml(atividade) {
+  let formHtml = "";
+
+  switch (atividade) {
+    case "Cultura Anual":
+      formHtml = `
+    <!-- Título do formulário centralizado -->
+    <h6 class="text-center">Cultura Anual</h6>
+
+    <!-- Selecione as culturas anuais diretamente -->
+  <div class="mt-3 text-center">
+  <h6 class="text-center">Selecione uma ou mais cultura anual:</h6>
+  <div style="display: flex; justify-content: center;">
+    <div
+      role="group"
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 10px;
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="toggleCultureSelection('Algodão')"
+      >
+        Algodão
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="toggleCultureSelection('Arroz')"
+      >
+        Arroz
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="toggleCultureSelection('Milho')"
+      >
+        Milho
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="toggleCultureSelection('Soja')"
+      >
+        Soja
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="toggleCultureSelection('Sorgo')"
+      >
+        Sorgo
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="toggleCultureSelection('Trigo')"
+      >
+        Trigo
+      </button>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Caixa para exibir as culturas selecionadas -->
+    <div class="mt-3 text-center">
+      <h6 class="text-center">Culturas Selecionadas:</h6>
+      <ul class="list-group d-inline-block text-start" id="selectedCulturesList" style="min-width: 200px;">
+        <!-- As seleções do usuário aparecerão aqui -->
+      </ul>
+    </div>
+
+    <!-- Container para os formulários dinâmicos das culturas selecionadas -->
+    <div id="culturasFormsContainer" class="mt-4">
+      <!-- Formulários para cada cultura selecionada aparecerão aqui -->
+    </div>
+`;
+
+      break;
+
+    case "Cultura Perene":
+      formHtml = `
+        <h6 class="text-center">Cultura Perene</h6>
+ <div class="mt-3 text-center">
+  <h6>O produtor desenvolve mais de uma cultura perene?</h6>
+  <div style="display: flex; justify-content: center;">
+    <div
+      role="group"
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 10px;
+      "
+    >
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="togglePerennialSelection('Cana-de-açúcar')"
+      >
+        Cana-de-açúcar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="togglePerennialSelection('Café Arábica')"
+      >
+        Café Arábica
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="togglePerennialSelection('Café')"
+      >
+        Café
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="togglePerennialSelection('Laranja para')"
+      >
+        Laranja para
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-info"
+        style="
+          flex: 1 1 100px;
+          min-width: 90px;
+          white-space: normal;
+          word-break: break-word;
+          text-align: center;
+        "
+        onclick="togglePerennialSelection('Laranja de mesa')"
+      >
+        Laranja de mesa
+      </button>
+    </div>
+  </div>
+</div>
+
+        <div class="mt-3 text-center">
+          <h6>Culturas Perenes Selecionadas:</h6>
+          <ul class="list-group d-inline-block text-start" id="selectedPerennialList" style="min-width:200px;"></ul>
+        </div>
+        <div id="perennialFormsContainer" class="mt-4"></div>
+      `;
+      break;
+    case "Agricultura Geral":
+      formHtml = `
+    <h6 class="text-center">Agricultura Geral</h6>
+    <div class="mb-3 text-center">
+      <label class="fw-bold mb-2">O produtor desenvolve mais de uma cultura como agricultura geral?</label>
+      <div>
+        <span>Quantas?</span>
+        <div class="btn-group mt-2" role="group" id="agriculturaGeralQtdBtns">
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(1)">1</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(2)">2</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(3)">3</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(4)">4</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(5)">5</button>
+          <button type="button" class="btn btn-info" onclick="selectAgriculturaGeralQtd(6)">6</button>
+        </div>
+      </div>
+    </div>
+    <div id="agriculturaGeralFormsContainer" class="mt-4"></div>
+  `;
+      break;
+
+    case "Bovino de Corte":
+      formHtml = `
+    <h6 class="text-center">Bovino de Corte</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Município</label>
+        <input type="text" class="form-control" name="bovino_corte_municipio" required />
+      </div>
+      <div class="col">
+        <label>Matrícula</label>
+        <input type="text" class="form-control" name="bovino_corte_matricula" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Produção</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Ciclo de produção</label>
+        <input type="text" class="form-control" name="bovino_corte_ciclo_producao" required />
+      </div>
+      <div class="col">
+        <label>Sistema de produção</label>
+        <input type="text" class="form-control" name="bovino_corte_sistema_producao" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Levantamento do rebanho - em cabeças</h6>
+    <p class="mb-2"><small>Relacione todos os animais do rebanho, independente se serão ou não comercializados na safra anual prevista</small></p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade (cab)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros machos até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_bezerros_machos" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bezerras fêmeas até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_bezerras_femeas" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Garrotes machos de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_garrotes_machos" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_novilhas_femeas_12_24" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhos machos de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_novilhos_machos_24_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_novilhas_femeas_24_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bois acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_bois_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_vacas_36" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Touros reprodutores</td>
+            <td><input type="number" class="form-control" name="bovino_corte_touros" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 class="mt-3">Pastagem</h6>
+    <div class="mb-3">
+      <label>Área da pastagem perene (ha)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_corte_pastagem_perene" min="0" />
+    </div>
+    <h6 class="mt-3">Despesas - custo anual</h6>
+    <div class="mb-3">
+      <label>Custo anual de manutenção/produção previsto para todo o rebanho (R$/ano)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_corte_custo_anual" min="0" />
+    </div>
+    <h6 class="mt-3">Receita estimada - venda de animais na safra anual prevista</h6>
+    <p class="mb-2"><small>Relacione em cada faixa a quantidade e o respectivo valor a receber por cabeça apenas dos animais que serão comercializados na safra anual prevista.</small></p>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade (cab)</th>
+            <th>Valor a receber (R$/cab)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros machos até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bezerros_machos_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bezerros_machos_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bezerras fêmeas até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bezerras_femeas_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bezerras_femeas_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Garrotes machos de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_garrotes_machos_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_garrotes_machos_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 12 a 24 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_novilhas_femeas_12_24_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_novilhas_femeas_12_24_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhos machos de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_novilhos_machos_24_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_novilhos_machos_24_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas fêmeas de 24 a 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_novilhas_femeas_24_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_novilhas_femeas_24_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bois magros acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bois_magros_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bois_magros_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas magras acima de 36 meses</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_vacas_magras_36_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_vacas_magras_36_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bois gordos</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_bois_gordos_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_bois_gordos_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas gordas</td>
+            <td><input type="number" class="form-control" name="bovino_corte_venda_vacas_gordas_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_corte_venda_vacas_gordas_valor" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+      break;
+
+    case "Bovino de Leite":
+      formHtml = `
+    <h6 class="text-center">Bovino de Leite</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Município</label>
+        <input type="text" class="form-control" name="bovino_leite_municipio" required />
+      </div>
+      <div class="col">
+        <label>Matrícula</label>
+        <input type="text" class="form-control" name="bovino_leite_matricula" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Dados Gerais</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Sistema de ordenha</label>
+        <input type="text" class="form-control" name="bovino_leite_sistema_ordenha" required />
+      </div>
+      <div class="col">
+        <label>Produtividade média por vaca em lactação (litros/dia)</label>
+        <input type="number" step="0.01" class="form-control" name="bovino_leite_produtividade_media" min="0" required />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Predomínio de raças especializadas?</label>
+        <input type="text" class="form-control" name="bovino_leite_raca_predominio" required />
+      </div>
+      <div class="col">
+        <label>Área da pastagem perene (ha)</label>
+        <input type="number" step="0.01" class="form-control" name="bovino_leite_pastagem_perene" min="0" required />
+      </div>
+    </div>
+    <h6 class="mt-3">Levantamento do rebanho - em cabeças</h6>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade em cabeças</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros(as) até 12 meses</td>
+            <td><input type="number" class="form-control" name="bovino_leite_bezerros_12m" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhos</td>
+            <td><input type="number" class="form-control" name="bovino_leite_novilhos" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Novilhas</td>
+            <td><input type="number" class="form-control" name="bovino_leite_novilhas" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas leiteiras</td>
+            <td><input type="number" class="form-control" name="bovino_leite_vacas" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Touros reprodutores</td>
+            <td><input type="number" class="form-control" name="bovino_leite_touros" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h6 class="mt-3">Dados financeiros</h6>
+    <div class="mb-3">
+      <label>Custo anual para manutenção/produção (R$/ano)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_leite_custo_anual" min="0" />
+    </div>
+    <h6 class="mt-3">Receita Anual</h6>
+    <div class="mb-3">
+      <label>Quantidade total de litros de leite vendidos por ano (litros/ano)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_leite_litros_ano" min="0" />
+    </div>
+    <div class="mb-3">
+      <label>Valor recebido por litro de leite (R$/litro)</label>
+      <input type="number" step="0.01" class="form-control" name="bovino_leite_valor_litro" min="0" />
+    </div>
+    <h6 class="mt-3">Previsão venda de animais</h6>
+    <div class="table-responsive mb-3">
+      <table class="table table-bordered align-middle text-center">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Quantidade (cab)</th>
+            <th>Receita por animal (R$/cab)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bezerros(as) recém nascidos</td>
+            <td><input type="number" class="form-control" name="bovino_leite_venda_bezerros_recem_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_leite_venda_bezerros_recem_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Bezerros(as) desmamados</td>
+            <td><input type="number" class="form-control" name="bovino_leite_venda_bezerros_desmamados_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_leite_venda_bezerros_desmamados_valor" min="0" /></td>
+          </tr>
+          <tr>
+            <td>Vacas descarte</td>
+            <td><input type="number" class="form-control" name="bovino_leite_venda_vacas_descarte_qtd" min="0" /></td>
+            <td><input type="number" step="0.01" class="form-control" name="bovino_leite_venda_vacas_descarte_valor" min="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+      break;
+
+    case "Pecuária Geral":
+      formHtml = `
+    <h6 class="text-center">Pecuária Geral</h6>
+    <div class="row mb-3">
+      <div class="col">
+        <label>Município</label>
+        <input type="text" class="form-control" name="pecuaria_geral_municipio" required />
+      </div>
+      <div class="col">
+        <label>Matrícula</label>
+        <input type="text" class="form-control" name="pecuaria_geral_matricula" required />
+      </div>
+    </div>
+    <div class="mb-3">
+      <label>Qual atividade pecuária?</label>
+      <input type="text" class="form-control" name="pecuaria_geral_atividade" required />
+    </div>
+    <h6 class="mt-3">Dados da atividade pecuária</h6>
+    <div class="mb-3">
+      <label>Sistema de Criação/Produção</label>
+      <input type="text" class="form-control" name="pecuaria_geral_sistema_criacao" required />
+    </div>
+    <div class="mb-3">
+      <label>Área total utilizada nesta atividade (ha)</label>
+      <input type="number" step="0.01" class="form-control" name="pecuaria_geral_area_total" min="0" required />
+    </div>
+    <div class="mb-3">
+      <label>Produção estimada para os próximos 12 meses (kg, L, un, dz)</label>
+      <input type="text" class="form-control" name="pecuaria_geral_producao_estimativa" required />
+    </div>
+    <div class="mb-3">
+      <label>Contrato de pré-venda para mais de 50% da produção?</label>
+      <input type="text" class="form-control" name="pecuaria_geral_pre_venda" required />
+    </div>
+    <div class="mb-3">
+      <label>Nível tecnológico adotado para esta atividade</label>
+      <input type="text" class="form-control" name="pecuaria_geral_nivel_tecnologico" required />
+    </div>
+    <h6 class="mt-3">Dados Financeiros</h6>
+    <div class="mb-3">
+      <label>Custo unitário de produção (R$/kg, R$/L, R$/un ou R$/dz)</label>
+      <input type="number" step="0.01" class="form-control" name="pecuaria_geral_custo_unitario" min="0" required />
+    </div>
+    <div class="mb-3">
+      <label>Preço unitário de venda (R$/kg, R$/L, R$/un ou R$/dz)</label>
+      <input type="number" step="0.01" class="form-control" name="pecuaria_geral_preco_unitario" min="0" required />
+    </div>
+  `;
+      break;
+
+    default:
+      formHtml = `<p>Formulário não disponível para a atividade selecionada.</p>`;
+  }
+
+  return formHtml;
+}
+
+// ===================================================================
+// 5. SISTEMA DE CULTURAS MELHORADO
+// ===================================================================
+
+let selectedAnnualCultures = [];
+let selectedPerennialCultures = [];
+
+// -------- CULTURA ANUAL --------
+
+function toggleCultureSelection(culture) {
+  saveAllCulturesData();
+  const index = selectedAnnualCultures.indexOf(culture);
+  if (index > -1) {
+    selectedAnnualCultures.splice(index, 1);
+    removeCultureForm(culture, "anual");
+  } else {
+    addCultureForm(culture, "anual");
+  }
+  updateSelectedCulturesList("anual");
+  updateCultureButtons("anual");
+  FormStateManager.saveFormData(
+    "selectedAnnualCultures",
+    selectedAnnualCultures
+  );
+}
+
+function restoreCultureState() {
+  const list = document.getElementById("selectedCulturesList");
+  const container = document.getElementById("culturasFormsContainer");
+
+  if (!list || !container || !Array.isArray(selectedAnnualCultures)) return;
+
+  // 🔧 Remove duplicatas do array
+  selectedAnnualCultures = [...new Set(selectedAnnualCultures)];
+
+  list.innerHTML = "";
+  container.innerHTML = "";
+
+  selectedAnnualCultures.forEach((cultura) => {
+    // Chama a função que já cuida de tudo
+    if (!document.getElementById(`form-${cultura}`)) {
+      addCultureForm(cultura, "anual");
+    }
+  });
+
+  // Atualiza visual da lista e botões
+  updateSelectedCulturesList("anual");
+  updateCultureButtons("anual");
+
+  // Salva a versão limpa (opcional, mas recomendado)
+  FormStateManager.saveFormData(
+    "selectedAnnualCultures",
+    selectedAnnualCultures
+  );
+}
+
+// -------- CULTURA PERENE --------
+
+function togglePerennialSelection(culture) {
+  saveAllCulturesData();
+  const idx = selectedPerennialCultures.indexOf(culture);
+  if (idx > -1) {
+    selectedPerennialCultures.splice(idx, 1);
+    removeCultureForm(culture, "perene"); // <- corrigido
+  } else {
+    addCultureForm(culture, "perene"); // <- corrigido
+  }
+  updateSelectedCulturesList("perene"); // <- corrigido
+  updateCultureButtons("perene"); // <- corrigido
+  FormStateManager.saveFormData(
+    "selectedPerennialCultures",
+    selectedPerennialCultures
+  );
+}
+
+function restorePerennialState() {
+  const list = document.getElementById("selectedPerennialList");
+
+  const container = document.getElementById("perennialFormsContainer");
+
+  if (!list || !container || !Array.isArray(selectedPerennialCultures)) return;
+
+  list.innerHTML = "";
+  container.innerHTML = "";
+
+  selectedPerennialCultures.forEach((cultura) => {
+    if (!document.getElementById(`form-${cultura}`)) {
+      addCultureForm(cultura, "perene"); // ✅ corrigido aqui
+    }
+  });
+
+  updateSelectedCulturesList("perene"); // ✅ corrigido aqui também
+  updateCultureButtons("perene"); // ✅ e aqui
+}
+
+// --------- GERENCIAMENTO DE FORMULÁRIOS DINÂMICOS ---------
+function addCultureForm(culture, tipo) {
+  let container, prefix, keyArr, formHtml;
+
+  if (tipo === "anual") {
+    container = document.getElementById("culturasFormsContainer");
+    prefix = "cultura-";
+    keyArr = selectedAnnualCultures;
+    formHtml = getCultureFormHtml(culture);
+  } else if (tipo === "perene") {
+    container = document.getElementById("perennialFormsContainer");
+    prefix = "perene-";
+    keyArr = selectedPerennialCultures;
+    formHtml = getPerennialFormHtml(culture);
+  } else {
+    console.warn(`Tipo de cultura não reconhecido: ${tipo}`);
+    return;
+  }
+
+  if (!container) return;
+
+  if (document.getElementById(`form-${culture}`)) return;
+
+  if (!keyArr.includes(culture)) {
+    keyArr.push(culture);
+  }
+
+  const formDiv = document.createElement("div");
+  formDiv.className = "form-cultura";
+  formDiv.id = `form-${culture}`;
+  formDiv.innerHTML = formHtml;
+  container.appendChild(formDiv);
+
+  const savedData = FormStateManager.getFormData(`${prefix}${culture}`);
+  if (Object.keys(savedData).length > 0) {
+    FormStateManager.restoreFormData(formDiv, savedData);
+  }
+
+  addAutoSaveListeners(formDiv, `${prefix}${culture}`);
+
+  FormStateManager.saveFormData(
+    prefix === "cultura-"
+      ? "selectedAnnualCultures"
+      : "selectedPerennialCultures",
+    [...new Set(keyArr)]
+  );
+}
+
+function removeCultureForm(culture, tipo) {
+  let prefix, keyArr;
+  if (tipo === "anual") {
+    prefix = "cultura-";
+    keyArr = selectedAnnualCultures;
+  } else {
+    prefix = "perene-";
+    keyArr = selectedPerennialCultures;
+  }
+  const idx = keyArr.indexOf(culture);
+  if (idx > -1) keyArr.splice(idx, 1);
+  if (document.getElementById(`form-${culture}`)) {
+    const form = document.getElementById(`form-${culture}`);
+    const data = FormStateManager.collectFormData(form);
+    FormStateManager.saveFormData(`${prefix}${culture}`, data);
+    form.remove();
+  }
+}
+
+// --------- AUTO-SAVE E RESTAURAÇÃO ---------
+
+function saveAllFormsData() {
+  // Salvar dados das atividades
+  const formsAtividades = document.querySelectorAll(".form-atividade");
+  formsAtividades.forEach((form) => {
+    const atividade = form.getAttribute("data-atividade");
+    const data = FormStateManager.collectFormData(form);
+    FormStateManager.saveFormData(atividade, data);
+  });
+  // Salvar dados das culturas
+  saveAllCulturesData();
+}
+
+function saveAllCulturesData() {
+  const formsCulturas = document.querySelectorAll(".form-cultura");
+  formsCulturas.forEach((form) => {
+    let culturaId = form.id.replace("form-", "");
+    if (selectedAnnualCultures.includes(culturaId)) {
+      culturaId = "cultura-" + culturaId;
+    } else if (selectedPerennialCultures.includes(culturaId)) {
+      culturaId = "perene-" + culturaId;
+    }
+    const data = FormStateManager.collectFormData(form);
+    FormStateManager.saveFormData(culturaId, data);
+  });
+}
+
+function addAutoSaveListeners(formElement, formId) {
+  const inputs = formElement.querySelectorAll("input, select, textarea");
+  inputs.forEach((input) => {
+    input.addEventListener("change", function () {
+      const data = FormStateManager.collectFormData(formElement);
+      FormStateManager.saveFormData(formId, data);
+    });
+    if (
+      input.type === "text" ||
+      input.type === "number" ||
+      input.tagName === "TEXTAREA"
+    ) {
+      let timeout;
+      input.addEventListener("input", function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          const data = FormStateManager.collectFormData(formElement);
+          FormStateManager.saveFormData(formId, data);
+        }, 500);
+      });
+    }
+  });
+}
+
+// ---------- LISTAS VISUAIS DE SELECIONADOS ----------
+
+function updateSelectedCulturesList(tipo) {
+  let list, cultures;
+  if (tipo === "anual") {
+    list = document.getElementById("selectedCulturesList");
+    cultures = selectedAnnualCultures;
+  } else {
+    list = document.getElementById("selectedPerennialList");
+    cultures = selectedPerennialCultures;
+  }
+  if (!list) return;
+  list.innerHTML = "";
+  cultures.forEach((culture) => {
+    const listItem = document.createElement("li");
+    listItem.className = "list-group-item";
+    listItem.textContent = culture;
+    list.appendChild(listItem);
+  });
+}
+
+function updateCultureButtons(tipo) {
+  let selector, arr;
+  if (tipo === "anual") {
+    selector = '[onclick^="toggleCultureSelection"]';
+    arr = selectedAnnualCultures;
+  } else {
+    selector = '[onclick^="togglePerennialSelection"]';
+    arr = selectedPerennialCultures;
+  }
+  document.querySelectorAll(selector).forEach((btn) => {
+    const text = btn.textContent.trim();
+    btn.classList.toggle("btn-success", arr.includes(text));
+    btn.classList.toggle("btn-info", !arr.includes(text));
+  });
+}
+
+// ===================================================================
+// 7. FUNÇÃO getCultureFormHtml() MANTIDA ORIGINAL
+// ===================================================================
+function getPerennialFormHtml(culture) {
+  return `
+    <h6 class="fw-bold text-center mb-3">${culture}</h6>
+    <div class="mb-3">
+      <label>Ano de previsão da colheita:</label>
+      <input type="number" class="form-control" name="${culture}_ano_previsao" required />
+    </div>
+    <h6>Histórico de safras anteriores</h6>
+    ${[3, 2, 1]
+      .map(
+        (i) => `
+      <div class="mb-3">
+        <label>${i} anos atrás (ha):</label>
+        <input type="number" step="0.01" class="form-control" name="${culture}_hist_${i}anos" required />
+      </div>
+    `
+      )
+      .join("")}
+    <h6>Área renovada</h6>
+    ${[3, 2, 1]
+      .map(
+        (i) => `
+      <div class="mb-3">
+        <label>${i} anos atrás (ha):</label>
+        <input type="number" step="0.01" class="form-control" name="${culture}_renovada_${i}anos" required />
+      </div>
+    `
+      )
+      .join("")}
+    <div class="mb-3">
+      <label>Município:</label>
+      <input type="text" class="form-control" name="${culture}_municipio" required />
+    </div>
+    <div class="mb-3">
+      <label>Matrícula:</label>
+      <input type="text" class="form-control" name="${culture}_matricula" required />
+    </div>
+    <h6>Dados da safra prevista</h6>
+    <div class="mb-3"><label>Safra prevista:</label><input type="number" class="form-control" name="${culture}_safra_prevista" required /></div>
+    <div class="mb-3"><label>Área de plantio atual (ha):</label><input type="number" step="0.01" class="form-control" name="${culture}_area_plantio" required /></div>
+    <div class="mb-3"><label>Área a ser renovada (ha):</label><input type="number" step="0.01" class="form-control" name="${culture}_area_renovar" required /></div>
+    <div class="mb-3"><label>% irrigação:</label><input type="number" step="0.01" class="form-control" name="${culture}_pct_irrigacao" required /></div>
+    <div class="mb-3"><label>% mecanização:</label><input type="number" step="0.01" class="form-control" name="${culture}_pct_mecanizacao" required /></div>
+    <div class="mb-3"><label>% consumo próprio:</label><input type="number" step="0.01" class="form-control" name="${culture}_pct_consumo" required /></div>
+    <div class="mb-3"><label>% armazenamento próprio:</label><input type="number" step="0.01" class="form-control" name="${culture}_pct_armazenamento" required /></div>
+    <div class="mb-3"><label>Produtividade (Kg/ha):</label><input type="number" step="0.01" class="form-control" name="${culture}_produtividade" required /></div>
+    <div class="mb-3">
+      <label>Nível tecnológico:</label>
+      <select class="form-select" name="${culture}_nivel_tecnologico" required>
+        <option value="">Selecione...</option>
+        <option>Alto</option>
+        <option>Médio</option>
+        <option>Baixo</option>
+      </select>
+    </div>
+    <h6>Dados financeiros</h6>
+    <div class="row">
+      <div class="col"><label>Preço venda (R$/kg):</label><input type="number" step="0.01" class="form-control" name="${culture}_preco_venda" required /></div>
+      <div class="col"><label>Custo produção (R$/ha):</label><input type="number" step="0.01" class="form-control" name="${culture}_custo_producao" required /></div>
+      <div class="col"><label>Custo renovação (R$/ha):</label><input type="number" step="0.01" class="form-control" name="${culture}_custo_renovacao" required /></div>
+    </div>
+    <div class="d-flex gap-2 mt-3">
+      <input type="number" class="form-control" name="${culture}_ano_safra_inicio" placeholder="Ano-safra início" min="1900" required />
+      <span class="align-self-center">/</span>
+      <input type="number" class="form-control" name="${culture}_ano_safra_fim" placeholder="Ano-safra fim" min="1900" required />
+    </div>
+  `;
+}
+
+function getCultureFormHtml(culture) {
+  return `
+          <div class="border p-3 mb-3">
+              <h6 class="fw-bold text-center mb-3">${culture}</h6>
+              
+              <h6 class="mt-3">Histórico de safras anteriores</h6>
+              <div class="col-12 mb-3">
+                  <label class="form-label">03 anos atrás (ha)</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_hist_3anos_ha" placeholder="03 anos atrás (ha)" min="0" step="0.01" required />
+              </div>
+              <div class="col-12 mb-3">
+                  <label class="form-label">02 anos atrás (ha)</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_hist_2anos_ha" placeholder="02 anos atrás (ha)" min="0" step="0.01" required />
+              </div>
+              <div class="col-12 mb-3">
+                  <label class="form-label">01 ano atrás (ha)</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_hist_1ano_ha" placeholder="01 ano atrás (ha)" min="0" step="0.01" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Município</label>
+                  <input type="text" class="form-control mb-2" name="${culture}_cultura_anual_municipio" placeholder="Município" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Matrícula</label>
+                  <input type="text" class="form-control mb-2" name="${culture}_cultura_anual_matricula" placeholder="Matrícula" required />
+              </div>
+
+              <h6 class="mt-3">Dados da safra prevista</h6>
+              <div class="col-12 mb-3">
+                  <label class="form-label">Área de plantio da cultura na safra prevista (ha)</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_area_plantio" placeholder="Área de plantio da cultura na safra prevista (ha)" min="0" step="0.01" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Percentual da área total da cultura com irrigação</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_pct_irrigacao" placeholder="Percentual da área total da cultura com irrigação" min="0" max="100" step="0.01" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Percentual da área total da cultura com mecanização de colheita</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_pct_mecanizacao" placeholder="Percentual da área total da cultura com mecanização de colheita" min="0" max="100" step="0.01" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Percentual da produção utilizada para consumo próprio</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_pct_consumo_proprio" placeholder="Percentual da produção utilizada para consumo próprio" min="0" max="100" step="0.01" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Percentual da produção com armazenamento próprio</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_pct_armazenamento" placeholder="Percentual da produção com armazenamento próprio" min="0" max="100" step="0.01" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Produtividade média estimada para a safra (Kg/ha)</label>
+                  <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_produtividade_kg_ha" placeholder="Produtividade média estimada para a safra (Kg/ha)" min="0" step="0.01" required />
+              </div>
+
+              <div class="col-12 mb-3">
+                  <label class="form-label">Nível tecnológico adotado para esta cultura</label>
+                  <select class="form-control mb-2" name="${culture}_cultura_anual_nivel_tecnologico" required>
+                      <option value="">Selecione o nível tecnológico</option>
+                      <option value="Alto">Alto</option>
+                      <option value="Médio">Médio</option>
+                      <option value="Baixo">Baixo</option>
+                  </select>
+              </div>
+
+              <h6 class="mt-3">Dados financeiros da safra prevista</h6>
+              <div class="row">
+                  <div class="col-6">
+                      <label class="d-block">Receita estimada</label>
+                      <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_preco_venda_rkg" placeholder="Preço estimado de venda (R$/kg)" min="0" step="0.01" required />
+                  </div>
+                  <div class="col-6">
+                      <label class="d-block">Despesa estimada</label>
+                      <input type="number" class="form-control mb-2" name="${culture}_cultura_anual_custo_producao_rha" placeholder="Custo estimado de produção (R$/ha)" min="0" step="0.01" required />
+                  </div>
+              </div>
+
+              <div class="form-inline mb-2">
+                  <input type="number" class="form-control mr-2" name="${culture}_cultura_anual_ano_safra_inicio" placeholder="Ano-safra início" min="1900" max="2100" required />
+                  <span class="mx-1">/</span>
+                  <input type="number" class="form-control" name="${culture}_cultura_anual_ano_safra_fim" placeholder="Ano-safra fim" min="1900" max="2100" required />
+              </div>
+          </div>
+      `;
+}
+
+function renderSecundarias(qtd) {
+  // Salva os dados atuais antes de apagar
+  const previousData = {};
+  const inputs = document.querySelectorAll("[name^='secundaria_']");
+  inputs.forEach((input) => {
+    previousData[input.name] = input.value;
+  });
+
+  const container = document.getElementById("secundariasContainer");
+  container.innerHTML = "";
+
+  for (let i = 1; i <= qtd; i++) {
+    container.innerHTML += `
+      <div class="border p-3 mb-4">
+        <h6 class="fw-bold mb-3">Propriedade Secundária ${i}</h6>
+        <div class="mb-3">
+          <label class="form-label">Nome da Propriedade</label>
+          <input type="text" class="form-control" name="secundaria_nome_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Município / UF</label>
+          <input type="text" class="form-control" name="secundaria_municipio_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Número de matrícula</label>
+          <input type="text" class="form-control" name="secundaria_matricula_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Área utilizada (ha)</label>
+          <input type="number" step="0.01" class="form-control" name="secundaria_area_${i}" required />
+        </div>
+        <div class="mb-3 obrigatorio-label">
+          <label class="form-label">Você é o proprietário?</label>
+          <select class="form-select" name="secundaria_proprietario_${i}" onchange="toggleProprietarioExtras(this, ${i})" required>
+            <option value="">Selecione...</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+        </div>
+        <div id="extras_${i}" style="display:none;">
+          <div class="mb-3">
+            <label class="form-label">Nome ou Razão Social do Proprietário</label>
+            <input type="text" class="form-control" name="secundaria_nome_proprietario_${i}" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">CPF/CNPJ</label>
+            <input type="text" class="form-control" name="secundaria_cpf_cnpj_${i}" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Percentual de Propriedade (%)</label>
+            <input type="number" class="form-control" name="secundaria_percentual_${i}" />
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Restaura os dados salvos nos campos recriados
+  Object.keys(previousData).forEach((key) => {
+    const input = document.querySelector(`[name="${key}"]`);
+    if (input) {
+      input.value = previousData[key];
+
+      // Se for um campo "proprietario", reexibe os extras se necessário
+      if (key.includes("proprietario") && input.tagName === "SELECT") {
+        const index = key.match(/_(\d+)$/)?.[1];
+        if (input.value === "Não" && index) {
+          toggleProprietarioExtras(input, index);
+        }
+      }
+    }
+  });
+}
+
+function toggleProprietarioExtras(select, index) {
+  const extras = document.getElementById("extras_" + index);
+  if (select.value === "Não") {
+    extras.style.display = "block";
+  } else {
+    extras.style.display = "none";
+  }
+}
+async function loadClientes() {
+  try {
+    // Busca os documentos da coleção "clientes"
+    const snap = await db.collection("clientes").get();
+
+    // Mapeia para lista com id e nome (com fallback para outros campos)
+    const clientesList = snap.docs.map((doc) => ({
+      id: doc.id,
+      nome:
+        doc.data().nome ||
+        doc.data().email ||
+        doc.data().empresa ||
+        doc.data().contato ||
+        "Cliente",
+    }));
+
+    // Ordena os clientes alfabeticamente pelo nome
+    clientesList.sort((a, b) => a.nome.localeCompare(b.nome));
+
+    // Monta as opções do select
+    let options = `<option value="">Selecione o cliente...</option>`;
+    clientesList.forEach((c) => {
+      options += `<option value="${c.id}">${c.nome}</option>`;
+    });
+
+    // Atualiza o HTML do select
+    $("#cliente_id").html(options);
+
+    // (Re)inicializa o Select2 se estiver disponível
+    if ($.fn.select2) {
+      if ($("#cliente_id").hasClass("select2-hidden-accessible")) {
+        $("#cliente_id").select2("destroy");
+      }
+
+      $("#cliente_id").select2({
+        width: "100%",
+        placeholder: "Selecione o cliente...",
+        allowClear: true,
+      });
+    }
+  } catch (error) {
+    console.error("Erro ao carregar clientes:", error);
+    alert("Erro ao carregar clientes.");
+  }
+}
+
+// Quando o usuário estiver autenticado, carrega os clientes
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    loadClientes();
+  }
+});
+function atualizarValorCredito(valor) {
+  const exibido = document.getElementById("valor_credito_exibido");
+  const valorFormatado = Number(valor).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+  });
+  exibido.textContent = valorFormatado;
+}
+
+// Função para limpar todos os dados salvos (útil para testes)
+function clearAllSavedData() {
+  if (
+    confirm(
+      "Tem certeza que deseja limpar todos os dados salvos? Esta ação não pode ser desfeita."
+    )
+  ) {
+    FormStateManager.clearLocalStorage();
+    location.reload();
+  }
+}
+
+// Auto-save periódico
+setInterval(() => {
+  saveAllFormsData();
+}, 30000); // Salva a cada 30 segundos
+
+// Salvar dados antes de sair da página
+window.addEventListener("beforeunload", function () {
+  saveAllFormsData();
+});
+
+console.log("Sistema de preservação de estado carregado com sucesso!");
+
+document.addEventListener("DOMContentLoaded", function () {
+  firebase.auth().onAuthStateChanged(function (user) {
+    const form = document.getElementById("upgradeForm");
+    const btnEnviar = document.getElementById("enviarFormulario");
+
+    // Obter o idSolicitacao da URL (se estiver editando uma solicitação)
+    const params = new URLSearchParams(window.location.search);
+    const idSolicitacao = params.get("idSolicitacao");
+
+    btnEnviar.addEventListener("click", async function (e) {
+      e.preventDefault();
+
+      // Estado "carregando"
+      btnEnviar.innerHTML =
+        'Enviando... <span class="spinner-border spinner-border-sm ms-1" role="status" aria-hidden="true"></span>';
+      btnEnviar.disabled = true;
+
+      // Organizando os dados do formulário
+      const formData = new FormData(form);
+      const dados = {};
+
+      formData.forEach((valor, chave) => {
+        if (dados[chave]) {
+          if (!Array.isArray(dados[chave])) {
+            dados[chave] = [dados[chave]];
+          }
+          dados[chave].push(valor);
+        } else {
+          dados[chave] = valor;
+        }
+      });
+
+      // Remove "Cultura Anual" se estiver sozinha ou acompanhada de outras
+      if (
+        dados.atividade_props &&
+        Array.isArray(dados.atividade_props) &&
+        dados.atividade_props.includes("Cultura Anual") &&
+        dados.atividade_props.length > 1
+      ) {
+        dados.atividade_props = dados.atividade_props.filter(
+          (item) => item !== "Cultura Anual"
+        );
+      }
+
+      // **Lógica de adição apenas para nova solicitação (não para edição)**
+      if (!idSolicitacao) {
+        // Adiciona os campos fixos **somente ao criar**
+        dados.status = "inactive";
+        dados.status_documentacao = "pendente";
+        dados.status_solicitacao = "aguardando";
+        dados.createdAt = firebase.firestore.Timestamp.now();
+        dados.cliente_id =
+          dados.cliente_id || document.getElementById("cliente_id").value;
+
+        dados.addedBy = user.email;
+      }
+
+      try {
+        if (idSolicitacao) {
+          // Atualiza a solicitação existente
+          await firebase
+            .firestore()
+            .collection("comercializacao")
+            .doc(idSolicitacao)
+            .update(dados);
+
+          // Pop-up bonito de sucesso
+          Swal.fire({
+            icon: "success",
+            title: "Solicitação atualizada com sucesso!",
+            html: `Agora é hora de <strong>concluir sua solicitação</strong> com os documentos e informações necessárias.<br><br>
+              Nossa equipe irá acompanhar tudo de perto para garantir a aprovação do seu crédito junto aos nossos bancos parceiros.`,
+            confirmButtonText: "Entendi!",
+            confirmButtonColor: "#198754",
+          }).then(() => {
+            window.location.href = "comercializacao-list.html";
+          });
+        } else {
+          // Cria uma nova solicitação
+          await firebase.firestore().collection("comercializacao").add(dados);
+
+          // Pop-up bonito de sucesso
+          Swal.fire({
+            icon: "success",
+            title: "Solicitação enviada com sucesso!",
+            html: `Agora é hora de <strong>concluir sua solicitação</strong> com os documentos e informações necessárias.<br><br>
+             Nossa equipe irá acompanhar tudo de perto para garantir a aprovação do seu crédito junto aos nossos bancos parceiros.`,
+            confirmButtonText: "Entendi!",
+            confirmButtonColor: "#198754",
+          }).then(() => {
+            window.location.href = "comercializacao-list.html";
+          });
+        }
+      } catch (err) {
+        console.error("Erro ao gravar no Firestore:", err);
+        alert("Erro ao enviar. Tente novamente.");
+        btnEnviar.innerHTML = "Enviar Formulário";
+        btnEnviar.disabled = false;
+      }
+    });
+  });
+});
+
+// Variável global para rastrear a seleção de quantidade
+let selectedAgriculturaGeralQtd = 0;
+function saveAllAgriculturaGeralForms() {
+  for (let i = 1; i <= selectedAgriculturaGeralQtd; i++) {
+    const formDiv = document.querySelector(
+      `#agriculturaGeralFormsContainer > div:nth-child(${i})`
+    );
+    if (formDiv) {
+      const data = FormStateManager.collectFormData(formDiv);
+      // Salva direto na estrutura de atividadesData com uma chave única
+      FormStateManager.saveFormData(`agricultura_geral_form_${i}`, data);
+    }
+  }
+}
+function restoreAllAgriculturaGeralForms(qtd) {
+  for (let i = 1; i <= qtd; i++) {
+    const formDiv = document.querySelector(
+      `#agriculturaGeralFormsContainer > div:nth-child(${i})`
+    );
+    if (formDiv) {
+      const data =
+        FormStateManager.getFormData(`agricultura_geral_form_${i}`) || {};
+      FormStateManager.restoreFormData(formDiv, data);
+    }
+  }
+}
+
+function selectAgriculturaGeralQtd(qtd) {
+  // Salva os dados dos formulários atuais antes de mudar
+  saveAllAgriculturaGeralForms();
+
+  selectedAgriculturaGeralQtd = qtd;
+
+  // Atualiza visual dos botões
+  document
+    .querySelectorAll("#agriculturaGeralQtdBtns button")
+    .forEach((btn, i) => {
+      btn.classList.toggle("btn-success", i === qtd - 1);
+      btn.classList.toggle("btn-info", i !== qtd - 1);
+    });
+
+  // Renderiza novamente os formulários
+  renderAgriculturaGeralForms(qtd);
+
+  // Restaura os dados salvos de cada formulário
+  restoreAllAgriculturaGeralForms(qtd);
+}
+
+// Função para renderizar os formulários de culturas gerais dinamicamente
+function renderAgriculturaGeralForms(qtd) {
+  const container = document.getElementById("agriculturaGeralFormsContainer");
+  container.innerHTML = ""; // Limpa antes
+
+  for (let i = 1; i <= qtd; i++) {
+    container.innerHTML += `
+      <div class="border p-3 mb-4">
+        <h6 class="fw-bold mb-3">Cultura ${i} - Agricultura Geral</h6>
+        
+        <div class="mb-3">
+          <label>Qual cultura?</label>
+          <input type="text" class="form-control" name="agricultura_geral_cultura_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Ano predominante de colheita</label>
+          <input type="number" class="form-control" name="agricultura_geral_ano_colheita_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Forma de cultivo</label>
+          <input type="text" class="form-control" name="agricultura_geral_forma_cultivo_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Identificação da safra</label>
+          <input type="text" class="form-control" name="agricultura_geral_id_safra_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Município</label>
+          <input type="text" class="form-control" name="agricultura_geral_municipio_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Matrícula</label>
+          <input type="text" class="form-control" name="agricultura_geral_matricula_${i}" required />
+        </div>
+        <h6 class="mt-3">Dados da safra prevista</h6>
+        <div class="mb-3">
+          <label>Área de plantio da cultura (ha)</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_area_plantio_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Produtividade estimada para a safra (Kg/ha ou un/ha)</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_produtividade_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Contrato de pré-venda para mais de 50% da produção</label>
+          <input type="text" class="form-control" name="agricultura_geral_pre_venda_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Nível tecnológico adotado para esta cultura</label>
+          <input type="text" class="form-control" name="agricultura_geral_nivel_tecnologico_${i}" required />
+        </div>
+        <div class="mb-3">
+          <label>Safra prevista</label>
+          <input type="text" class="form-control" name="agricultura_geral_safra_prevista_${i}" required />
+        </div>
+        <h6 class="mt-3">Dados financeiros da safra prevista</h6>
+        <div class="mb-3">
+          <label>Preço estimado de venda</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_preco_venda_${i}" required />
+          <small class="text-muted">R$/kg ou R$/un</small>
+        </div>
+        <div class="mb-3">
+          <label>Ano-safra</label>
+          <div class="d-flex gap-2">
+            <input type="number" class="form-control" name="agricultura_geral_ano_safra_inicio_${i}" placeholder="Ano início" min="1900" />
+            <span class="align-self-center">/</span>
+            <input type="number" class="form-control" name="agricultura_geral_ano_safra_fim_${i}" placeholder="Ano fim" min="1900" />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label>Custo unitário de produção</label>
+          <input type="number" step="0.01" class="form-control" name="agricultura_geral_custo_unitario_${i}" required />
+          <small class="text-muted">R$/kg ou R$/un</small>
+        </div>
+      </div>
+    `;
+  }
+}
+function travarCamposReadOnly() {
+  document
+    .querySelectorAll(
+      "#upgradeForm input, #upgradeForm select, #upgradeForm textarea"
+    )
+    .forEach(function (el) {
+      el.setAttribute("readonly", true);
+      el.setAttribute("disabled", true);
+    });
+  var btnEnviar = document.getElementById("enviarFormulario");
+  if (btnEnviar) btnEnviar.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("readonly") === "1") {
+    // Função para travar todos os campos atuais e futuros
+    function bloquearCamposSeReadonly() {
+      document
+        .querySelectorAll(
+          "#upgradeForm input, #upgradeForm select, #upgradeForm textarea"
+        )
+        .forEach(function (el) {
+          el.setAttribute("readonly", true);
+          el.setAttribute("disabled", true);
+        });
+      // Esconde botões de adicionar/remover
+      document
+        .querySelectorAll(".btn-adicionar, .btn-remover")
+        .forEach(function (btn) {
+          btn.style.display = "none";
+        });
+      // Esconde o botão de enviar (caso exista)
+      var btnEnviar = document.getElementById("enviarFormulario");
+      if (btnEnviar) btnEnviar.style.display = "none";
+    }
+    // 1. Travar campos ao carregar
+    bloquearCamposSeReadonly();
+
+    // 2. Travar sempre que algo mudar no formulário (campos dinâmicos, steps, etc)
+    const upgradeForm = document.getElementById("upgradeForm");
+    if (upgradeForm) {
+      const observer = new MutationObserver(function () {
+        bloquearCamposSeReadonly();
+      });
+      observer.observe(upgradeForm, { childList: true, subtree: true });
+    }
+  }
+});
+async function salvarSolicitacao(dados) {
+  if (dados.responsavelGerenteId) {
+    const doc = await db
+      .collection("gerentes")
+      .doc(dados.responsavelGerenteId)
+      .get();
+    if (doc.exists)
+      dados.responsavelGerenteNome = doc.data().nome || doc.data().email;
+  }
+
+  if (dados.responsavelSecundarioId) {
+    const doc = await db
+      .collection("agentes")
+      .doc(dados.responsavelSecundarioId)
+      .get();
+    if (doc.exists)
+      dados.responsavelSecundarioNome = doc.data().nome || doc.data().email;
+  }
+
+  await db.collection("comercializacao").add(dados);
+}
+
+async function loadClientes() {
+  const snap = await db.collection("clientes").get();
+  const select = document.getElementById("cliente_id");
+  let options = `<option value="">Selecione o cliente...</option>`;
+  snap.forEach((doc) => {
+    const c = doc.data();
+    options += `<option value="${doc.id}">${
+      c.nome || c.email || c.empresa || "Cliente"
+    }</option>`;
+  });
+  select.innerHTML = options;
+}
+
+async function loadGerentes() {
+  const snap = await db.collection("gerentes").get();
+  const select = document.getElementById("edit-responsavel-gerente");
+  let options = `<option value="">Não atribuído</option>`;
+  snap.forEach((doc) => {
+    const g = doc.data();
+    options += `<option value="${doc.id}">${g.nome || g.email}</option>`;
+  });
+  select.innerHTML = options;
+}
+
+async function loadAgentesOuGerentes() {
+  const snapAgentes = await db.collection("agentes").get();
+  const snapGerentes = await db.collection("gerentes").get();
+  const select = document.getElementById("edit-responsavel-secundario");
+  let options = `<option value="">Não atribuído</option>`;
+
+  snapAgentes.forEach((doc) => {
+    const a = doc.data();
+    options += `<option value="${doc.id}">${
+      a.nome || a.email
+    } (Agente)</option>`;
+  });
+
+  snapGerentes.forEach((doc) => {
+    const g = doc.data();
+    options += `<option value="${doc.id}">${
+      g.nome || g.email
+    } (Gerente)</option>`;
+  });
+
+  select.innerHTML = options;
+}
+let gerentesAtivos = [];
+let agentesAtivos = [];
+
+async function preencherResponsaveisCusteio(
+  valorGerenteSalvo = "",
+  valorSecundarioSalvo = ""
+) {
+  const gerenteSelect = document.getElementById("edit-responsavel-gerente");
+  const secundarioSelect = document.getElementById(
+    "edit-responsavel-secundario"
+  );
+
+  gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
+  secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+  // 1. Carrega gerentes ativos
+  const gerentesSnap = await firebase
+    .firestore()
+    .collection("gerentes")
+    .where("status", "==", "active")
+    .get();
+
+  gerentesAtivos = gerentesSnap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  gerentesAtivos.forEach((gerente) => {
+    const option = document.createElement("option");
+    option.value = gerente.id;
+    option.textContent = gerente.nome_completo || gerente.email || "(sem nome)";
+    gerenteSelect.appendChild(option);
+  });
+
+  // Seleciona gerente salvo, se houver
+  if (valorGerenteSalvo) {
+    gerenteSelect.value = valorGerenteSalvo;
+  }
+
+  // 2. Carrega agentes ativos
+  const agentesSnap = await firebase
+    .firestore()
+    .collection("agentes")
+    .where("status", "==", "active")
+    .get();
+
+  agentesAtivos = agentesSnap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  // 3. Atualiza os responsáveis secundários com base no gerente salvo
+  atualizarSecundario(valorGerenteSalvo, valorSecundarioSalvo);
+
+  // 4. Ao mudar o gerente, atualizar opções do secundário
+  gerenteSelect.addEventListener("change", () => {
+    atualizarSecundario(gerenteSelect.value);
+  });
+}
+
+async function atualizarSecundario(
+  gerenteIdSelecionado,
+  valorSecundarioSalvo = ""
+) {
+  const secundarioSelect = document.getElementById(
+    "edit-responsavel-secundario"
+  );
+  secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+
+  const gerenteSelecionado = gerentesAtivos.find(
+    (g) => g.id === gerenteIdSelecionado
+  );
+  if (!gerenteSelecionado) return;
+
+  const nomeGerente = gerenteSelecionado.nome_completo;
+
+  // Adiciona o próprio gerente como opção
+  const optionGerente = document.createElement("option");
+  optionGerente.value = gerenteSelecionado.id;
+  optionGerente.textContent = nomeGerente + " (Gerente)";
+  secundarioSelect.appendChild(optionGerente);
+
+  // Adiciona agentes que têm esse gerente como responsável
+  agentesAtivos
+    .filter((ag) => ag.gerenteNome === nomeGerente)
+    .forEach((agente) => {
+      const option = document.createElement("option");
+      option.value = agente.id;
+      option.textContent =
+        (agente.nome_completo || agente.email || "(sem nome)") + " (Agente)";
+      secundarioSelect.appendChild(option);
+    });
+
+  // 🔄 Garante que o valor salvo seja exibido mesmo que não esteja na lista
+  if (
+    valorSecundarioSalvo &&
+    ![...secundarioSelect.options].some(
+      (opt) => opt.value === valorSecundarioSalvo
+    )
+  ) {
+    try {
+      // Tenta buscar como agente
+      const docAgente = await firebase
+        .firestore()
+        .collection("agentes")
+        .doc(valorSecundarioSalvo)
+        .get();
+      if (docAgente.exists) {
+        const data = docAgente.data();
+        const option = document.createElement("option");
+        option.value = valorSecundarioSalvo;
+        option.textContent =
+          (data.nome_completo || data.email || "(sem nome)") + " (Agente)";
+        secundarioSelect.appendChild(option);
+      } else {
+        // Tenta buscar como gerente
+        const docGerente = await firebase
+          .firestore()
+          .collection("gerentes")
+          .doc(valorSecundarioSalvo)
+          .get();
+        if (docGerente.exists) {
+          const data = docGerente.data();
+          const option = document.createElement("option");
+          option.value = valorSecundarioSalvo;
+          option.textContent =
+            (data.nome_completo || data.email || "(sem nome)") + " (Gerente)";
+          secundarioSelect.appendChild(option);
+        }
+      }
+    } catch (e) {
+      console.warn(
+        "Não foi possível carregar responsável secundário salvo:",
+        e
+      );
+    }
+  }
+
+  // ✅ Seleciona valor salvo no campo
+  if (valorSecundarioSalvo) {
+    secundarioSelect.value = valorSecundarioSalvo;
+  }
+}
+
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    Promise.all([
+      loadClientes(),
+      preencherResponsaveisCusteio(), // 👈 adiciona aqui
+    ]).then(() => {
+      loadCusteios(); // ou qualquer outra função que inicia sua tabela
+    });
+  }
+});
