@@ -46,7 +46,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
   // Se for edição, carregar dados
   if (idEdicao) {
-    db.collection("avaliacoes")
+    db.collection("licenciamento")
       .doc(idEdicao)
       .get()
       .then((doc) => {
@@ -179,7 +179,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     };
 
     if (idEdicao) {
-      db.collection("avaliacoes")
+      db.collection("licenciamento")
         .doc(idEdicao)
         .update(avaliacao)
         .then(() => {
@@ -197,7 +197,7 @@ firebase.auth().onAuthStateChanged(function (user) {
           Swal.fire("Erro", "Erro ao atualizar avaliação.", "error");
         });
     } else {
-      db.collection("avaliacoes")
+      db.collection("licenciamento")
         .add({
           ...avaliacao,
           clienteID: clienteID,

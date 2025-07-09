@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Crédito de Comercialização</title>
+    <link
+      href="assets/images/favicon.png"
+      rel="icon"
+      sizes="16x16"
+      type="image/png"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/remixicon.css" rel="stylesheet" />
+    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/lib/dataTables.min.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <button type="button" class="sidebar-close-btn">
+        <iconify-icon icon="radix-icons:cross-2"></iconify-icon>
+      </button>
+      <div>
+        <a href="index.html" class="sidebar-logo">
+          <img
+            src="assets/images/logo.png"
+            alt="site logo"
+            class="light-logo"
+          />
+          <img
+            src="assets/images/logo-light.png"
+            alt="site logo"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/logo-icon.png"
+            alt="site logo"
+            class="logo-icon"
+          />
+        </a>
+      </div>
+      <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="solar:home-smile-angle-outline"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Dashboard</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="index.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="relatorio-mes.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Mensal</a
+                >
+              </li>
+              <li>
+                <a href="relatorio-ano.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Relatório Anual</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="sidebar-menu-group-title">Clientes</li>
+          <li>
+            <a href="lead-list.html">
+              <iconify-icon
+                icon="ri:user-add-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Leads</span>
+            </a>
+          </li>
+          <li>
+            <a href="client-list.html">
+              <iconify-icon
+                icon="ri:group-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Clientes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Funcionarios</li>
+          <li>
+            <a href="gerente-list.html">
+              <iconify-icon
+                icon="ri:user-star-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Gerentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="admin-list.html">
+              <iconify-icon
+                icon="ri:user-settings-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Admins</span>
+            </a>
+          </li>
+          <li>
+            <a href="agente-list.html">
+              <iconify-icon
+                icon="ri:user-search-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Agentes</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Solicitações</li>
+          <li>
+            <a href="custeio-list.html">
+              <iconify-icon
+                icon="ri:bank-card-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Custeios</span>
+            </a>
+          </li>
+          <li>
+            <a href="investimento-list.html">
+              <iconify-icon
+                icon="ri:bar-chart-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Investimento</span>
+            </a>
+          </li>
+          <li>
+            <a href="comercializacao-list.html">
+              <iconify-icon
+                icon="ri:exchange-dollar-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Crédito Comercialização</span>
+            </a>
+          </li>
+          <li>
+            <a href="avaliacoes-list.html">
+              <iconify-icon
+                icon="ri:home-gear-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Avaliação Imóveis</span>
+            </a>
+          </li>
+          <li>
+            <a href="licenciamento-list.html">
+              <iconify-icon
+                icon="ri:leaf-line"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Licenciamento Ambiental</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-group-title">Ajustes</li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <i class="ri-user-settings-line text-xl me-14 d-flex w-auto"></i>
+              <span>Regras</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="role-access.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Role & Access</a
+                >
+              </li>
+              <li>
+                <a href="assign-role.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Assign Role</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">
+              <iconify-icon
+                icon="icon-park-outline:setting-two"
+                class="menu-icon"
+              ></iconify-icon>
+              <span>Configurações</span>
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="company.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-primary-600 w-auto"
+                  ></i
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="notification.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-warning-main w-auto"
+                  ></i
+                  >Notification</a
+                >
+              </li>
+              <li>
+                <a href="notification-alert.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-info-main w-auto"
+                  ></i
+                  >Notification Alert</a
+                >
+              </li>
+              <li>
+                <a href="theme.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Theme</a
+                >
+              </li>
+              <li>
+                <a href="currencies.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Currencies</a
+                >
+              </li>
+              <li>
+                <a href="language.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Languages</a
+                >
+              </li>
+              <li>
+                <a href="payment-gateway.html"
+                  ><i
+                    class="ri-circle-fill circle-icon text-danger-main w-auto"
+                  ></i
+                  >Payment Gateway</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="dashboard-main">
+      <div class="navbar-header">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-4">
+              <button type="button" class="sidebar-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon text-2xl non-active"
+                ></iconify-icon>
+                <iconify-icon
+                  icon="iconoir:arrow-right"
+                  class="icon text-2xl active"
+                ></iconify-icon>
+              </button>
+              <button type="button" class="sidebar-mobile-toggle">
+                <iconify-icon
+                  icon="heroicons:bars-3-solid"
+                  class="icon"
+                ></iconify-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+              <p class="mb-0 me-2 text-sm text-white" id="welcome-message">
+                Bem-vindo, <strong id="user-profile-name">...</strong>
+              </p>
+              <div class="dropdown">
+                <button
+                  class="d-flex justify-content-center align-items-center rounded-circle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                >
+                  <img
+                    src="assets/images/user.png"
+                    alt="image"
+                    class="w-40-px h-40-px object-fit-cover rounded-circle"
+                  />
+                </button>
+                <div
+                  class="dropdown-menu to-top dropdown-menu-sm"
+                  style="min-width: 150px; max-width: 220px; width: 180px"
+                >
+                  <ul class="to-top-list">
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="view-profile.html"
+                        ><iconify-icon
+                          icon="solar:user-linear"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >My Profile</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="email.html"
+                        ><iconify-icon
+                          icon="tabler:message-check"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Inbox</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3"
+                        href="company.html"
+                        ><iconify-icon
+                          icon="icon-park-outline:setting-two"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Setting</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3"
+                        href="javascript:void(0)"
+                        id="logout-btn"
+                        ><iconify-icon
+                          icon="lucide:power"
+                          class="icon text-xl"
+                        ></iconify-icon
+                        >Log Out</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-main-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
+        >
+          <h6 class="fw-semibold mb-0">Solicitações de Avaliação de Imóveis</h6>
+          <ul class="d-flex align-items-center gap-2">
+            <li class="fw-medium">
+              <a
+                class="d-flex align-items-center gap-1 hover-text-primary"
+                href="index.html"
+              >
+                <iconify-icon
+                  class="icon text-lg"
+                  icon="solar:home-smile-angle-outline"
+                ></iconify-icon>
+                Dashboard
+              </a>
+            </li>
+            <li>-</li>
+            <li class="fw-medium">Avaliação de Imóveis</li>
+          </ul>
+        </div>
+        <div class="card h-100 p-0 radius-12">
+          <div
+            class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3"
+          >
+            <div class="d-flex flex-column flex-md-row gap-2 gap-md-3 w-100">
+              <!-- Show + select -->
+              <div
+                class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 w-100"
+              >
+                <div class="d-flex flex-row align-items-center gap-2">
+                  <span class="fw-medium text-secondary-light">Show</span>
+                  <select
+                    id="items-per-page"
+                    class="form-select form-select-sm w-auto"
+                  >
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
+
+                <div class="input-group flex-grow-1">
+                  <span class="input-group-text bg-transparent border-end-0">
+                    <iconify-icon icon="ion:search-outline"></iconify-icon>
+                  </span>
+                  <input
+                    type="text"
+                    id="search-input"
+                    class="form-control border-start-0"
+                    placeholder="Buscar por cliente..."
+                  />
+                </div>
+              </div>
+
+              <!-- Status documentação -->
+              <select
+                id="filter-status-docs"
+                class="form-select w-100 w-md-auto"
+              >
+                <option value="">Status Documentação</option>
+                <option value="pendente">Pendente</option>
+                <option value="processando">Processando</option>
+                <option value="verificado">Verificado</option>
+              </select>
+
+              <!-- Status solicitação -->
+              <select
+                id="filter-status-solic"
+                class="form-select w-100 w-md-auto"
+              >
+                <option value="">Status Solicitação</option>
+                <option value="aguardando">Aguardando documentação</option>
+                <option value="processando">Processando</option>
+                <option value="aprovado">Aprovado</option>
+                <option value="nao_aprovado">Não aprovado</option>
+                <option value="concluido">Concluído</option>
+              </select>
+
+              <!-- Ordenação -->
+              <select id="order-by" class="form-select w-100 w-md-auto">
+                <option value="createdAt_desc">Data Criação (mais novo)</option>
+                <option value="createdAt_asc">
+                  Data Criação (mais antigo)
+                </option>
+              </select>
+
+              <!-- Botão -->
+              <button
+                class="btn btn-success ms-auto w-100 w-md-auto"
+                onclick="window.location.href='solicitar-licenciamento.html'"
+                style="min-width: 140px"
+              >
+                + Nova Solicitação
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-24">
+            <div class="table-responsive scroll-sm">
+              <table class="table bordered-table sm-table mb-0">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Responsável Gerente</th>
+                    <th>Responsável Secundário</th>
+                    <th>Adicionado por</th>
+                    <th>Status Documentação</th>
+                    <th>Status Solicitação</th>
+                    <th>Ações</th>
+                    <th>Data de Criação</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-avaliacoes">
+                  <!-- Os dados serão inseridos aqui via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-24"
+            >
+              <span id="pagination-info">Mostrando 1 a 10 de 0 registros</span>
+              <ul
+                class="pagination d-flex flex-wrap align-items-center gap-2 justify-content-center"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="d-footer">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <p class="mb-0">© 2025 Global. All Rights Reserved.</p>
+          </div>
+          <div class="col-auto">
+            <p class="mb-0">
+              Made by <span class="text-primary-600">ComosTech</span>
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- MODAL: Upload de Documentos -->
+    <div
+      class="modal fade"
+      id="uploadDocumentosModal"
+      tabindex="-1"
+      aria-labelledby="uploadDocumentosModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-white rounded-4 shadow">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold">
+              <iconify-icon
+                icon="ri:file-upload-line"
+                class="me-2 text-info"
+              ></iconify-icon>
+              Upload de Documentos
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Form de upload: fica acima das abas -->
+            <form id="form-upload-documento" style="display: none" class="mb-4">
+              <label for="inputFotoDocumento" class="form-label"
+                >Selecione a foto ou documento:</label
+              >
+              <div class="d-flex align-items-center gap-2">
+                <input
+                  class="form-control"
+                  type="file"
+                  id="inputFotoDocumento"
+                  accept="image/*"
+                  required
+                />
+                <button
+                  type="submit"
+                  id="btnEnviarDocumento"
+                  class="btn btn-success"
+                  disabled
+                >
+                  Enviar
+                </button>
+              </div>
+
+              <div
+                id="previewFotoDocumento"
+                class="text-center mt-3 mb-3"
+              ></div>
+
+              <div
+                class="progress mb-3"
+                style="height: 24px; display: none"
+                id="uploadProgressBarContainer"
+              >
+                <div
+                  class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                  id="uploadProgressBar"
+                  role="progressbar"
+                  style="width: 0%"
+                  aria-valuenow="0"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  0%
+                </div>
+              </div>
+            </form>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs mb-3" id="tabDocumentos" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="pendentes-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#pendentes"
+                  type="button"
+                  role="tab"
+                  aria-controls="pendentes"
+                  aria-selected="true"
+                >
+                  Pendentes
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="enviados-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#enviados"
+                  type="button"
+                  role="tab"
+                  aria-controls="enviados"
+                  aria-selected="false"
+                >
+                  Enviados
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="aprovados-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#aprovados"
+                  type="button"
+                  role="tab"
+                  aria-controls="aprovados"
+                  aria-selected="false"
+                >
+                  Aprovados
+                </button>
+              </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div
+              class="tab-content"
+              id="tabDocumentosContent"
+              style="min-height: 300px"
+            >
+              <!-- Pendentes -->
+              <div
+                class="tab-pane fade show active"
+                id="pendentes"
+                role="tabpanel"
+                aria-labelledby="pendentes-tab"
+              >
+                <ul id="listaPendentes" class="list-group mb-3"></ul>
+              </div>
+
+              <!-- Enviados -->
+              <div
+                class="tab-pane fade"
+                id="enviados"
+                role="tabpanel"
+                aria-labelledby="enviados-tab"
+              >
+                <ul id="listaEnviados" class="list-group"></ul>
+              </div>
+
+              <!-- Aprovados -->
+              <div
+                class="tab-pane fade"
+                id="aprovados"
+                role="tabpanel"
+                aria-labelledby="aprovados-tab"
+              >
+                <ul id="listaAprovados" class="list-group"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS DE BIBLIOTECA DEVEM VIR ANTES DO SEU SCRIPT CUSTOM -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/lib/iconify-icon.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-storage-compat.js"></script>
+
+    <script>
+      // Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyBxREWzRP-X8Q5b-BtiV6A1PFLbKSdfzwk",
+        authDomain: "global-1a649.firebaseapp.com",
+        projectId: "global-1a649",
+        storageBucket: "global-1a649.firebasestorage.app",
+        messagingSenderId: "689137289621",
+        appId: "1:689137289621:web:7595220d59d48d48960e9c",
+      };
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const db = firebase.firestore();
+      const storage = firebase.storage();
+
+      // Variáveis globais para armazenar dados
+      let allAvaliacoes = [];
+      let clientesList = [];
+      let gerentesList = [];
+      let agentesList = [];
+      let currentPage = 1;
+
+      // Protege a página: redireciona para login se não estiver autenticado e exibe nome
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+          window.location.href = "sign-in.html";
+        } else {
+          // Preenche o nome do usuário
+          const elName = document.getElementById("user-profile-name");
+          if (elName) {
+            elName.textContent =
+              user.displayName || user.email || user.phoneNumber || "Usuário";
+          }
+          // Carrega os dados quando o usuário está autenticado
+          initializeData();
+        }
+      });
+
+      // Botão logout
+      $(document).on("click", "#logout-btn", function () {
+        firebase
+          .auth()
+          .signOut()
+          .then(function () {
+            window.location.href = "sign-in.html";
+          });
+      });
+
+      // Função para inicializar todos os dados
+      async function initializeData() {
+        try {
+          await Promise.all([
+            loadClientes(),
+            loadGerentes(),
+            loadAgentes(),
+            loadAvaliacoes(),
+          ]);
+          renderTable();
+        } catch (error) {
+          console.error("Erro ao carregar dados:", error);
+          alert("Erro ao carregar dados: " + error.message);
+        }
+      }
+
+      // Função para carregar clientes
+      async function loadClientes() {
+        try {
+          const snapshot = await db.collection("clientes").get();
+          clientesList = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            nome:
+              doc.data().nome ||
+              doc.data().email ||
+              doc.data().empresa ||
+              doc.data().contato ||
+              "Cliente",
+            ...doc.data(),
+          }));
+        } catch (error) {
+          console.error("Erro ao carregar clientes:", error);
+        }
+      }
+
+      // Função para carregar gerentes
+      async function loadGerentes() {
+        try {
+          const snapshot = await db.collection("gerentes").get();
+          gerentesList = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            nome_completo:
+              doc.data().nome_completo || doc.data().email || "Gerente",
+            ...doc.data(),
+          }));
+        } catch (error) {
+          console.error("Erro ao carregar gerentes:", error);
+        }
+      }
+
+      // Função para carregar agentes
+      async function loadAgentes() {
+        try {
+          const snapshot = await db.collection("agentes").get();
+          agentesList = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            nome_completo:
+              doc.data().nome_completo || doc.data().email || "Agente",
+            ...doc.data(),
+          }));
+        } catch (error) {
+          console.error("Erro ao carregar agentes:", error);
+        }
+      }
+
+      // Função para carregar avaliações
+      async function loadAvaliacoes() {
+        try {
+          const snapshot = await db.collection("licenciamento").get();
+          allAvaliacoes = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+        } catch (error) {
+          console.error("Erro ao carregar avaliações:", error);
+        }
+      }
+
+      // Função para obter nome do cliente
+      function getClienteNome(clienteId) {
+        if (!clienteId || !Array.isArray(clientesList)) return "Não atribuído";
+        const cliente = clientesList.find((c) => c.id === clienteId);
+        return cliente ? cliente.nome : "Não atribuído";
+      }
+
+      // Função para obter nome do gerente
+      function getGerenteNome(gerenteId) {
+        if (!gerenteId || !Array.isArray(gerentesList)) return "Não atribuído";
+        const gerente = gerentesList.find((g) => g.id === gerenteId);
+        return gerente ? gerente.nome_completo : "Não atribuído";
+      }
+
+      // Função para obter nome do responsável secundário
+      function getSecundarioNome(secundarioId) {
+        if (!secundarioId) return "Não atribuído";
+
+        // Procura primeiro nos gerentes
+        const gerente = gerentesList.find((g) => g.id === secundarioId);
+        if (gerente) return gerente.nome_completo + " (Gerente)";
+
+        // Se não encontrou, procura nos agentes
+        const agente = agentesList.find((a) => a.id === secundarioId);
+        if (agente) return agente.nome_completo + " (Agente)";
+
+        return "Não atribuído";
+      }
+
+      // Função para obter label do status
+      function getStatusLabel(status) {
+        const statusMap = {
+          pendente: '<span class="badge bg-warning text-dark">Pendente</span>',
+          processando: '<span class="badge bg-primary">Processando</span>',
+          verificado: '<span class="badge bg-success">Verificado</span>',
+          aguardando:
+            '<span class="badge bg-secondary">Aguardando documentação</span>',
+          aprovado: '<span class="badge bg-success">Aprovado</span>',
+          nao_aprovado: '<span class="badge bg-danger">Não aprovado</span>',
+          concluido: '<span class="badge bg-info">Concluído</span>',
+        };
+        return (
+          statusMap[status] ||
+          '<span class="badge bg-secondary">Indefinido</span>'
+        );
+      }
+
+      // Função principal para renderizar a tabela com filtros
+      function renderTable() {
+        const searchTerm = $("#search-input").val().toLowerCase().trim();
+        const filterStatusDocs = $("#filter-status-docs").val();
+        const filterStatusSolic = $("#filter-status-solic").val();
+        const orderBy = $("#order-by").val();
+        const itemsPerPage = parseInt($("#items-per-page").val() || 10, 10);
+
+        // Verifica se temos dados para filtrar
+        if (!allAvaliacoes || allAvaliacoes.length === 0) {
+          $("#tabela-avaliacoes").html(
+            "<tr><td colspan='8' class='text-center'>Nenhum dado disponível.</td></tr>"
+          );
+          $("#pagination-info").text("Mostrando 0 a 0 de 0 registros");
+          $(".pagination").html("");
+          return;
+        }
+
+        // Filtrando os dados
+        let filtered = allAvaliacoes.filter((avaliacao) => {
+          // Filtro de busca por nome do cliente
+          let matchesSearch = true;
+          if (searchTerm) {
+            const clienteNome = getClienteNome(
+              avaliacao.clienteID || avaliacao.cliente_id
+            ).toLowerCase();
+            matchesSearch = clienteNome.includes(searchTerm);
+          }
+
+          // Filtro de status de documentação
+          let matchesStatusDocs = true;
+          if (filterStatusDocs) {
+            const statusDocs = avaliacao.status_documentacao || "pendente";
+            matchesStatusDocs = statusDocs === filterStatusDocs;
+          }
+
+          // Filtro de status da solicitação
+          let matchesStatusSolic = true;
+          if (filterStatusSolic) {
+            const statusSolic = avaliacao.status_solicitacao || "aguardando";
+            matchesStatusSolic = statusSolic === filterStatusSolic;
+          }
+
+          return matchesSearch && matchesStatusDocs && matchesStatusSolic;
+        });
+
+        // Ordenação dos dados
+        if (orderBy === "createdAt_desc") {
+          filtered.sort((a, b) => {
+            const dateA = a.createdAt?.toDate
+              ? a.createdAt.toDate().getTime()
+              : 0;
+            const dateB = b.createdAt?.toDate
+              ? b.createdAt.toDate().getTime()
+              : 0;
+            return dateB - dateA;
+          });
+        } else if (orderBy === "createdAt_asc") {
+          filtered.sort((a, b) => {
+            const dateA = a.createdAt?.toDate
+              ? a.createdAt.toDate().getTime()
+              : 0;
+            const dateB = b.createdAt?.toDate
+              ? b.createdAt.toDate().getTime()
+              : 0;
+            return dateA - dateB;
+          });
+        }
+
+        // Paginação
+        const totalItems = filtered.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = Math.min(start + itemsPerPage, totalItems);
+        const pageData = filtered.slice(start, end);
+
+        // Renderiza a tabela
+        if (pageData.length === 0) {
+          $("#tabela-avaliacoes").html(
+            "<tr><td colspan='8' class='text-center'>Nenhum registro encontrado.</td></tr>"
+          );
+        } else {
+          const tableRows = pageData
+            .map((avaliacao) => {
+              const clienteNome = getClienteNome(
+                avaliacao.clienteID || avaliacao.cliente_id
+              );
+              const gerenteNome = getGerenteNome(
+                avaliacao.responsavelGerenteId
+              );
+              const secundarioNome = getSecundarioNome(
+                avaliacao.responsavelSecundarioId
+              );
+              const addedBy = avaliacao.addedBy || "Não informado";
+              const statusDocsLabel = getStatusLabel(
+                avaliacao.status_documentacao || "pendente"
+              );
+              const statusSolicLabel = getStatusLabel(
+                avaliacao.status_solicitacao || "aguardando"
+              );
+              const dataCriacao = avaliacao.createdAt?.toDate
+                ? avaliacao.createdAt.toDate().toLocaleDateString("pt-BR")
+                : "Não disponível";
+
+              return `
+  <tr>
+    <td>${clienteNome}</td>
+    <td>${gerenteNome}</td>
+    <td>${secundarioNome}</td>
+    <td>${addedBy}</td>
+    <td>
+      <div class="dropdown">
+        <button class="btn btn-sm dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border:none;background:none;">
+          ${statusDocsLabel}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item bg-warning text-dark" href="#" onclick="updateStatusDocs('${
+            avaliacao.id
+          }', 'pendente')">Pendente</a></li>
+          <li><a class="dropdown-item bg-primary text-white" href="#" onclick="updateStatusDocs('${
+            avaliacao.id
+          }', 'processando')">Processando</a></li>
+          <li><a class="dropdown-item bg-success text-white" href="#" onclick="updateStatusDocs('${
+            avaliacao.id
+          }', 'verificado')">Verificado</a></li>
+        </ul>
+      </div>
+    </td>
+    <td>
+      <div class="dropdown">
+        <button class="btn btn-sm dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border:none;background:none;">
+          ${statusSolicLabel}
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item bg-secondary text-dark" href="#" onclick="updateStatusSol('${
+            avaliacao.id
+          }', 'aguardando')">Aguardando documentação</a></li>
+          <li><a class="dropdown-item bg-primary text-white" href="#" onclick="updateStatusSol('${
+            avaliacao.id
+          }', 'processando')">Processando</a></li>
+          <li><a class="dropdown-item bg-success text-white" href="#" onclick="updateStatusSol('${
+            avaliacao.id
+          }', 'aprovado')">Aprovado</a></li>
+          <li><a class="dropdown-item bg-danger text-white" href="#" onclick="updateStatusSol('${
+            avaliacao.id
+          }', 'nao_aprovado')">Não aprovado</a></li>
+          <li><a class="dropdown-item bg-info text-white" href="#" onclick="confirmarConclusao('${
+            avaliacao.id
+          }')">Concluído</a></li>
+        </ul>
+      </div>
+    </td>
+    <td>
+      <button onclick="editarAvaliacao('${
+        avaliacao.id
+      }')" class="btn btn-sm btn-warning me-1">Editar</button>
+      <button onclick="deletarAvaliacao('${
+        avaliacao.id
+      }')" class="btn btn-sm btn-danger me-1">Deletar</button>
+      <button class="btn btn-sm btn-info btn-upload-documento" data-cliente-id="${
+        avaliacao.clienteID || avaliacao.cliente_id
+      }">Documentos</button>
+    </td>
+    <td>${dataCriacao}</td>
+  </tr>
+`;
+            })
+            .join("");
+
+          $("#tabela-avaliacoes").html(tableRows);
+        }
+
+        // Atualiza informações de paginação
+        const showingStart = totalItems === 0 ? 0 : start + 1;
+        const showingEnd = end;
+        $("#pagination-info").text(
+          `Mostrando ${showingStart} a ${showingEnd} de ${totalItems} registros`
+        );
+
+        // Renderiza controles de paginação
+        renderPagination(totalPages);
+      }
+
+      // Função para renderizar paginação
+      function renderPagination(totalPages) {
+        const pagination = $(".pagination");
+        pagination.html("");
+
+        if (totalPages <= 1) return;
+
+        // Botão anterior
+        if (currentPage > 1) {
+          pagination.append(`
+            <li class="page-item">
+              <a href="#" class="page-link" data-page="${
+                currentPage - 1
+              }">Anterior</a>
+            </li>
+          `);
+        }
+
+        // Páginas numeradas
+        const startPage = Math.max(1, currentPage - 2);
+        const endPage = Math.min(totalPages, currentPage + 2);
+
+        for (let i = startPage; i <= endPage; i++) {
+          const activeClass = i === currentPage ? "active" : "";
+          pagination.append(`
+            <li class="page-item ${activeClass}">
+              <a href="#" class="page-link" data-page="${i}">${i}</a>
+            </li>
+          `);
+        }
+
+        // Botão próximo
+        if (currentPage < totalPages) {
+          pagination.append(`
+            <li class="page-item">
+              <a href="#" class="page-link" data-page="${
+                currentPage + 1
+              }">Próximo</a>
+            </li>
+          `);
+        }
+
+        // Event listener para cliques na paginação
+        pagination.off("click").on("click", ".page-link", function (e) {
+          e.preventDefault();
+          const page = parseInt($(this).data("page"));
+          if (page && page !== currentPage) {
+            currentPage = page;
+            renderTable();
+          }
+        });
+      }
+
+      // Event listeners para filtros e busca
+      $("#search-input").on("input", function () {
+        currentPage = 1;
+        renderTable();
+      });
+
+      $(
+        "#filter-status-docs, #filter-status-solic, #order-by, #items-per-page"
+      ).on("change", function () {
+        currentPage = 1;
+        renderTable();
+      });
+
+      // Funções para atualizar status
+      window.updateStatusDocs = async function (id, status) {
+        try {
+          await db.collection("licenciamento").doc(id).update({
+            status_documentacao: status,
+          });
+          // Atualiza o item na lista local
+          const index = allAvaliacoes.findIndex((a) => a.id === id);
+          if (index !== -1) {
+            allAvaliacoes[index].status_documentacao = status;
+          }
+          renderTable();
+        } catch (err) {
+          alert("Erro ao atualizar status da documentação: " + err.message);
+        }
+      };
+
+      window.updateStatusSol = async function (
+        id,
+        status,
+        dataConclusao = null
+      ) {
+        try {
+          const atualizacoes = { status_solicitacao: status };
+          if (status === "concluido" && dataConclusao) {
+            atualizacoes.data_conclusao = dataConclusao;
+          }
+
+          await db.collection("licenciamento").doc(id).update(atualizacoes);
+          // Atualiza o item na lista local
+          const index = allAvaliacoes.findIndex((a) => a.id === id);
+          if (index !== -1) {
+            allAvaliacoes[index].status_solicitacao = status;
+            if (dataConclusao) {
+              allAvaliacoes[index].data_conclusao = dataConclusao;
+            }
+          }
+          renderTable();
+        } catch (err) {
+          alert("Erro ao atualizar status da solicitação: " + err.message);
+        }
+      };
+
+      // Função para confirmar conclusão
+      function confirmarConclusao(idSolicitacao) {
+        if (
+          confirm(
+            "⚠️ Após marcar como CONCLUÍDO, esta solicitação não poderá ser alterada e só poderá ser excluída por um administrador.\n\nDeseja realmente concluir esta solicitação?"
+          )
+        ) {
+          const dataConclusao = new Date().toISOString();
+          updateStatusSol(idSolicitacao, "concluido", dataConclusao);
+        }
+      }
+
+      // Função para editar avaliação
+      function editarAvaliacao(id) {
+        if (id) {
+          window.location.href = `solicitar-licenciamento.html?id=${id}`;
+        } else {
+          alert("ID da solicitação não encontrado.");
+        }
+      }
+
+      // Função para deletar avaliação
+      async function deletarAvaliacao(id) {
+        if (confirm("Tem certeza que deseja deletar esta avaliação?")) {
+          try {
+            await db.collection("licenciamento").doc(id).delete();
+            // Remove o item da lista local
+            allAvaliacoes = allAvaliacoes.filter((a) => a.id !== id);
+            alert("Avaliação deletada com sucesso!");
+            renderTable();
+          } catch (error) {
+            alert("Erro ao deletar avaliação: " + error.message);
+          }
+        }
+      }
+
+      // Torna as funções globais
+      window.editarAvaliacao = editarAvaliacao;
+      window.deletarAvaliacao = deletarAvaliacao;
+      window.confirmarConclusao = confirmarConclusao;
+    </script>
+
+    <!-- Script para upload de documentos -->
+    <script>
+      // Lista fixa de documentos
+      const listaDocumentosFixos = [
+        "CND - Certidão Negativa de Débitos(Tributos Federais e Dívida Ativa da União)",
+        "CNH - Proponente",
+        "CNH - Cônjuge",
+        "Certidão de Nascimento/Casamento",
+        "Declaração de IRPF",
+        "Recibo de IRPF",
+        "Declaração CMN - Declaração de Renegociações por Resoluções do CMN",
+        "Certificado de Cadastro do Imóvel Rural (CCIR) - Imóvel Beneficiado",
+        "Certidão Negativa de Débitos do Imóvel Rural ou Prova de Pagamento/Quitação do ITR",
+        "Certidão de Inteiro Teor do Objeto da Cessão (Validade de até 1 ano)",
+        "Certidão de Ônus do Imóvel Objeto da Cessão",
+        "Licença Ambiental de Operação (LO)",
+        "Roteiro de Acesso ao Imóvel",
+        "Cadastro Ambiental Rural (CAR) - Documento de Inscrição",
+        "Cadastro Ambiental Rural (CAR) - Demonstrativo de Situação",
+        "Documentos de Cessão (Contratos e/ou Anuência) - Crédito Rural",
+        "Autorização para Supressão de Vegetação (ASV)",
+        "Outorga d'Água",
+        "KML da Área Total do Imóvel",
+        "KML da Área Beneficiada no Custeio",
+      ];
+
+      // Elementos do DOM
+      const listaPendentes = document.getElementById("listaPendentes");
+      const listaEnviados = document.getElementById("listaEnviados");
+      const listaAprovados = document.getElementById("listaAprovados");
+
+      const formUpload = document.getElementById("form-upload-documento");
+      const fileInput = document.getElementById("inputFotoDocumento");
+      const btnEnviar = document.getElementById("btnEnviarDocumento");
+      const previewDiv = document.getElementById("previewFotoDocumento");
+      const progressContainer = document.getElementById(
+        "uploadProgressBarContainer"
+      );
+      const progressBar = document.getElementById("uploadProgressBar");
+
+      let clienteIdSelecionado = null;
+      let tipoDocumentoSelecionado = null;
+
+      // Ao clicar no botão Documentos, abrir modal e carregar listas
+      document.addEventListener("click", async (e) => {
+        if (e.target && e.target.classList.contains("btn-upload-documento")) {
+          clienteIdSelecionado = e.target.getAttribute("data-cliente-id");
+          tipoDocumentoSelecionado = null;
+
+          limparTudo();
+          await carregarDocumentosCliente(clienteIdSelecionado);
+
+          const modalEl = document.getElementById("uploadDocumentosModal");
+          const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+          modal.show();
+
+          // Força abrir aba Pendentes
+          const tabTrigger = new bootstrap.Tab(
+            document.querySelector("#pendentes-tab")
+          );
+          tabTrigger.show();
+        }
+      });
+
+      // Limpar interface antes de carregar
+      function limparTudo() {
+        listaPendentes.innerHTML = "";
+        listaEnviados.innerHTML = "";
+        listaAprovados.innerHTML = "";
+        previewDiv.innerHTML = "";
+        fileInput.value = "";
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviar";
+        progressContainer.style.display = "none";
+        progressBar.style.width = "0%";
+        progressBar.textContent = "0%";
+        formUpload.style.display = "none";
+      }
+
+      // Carrega documentos do cliente do Firestore e separa pendentes, enviados e aprovados
+      async function carregarDocumentosCliente(clienteId) {
+        if (!clienteId) return;
+
+        try {
+          const docSnap = await firebase
+            .firestore()
+            .collection("clientes")
+            .doc(clienteId)
+            .get();
+          const data = docSnap.exists ? docSnap.data() : {};
+          const documentos = data.documentos || {};
+
+          // Separar documentos
+          const enviados = [];
+          const aprovados = [];
+
+          for (const docName of Object.keys(documentos)) {
+            const doc = documentos[docName];
+            if (doc && doc.url) {
+              if (doc.status === "aprovado")
+                aprovados.push({ tipo: docName, url: doc.url });
+              else enviados.push({ tipo: docName, url: doc.url });
+            }
+          }
+
+          // Pendentes = lista fixa - docs enviados e aprovados
+          const docsPendentes = listaDocumentosFixos.filter(
+            (docName) =>
+              !enviados.some((e) => e.tipo === docName) &&
+              !aprovados.some((a) => a.tipo === docName)
+          );
+
+          mostrarPendentes(docsPendentes);
+          mostrarEnviados(enviados);
+          mostrarAprovados(aprovados);
+        } catch (error) {
+          alert("Erro ao carregar documentos: " + error.message);
+        }
+      }
+
+      // Mostrar pendentes, clicáveis para iniciar upload
+      function mostrarPendentes(pendentes) {
+        listaPendentes.innerHTML = "";
+        if (!pendentes.length) {
+          listaPendentes.innerHTML =
+            '<li class="list-group-item text-center">Nenhum documento pendente</li>';
+          formUpload.style.display = "none";
+          return;
+        }
+        pendentes.forEach((tipo) => {
+          const li = document.createElement("li");
+          li.className = "list-group-item list-group-item-action";
+          li.textContent = tipo;
+          li.style.cursor = "pointer";
+          li.onclick = () => {
+            tipoDocumentoSelecionado = tipo;
+            mostrarFormUpload(tipo);
+          };
+          listaPendentes.appendChild(li);
+        });
+      }
+
+      // Mostrar enviados com botões Aprovar e Desaprovar
+      function mostrarEnviados(enviados) {
+        listaEnviados.innerHTML = "";
+        if (!enviados.length) {
+          listaEnviados.innerHTML =
+            '<li class="list-group-item text-center">Nenhum documento enviado</li>';
+          return;
+        }
+        enviados.forEach(({ tipo, url }) => {
+          const li = document.createElement("li");
+          li.className =
+            "list-group-item d-flex justify-content-between align-items-center";
+          li.innerHTML = `
+            <span>${tipo}</span>
+            <div>
+              <a href="${url}" target="_blank" class="btn btn-outline-light btn-sm me-2">Ver</a>
+              <button class="btn btn-success btn-sm btn-aprovar-doc" data-tipo="${tipo}">Aprovar</button>
+              <button class="btn btn-danger btn-sm btn-desaprovar-doc" data-tipo="${tipo}" data-url="${url}">Desaprovar</button>
+            </div>
+          `;
+          listaEnviados.appendChild(li);
+        });
+      }
+
+      // Mostrar aprovados com botão Excluir
+      function mostrarAprovados(aprovados) {
+        listaAprovados.innerHTML = "";
+        if (!aprovados.length) {
+          listaAprovados.innerHTML =
+            '<li class="list-group-item text-center">Nenhum documento aprovado</li>';
+          return;
+        }
+        aprovados.forEach(({ tipo, url }) => {
+          const li = document.createElement("li");
+          li.className =
+            "list-group-item d-flex justify-content-between align-items-center";
+          li.innerHTML = `
+            <span>${tipo}</span>
+            <div>
+              <a href="${url}" target="_blank" class="btn btn-outline-light btn-sm me-2">Ver</a>
+              <button class="btn btn-danger btn-sm btn-excluir-doc" data-tipo="${tipo}" data-url="${url}">Excluir</button>
+            </div>
+          `;
+          listaAprovados.appendChild(li);
+        });
+      }
+
+      // Mostrar formulário upload na aba Pendentes após selecionar um documento
+      function mostrarFormUpload(tipo) {
+        formUpload.style.display = "block";
+        previewDiv.innerHTML = "";
+        btnEnviar.disabled = true;
+        fileInput.value = "";
+        previewDiv.innerHTML = `<p>Enviando documento: <strong>${tipo}</strong></p>`;
+      }
+
+      // Habilitar botão enviar só se tiver arquivo selecionado
+      fileInput.addEventListener("change", () => {
+        btnEnviar.disabled = !fileInput.files.length;
+      });
+
+      // Envio do documento para Storage e Firestore
+      formUpload.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!tipoDocumentoSelecionado)
+          return alert("Selecione um documento pendente para enviar.");
+        if (!fileInput.files.length)
+          return alert("Selecione um arquivo para enviar.");
+        if (!clienteIdSelecionado) return alert("Cliente não definido.");
+
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviando...";
+        progressContainer.style.display = "block";
+        progressBar.style.width = "0%";
+        progressBar.textContent = "0%";
+        fileInput.disabled = true;
+
+        try {
+          const file = fileInput.files[0];
+          const storageRef = storage.ref(
+            `documentos/${clienteIdSelecionado}/${Date.now()}-${file.name}`
+          );
+          const uploadTask = storageRef.put(file);
+
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+              );
+              progressBar.style.width = progress + "%";
+              progressBar.textContent = progress + "%";
+            },
+            (error) => {
+              alert("Erro no upload: " + error.message);
+              progressContainer.style.display = "none";
+              btnEnviar.disabled = false;
+              btnEnviar.textContent = "Enviar";
+              fileInput.disabled = false;
+            },
+            async () => {
+              const downloadURL =
+                await uploadTask.snapshot.ref.getDownloadURL();
+
+              await firebase
+                .firestore()
+                .collection("clientes")
+                .doc(clienteIdSelecionado)
+                .set(
+                  {
+                    documentos: {
+                      [tipoDocumentoSelecionado]: {
+                        url: downloadURL,
+                        status: "enviado",
+                      },
+                    },
+                  },
+                  { merge: true }
+                );
+
+              alert("Documento enviado com sucesso!");
+              await carregarDocumentosCliente(clienteIdSelecionado);
+
+              // Limpa e esconde o formulário
+              fileInput.value = "";
+              btnEnviar.disabled = true;
+              btnEnviar.textContent = "Enviar";
+              formUpload.style.display = "none";
+              previewDiv.innerHTML = "";
+
+              progressContainer.style.display = "none";
+              fileInput.disabled = false;
+            }
+          );
+        } catch (error) {
+          alert("Erro ao enviar documento: " + error.message);
+          progressContainer.style.display = "none";
+          btnEnviar.disabled = false;
+          btnEnviar.textContent = "Enviar";
+          fileInput.disabled = false;
+        }
+      });
+
+      // Botões Aprovar e Desaprovar na aba enviados
+      listaEnviados.addEventListener("click", async (e) => {
+        if (e.target.classList.contains("btn-aprovar-doc")) {
+          const tipo = e.target.getAttribute("data-tipo");
+          await aprovarDocumento(tipo);
+        } else if (e.target.classList.contains("btn-desaprovar-doc")) {
+          const tipo = e.target.getAttribute("data-tipo");
+          const url = e.target.getAttribute("data-url");
+          await desaprovarDocumento(tipo, url);
+        }
+      });
+
+      // Botão excluir na aba aprovados
+      listaAprovados.addEventListener("click", async (e) => {
+        if (e.target.classList.contains("btn-excluir-doc")) {
+          const tipo = e.target.getAttribute("data-tipo");
+          const url = e.target.getAttribute("data-url");
+          if (!confirm(`Tem certeza que deseja excluir o documento "${tipo}"?`))
+            return;
+          try {
+            await firebase
+              .firestore()
+              .collection("clientes")
+              .doc(clienteIdSelecionado)
+              .update({
+                [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete(),
+              });
+
+            if (url) {
+              const storageRef = storage.refFromURL(url);
+              await storageRef.delete();
+            }
+
+            alert(`Documento "${tipo}" excluído com sucesso!`);
+            await carregarDocumentosCliente(clienteIdSelecionado);
+          } catch (error) {
+            alert("Erro ao excluir documento: " + error.message);
+          }
+        }
+      });
+
+      // Aprovar documento
+      async function aprovarDocumento(tipo) {
+        if (!clienteIdSelecionado) return alert("Cliente não definido.");
+        try {
+          await firebase
+            .firestore()
+            .collection("clientes")
+            .doc(clienteIdSelecionado)
+            .update({
+              [`documentos.${tipo}.status`]: "aprovado",
+            });
+          alert(`Documento "${tipo}" aprovado.`);
+          await carregarDocumentosCliente(clienteIdSelecionado);
+        } catch (error) {
+          alert("Erro ao aprovar documento: " + error.message);
+        }
+      }
+
+      // Desaprovar documento (exclui e volta para pendentes)
+      async function desaprovarDocumento(tipo, url) {
+        if (!clienteIdSelecionado) return alert("Cliente não definido.");
+        if (
+          !confirm(
+            `Tem certeza que deseja desaprovar e excluir o documento "${tipo}"?`
+          )
+        )
+          return;
+
+        try {
+          await firebase
+            .firestore()
+            .collection("clientes")
+            .doc(clienteIdSelecionado)
+            .update({
+              [`documentos.${tipo}`]: firebase.firestore.FieldValue.delete(),
+            });
+
+          if (url) {
+            const storageRef = storage.refFromURL(url);
+            await storageRef.delete();
+          }
+
+          alert(`Documento "${tipo}" desaprovado e excluído.`);
+          await carregarDocumentosCliente(clienteIdSelecionado);
+        } catch (error) {
+          alert("Erro ao desaprovar documento: " + error.message);
+        }
+      }
+    </script>
+
+    <style>
+      /* Pendentes - amarelo */
+      #listaPendentes .list-group-item {
+        background-color: #fff8dc; /* Cornsilk: amarelo claro */
+        color: #856404; /* amarelo escuro para texto */
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #listaPendentes .list-group-item:hover {
+        background-color: #ffe8a1;
+        color: #5c3d00;
+      }
+
+      /* Enviados - azul */
+      #listaEnviados .list-group-item {
+        background-color: #cce5ff; /* azul claro */
+        color: #004085; /* azul escuro */
+        font-weight: 600;
+      }
+      #listaEnviados .list-group-item:hover {
+        background-color: #99ccff;
+        color: #002752;
+      }
+
+      /* Aprovados - verde */
+      #listaAprovados .list-group-item {
+        background-color: #d4edda; /* verde claro */
+        color: #155724; /* verde escuro */
+        font-weight: 600;
+      }
+      #listaAprovados .list-group-item:hover {
+        background-color: #a9d5b9;
+        color: #0b2e13;
+      }
+
+      /* Garante que o modal-content possa rolar se o conteúdo for maior que a tela */
+      .modal-xl .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      /* Garante que a área das etapas também role se ficar grande */
+      #uploadDocumentosModal .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+
+      /* Estilos dos botões dropdown */
+      .dropdown-menu .dropdown-item {
+        margin: 4px 0;
+        border-radius: 8px !important;
+        text-align: center;
+        font-weight: 500;
+      }
+      .dropdown-menu .dropdown-item.bg-warning {
+        background-color: #ffc107 !important;
+        color: #212529 !important;
+      }
+      .dropdown-menu .dropdown-item.bg-primary {
+        background-color: #0d6efd !important;
+        color: #fff !important;
+      }
+      .dropdown-menu .dropdown-item.bg-success {
+        background-color: #198754 !important;
+        color: #fff !important;
+      }
+      .dropdown-menu .dropdown-item.bg-danger {
+        background-color: #dc3545 !important;
+        color: #fff !important;
+      }
+      .dropdown-menu .dropdown-item:hover,
+      .dropdown-menu .dropdown-item:focus {
+        opacity: 0.85;
+      }
+
+      /* Estilos para a tabela */
+      .table th {
+        background-color: #2c3e50;
+        color: white;
+        font-weight: 600;
+        border-bottom: 2px solid #34495e;
+      }
+
+      .table td {
+        vertical-align: middle;
+        padding: 12px 8px;
+      }
+
+      .table tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      /* Estilos para badges */
+      .badge {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.75rem;
+        border-radius: 0.375rem;
+      }
+
+      /* Cores dos badges */
+      .badge.bg-warning {
+        background-color: #ffc107;
+        color: #212529;
+      }
+      .badge.bg-primary {
+        background-color: #0d6efd;
+        color: white;
+      }
+      .badge.bg-success {
+        background-color: #198754;
+        color: white;
+      }
+      .badge.bg-danger {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      /* Estilos para paginação */
+      .pagination .page-link {
+        background-color: #2c3e50;
+        border-color: #34495e;
+        color: #ecf0f1;
+      }
+
+      .pagination .page-link:hover {
+        background-color: #34495e;
+        border-color: #4a6741;
+        color: #fff;
+      }
+
+      .pagination .page-item.active .page-link {
+        background-color: #3498db;
+        border-color: #3498db;
+        color: #fff;
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        .table-responsive {
+          font-size: 0.875rem;
+        }
+
+        .btn-sm {
+          font-size: 0.75rem;
+          padding: 0.25rem 0.5rem;
+        }
+      }
+    </style>
+
+    <script>
+      document.documentElement.setAttribute("data-theme", "dark");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Global - Solicitar Avaliação de Imóveis</title>
+    <!-- Favicon e CSS originais -->
+
+    <link href="assets/css/add/swap.css" rel="stylesheet" />
+    <link href="assets/css/add/slick.css" rel="stylesheet" />
+    <link href="assets/css/add/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/add/style.css" rel="stylesheet" />
+    <link href="assets/css/add/media_query.css" rel="stylesheet" />
+    <link href="assets/css/add/custom-popup.css" rel="stylesheet" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+      /* =========================
+         Regras para exibir/ocultar steps
+         ========================= */
+      .step {
+        display: none;
+      }
+      .step.active {
+        display: block;
+      }
+
+      /* Formatação do indicador de progresso */
+      .progress-indicator {
+        text-align: center;
+        margin: 1.5rem 0;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      /* Espaçamento entre botões de navegação */
+      .nav-buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .obrigatorio-label::after {
+        content: " (Obrigatório)";
+        color: red;
+        font-weight: normal;
+        font-size: 0.85em;
+      }
+      /* =============================
+     1) Caixa “Atividades Selecionadas”
+     ============================= */
+      .selecao-container {
+        border: 1px solid #adb5bd; /* borda discreta */
+        border-radius: 0.25rem; /* cantos levemente arredondados */
+        background-color: #e9ecef; /* fundo cinza-claro */
+        padding: 1rem; /* espaçamento interno */
+        margin-bottom: 1.5rem; /* separação embaixo */
+      }
+
+      .selecao-container h6 {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      /* Remover bullet-points padrão do <ul> */
+      .selecao-container ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+
+      #selecaoAtividades .list-group-item {
+        background: transparent;
+        border: none;
+        padding: 0.25rem 0;
+      }
+
+      #selecaoAtividades .list-group-item::before {
+        content: "• ";
+        color: #495057;
+        font-weight: bold;
+      }
+
+      /* =============================
+     2) Box de cada formulário dinâmico (com fundo suave para identificação)
+     ============================= */
+      .form-atividade {
+        border: 1px solid #adb5bd; /* borda cinza */
+        border-radius: 0.25rem; /* cantos arredondados */
+        padding: 1rem 1.25rem; /* espaçamento interno */
+        margin-bottom: 1.5rem; /* separação entre formulários */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff; /* fundo branco */
+      }
+
+      /* Centralizando o título do formulário e destacando com uma borda inferior */
+      .form-atividade h6 {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-bottom: 2px solid #adb5bd;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        color: #343a40;
+      }
+
+      /* Cores suaves para o fundo de cada formulário, baseado na atividade */
+      .form-atividade[data-atividade="Cultura Anual"] {
+        background-color: #e3f2fd; /* Azul claro */
+      }
+
+      .form-atividade[data-atividade="Cultura Perene"] {
+        background-color: #c8e6c9; /* Verde claro */
+      }
+
+      .form-atividade[data-atividade="Agricultura Geral"] {
+        background-color: #ffccbc; /* Vermelho suave */
+      }
+
+      .form-atividade[data-atividade="Bovino de Corte"] {
+        background-color: #fff9c4; /* Amarelo suave */
+      }
+
+      .form-atividade[data-atividade="Bovino de Leite"] {
+        background-color: #b3e5fc; /* Azul claro */
+      }
+
+      .form-atividade[data-atividade="Pecuária Geral"] {
+        background-color: #cfd8dc; /* Cinza suave */
+      }
+
+      /* Estilo básico para os botões */
+      .btn-group button {
+        margin-right: 5px;
+        margin-top: 10px;
+      }
+
+      /* Caixa para exibir as culturas selecionadas */
+      #selectedCulturesList {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      /* Estilo para os formulários */
+      .form-cultura {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+      }
+      .form-atividade h6 {
+        text-align: center; /* Centraliza o título */
+        font-size: 1.3rem; /* Aumenta o tamanho da fonte */
+        font-weight: bold; /* Deixa a fonte em negrito */
+        border-bottom: 3px solid #007bff; /* Borda inferior para destacar */
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+        color: #007bff; /* Cor do título */
+        background-color: #f0f8ff; /* Fundo suave */
+        padding-top: 10px;
+        border-radius: 5px;
+      }
+
+      .form-atividade {
+        border: 1px solid #adb5bd;
+        border-radius: 0.25rem;
+        padding: 1.25rem;
+        margin-bottom: 30px; /* Aumenta o espaçamento entre os formulários */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+      }
+
+      /* Estilo para o formulário da cultura */
+      .form-cultura {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f7f9fc;
+        border-left: 5px solid #007bff;
+      }
+
+      /* Estilo dos títulos do formulário */
+      .form-cultura h6 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #0056b3;
+        margin-bottom: 1rem;
+      }
+
+      /* Cada formulário de cultura com fundo e bordas coloridas diferentes */
+      #form-Arroz {
+        background-color: #e3f7fc; /* Azul claro */
+        border-left: 5px solid #007bff;
+      }
+
+      #form-Milho {
+        background-color: #f0f8e4; /* Verde claro */
+        border-left: 5px solid #28a745;
+      }
+
+      #form-Soja {
+        background-color: #fff7e6; /* Amarelo claro */
+        border-left: 5px solid #ffc107;
+      }
+
+      #form-Sorgo {
+        background-color: #fce4e1; /* Vermelho claro */
+        border-left: 5px solid #dc3545;
+      }
+
+      #form-Trigo {
+        background-color: #f8f9d7; /* Amarelo esverdeado */
+        border-left: 5px solid #ffc107;
+      }
+
+      /* Estilo para os botões */
+      .form-cultura .btn {
+        margin-top: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease;
+      }
+
+      .form-cultura .btn:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+
+      input[readonly],
+      textarea[readonly] {
+        background: #f6f6f6;
+        color: #222;
+        opacity: 1;
+      }
+      body {
+        background-color: #f8f9fa;
+      }
+
+      .lead-form-wrapper {
+        max-width: 700px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .form-label span {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site_content">
+      <!-- ====================================== Preloader ===================================== -->
+
+      <!-- ====================================== Header ===================================== -->
+      <header class="site_lr-spacer back-with-text" id="top-navbar">
+        <a href="javascript:history.go(-1)">
+          <img
+            alt="back-btn-top"
+            class="nav-header back-btn"
+            src="assets/images/svg/back-btn-top.svg"
+          />
+        </a>
+        <div class="header-title">
+          <h1>Avaliação de Imóveis</h1>
+        </div>
+      </header>
+      <!-- ====================================== Wizard “Coleta de Dados” ===================================== -->
+      <div class="container">
+        <div class="lead-form-wrapper">
+          <h2>
+            <iconify-icon
+              icon="solar:user-plus-linear"
+              class="me-2 text-primary"
+            ></iconify-icon>
+            Solicitar Avaliação de Imóveis
+          </h2>
+          <form id="lead-form">
+            <div class="mb-6">
+              <label class="form-label">
+                Cliente <span class="text-danger">*</span>
+              </label>
+              <select
+                class="form-select border-secondary"
+                id="cliente_id"
+                name="cliente_id"
+                required
+                style="width: 100%"
+              >
+                <option value="">Selecione o cliente...</option>
+              </select>
+            </div>
+            <div class="col-md-6 w-100">
+              <label class="form-label">Responsável (Gerente)</label>
+              <select
+                id="edit-responsavel-gerente"
+                name="responsavelGerenteId"
+                class="form-select"
+              >
+                <option value="">Não atribuído</option>
+                <!-- opções dinâmicas -->
+              </select>
+            </div>
+            <div class="col-md-6 w-100">
+              <label class="form-label">Responsável Secundário</label>
+              <select
+                id="edit-responsavel-secundario"
+                name="responsavelSecundarioId"
+                class="form-select"
+              >
+                <option value="">Não atribuído</option>
+                <!-- opções dinâmicas -->
+              </select>
+            </div>
+            <hr class="my-4" />
+            <h5 class="fw-bold">1. Identificação do Cliente</h5>
+            <div class="mb-3">
+              <label class="form-label">Proponente</label>
+              <input type="text" class="form-control" id="proponente" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Pessoa</label>
+              <input type="text" class="form-control" id="pessoa" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">CPF / CNPJ</label>
+              <input type="text" class="form-control" id="cpf_cnpj" />
+            </div>
+
+            <h5 class="fw-bold mt-4">2. Identificação da Propriedade</h5>
+            <div class="mb-3">
+              <label class="form-label">Denominação do imóvel</label>
+              <input type="text" class="form-control" id="denominacao" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">UF</label>
+              <input type="text" class="form-control" id="uf_imovel" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Município localização</label>
+              <input type="text" class="form-control" id="municipio_imovel" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Comarca registro</label>
+              <input type="text" class="form-control" id="comarca" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Livro</label>
+              <input type="text" class="form-control" id="livro" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Folha</label>
+              <input type="text" class="form-control" id="folha" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Matrícula</label>
+              <input type="text" class="form-control" id="matricula" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">CCIR</label>
+              <input type="text" class="form-control" id="ccir" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">CAR</label>
+              <input type="text" class="form-control" id="car" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Área (ha)</label>
+              <input type="text" class="form-control" id="area" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Atividade Explorada</label>
+              <input
+                type="text"
+                class="form-control"
+                id="atividade_explorada"
+              />
+            </div>
+
+            <h5 class="fw-bold mt-4">3. Roteiro de Acesso & Coordenadas</h5>
+            <div class="my-4">
+              <h5 class="fw-bold">Mapa dos Pontos Capturados</h5>
+              <div id="map" style="height: 400px; border-radius: 12px"></div>
+            </div>
+
+            <div id="coordenadas-section">
+              <!-- 4 pares de coordenadas -->
+              <div class="mb-3">
+                <label class="form-label">Coordenada 1</label>
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lat1"
+                    placeholder="Latitude"
+                    readonly
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lng1"
+                    placeholder="Longitude"
+                    readonly
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    onclick="capturarGPS(1)"
+                  >
+                    Capturar
+                  </button>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Coordenada 2</label>
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lat2"
+                    placeholder="Latitude"
+                    readonly
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lng2"
+                    placeholder="Longitude"
+                    readonly
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    onclick="capturarGPS(2)"
+                  >
+                    Capturar
+                  </button>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Coordenada 3</label>
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lat3"
+                    placeholder="Latitude"
+                    readonly
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lng3"
+                    placeholder="Longitude"
+                    readonly
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    onclick="capturarGPS(3)"
+                  >
+                    Capturar
+                  </button>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Coordenada 4</label>
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lat4"
+                    placeholder="Latitude"
+                    readonly
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lng4"
+                    placeholder="Longitude"
+                    readonly
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    onclick="capturarGPS(4)"
+                  >
+                    Capturar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Roteiro de Acesso</label>
+              <textarea
+                class="form-control"
+                id="roteiro_acesso"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <div class="text-center mt-4">
+              <button
+                type="submit"
+                class="btn main-bg-color-btn w-100"
+                id="lead-form-submit"
+              >
+                Solicitar Licenciamento Ambiental
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de aviso -->
+
+    <!-- ====================================== Scripts ===================================== -->
+    <script src="assets/javascript/jquery.js"></script>
+    <script src="assets/javascript/slick.min.js"></script>
+    <script src="assets/javascript/bootstrap.min.js"></script>
+    <script src="assets/javascript/script.js"></script>
+    <script src="assets/javascript/custom-popup.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Script de autenticação -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/licenciamento.js"></script>
+    <!-- SCRIPTS FINAIS -->
+  </body>
+</html>
