@@ -123,7 +123,7 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
   if (!idEdicao) {
     loadClientes(); // Carregar a lista de clientes
-    preencherResponsaveisCusteio(); // Carregar a lista de responsáveis
+    // Carregar a lista de responsáveis
   }
 
   document.getElementById("lead-form").addEventListener("submit", function (e) {
@@ -370,63 +370,6 @@ async function loadAgentesOuGerentes() {
 let gerentesAtivos = [];
 let agentesAtivos = [];
 
-async function preencherResponsaveisCusteio(
-  valorGerenteSalvo = "",
-  valorSecundarioSalvo = ""
-) {
-  const gerenteSelect = document.getElementById("edit-responsavel-gerente");
-  const secundarioSelect = document.getElementById(
-    "edit-responsavel-secundario"
-  );
-
-  gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
-  secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
-
-  // 1. Carrega gerentes ativos
-  const gerentesSnap = await firebase
-    .firestore()
-    .collection("gerentes")
-    .where("status", "==", "active")
-    .get();
-
-  gerentesAtivos = gerentesSnap.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  gerentesAtivos.forEach((gerente) => {
-    const option = document.createElement("option");
-    option.value = gerente.id;
-    option.textContent = gerente.nome_completo || gerente.email || "(sem nome)";
-    gerenteSelect.appendChild(option);
-  });
-
-  // Seleciona gerente salvo, se houver
-  if (valorGerenteSalvo) {
-    gerenteSelect.value = valorGerenteSalvo;
-  }
-
-  // 2. Carrega agentes ativos
-  const agentesSnap = await firebase
-    .firestore()
-    .collection("agentes")
-    .where("status", "==", "active")
-    .get();
-
-  agentesAtivos = agentesSnap.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  // 3. Atualiza os responsáveis secundários com base no gerente salvo
-  atualizarSecundario(valorGerenteSalvo, valorSecundarioSalvo);
-
-  // 4. Ao mudar o gerente, atualizar opções do secundário
-  gerenteSelect.addEventListener("change", () => {
-    atualizarSecundario(gerenteSelect.value);
-  });
-}
-
 async function preencherResponsaveisAvaliacoes(
   valorGerenteSalvo = "",
   valorSecundarioSalvo = ""
@@ -570,8 +513,10 @@ async function atualizarSecundario(
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    Promise.all([loadClientes(), preencherResponsaveisCusteio()]).then(() => {
-      // ou qualquer outra função que inicia sua tabela
-    });
+    Promise.all([loadClientes(), preencherResponsaveisAvaliacoes()]).then(
+      () => {
+        // ou qualquer outra função que inicia sua tabela
+      }
+    );
   }
 });
