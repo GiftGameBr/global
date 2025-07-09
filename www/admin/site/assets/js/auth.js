@@ -14,6 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore(); // 🔥 adiciona isso
 window.db = db; // 🔥 torna acessível globalmente
+
 // Variáveis globais (se necessárias)
 window.confirmationResult = null;
 window.recaptchaVerifier = null;

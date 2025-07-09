@@ -5,13 +5,13 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Global - Solicitar Avaliação de Imóveis</title>
     <!-- Favicon e CSS originais -->
-    <link href="assets/images/svg/favicon.svg" rel="icon" />
-    <link href="assets/css/swap.css" rel="stylesheet" />
-    <link href="assets/css/slick.css" rel="stylesheet" />
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/media_query.css" rel="stylesheet" />
-    <link href="assets/css/custom-popup.css" rel="stylesheet" />
+
+    <link href="assets/css/add/swap.css" rel="stylesheet" />
+    <link href="assets/css/add/slick.css" rel="stylesheet" />
+    <link href="assets/css/add/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/add/style.css" rel="stylesheet" />
+    <link href="assets/css/add/media_query.css" rel="stylesheet" />
+    <link href="assets/css/add/custom-popup.css" rel="stylesheet" />
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link
@@ -269,12 +269,7 @@
   <body>
     <div class="site_content">
       <!-- ====================================== Preloader ===================================== -->
-      <div class="page-loader" id="page-loader">
-        <img alt="logo" src="assets/images/svg/logo.svg" />
-        <p class="loade-text" data-text="Avaliação de Imóveis">
-          Avaliação de Imóveis
-        </p>
-      </div>
+
       <!-- ====================================== Header ===================================== -->
       <header class="site_lr-spacer back-with-text" id="top-navbar">
         <a href="javascript:history.go(-1)">
@@ -299,6 +294,42 @@
             Solicitar Avaliação de Imóveis
           </h2>
           <form id="lead-form">
+            <div class="mb-6">
+              <label class="form-label">
+                Cliente <span class="text-danger">*</span>
+              </label>
+              <select
+                class="form-select border-secondary"
+                id="cliente_id"
+                name="cliente_id"
+                required
+                style="width: 100%"
+              >
+                <option value="">Selecione o cliente...</option>
+              </select>
+            </div>
+            <div class="col-md-6 w-100">
+              <label class="form-label">Responsável (Gerente)</label>
+              <select
+                id="edit-responsavel-gerente"
+                name="responsavelGerenteId"
+                class="form-select"
+              >
+                <option value="">Não atribuído</option>
+                <!-- opções dinâmicas -->
+              </select>
+            </div>
+            <div class="col-md-6 w-100">
+              <label class="form-label">Responsável Secundário</label>
+              <select
+                id="edit-responsavel-secundario"
+                name="responsavelSecundarioId"
+                class="form-select"
+              >
+                <option value="">Não atribuído</option>
+                <!-- opções dinâmicas -->
+              </select>
+            </div>
             <hr class="my-4" />
             <h5 class="fw-bold">1. Identificação do Cliente</h5>
             <div class="mb-3">
@@ -518,293 +549,7 @@
 
     <!-- Script de autenticação -->
     <script src="assets/js/auth.js"></script>
-
+    <script src="assets/js/avaliacoes.js"></script>
     <!-- SCRIPTS FINAIS -->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-      const db = firebase.firestore();
-      const urlParams = new URLSearchParams(window.location.search);
-      const idEdicao = urlParams.get("id"); // se houver ?id=xxxx
-
-      // Função para capturar coordenadas GPS
-      function capturarGPS(index) {
-        if (!navigator.geolocation) {
-          alert("Geolocalização não é suportada por este navegador.");
-          return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-          function (position) {
-            document.getElementById(`lat${index}`).value =
-              position.coords.latitude.toFixed(8);
-            document.getElementById(`lng${index}`).value =
-              position.coords.longitude.toFixed(8);
-          },
-          function (error) {
-            alert("Erro ao capturar coordenadas: " + error.message);
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-          }
-        );
-      }
-
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (!user) {
-          Swal.fire({
-            icon: "warning",
-            title: "Você precisa estar logado para acessar esta página",
-          }).then(() => {
-            window.location.href = "login.html";
-          });
-          return;
-        }
-
-        const addedByEmail = user.email;
-        const clienteID = user.uid;
-
-        // Verifique se estamos em modo de visualização
-        const isViewMode =
-          idEdicao && window.location.search.includes("view=true");
-
-        // Se for edição, carregar dados
-        if (idEdicao) {
-          db.collection("avaliacoes")
-            .doc(idEdicao)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                const dados = doc.data();
-                document.getElementById("proponente").value =
-                  dados.proponente || "";
-                document.getElementById("pessoa").value = dados.pessoa || "";
-                document.getElementById("cpf_cnpj").value =
-                  dados.cpf_cnpj || "";
-                document.getElementById("denominacao").value =
-                  dados.denominacao || "";
-                document.getElementById("uf_imovel").value =
-                  dados.uf_imovel || "";
-                document.getElementById("municipio_imovel").value =
-                  dados.municipio_imovel || "";
-                document.getElementById("comarca").value = dados.comarca || "";
-                document.getElementById("livro").value = dados.livro || "";
-                document.getElementById("folha").value = dados.folha || "";
-                document.getElementById("matricula").value =
-                  dados.matricula || "";
-                document.getElementById("ccir").value = dados.ccir || "";
-                document.getElementById("car").value = dados.car || "";
-                document.getElementById("area").value = dados.area || "";
-                document.getElementById("atividade_explorada").value =
-                  dados.atividade_explorada || "";
-                document.getElementById("roteiro_acesso").value =
-                  dados.roteiro_acesso || "";
-
-                (dados.coordenadas || []).forEach((coord, i) => {
-                  document.getElementById(`lat${i + 1}`).value =
-                    coord.latitude || "";
-                  document.getElementById(`lng${i + 1}`).value =
-                    coord.longitude || "";
-                });
-
-                if (typeof atualizarMapa === "function") {
-                  atualizarMapa();
-                }
-
-                // Verifica se status é concluido ou se está no modo de visualização
-                if (dados.status === "concluido" || isViewMode) {
-                  const inputs = document.querySelectorAll("input");
-                  inputs.forEach((input) => {
-                    input.disabled = true;
-                  });
-
-                  const textareas = document.querySelectorAll("textarea");
-                  textareas.forEach((textarea) => {
-                    textarea.disabled = true;
-                  });
-
-                  const submitButton =
-                    document.getElementById("lead-form-submit");
-                  if (submitButton) {
-                    submitButton.style.display = "none"; // Esconde o botão de enviar
-                  }
-
-                  document.getElementById("lead-form").style.pointerEvents =
-                    "none";
-                }
-              } else {
-                Swal.fire(
-                  "Erro",
-                  "Avaliação não encontrada para edição.",
-                  "error"
-                );
-              }
-            })
-            .catch((error) => {
-              console.error("Erro ao buscar dados:", error);
-              Swal.fire("Erro", "Erro ao carregar dados.", "error");
-            });
-        }
-
-        // Evento de envio do formulário
-        document
-          .getElementById("lead-form")
-          .addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const avaliacao = {
-              proponente: document.getElementById("proponente").value.trim(),
-              pessoa: document.getElementById("pessoa").value.trim(),
-              cpf_cnpj: document.getElementById("cpf_cnpj").value.trim(),
-              denominacao: document.getElementById("denominacao").value.trim(),
-              uf_imovel: document.getElementById("uf_imovel").value.trim(),
-              municipio_imovel: document
-                .getElementById("municipio_imovel")
-                .value.trim(),
-              comarca: document.getElementById("comarca").value.trim(),
-              livro: document.getElementById("livro").value.trim(),
-              folha: document.getElementById("folha").value.trim(),
-              matricula: document.getElementById("matricula").value.trim(),
-              ccir: document.getElementById("ccir").value.trim(),
-              car: document.getElementById("car").value.trim(),
-              area: document.getElementById("area").value.trim(),
-              atividade_explorada: document
-                .getElementById("atividade_explorada")
-                .value.trim(),
-              roteiro_acesso: document
-                .getElementById("roteiro_acesso")
-                .value.trim(),
-              coordenadas: [
-                {
-                  latitude: document.getElementById("lat1").value.trim(),
-                  longitude: document.getElementById("lng1").value.trim(),
-                },
-                {
-                  latitude: document.getElementById("lat2").value.trim(),
-                  longitude: document.getElementById("lng2").value.trim(),
-                },
-                {
-                  latitude: document.getElementById("lat3").value.trim(),
-                  longitude: document.getElementById("lng3").value.trim(),
-                },
-                {
-                  latitude: document.getElementById("lat4").value.trim(),
-                  longitude: document.getElementById("lng4").value.trim(),
-                },
-              ],
-            };
-
-            if (idEdicao) {
-              db.collection("avaliacoes")
-                .doc(idEdicao)
-                .update(avaliacao)
-                .then(() => {
-                  Swal.fire({
-                    icon: "success",
-                    title: "Avaliação atualizada com sucesso!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  }).then(() => {
-                    window.location.href = "service.html";
-                  });
-                })
-                .catch((error) => {
-                  console.error("Erro ao atualizar:", error);
-                  Swal.fire("Erro", "Erro ao atualizar avaliação.", "error");
-                });
-            } else {
-              db.collection("avaliacoes")
-                .add({
-                  ...avaliacao,
-                  clienteID: clienteID,
-                  addedBy: addedByEmail,
-                  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                  status_solicitacao: "aguardando",
-                })
-                .then(() => {
-                  Swal.fire({
-                    icon: "success",
-                    title: "Avaliação salva com sucesso!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  }).then(() => {
-                    window.location.href = "service.html";
-                  });
-                })
-                .catch((error) => {
-                  console.error("Erro ao salvar avaliação:", error);
-                  Swal.fire({
-                    icon: "error",
-                    title: "Erro ao salvar",
-                    text: "Tente novamente mais tarde.",
-                  });
-                });
-            }
-          });
-      });
-    </script>
-
-    <script>
-      let mapa = L.map("map").setView([-14.235, -51.9253], 4); // Centro do Brasil
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "&copy; OpenStreetMap",
-      }).addTo(mapa);
-
-      function atualizarMapa() {
-        mapa.eachLayer(function (layer) {
-          if (layer instanceof L.Marker) {
-            mapa.removeLayer(layer);
-          }
-        });
-
-        let coordenadas = [];
-
-        for (let i = 1; i <= 4; i++) {
-          const lat = parseFloat(document.getElementById(`lat${i}`).value);
-          const lng = parseFloat(document.getElementById(`lng${i}`).value);
-
-          if (!isNaN(lat) && !isNaN(lng)) {
-            coordenadas.push([lat, lng]);
-            L.marker([lat, lng])
-              .addTo(mapa)
-              .bindPopup(`Ponto ${i}`)
-              .openPopup();
-          }
-        }
-
-        if (coordenadas.length > 0) {
-          mapa.setView(coordenadas[0], 15);
-        }
-
-        // 🚨 ESSENCIAL: força o Leaflet a redesenhar corretamente
-        setTimeout(() => {
-          mapa.invalidateSize();
-        }, 200);
-      }
-
-      // Atualiza o mapa automaticamente quando o usuário captura cada coordenada
-      for (let i = 1; i <= 4; i++) {
-        const btn = document.querySelector(
-          `button[onclick="capturarGPS(${i})"]`
-        );
-        btn.addEventListener("click", function () {
-          setTimeout(() => {
-            atualizarMapa();
-          }, 1000); // espera o GPS preencher o input
-        });
-      }
-    </script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("../service-worker.js")
-          .then(() => console.log("Service Worker registrado com sucesso!"))
-          .catch((error) =>
-            console.error("Erro ao registrar o Service Worker:", error)
-          );
-      }
-    </script>
   </body>
 </html>

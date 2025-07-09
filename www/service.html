@@ -1213,12 +1213,12 @@ return `
       <div class="card-columns">
         <div class="card-column"><h4>Proponente</h4><p>${item.proponente || "---"}</p></div>
         <div class="card-column"><h4>Denominação</h4><p>${item.denominacao || "---"}</p></div>
-        <div class="card-column"><h4>Status</h4><p>${item.status || "---"}</p></div>
+        <div class="card-column"><h4>Status</h4><p>${item.status_solicitacao || "---"}</p></div>
         <div class="card-column"><h4>Área</h4><p>${item.area || "---"} ha</p></div>
       </div>
       <div id="${mapId}" style="height: 300px; margin-top: 12px; border-radius: 10px;"></div>
 <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
-  ${item.status === 'concluido'
+  ${item.status_solicitacao === 'concluido'
     ? `<a href="${viewLink}" class="btn btn-primary text-center w-100">Ver</a>`
     : `<a href="${editLink}" class="btn btn-primary text-center w-100">Editar</a>
        <button onclick="deletarSolicitacao('${docId}', '${tipo}')" class="btn btn-danger text-center w-100">Deletar</button>`}
@@ -1237,11 +1237,11 @@ async function carregarAvaliacoesLicenciamento(clienteId) {
     const [avaliacoesSnap, licenciamentoSnap] = await Promise.all([
       db.collection("avaliacoes")
         .where("clienteID", "==", clienteId)
-        .where("status", "in", ["aguardando", "processando"])
+        .where("status_solicitacao", "in", ["aguardando", "processando"])
         .get(),
       db.collection("licenciamento")
         .where("clienteID", "==", clienteId)
-        .where("status", "in", ["aguardando", "processando"])
+        .where("status_solicitacao", "in", ["aguardando", "processando"])
         .get(),
     ]);
 
@@ -1289,11 +1289,11 @@ async function carregarConcluidos(clienteId) {
     const [avaliacoesSnap, licenciamentoSnap] = await Promise.all([
       db.collection("avaliacoes")
         .where("clienteID", "==", clienteId)
-        .where("status", "==", "concluido") // Filtrando corretamente para o status "concluido"
+        .where("status_solicitacao", "==", "concluido") // Filtrando corretamente para o status "concluido"
         .get(),
       db.collection("licenciamento")
         .where("clienteID", "==", clienteId)
-        .where("status", "==", "concluido") // Filtrando corretamente para o status "concluido"
+        .where("status_solicitacao", "==", "concluido") // Filtrando corretamente para o status "concluido"
         .get(),
     ]);
 
