@@ -189,7 +189,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
-            window.location.href = "avaliacoes-list.html";
+            window.location.href = "licenciamento-list.html";
           });
         })
         .catch((error) => {
@@ -212,7 +212,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
-            window.location.href = "avaliacoes-list.html";
+            window.location.href = "licenciamento-list.html";
           });
           // Adicionado para recarregar a tabela
         })

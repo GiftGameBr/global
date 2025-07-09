@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Global - Crédito de Comercialização</title>
+    <title>Global - Licenciamento Ambiental</title>
     <link
       href="assets/images/favicon.png"
       rel="icon"
@@ -370,7 +370,9 @@
         <div
           class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24"
         >
-          <h6 class="fw-semibold mb-0">Solicitações de Avaliação de Imóveis</h6>
+          <h6 class="fw-semibold mb-0">
+            Solicitações de Licenciamento Ambiental
+          </h6>
           <ul class="d-flex align-items-center gap-2">
             <li class="fw-medium">
               <a
@@ -385,7 +387,7 @@
               </a>
             </li>
             <li>-</li>
-            <li class="fw-medium">Avaliação de Imóveis</li>
+            <li class="fw-medium">Licenciamento Ambiental</li>
           </ul>
         </div>
         <div class="card h-100 p-0 radius-12">
@@ -702,6 +704,7 @@
       let gerentesList = [];
       let agentesList = [];
       let currentPage = 1;
+      let usuarioTipo = ""; // Tipo do usuário (admin, gerente, agente)
 
       // Protege a página: redireciona para login se não estiver autenticado e exibe nome
       firebase.auth().onAuthStateChanged(function (user) {
@@ -715,7 +718,7 @@
               user.displayName || user.email || user.phoneNumber || "Usuário";
           }
           // Carrega os dados quando o usuário está autenticado
-          initializeData();
+          initializeData(user.uid);
         }
       });
 
@@ -730,7 +733,7 @@
       });
 
       // Função para inicializar todos os dados
-      async function initializeData() {
+      async function initializeData(usuarioId) {
         try {
           await Promise.all([
             loadClientes(),
@@ -738,10 +741,41 @@
             loadAgentes(),
             loadAvaliacoes(),
           ]);
+          await obterTipoUsuario(usuarioId);
           renderTable();
         } catch (error) {
           console.error("Erro ao carregar dados:", error);
           alert("Erro ao carregar dados: " + error.message);
+        }
+      }
+
+      // Função para obter o tipo de usuário
+      async function obterTipoUsuario(usuarioId) {
+        try {
+          const adminDoc = await db.collection("admins").doc(usuarioId).get();
+          if (adminDoc.exists) {
+            usuarioTipo = "admin";
+            return;
+          }
+
+          const gerenteDoc = await db
+            .collection("gerentes")
+            .doc(usuarioId)
+            .get();
+          if (gerenteDoc.exists) {
+            usuarioTipo = "gerente";
+            return;
+          }
+
+          const agenteDoc = await db.collection("agentes").doc(usuarioId).get();
+          if (agenteDoc.exists) {
+            usuarioTipo = "agente";
+            return;
+          }
+
+          usuarioTipo = "unknown"; // Caso o usuário não tenha um tipo definido
+        } catch (error) {
+          console.error("Erro ao verificar tipo de usuário:", error);
         }
       }
 
@@ -824,15 +858,12 @@
       // Função para obter nome do responsável secundário
       function getSecundarioNome(secundarioId) {
         if (!secundarioId) return "Não atribuído";
-
         // Procura primeiro nos gerentes
         const gerente = gerentesList.find((g) => g.id === secundarioId);
         if (gerente) return gerente.nome_completo + " (Gerente)";
-
         // Se não encontrou, procura nos agentes
         const agente = agentesList.find((a) => a.id === secundarioId);
         if (agente) return agente.nome_completo + " (Agente)";
-
         return "Não atribuído";
       }
 
@@ -872,8 +903,22 @@
           return;
         }
 
-        // Filtrando os dados
+        // Filtrando os dados com base no tipo de usuário
         let filtered = allAvaliacoes.filter((avaliacao) => {
+          // Filtro de tipo de usuário
+          let matchesTipoUsuario = true;
+          if (usuarioTipo === "gerente") {
+            matchesTipoUsuario =
+              avaliacao.responsavelGerenteId ===
+                firebase.auth().currentUser.uid ||
+              avaliacao.criadoPorId === firebase.auth().currentUser.uid;
+          } else if (usuarioTipo === "agente") {
+            matchesTipoUsuario =
+              avaliacao.responsavelSecundarioId ===
+                firebase.auth().currentUser.uid ||
+              avaliacao.criadoPorId === firebase.auth().currentUser.uid;
+          }
+
           // Filtro de busca por nome do cliente
           let matchesSearch = true;
           if (searchTerm) {
@@ -897,7 +942,12 @@
             matchesStatusSolic = statusSolic === filterStatusSolic;
           }
 
-          return matchesSearch && matchesStatusDocs && matchesStatusSolic;
+          return (
+            matchesTipoUsuario &&
+            matchesSearch &&
+            matchesStatusDocs &&
+            matchesStatusSolic
+          );
         });
 
         // Ordenação dos dados
@@ -959,67 +1009,67 @@
                 : "Não disponível";
 
               return `
-  <tr>
-    <td>${clienteNome}</td>
-    <td>${gerenteNome}</td>
-    <td>${secundarioNome}</td>
-    <td>${addedBy}</td>
-    <td>
-      <div class="dropdown">
-        <button class="btn btn-sm dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border:none;background:none;">
-          ${statusDocsLabel}
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item bg-warning text-dark" href="#" onclick="updateStatusDocs('${
-            avaliacao.id
-          }', 'pendente')">Pendente</a></li>
-          <li><a class="dropdown-item bg-primary text-white" href="#" onclick="updateStatusDocs('${
-            avaliacao.id
-          }', 'processando')">Processando</a></li>
-          <li><a class="dropdown-item bg-success text-white" href="#" onclick="updateStatusDocs('${
-            avaliacao.id
-          }', 'verificado')">Verificado</a></li>
-        </ul>
-      </div>
-    </td>
-    <td>
-      <div class="dropdown">
-        <button class="btn btn-sm dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border:none;background:none;">
-          ${statusSolicLabel}
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item bg-secondary text-dark" href="#" onclick="updateStatusSol('${
-            avaliacao.id
-          }', 'aguardando')">Aguardando documentação</a></li>
-          <li><a class="dropdown-item bg-primary text-white" href="#" onclick="updateStatusSol('${
-            avaliacao.id
-          }', 'processando')">Processando</a></li>
-          <li><a class="dropdown-item bg-success text-white" href="#" onclick="updateStatusSol('${
-            avaliacao.id
-          }', 'aprovado')">Aprovado</a></li>
-          <li><a class="dropdown-item bg-danger text-white" href="#" onclick="updateStatusSol('${
-            avaliacao.id
-          }', 'nao_aprovado')">Não aprovado</a></li>
-          <li><a class="dropdown-item bg-info text-white" href="#" onclick="confirmarConclusao('${
-            avaliacao.id
-          }')">Concluído</a></li>
-        </ul>
-      </div>
-    </td>
-    <td>
-      <button onclick="editarAvaliacao('${
-        avaliacao.id
-      }')" class="btn btn-sm btn-warning me-1">Editar</button>
-      <button onclick="deletarAvaliacao('${
-        avaliacao.id
-      }')" class="btn btn-sm btn-danger me-1">Deletar</button>
-      <button class="btn btn-sm btn-info btn-upload-documento" data-cliente-id="${
-        avaliacao.clienteID || avaliacao.cliente_id
-      }">Documentos</button>
-    </td>
-    <td>${dataCriacao}</td>
-  </tr>
-`;
+            <tr>
+              <td>${clienteNome}</td>
+              <td>${gerenteNome}</td>
+              <td>${secundarioNome}</td>
+              <td>${addedBy}</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border:none;background:none;">
+                    ${statusDocsLabel}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item bg-warning text-dark" href="#" onclick="updateStatusDocs('${
+                      avaliacao.id
+                    }', 'pendente')">Pendente</a></li>
+                    <li><a class="dropdown-item bg-primary text-white" href="#" onclick="updateStatusDocs('${
+                      avaliacao.id
+                    }', 'processando')">Processando</a></li>
+                    <li><a class="dropdown-item bg-success text-white" href="#" onclick="updateStatusDocs('${
+                      avaliacao.id
+                    }', 'verificado')">Verificado</a></li>
+                  </ul>
+                </div>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" style="border:none;background:none;">
+                    ${statusSolicLabel}
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item bg-secondary text-dark" href="#" onclick="updateStatusSol('${
+                      avaliacao.id
+                    }', 'aguardando')">Aguardando documentação</a></li>
+                    <li><a class="dropdown-item bg-primary text-white" href="#" onclick="updateStatusSol('${
+                      avaliacao.id
+                    }', 'processando')">Processando</a></li>
+                    <li><a class="dropdown-item bg-success text-white" href="#" onclick="updateStatusSol('${
+                      avaliacao.id
+                    }', 'aprovado')">Aprovado</a></li>
+                    <li><a class="dropdown-item bg-danger text-white" href="#" onclick="updateStatusSol('${
+                      avaliacao.id
+                    }', 'nao_aprovado')">Não aprovado</a></li>
+                    <li><a class="dropdown-item bg-info text-white" href="#" onclick="confirmarConclusao('${
+                      avaliacao.id
+                    }')">Concluído</a></li>
+                  </ul>
+                </div>
+              </td>
+              <td>
+                <button onclick="editarAvaliacao('${
+                  avaliacao.id
+                }')" class="btn btn-sm btn-warning me-1">Editar</button>
+                <button onclick="deletarAvaliacao('${
+                  avaliacao.id
+                }')" class="btn btn-sm btn-danger me-1">Deletar</button>
+                <button class="btn btn-sm btn-info btn-upload-documento" data-cliente-id="${
+                  avaliacao.clienteID || licenciamento.cliente_id
+                }">Documentos</button>
+              </td>
+              <td>${dataCriacao}</td>
+            </tr>
+          `;
             })
             .join("");
 
@@ -1047,12 +1097,12 @@
         // Botão anterior
         if (currentPage > 1) {
           pagination.append(`
-            <li class="page-item">
-              <a href="#" class="page-link" data-page="${
-                currentPage - 1
-              }">Anterior</a>
-            </li>
-          `);
+        <li class="page-item">
+          <a href="#" class="page-link" data-page="${
+            currentPage - 1
+          }">Anterior</a>
+        </li>
+      `);
         }
 
         // Páginas numeradas
@@ -1062,21 +1112,21 @@
         for (let i = startPage; i <= endPage; i++) {
           const activeClass = i === currentPage ? "active" : "";
           pagination.append(`
-            <li class="page-item ${activeClass}">
-              <a href="#" class="page-link" data-page="${i}">${i}</a>
-            </li>
-          `);
+        <li class="page-item ${activeClass}">
+          <a href="#" class="page-link" data-page="${i}">${i}</a>
+        </li>
+      `);
         }
 
         // Botão próximo
         if (currentPage < totalPages) {
           pagination.append(`
-            <li class="page-item">
-              <a href="#" class="page-link" data-page="${
-                currentPage + 1
-              }">Próximo</a>
-            </li>
-          `);
+        <li class="page-item">
+          <a href="#" class="page-link" data-page="${
+            currentPage + 1
+          }">Próximo</a>
+        </li>
+      `);
         }
 
         // Event listener para cliques na paginação
