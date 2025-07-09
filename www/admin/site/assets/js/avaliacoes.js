@@ -379,8 +379,17 @@ async function preencherResponsaveisAvaliacoes(
     "edit-responsavel-secundario"
   );
 
-  gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
-  secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+  // Limpar as opções antes de adicionar novas
+  gerenteSelect.innerHTML = ""; // Limpar as opções de gerentes
+  secundarioSelect.innerHTML = ""; // Limpar as opções de responsáveis secundários
+
+  // Adicionar a opção padrão "Não atribuído" somente se não existir
+  if (![...gerenteSelect.options].some((option) => option.value === "")) {
+    gerenteSelect.innerHTML = '<option value="">Não atribuído</option>';
+  }
+  if (![...secundarioSelect.options].some((option) => option.value === "")) {
+    secundarioSelect.innerHTML = '<option value="">Não atribuído</option>';
+  }
 
   // 1. Carrega gerentes ativos
   const gerentesSnap = await firebase
@@ -394,11 +403,14 @@ async function preencherResponsaveisAvaliacoes(
     ...doc.data(),
   }));
 
+  // Adiciona os gerentes no select
   gerentesAtivos.forEach((gerente) => {
     const option = document.createElement("option");
     option.value = gerente.id;
     option.textContent = gerente.nome_completo || gerente.email || "(sem nome)";
-    gerenteSelect.appendChild(option);
+    if (![...gerenteSelect.options].some((opt) => opt.value === gerente.id)) {
+      gerenteSelect.appendChild(option);
+    }
   });
 
   // Seleciona gerente salvo, se houver
